@@ -1,0 +1,14 @@
+/home
+/local
+/resources
+/build
+/dist
+/*.bat
+/*.exe
+/*.spec
+/*.pack
+/*.json
+/*.url
+__pycache__
+/src/temp
+/TODO.MD
