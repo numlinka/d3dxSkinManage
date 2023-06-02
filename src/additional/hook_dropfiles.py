@@ -52,7 +52,7 @@ def hook_dropfiles(items: list):
         core.UI.Messagebox.showerror(title='触发器异常', message='hook 异常 / 任务冲突\n请稍后重试')
 
 
-def __exec_call(func_, async_, arg_):
+def __exec_call(func_, async_: bool, arg_: object):
         if async_: threading.Thread(None, func_, 'hookTask', (arg_, ), daemon=True).start()
         else: func_(arg_)
 
@@ -75,8 +75,8 @@ def bin_dropfiles_single(content):
 
 
     elif os.path.isdir(content):
-        core.UI.Messagebox.showerror(title='无法处理', message='无法处理文件夹')
-        return
+        if not core.UI.Messagebox.askyesno(title='操作确认', message='是否将该文件夹作为 Mod 导入?'): return
+        __exec_call(add_mod.add_mod_is_dir, True, content)
 
 
     else:
