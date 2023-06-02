@@ -50,7 +50,7 @@ class new_classification (object):
         self.Text_content = ttkbootstrap.Text(self.Frame_content, height=20)
         self.Scrollbar_content = ttkbootstrap.Scrollbar(self.Frame_content, command=self.Text_content.yview)
         self.Frame_options = ttkbootstrap.Frame(self.windows)
-        self.Button_ok = ttkbootstrap.Button(self.Frame_options, text='确定', width=10, bootstyle="success", command=self.bin_ok)
+        self.Button_ok = ttkbootstrap.Button(self.Frame_options, text='保存', width=10, bootstyle="success", command=self.bin_ok)
         self.Button_cancel = ttkbootstrap.Button(self.Frame_options, text='取消', width=10, bootstyle="warning", command=self.bin_cancel)
         self.Button_delete = ttkbootstrap.Button(self.Frame_options, text='删除', width=10, bootstyle="danger", command=self.bin_delete)
         self.Label_errormsg = ttkbootstrap.Label(self.Frame_options, text='', bootstyle="danger")

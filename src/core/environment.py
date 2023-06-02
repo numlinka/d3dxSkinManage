@@ -35,6 +35,7 @@ class resources(object):
     mods = __(root.resources, 'mods')
     d3dxs = __(root.resources, '3dmigoto')
     preview = __(root.resources, 'preview')
+    preview_screen = __(root.resources, 'preview_screen')
     thumbnail = __(root.resources, 'thumbnail')
     cache = __(root.resources, 'cache')
 
@@ -72,9 +73,9 @@ def login(userName: str):
 project = 'd3dxSkinManage'
 author = 'numlinka'
 
-version_code = 1_03_01_000
+version_code = 1_03_02_000
 version_type = ''
-version = '1.3.1'
+version = '1.3.2'
 title = f'{project} {version_type} v{version} -by {author}'
 
 code_name = 'kamisa'

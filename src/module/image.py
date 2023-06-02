@@ -51,25 +51,45 @@ def image_canvas(image_: Union[PIL.Image.Image, str], width: int, height: int, t
 
 
 def get_preview_image(SHA: str | None, width: int, height: int):
-        if SHA is None:
-            return PIL.ImageTk.PhotoImage(PIL.Image.new('RGBA', (width, height), "#00000000"))
+    if SHA is None: return None
+        # return PIL.ImageTk.PhotoImage(PIL.Image.new('RGBA', (width, height), "#00000000"))
 
-        for suffix in ['.png', '.jpg']:
-            target = os.path.join(core.environment.resources.preview, f'{SHA}{suffix}')
-            if os.path.isfile(target):
-                return core.module.image.image_resize(target, width, height, tkimg=True)
+    for suffix in ['.png', '.jpg']:
+        target = os.path.join(core.environment.resources.preview, f'{SHA}{suffix}')
+        if os.path.isfile(target):
+            return core.module.image.image_resize(target, width, height, tkimg=True)
 
-        for suffix in ['.png', '.jpg']:
-            target = os.path.join(core.environment.user.loadMods, SHA, f'preview{suffix}')
-            if os.path.isfile(target):
-                with open(target, 'rb') as fileobject:
-                    with open(os.path.join(core.environment.resources.preview, f'{SHA}{suffix}'), 'wb') as tofileobject:
-                        tofileobject.write(fileobject.read())
+    for suffix in ['.png', '.jpg']:
+        target = os.path.join(core.environment.user.loadMods, SHA, f'preview{suffix}')
+        if os.path.isfile(target):
+            with open(target, 'rb') as fileobject:
+                with open(os.path.join(core.environment.resources.preview, f'{SHA}{suffix}'), 'wb') as tofileobject:
+                    tofileobject.write(fileobject.read())
 
-                return core.module.image.image_resize(target, width, height, tkimg=True)
+            return core.module.image.image_resize(target, width, height, tkimg=True)
 
-        return None
-        return PIL.ImageTk.PhotoImage(PIL.Image.new('RGBA', (width, height), "#00000000"))
+    return None
+    return PIL.ImageTk.PhotoImage(PIL.Image.new('RGBA', (width, height), "#00000000"))
+
+
+def get_full_screen_preview(SHA: str | None, width: int, height: int):
+    if SHA is None: return None
+
+    if not os.path.isdir(core.environment.resources.preview_screen): os.mkdir(core.environment.resources.preview_screen)
+
+    for suffix in ['.png', '.jpg']:
+        target = os.path.join(core.environment.resources.preview_screen, f'{SHA}{suffix}')
+        if os.path.isfile(target):
+            return core.module.image.image_resize(target, width, height, tkimg=True)
+
+    for suffix in ['.png', '.jpg']:
+        target = os.path.join(core.environment.user.loadMods, SHA, f'preview_screen{suffix}')
+        if os.path.isfile(target):
+            with open(target, 'rb') as fileobject:
+                with open(os.path.join(core.environment.resources.preview_screen, f'{SHA}{suffix}'), 'wb') as tofileobject:
+                    tofileobject.write(fileobject.read())
+
+    return get_preview_image(SHA, width, height)
 
 
 class ImageTkThumbnailGroup(object):
