@@ -25,11 +25,11 @@ class AddModInputCache(object):
 
 
 class AddMods(object):
-    def __init__(self, filepath: str):
+    def __init__(self, filepath: str, filename: str = None):
         self.filepath = filepath
         self.basename = os.path.basename(filepath)
         self.suffix = self.basename[self.basename.rfind('.') + 1:]
-        self.prefix = self.basename[:self.basename.rfind('.')]
+        self.prefix = self.basename[:self.basename.rfind('.')] if not isinstance(filename, str) else filename
 
         with open(self.filepath, 'rb') as fileobject:
             self.content = fileobject.read()
@@ -246,3 +246,13 @@ class AddMods(object):
         AddModInputCache.grading = s_grading
         AddModInputCache.tags = s_tags
         AddModInputCache.explain = z_explain
+
+
+
+def add_mod_is_dir(dirpath: str):
+    basename = os.path.basename(dirpath)
+    tempfilename = hex(int(time.time() * 10 ** 8)) + '.7z'
+    tempfilepath = os.path.join(core.environment.resources.cache, tempfilename)
+    core.External.a7z(os.path.join(dirpath, '*'), tempfilepath)
+    AddMods(tempfilepath, basename)
+    os.remove(tempfilepath)

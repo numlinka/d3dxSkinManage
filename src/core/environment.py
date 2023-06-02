@@ -72,9 +72,9 @@ def login(userName: str):
 project = 'd3dxSkinManage'
 author = 'numlinka'
 
-version_code = 1_03_00_000
+version_code = 1_03_01_000
 version_type = ''
-version = '1.3.0'
+version = '1.3.1'
 title = f'{project} {version_type} v{version} -by {author}'
 
 code_name = 'kamisa'

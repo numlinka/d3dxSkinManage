@@ -4,6 +4,8 @@
 
 3DMigoto Mods 管理工具
 
+[页面](https://d3dxskinmanage.numlinka.com/) | [聊天室](https://vocechat.numlinka.com/)
+
 ## 运行
 
 ### 运行环境

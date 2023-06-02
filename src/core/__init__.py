@@ -140,6 +140,14 @@ class External(object):
         task.wait()
 
 
+    def a7z(from_file: str, to_path: str):
+        PIPE = subprocess.PIPE
+        DEVNULL = subprocess.DEVNULL
+        command = (environment.local.t7z, 'a', '-t7z', to_path, from_file)
+        task = subprocess.Popen(command, shell=True, stdin=PIPE, stdout=DEVNULL, stderr=DEVNULL, cwd=environment.root.cwd)
+        task.wait()
+
+
 def Exit():
     try:
         environment.user.object_configuration._con_asve_as_json(environment.user.f_configuration)
