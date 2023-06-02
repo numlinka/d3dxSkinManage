@@ -2,10 +2,80 @@
 
 # std
 import os
+import threading
+
+# install
+import win32gui
+import ttkbootstrap
 
 # project
 import core
 
+
+class AddPreview (object):
+    def __init__(self, SHA, filepath):
+        with open(filepath, 'rb') as f: self.content = f.read()
+
+        self.basename = os.path.basename(filepath)
+        self.suffix = self.basename[self.basename.rfind('.'):]
+
+        self.SHA = SHA
+
+        item = core.Module.ModsIndex.get_item(SHA)
+        object_ = item['object']
+        name = item['name']
+
+        self.windows = ttkbootstrap.Toplevel('操作确认')
+        self.windows.attributes("-topmost", True)
+
+        try:
+            self.windows.iconbitmap(default=core.environment.local.iconbitmap)
+            self.windows.iconbitmap(bitmap=core.environment.local.iconbitmap)
+        except Exception:
+            ...
+
+        text = f'SHA :: {SHA}\n{object_} :: {name}\n\n你希望将图片设置为\n\n' +\
+                '　　预览图：在窗口右侧显示\n全屏预览图：点击预览图后全屏显示\n'
+
+        self.Label = ttkbootstrap.Label(self.windows, text=text)
+        self.Label.pack(side='top', padx=10, pady=10)
+
+        self.Button_surface = ttkbootstrap.Button(self.windows, text='预览图', width=10, bootstyle='success-outline', command=self.bin_to_surface)
+        self.Button_inside = ttkbootstrap.Button(self.windows, text='全屏预览图', width=10, bootstyle='info-outline', command=self.bin_to_inside)
+
+        self.Button_inside.pack(side='left', fill='x', expand=True, padx=10, pady=(0, 10))
+        self.Button_surface.pack(side='left', fill='x', expand=True, padx=(0, 10), pady=(0, 10))
+
+        self.windows.update()
+
+        width = self.windows.winfo_width()
+        height = self.windows.winfo_height()
+
+        _x, _y = win32gui.GetCursorInfo()[2]
+
+        x = _x - width // 2
+        y = _y - height // 2 - 20
+
+        if x < 0: x = 0
+        if y < 0: y = 0
+
+        self.windows.geometry(f'+{x}+{y}')
+        self.windows.resizable(False, False)
+
+
+    def bin_to_surface(self, *args):
+        if not os.path.isdir(core.environment.resources.preview): os.mkdir(core.environment.resources.preview)
+        with open(os.path.join(core.environment.resources.preview, f'{self.SHA}{self.suffix}'), 'wb') as fileobject:
+            fileobject.write(self.content)
+        core.UI.ModsManage.sbin_update_preview(self.SHA)
+        self.windows.destroy()
+
+
+    def bin_to_inside(self, *args):
+        if not os.path.isdir(core.environment.resources.preview_screen): os.mkdir(core.environment.resources.preview_screen)
+        with open(os.path.join(core.environment.resources.preview_screen, f'{self.SHA}{self.suffix}'), 'wb') as fileobject:
+            fileobject.write(self.content)
+        self.windows.destroy()
 
 
 def add_preview(filepath: str):
@@ -18,6 +88,9 @@ def add_preview(filepath: str):
     if SHA is None:
         core.UI.Messagebox.showerror(title='未选中错误', message='需要先选中一个 Mod\n才能添加预览图')
         return
+
+    threading.Thread(None, AddPreview, 'Add-Preview', (SHA, filepath), daemon=True).start()
+    return
 
     item = core.Module.ModsIndex.get_item(SHA)
     object_ = item['object']

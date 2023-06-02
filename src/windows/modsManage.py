@@ -20,7 +20,7 @@ class ModsManage(object):
 
         self.Label_explain = ttkbootstrap.Label(self.master, anchor='center', text='无附加描述')
         self.Label_SHA = ttkbootstrap.Label(self.master, anchor='center', text='SHA')
-        self.Label_preview = ttkbootstrap.Label(self.master, anchor='center', text='无预览图')
+        self.Label_preview = ttkbootstrap.Label(self.master, anchor='center', text='无预览图', cursor='plus')
 
         self.Button_refresh = ttkbootstrap.Button(self.master, text='刷新列表', command=self.bin_refresh)
 
