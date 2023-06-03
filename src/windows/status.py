@@ -18,19 +18,23 @@ class Status(object):
         self.Label_status = ttkbootstrap.Label(self.master, text='-')
         self.Progressbar_step = ttkbootstrap.Progressbar(self.master)
 
+        # self.Label_logout = ttkbootstrap.Label(self.master, text='[ 注销 ]', foreground='#00FFFF', cursor='hand2')
+        # self.Label_logout.pack(side='right', padx=10, pady=5 )
+
+        self.Label_help = ttkbootstrap.Label(self.master, text='[ 帮助 ]', cursor='hand2')
+        self.Label_refresh = ttkbootstrap.Label(self.master, text='[ 刷新 ]', cursor='hand2')
+        self.Label_help.pack(side='right', padx=10, pady=5 )
+
         self.Label_userName.pack(side='left', padx=5, pady=5)
         self.Label_mark.pack(side='left', padx=5, pady=5)
         self.Label_status.pack(side='left', padx=5, pady=5)
         self.Progressbar_step.pack(side='left', padx=5, pady=5)
 
-        # self.Label_logout = ttkbootstrap.Label(self.master, text='[ 注销 ]', foreground='#00FFFF', cursor='hand2')
-        # self.Label_logout.pack(side='right', padx=10, pady=5 )
-
-        self.Label_help = ttkbootstrap.Label(self.master, text='[ 帮助 ]', cursor='hand2')
-        self.Label_help.pack(side='right', padx=10, pady=5 )
+        self.Label_refresh.pack(side='right', padx=(10, 0), pady=5 )
 
         # self.Label_logout.bind('<Button-1>', self.bin_logout)
         self.Label_help.bind('<Button-1>', self.bin_open_help)
+        self.Label_refresh.bind('<Button-1>', self.bin_open_refresh)
 
 
     def bin_logout(self, *args):
@@ -40,6 +44,12 @@ class Status(object):
 
     def bin_open_help(self, *args):
         webbrowser.open(core.environment.link.help)
+
+    def bin_open_refresh(self, *args):
+        if not isinstance(core.environment.user.userName, str):
+            return
+        core.Module.ModsManage.refresh()
+        core.UI.ModsManage.reload_classification()
 
 
     def set_userName(self, userName):

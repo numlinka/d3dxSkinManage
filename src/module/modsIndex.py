@@ -12,6 +12,7 @@ class ModsIndex(object):
 
     def clear(self):
         self.__table_mods = {}
+        self.__table_from = {}
         self.__cache_object = {}
 
 
@@ -49,7 +50,7 @@ class ModsIndex(object):
         numpy_object = numpy.load(file, allow_pickle=True)
         data_content = numpy_object.item()
 
-        _variable = data_content['variable']
+        _variable = data_content.get('variable', {})
         _mods = data_content['mods']
 
         return self.__fill_variable(_mods, _variable)
@@ -69,9 +70,24 @@ class ModsIndex(object):
         intersection = set(old_SHA) & set(new_SHA)
         length = len(intersection)
         if length != 0:
-            if action == 'raise': return list(intersection)
-            elif action == 'cover': ...
-            else: return False
+            # 返回，寻求处理方式
+            if action == 'raise':
+                return list(intersection)
+
+            # 覆盖
+            elif action == 'cover':
+                ...
+
+            # 跳过
+            elif action == 'skip':
+                for SHA in intersection: del _mods[SHA]
+
+            # 意外
+            else:
+                return False
+
+        if file not in self.__table_from: self.__table_from[file] = []
+        self.__table_from[file] += [x for x in _mods]
 
         self.__table_mods.update(_mods)
         self.cache_update()
@@ -102,3 +118,60 @@ class ModsIndex(object):
 
     def get_all_SHA_list(self) -> list[str]:
         return [x for x in self.__table_mods]
+
+
+    def get_SHA_from(self, SHA: str) -> str | None:
+        for from_ in self.__table_from:
+            if SHA in self.__table_from[from_]:
+                return from_
+
+        else:
+            return None
+
+
+    def item_data_update(self, SHA: str, data: dict) -> bool:
+        if SHA not in self.__table_mods: return False
+
+        self.__table_mods[SHA].update(data)
+        self.cache_update()
+
+        filepath = self.get_SHA_from(SHA)
+        with open(filepath, 'r', encoding='utf-8') as fileobject: filecontent = fileobject.read()
+        datacontent = json.loads(filecontent)
+        datacontent['mods'][SHA].update(data)
+        newfilecontent = json.dumps(datacontent, ensure_ascii=False, sort_keys=False, indent=4)
+        with open(filepath, 'w', encoding='utf-8') as fileobject: fileobject.write(newfilecontent)
+
+
+    def item_data_new(self, from_: str, SHA: str, data: dict) -> bool:
+        self.__table_mods[SHA] = data
+
+        for key, value in self.__table_from.items():
+            if SHA in value: del value[value.index(SHA)]
+
+        if from_ not in self.__table_from: self.__table_from[from_] = []
+        self.__table_from[from_] += [SHA]
+        self.cache_update()
+
+        filepath = from_
+        with open(filepath, 'r', encoding='utf-8') as fileobject: filecontent = fileobject.read()
+        datacontent = json.loads(filecontent)
+        datacontent['mods'][SHA] = data
+        newfilecontent = json.dumps(datacontent, ensure_ascii=False, sort_keys=False, indent=4)
+        with open(filepath, 'w', encoding='utf-8') as fileobject: fileobject.write(newfilecontent)
+
+
+    def item_data_del(self, SHA: str):
+        if SHA not in self.__table_mods: return False
+
+        filepath = self.get_SHA_from(SHA)
+        with open(filepath, 'r', encoding='utf-8') as fileobject: filecontent = fileobject.read()
+        datacontent = json.loads(filecontent)
+        del datacontent['mods'][SHA]
+        newfilecontent = json.dumps(datacontent, ensure_ascii=False, sort_keys=False, indent=4)
+        with open(filepath, 'w', encoding='utf-8') as fileobject: fileobject.write(newfilecontent)
+
+        del self.__table_mods[SHA]
+        for key, value in self.__table_from.items():
+            if SHA in value: del value[value.index(SHA)]
+        self.cache_update()

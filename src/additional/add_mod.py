@@ -122,7 +122,6 @@ class AddMods(object):
         self.Label_except.pack(side='right', fill='x', expand=True, padx=(10, 0), pady=(0, 10))
 
         core.UI.Windows.update()
-        time.sleep(0.01)
 
         width = self.windows.winfo_width()
         height = self.windows.winfo_height()
