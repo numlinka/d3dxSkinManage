@@ -26,7 +26,7 @@ class new_classification (object):
         if not result:
             core.UI.Messagebox.showerror(title='互斥锁请求超时', message='互斥锁正在被其他线程占用\n上一次操作未结束或锁没有被正确释放\n亦或是你想测试这个操作是不是线程安全的')
             return
-        
+
         self.install()
 
     def install(self):

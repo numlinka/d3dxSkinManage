@@ -2,45 +2,30 @@
 
 # std
 import os
-import json
-import time
-import hashlib
+import threading
 
 # install
 import win32gui
-import webbrowser
 import ttkbootstrap
 
 # project
 import core
 
 
-
-class AddModInputCache(object):
-    object_ = ''
-    grading = ''
-    explain = ''
-    tags = ''
+class selfstatus (object):
+    action = threading.Lock()
 
 
+class ModifyItemData (object):
+    def __init__(self, SHA):
+        result = selfstatus.action.acquire(timeout=0.01)
+        if not result:
+            core.UI.Messagebox.showerror(title='互斥锁请求超时', message='互斥锁正在被其他线程占用\n上一次操作未结束或锁没有被正确释放\n亦或是你想测试这个操作是不是线程安全的')
+            return
 
-class AddMods(object):
-    def __init__(self, filepath: str, filename: str = None):
-        self.filepath = filepath
-        self.basename = os.path.basename(filepath)
-        self.suffix = self.basename[self.basename.rfind('.') + 1:]
-        self.prefix = self.basename[:self.basename.rfind('.')] if not isinstance(filename, str) else filename
+        self.SHA = SHA
 
-        with open(self.filepath, 'rb') as fileobject:
-            self.content = fileobject.read()
-            sha1 = hashlib.sha1()
-            sha1.update(self.content)
-            self.SHA = sha1.hexdigest().upper()
-
-        self.object_ = core.UI.ModsManage.sbin_get_select_objects()
-        self.object_ = self.object_ if self.object_ else ''
-
-        self.windows = ttkbootstrap.Toplevel('添加 Mod')
+        self.windows = ttkbootstrap.Toplevel('修改 SHA 信息')
 
         try:
             self.windows.iconbitmap(default=core.environment.local.iconbitmap)
@@ -81,8 +66,10 @@ class AddMods(object):
         self.Combobox_mode = ttkbootstrap.Combobox(self.Frame_mode, values=['get', 'lanzou'])
         self.Label_mode = ttkbootstrap.Label(self.Frame_mode, text='下载模式：')
 
-        self.Button_ok = ttkbootstrap.Button(self.windows, text='确定', width=10, command=self.bin_ok)
-        self.Button_help = ttkbootstrap.Button(self.windows, text='帮助', width=10, command=self.bin_open_help)
+        self.Button_ok = ttkbootstrap.Button(self.windows, text='保存', width=10, bootstyle="info-outline", command=self.bin_ok)
+        self.Button_cancel = ttkbootstrap.Button(self.windows, text='取消', width=10, bootstyle="success-outline", command=self.bin_cancel)
+        self.Button_delete = ttkbootstrap.Button(self.windows, text='删除', width=10, bootstyle="danger-outline", command=self.bin_delete)
+        self.Button_remove = ttkbootstrap.Button(self.windows, text='仅删除 Mod 文件', bootstyle="warning-outline", command=self.bin_remove)
 
         self.Label_except = ttkbootstrap.Label(self.windows, anchor='w', text='', foreground='red')
 
@@ -117,11 +104,15 @@ class AddMods(object):
         # self.Combobox_mode.pack(side='left', fill='x', expand=1)
 
         self.Button_ok.pack(side='right', padx=10, pady=(0, 10))
-        self.Button_help.pack(side='right', padx=(10, 0), pady=(0, 10))
+        self.Button_cancel.pack(side='right', padx=(10, 0), pady=(0, 10))
+        self.Button_delete.pack(side='right', padx=(10, 0), pady=(0, 10))
+        self.Button_remove.pack(side='right', fill='x', expand=True, padx=(10, 0), pady=(0, 10))
 
         self.Label_except.pack(side='right', fill='x', expand=True, padx=(10, 0), pady=(0, 10))
 
-        core.UI.Windows.update()
+        self.windows.protocol('WM_DELETE_WINDOW', self.bin_cancel)
+
+        self.windows.update()
 
         width = self.windows.winfo_width()
         height = self.windows.winfo_height()
@@ -135,123 +126,108 @@ class AddMods(object):
         if y < 0: y = 0
 
         self.windows.geometry(f'+{x}+{y}')
-
         self.windows.resizable(False, False)
 
-        # 输入初始值
-        if self.object_:
-            self.Entry_object.insert(0, self.object_)
-        else:
-            self.Entry_object.insert(0, AddModInputCache.object_)
 
-        self.Entry_name.insert(0, self.prefix)
+        data = core.Module.ModsIndex.get_item(self.SHA)
 
-        if AddModInputCache.grading:
-            self.Combobox_grading.insert(0, AddModInputCache.grading)
-        else:
-            self.Combobox_grading.insert(0, 'G - 大众级')
+        self.old_object = data['object']
+        self.old_name = data['name']
+        self.old_explain = data.get('explain', '')
+        self.old_grading = data.get('grading', '')
+        self.old_tags = ' '.join(data.get('tags', []))
 
-        self.Entry_explain.insert(0, AddModInputCache.explain)
-        self.Entry_tags.insert(0, AddModInputCache.tags)
+        self.Entry_object.insert(0, self.old_object)
+        self.Entry_name.insert(0, self.old_name)
+        self.Entry_explain.insert(0, self.old_explain)
+        self.Combobox_grading.insert(0, self.old_grading)
+        self.Entry_tags.insert(0, self.old_tags)
 
-    def bin_open_help(self, *args, **kwds):
-        webbrowser.open('http://d3dxskinmanage.numlinka.com/#/enhance/001')
 
-    def bin_ok(self, *args, **kwds):
+    def bin_ok(self, **args):
         s_object = self.Entry_object.get()
         s_name = self.Entry_name.get()
         s_grading = self.Combobox_grading.get()
         s_explain = self.Entry_explain.get()
         s_tags = self.Entry_tags.get()
 
-        z_object = s_object.strip()
-        z_name = s_name.strip()
-        z_grading = s_grading[0] if s_grading else ''
-        z_explain = s_explain.strip()
-        z_tags = [x for x in s_tags.split(' ') if x]
+        self.new_object = s_object.strip()
+        self.new_name = s_name.strip()
+        self.new_grading = s_grading[0] if s_grading else ''
+        self.new_explain = s_explain.strip()
+        self.new_tags = [x for x in s_tags.split(' ') if x]
 
-        if not z_object:
+        if not self.new_object:
             self.Label_except['text'] = '未填写 作用对象'
             return
 
-        if not z_name:
+        if not self.new_name:
             self.Label_except['text'] = '未填写 模组名称'
             return
 
-        if not z_grading:
+        if not self.new_grading:
             self.Label_except['text'] = '未填写 年龄分级'
             return
 
-        if z_grading not in ['G', 'P', 'R']:
+        if self.new_grading not in ['G', 'P', 'R']:
             self.Label_except['text'] = '年龄分级 只能是 G P R 其中之一'
             return
 
-        filepath = os.path.join(core.environment.user.modsIndex, 'self-index.json')
-        if os.path.isfile(filepath):
-            try:
-                with open(filepath, 'r', encoding='utf-8') as fileobject:
-                    filecontent = fileobject.read()
-
-                datacontent = json.loads(filecontent)
-
-            except Exception:
-                core.UI.Messagebox.showerror(title='数据序列化错误', message='索引文件数据反序列化错误\n请检查 self-index.json 文件是否损坏')
-                return
-
-        else:
-            datacontent = {}
-
-        if 'mods' not in datacontent: datacontent['mods'] = {}
-        datacontent['mods'][self.SHA] = {
-            'object': z_object,
-            'type': self.suffix,
-            'name': z_name,
-            'explain': z_explain,
-            'grading': z_grading,
-            'tags': z_tags
+        newdata = {
+            'object': self.new_object,
+            'name': self.new_name,
+            'explain': self.new_explain,
+            'grading': self.new_grading,
+            'tags': self.new_tags
         }
 
-        newfilecontent = json.dumps(datacontent, ensure_ascii=False, sort_keys=False, indent=4)
+        core.Module.ModsManage.unload(self.old_object)
 
-        try:
-            with open(filepath, 'w', encoding='utf-8') as fileobject:
-                fileobject.write(newfilecontent)
+        core.Module.ModsIndex.item_data_update(self.SHA, newdata)
+        self.bin_cancel()
 
-        except Exception:
-            core.UI.Messagebox.showerror(title='未知错误', message='数据文件保存错误\n未知错误')
-            return
+        core.Module.ModsManage.refresh()
+        core.UI.ModsManage.bin_objects_TreeviewSelect()
 
-        try:
-            with open(os.path.join(core.environment.resources.mods, self.SHA), 'wb') as fileobject:
-                fileobject.write(self.content)
 
-        except Exception:
-            core.UI.Messagebox.showerror(title='未知错误', message='Mod 文件保存错误\n未知错误')
-            return
-
+    def bin_cancel(self, *args):
         self.windows.destroy()
-        core.control.addTask('重载私有索引文件', core.Module.IndexManage.load_file,
-                             ('self-index.json', 'json', 'cover'))
-        core.control.addTask('重载 Mods 管理', core.Module.ModsManage.refresh)
-
-        if self.object_ == z_object:
-            core.control.addTask('刷新对象列表', core.UI.ModsManage.bin_objects_TreeviewSelect)
-
-        else:
-            core.control.addTask('刷新分类列表', core.UI.ModsManage.reload_classification)
-
-        # 保存输入记忆
-        AddModInputCache.object_ = z_object
-        AddModInputCache.grading = s_grading
-        AddModInputCache.tags = s_tags
-        AddModInputCache.explain = z_explain
+        selfstatus.action.release()
 
 
+    def bin_delete(self, *args):
+        core.Module.ModsManage.unload(self.old_object)
 
-def add_mod_is_dir(dirpath: str):
-    basename = os.path.basename(dirpath)
-    tempfilename = hex(int(time.time() * 10 ** 8)) + '.7z'
-    tempfilepath = os.path.join(core.environment.resources.cache, tempfilename)
-    core.External.a7z(os.path.join(dirpath, '*'), tempfilepath)
-    AddMods(tempfilepath, basename)
-    os.remove(tempfilepath)
+        core.Module.ModsIndex.item_data_del(self.SHA)
+
+        try:
+            os.remove(os.path.join(core.environment.resources.mods, self.SHA))
+
+        except Exception:
+            ...
+
+        self.bin_cancel()
+
+        core.Module.ModsManage.refresh()
+        core.UI.ModsManage.bin_objects_TreeviewSelect()
+
+
+    def bin_remove(self, *args):
+        core.Module.ModsManage.unload(self.old_object)
+
+        try:
+            os.remove(os.path.join(core.environment.resources.mods, self.SHA))
+
+        except Exception:
+            ...
+
+        self.bin_cancel()
+
+        core.Module.ModsManage.refresh()
+        core.UI.ModsManage.bin_objects_TreeviewSelect()
+
+
+def modify_item_data(*args):
+    choice = core.UI.ModsManage.sbin_get_select_choices()
+    if choice is None: return
+    ModifyItemData(choice)
