@@ -5,6 +5,8 @@ import json
 
 import numpy
 
+import core
+
 class ModsIndex(object):
     def __init__(self):
         self.clear()
@@ -57,6 +59,7 @@ class ModsIndex(object):
 
 
     def load(self, file: str, mode: str, action: str = 'raise') -> None:
+        core.Log.info(f"加载 {file} {action} 模式")
         if not os.path.isfile(file): raise FileNotFoundError()
         if mode not in ['json', 'npy']: raise ValueError()
 

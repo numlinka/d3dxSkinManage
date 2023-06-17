@@ -130,12 +130,15 @@ class ImageTkThumbnailGroup(object):
 
 
     def add_image(self, image_: Union[PIL.Image.Image, str], name_: str = ...) -> None:
+        core.Log.debug(f"加载缩略图图像 {image_}")
         if isinstance(image_, PIL.Image.Image):
             if name_ is Ellipsis:
+                core.Log.error(f"加载缩略图图像: 参数类型错误")
                 raise ValueError("name_ must be provided when image_ is an Image object.")
 
         if isinstance(image_, str):
             if not os.path.isfile(image_):
+                core.Log.error(f"加载缩略图图像: 文件不存在")
                 raise FileNotFoundError("File path not found.")
 
             filename = os.path.basename(image_)
@@ -168,9 +171,11 @@ class ImageTkThumbnailGroup(object):
 
     def add_image_from_redirectionConfigFile(self, path: str) -> None:
         if not isinstance(path, str):
+            core.Log.error(f"参数类型错误")
             raise TypeError("The path type is not str.")
 
         if not os.path.isfile(path):
+            core.Log.error(f"重定向配置文件 {path} 不存在")
             raise FileNotFoundError("FileNotFoundError as .")
 
         with open(path, 'r', encoding='utf-8') as fileobject: contentlst = fileobject.readlines()
@@ -180,11 +185,13 @@ class ImageTkThumbnailGroup(object):
         for statement in statementlst:
             if '=' in statement:
                 try:
+                    if statement[0] in [';', '/', '\\']: continue
                     index = statement.find('=')
                     name = statement[:index].strip()
                     filename = statement[index + 1:].strip()
                     filepath = os.path.join(filedirname, filename)
 
+                    core.Log.info(f"头像缩略图加载指令 {statement}")
                     self.add_image(filepath, name)
 
                 except:
@@ -194,6 +201,7 @@ class ImageTkThumbnailGroup(object):
                 dirname = statement[4:-2]
                 dirpath = os.path.join(filedirname, dirname)
                 try:
+                    core.Log.info(f"头像缩略图加载指令 {statement}")
                     self.add_image_from_dirs(dirpath)
 
                 except Exception:

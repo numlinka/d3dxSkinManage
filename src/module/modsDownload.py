@@ -14,8 +14,10 @@ from . import exceptions
 class ModsDownload(object):
     def wget(self, url: str, mode: str, headers: dict = ...) -> bytes | None:
         if mode not in self.__table:
+            core.Log.error(f"不被支持的下载模式 {mode}")
             raise exceptions.ModDownloadException(f"不被支持的下载模式 {mode}")
 
+        core.Log.debug(f"wget {url} {mode} 模式")
         content = self.__table[mode](url, headers)
 
         return content
@@ -105,6 +107,7 @@ class ModsDownload(object):
                 break
 
             except Exception as e:
+                core.Log.error(f"{e.__class__} {e}")
                 Exc = e
 
         else:

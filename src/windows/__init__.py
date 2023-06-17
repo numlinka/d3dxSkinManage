@@ -2,12 +2,7 @@
 
 # * domain: windows
 
-# import os
-# import tkinter.font as tkFont
-
-import windnd
 import ttkbootstrap
-# import pyglet
 
 import core
 

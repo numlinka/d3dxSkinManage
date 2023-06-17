@@ -30,6 +30,7 @@ class IndexManage(object):
 
             else:
                 msg = f"{name} 不是有效文件后缀名或不被支持\n请检查 {self.dirModsIndex} 文件夹或将它移除"
+                core.Log.warn(f"{name} 不是有效文件后缀名")
                 core.UI.Messagebox.showwarning(title="意外的模组索引文件", message=msg)
 
 
@@ -41,6 +42,7 @@ class IndexManage(object):
         except Exception as e:
             print(e.__class__, e)
             msg = f"{filename} 解析失败或序列化错误\n请检查 {self.dirModsIndex} 文件夹或将它移除"
+            core.Log.error(f"{filename} 解析异常 {e.__class__} {e}")
             core.UI.Messagebox.showerror(title="编码错误", message=msg)
 
         if answer is None: return None
@@ -51,6 +53,7 @@ class IndexManage(object):
 
         else:
             msg = f"模组索引模块在加载 {filename} 文件时返回了一个未定义的值\n程序可能发生了内部错误"
+            core.Log.error(f"模组索引模块在加载 {filename} 文件时返回了一个未定义的值: {answer}")
             core.UI.Messagebox.showerror(title="内部错误", message=msg)
             raise Exception("内部错误")
 

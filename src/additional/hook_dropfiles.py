@@ -12,6 +12,10 @@ from . import add_mod
 from . import add_preview
 
 
+code1 = 'gb18030'
+code2 = 'utf-8'
+
+
 rule_single = [
     (['.png', '.jpg'], add_preview.add_preview, False),
     (['.zip', '.rar', '.7z'], add_mod.AddMods, True)
@@ -23,6 +27,7 @@ def check_for_login() -> bool:
 
 
 def hook_dropfiles(items: list):
+    core.Log.debug(f"dropfiles 钩子 {items}")
     try:
         if not check_for_login():
             core.UI.Messagebox.showerror(title='未登录错误', message='必须先登录一个用户\n才能使用文件拖入功能')
@@ -32,12 +37,14 @@ def hook_dropfiles(items: list):
 
         for item in items:
             try:
-                try: content = item.decode('utf-8')
-                except Exception: content = item.decode('gb18030')
+                try: content = item.decode(code1)
+                except Exception: content = item.decode(code2)
                 lst.append(content)
             except Exception:
                 core.UI.Messagebox.showerror(title='编码不可解', message='无法解码消息内容\n请检查系统编码是否为 utf-8 或 gb18030')
                 return
+
+        core.Log.debug(f"dropfiles 钩子内容 {lst}")
 
         if len(lst) <= 0:
             ...
