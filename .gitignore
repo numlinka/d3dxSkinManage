@@ -3,6 +3,7 @@
 /resources
 /build
 /dist
+/logs
 /*.bat
 /*.exe
 /*.spec

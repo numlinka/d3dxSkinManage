@@ -32,6 +32,7 @@ class ModsManage(object):
 
 
     def refresh(self):
+        core.Log.info(f"更新模组缓存数据表")
         self.clear()
 
         # 更新分类参照
@@ -96,6 +97,8 @@ class ModsManage(object):
             self.__table_loads[object_] = SHA
 
         # 移除意外的和冲突的 SHA
+        if len(_accident) >= 1: core.Log.warn(f"检查到意外的 SHA: {_accident}")
+        if len(_conflict) >= 1: core.Log.warn(f"检查到冲突的 SHA: {_conflict}")
         for SHA in _accident + _conflict:
             self.remove(SHA)
 

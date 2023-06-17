@@ -2,19 +2,26 @@
 
 # * domain: core
 
+# std
 import time
 import threading
 import subprocess
 
-from typing import Iterable, Mapping
+from typing import Any, Iterable, Mapping
 
+# self
 from . import environment
-# from . import control
 
+# project
 import module
 import additional
 import windows
 
+import libs.logop
+
+Log = libs.logop.logging.Logging(libs.logop.level.ALL, "[$(.date) $(.time).$(.moment)] [$(.thread)/$(.levelname)] [$(.function)] $(.message)", stdout=False, asynchronous=True)
+Log.add_op(libs.logop.logoutput.LogopFile(pathdir=(environment.root.cwd, "logs")))
+Log.info("初始化完成")
 
 class Module(object):
     IndexManage = module.indexManage.IndexManage()
@@ -68,11 +75,13 @@ class Control(object):
             try:
                 name, function_, args, kwds = task
                 UI.Status.set_status(name)
+                Log.debug(f"执行同步任务 {name} {function_}")
                 function_(*args, **kwds)
                 time.sleep(environment.configuration.control_each_task_sleep_time_seconds)
 
             except Exception as e:
                 UI.Status.set_mark('X')
+                Log.error(f"同步任务抛出异常 {e.__class__}: {e}")
                 UI.Status.set_status(f'{e.__class__}: {e}', 1)
                 self.clear()
 
@@ -85,6 +94,7 @@ class Control(object):
         content = (name, functuon_, args, kwds)
 
         with self.__controlLock:
+            Log.debug(f"添加同步任务 {name} {functuon_}")
             self.__taskTable.append(content)
         self.__enableEvent.set()
 
@@ -99,6 +109,7 @@ class Control(object):
         with self.__controlLock:
             if self.controlThread.is_alive(): return None
             self.controlThread.start()
+            Log.info("control 线程启动")
             self.running = True
 
 
@@ -148,8 +159,9 @@ class External(object):
         task.wait()
 
 
-def Exit():
+def _exit():
     try:
+        Log.close()
         environment.user.object_configuration._con_asve_as_json(environment.user.f_configuration)
 
     except Exception:
@@ -158,5 +170,19 @@ def Exit():
     UI.Windows.destroy()
 
 
-UI.Windows.protocol('WM_DELETE_WINDOW', Exit)
+UI.Windows.protocol('WM_DELETE_WINDOW', _exit)
+
+
+
+# class Exit (object):
+#     def __init__(self):
+#         self.__call_lock = threading._RLock()
+#         self.__exit_task = [
+#             (999, Log.close, (), {})
+#             (1000, environment.user.object_configuration._con_asve_as_json, (environment.user.f_configuration, ), {})
+#         ]
+
+
+#     def __call__(self, *args: Any, **kwds: Any) -> Any:
+#         ...
 

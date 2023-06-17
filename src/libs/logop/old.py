@@ -1,4 +1,4 @@
-# -*- codeing:utf-8 -*-
+# -*- coding:utf-8 -*-
 
 # *project:     pylogop
 # *Author:      numLinka
@@ -14,12 +14,12 @@ import multiprocessing
 from typing import Union
 
 
-__version__ = "0.6.0"
+__version__ = "0.6.1"
 
 
-ALL      = - 0x80
-TRACE    = - 0x40
-DEBUG    = - 0x20
+ALL      = ~ 0x7F
+TRACE    = ~ 0x40
+DEBUG    = ~ 0x20
 INFO     =   0x00
 WARN     =   0x20
 WARNING  =   0x20
@@ -124,7 +124,7 @@ class Logop_standard(BaseLogop):
         ops = f'{op}\n'
         level = content.get('level', 0)
 
-        if level < 0x10:
+        if level < ERROR:
             sys.stdout.write(ops)
             sys.stdout.flush()
 
@@ -150,16 +150,16 @@ class Logop_standard_up(BaseLogop):
         if level < 0x10:
             ops = f'{op}\n'
 
-        elif 0x10 <= level < 0x40:
+        elif WARN <= level < ERROR:
             ops = f'\033[1;33m{op}\033[0m\n'
 
-        elif 0x40 <= level < 0x80:
+        elif ERROR <= level <= OFF:
             ops = f'\033[1;31m{op}\033[0m\n'
 
         else:
-            ops = f'{op}\n'
+            ops = f'\033[0m{op}\033[0m\n'
 
-        if level < 0x10:
+        if level < ERROR:
             sys.stdout.write(ops)
             sys.stdout.flush()
 

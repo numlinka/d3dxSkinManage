@@ -2,8 +2,6 @@
 
 import ttkbootstrap
 
-import windows
-
 
 class Operation(object):
     def __init__(self, master):
