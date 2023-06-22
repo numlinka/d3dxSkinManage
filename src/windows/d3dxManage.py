@@ -124,7 +124,7 @@ class D3dxManage(object):
         launch_file = os.path.abspath(os.path.join(core.environment.user.work, launch_name))
 
         try:
-            win32api.ShellExecute(None, 'open', launch_file, None, os.path.abspath(core.environment.user.work), 1)
+            win32api.ShellExecute(None, 'runas', launch_file, None, os.path.abspath(core.environment.user.work), 1)
         except pywintypes.error as e:
             core.UI.Messagebox.showerror(title='异常捕获', message=f'{e.args[1]}: {e.args[0]}\n{e.args[2]}')
         except Exception:
