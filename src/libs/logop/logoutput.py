@@ -11,14 +11,14 @@ from . import format
 
 def op_character_variable(op_format: str, table: dict) -> str:
     if not isinstance(op_format, str):
-        raise TypeError('The op_format type is not str.')
+        raise TypeError("The op_format type is not str.")
 
     if not isinstance(table, dict):
-        raise TypeError('The table type is not dict.')
+        raise TypeError("The table type is not dict.")
 
     op = op_format
     for key, value in table.items():
-        op = op.replace(f'$(.{key})', f'{value}')
+        op = op.replace(f"$(.{key})", f"{value}")
 
     return op
 
@@ -39,10 +39,10 @@ def set_windows_console_mode():
 
 
 class BaseLogop (object):
-    """日志输出对象"""
-    op_name = "standard"
-    op_type = "standard"
-    op_ident = 0
+    """Log output object."""
+    op_name = "standard" # Object name, used to distinguish objects of the same type.
+    op_type = "standard" # An object type that distinguishes its implementation
+    op_ident = 0 # It's unique in the logger where it's located.
     op_logging_object = None
     op_exception_count = 0
 
@@ -53,13 +53,13 @@ class BaseLogop (object):
 
     def call(self, content: dict, op_format: str = format.DEFAULT) -> None:
         if not isinstance(content, dict):
-            raise TypeError('The content type is not dict.')
+            raise TypeError("The content type is not dict.")
 
         if not isinstance(op_format, str):
-            raise TypeError('The op_format type is not str.')
+            raise TypeError("The op_format type is not str.")
 
-        if '$(.message)' not in op_format:
-            raise ValueError('$(.message) must be included in format.')
+        if "$(.message)" not in op_format:
+            raise ValueError("$(.message) must be included in format.")
 
 
     def add_exception_count(self) -> None:
@@ -72,16 +72,16 @@ class BaseLogop (object):
 
 
 class LogopStandard (BaseLogop):
-    """日志输出 标准型
+    """Standard log output object.
 
-    将日志信息输出到控制台
+    Output log information to the console.
     """
     def call(self, content: dict, op_format: str = format.DEFAULT) -> None:
         super().call(content, op_format)
 
         op = op_character_variable(op_format, content)
-        ops = f'{op}\n'
-        level = content.get('level', 0)
+        ops = f"{op}\n"
+        level = content.get("level", 0)
 
         if level < ERROR:
             sys.stdout.write(ops)
@@ -94,9 +94,9 @@ class LogopStandard (BaseLogop):
 
 
 class LogopStandardPlus (BaseLogop):
-    """日志输出 标准型 提升
+    """Standard log output object. Plus.
 
-    将带有颜色的日志信息输出到控制台
+    Outputs the colored log information to the console.
     """
     def __init__(self, name: str = ..., **_):
         super().__init__(name)
@@ -122,7 +122,7 @@ class LogopStandardPlus (BaseLogop):
         super().call(content, op_format)
 
         op = op_character_variable(op_format, content)
-        level = content.get('level', 0)
+        level = content.get("level", 0)
 
         color_code = self._get_color_code(level)
 
@@ -139,16 +139,16 @@ class LogopStandardPlus (BaseLogop):
 
 
 class LogopFile (BaseLogop):
-    """日志输出 文件型
+    """Log file Indicates the log output object.
 
-    将日志信息输出到文件
+    Output log information to a log file.
     """
-    op_name = 'logfile'
-    op_type = 'logfile'
+    op_name = "logfile"
+    op_type = "logfile"
 
 
-    def __init__(self, name: str = ..., pathdir: Union[str, Iterable] = 'logs',
-                 pathname: str = '$(.date).log', encoding: str = 'utf-8'):
+    def __init__(self, name: str = "logfile", pathdir: Union[str, Iterable] = "logs",
+                 pathname: str = "$(.date).log", encoding: str = "utf-8"):
         super().__init__(name)
 
         if not isinstance(pathdir, (str, Iterable)):
@@ -164,7 +164,7 @@ class LogopFile (BaseLogop):
             self._pathdir = os.path.join(*pathdir)
 
         else:
-            raise Exception('Errors that should not occur.')
+            raise Exception("Errors that should not occur.")
 
         self._pathname = pathname
         self._encoding = encoding
@@ -178,11 +178,11 @@ class LogopFile (BaseLogop):
         targetfile = os.path.join(targetdir, targetname)
 
         op = op_character_variable(op_format, content)
-        ops = f'{op}\n'
+        ops = f"{op}\n"
         if not os.path.isdir(targetdir):
             os.makedirs(targetdir)
 
-        with open(targetfile, 'a', encoding=self._encoding) as fob:
+        with open(targetfile, "a", encoding=self._encoding) as fob:
             fob.write(ops)
             fob.flush()
 
