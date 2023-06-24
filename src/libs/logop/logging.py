@@ -18,17 +18,18 @@ from . import logoutput
 
 class Logging (object):
     def __init__(self, level: Union[str, int] = INFO, op_format: str = format.DEFAULT,
-                 *, stdout: bool = True, asynchronous: bool = False, threadname: str = 'LoggingThread'):
+                 *, stdout: bool = True, asynchronous: bool = False, threadname: str = "LoggingThread"):
         """
-        level: 日志等级, 低于这个等级的日志不会进行输出.
+        level: Log Level, Logs below this level are filtered.
 
-        op_format: 日志格式, 输出日志内容的格式, `Logging` 不会处理日志内容, 而是将它传递给 `Logop` 对象.
+        op_format: Log format, The format of the output log content,
+        `Logging` does not process the log content, but passes it to the `Logop` object.
 
-        stdout: 标准输出, 自动初始化一个 `LogopStandard` 对象在输出对象列表中.
+        stdout: Standard output, Automatically initializes a `LogopStandard` object in the output object list.
 
-        asynchronous: 异步运行, 让 `Logging` 在一个独立的控制线程中运行.
+        asynchronous: Asynchronous mode, Let Logging run in a separate thread of control.
 
-        threadname: 线程名称, 设置 `Logging` 的线程名称, 仅在 `asynchronous` 为 `True` 时有效.
+        threadname: Thread name, Sets the thread name of Logging, effective only when `asynchronous` is `True`.
         """
         self.__level = INFO
         self.__op_format = format.DEFAULT
@@ -58,13 +59,13 @@ class Logging (object):
             if not self.__is_close:
                 return
 
-            raise LoggingIsClosedError("日志记录已经关闭.")
+            raise LoggingIsClosedError("Logging is closed.")
 
 
     def set_level(self, level: Union[int, str]) -> None:
-        """设置日志等级
+        """Setting the log Level.
 
-        低于这个等级的日志不会进行输出
+        Logs below this level are filtered.
         """
         self.__close_check()
 
@@ -88,9 +89,10 @@ class Logging (object):
 
 
     def set_format(self, op_format: str) -> None:
-        """设置日志格式
+        """Setting log format.
 
-        输出日志内容的格式, `Logging` 不会处理日志内容, 而是将它传递给 `Logop` 对象.
+        The format of the output log content,
+        `Logging` does not process the log content, but passes it to the `Logop` object.
         """
         self.__close_check()
 
@@ -105,7 +107,7 @@ class Logging (object):
 
 
     def add_op(self, target: logoutput.BaseLogop) -> None:
-        """添加输出对象到列表中"""
+        """Adds the output object to the list"""
         self.__close_check()
 
         with self.__set_lock:
@@ -138,20 +140,20 @@ class Logging (object):
 
 
     def del_op(self, ident: int) -> None:
-        """移除输出对象从列表中"""
+        """Removes the output object from the list."""
         with self.__set_lock:
             for index, op in enumerate(self.__op_list):
                 if op.op_ident == ident:
                     break
             else:
-                raise LogopIdentNotFoundError('The ident value does not exist.')
+                raise LogopIdentNotFoundError("The ident value does not exist.")
 
             ops = self.__op_list.pop(index)
             ops.op_logging_object = None
 
 
     def get_op_list(self) -> list[dict]:
-        """获取输出对象信息列表"""
+        """Gets a list of output object information."""
         with self.__set_lock:
             answer = []
             for item in self.__op_list:
@@ -165,14 +167,14 @@ class Logging (object):
 
 
     def get_op_count(self) -> int:
-        """获取输出对象数量"""
+        """Gets the number of output objects."""
         with self.__set_lock:
             count = len(self.__op_list)
             return count
 
 
     def get_op_object(self, ident: int) -> Union[logoutput.BaseLogop, None]:
-        """获取输出对象"""
+        """Get output object."""
         with self.__set_lock:
             for opobj in self.__op_list:
                 if opobj.op_ident == ident:
@@ -183,9 +185,10 @@ class Logging (object):
 
 
     def get_stdop_object(self) -> Union[logoutput.BaseLogop, None]:
-        """获取标准输出对象
+        """Gets the standard output object.
 
-        获取输出对象列表中的标准输出对象, 当不存在标准输出对象时返回 `None`.
+        Gets the standard output object in the output object list,
+        Returns `None` when no standard output object exists.
         """
         with self.__set_lock:
             for opobj in self.__op_list:
@@ -197,9 +200,10 @@ class Logging (object):
 
 
     def get_stdop_ident(self) -> Union[int, None]:
-        """获取标准输出对象的 ident
+        """Gets the ident of the standard output object.
 
-        获取输出对象列表中的标准输出对象的 ident, 当不存在标准输出对象时返回 `None`.
+        Gets the ident of the standard output object,
+        Returns `None` when no standard output object exists.
         """
         with self.__set_lock:
             for opobj in self.__op_list:
@@ -211,7 +215,7 @@ class Logging (object):
 
 
     def join(self, timeout: Union[float, None] = None) -> None:
-        """等待日志线程直到线程结束或发生超时"""
+        """Wait for the log thread until the thread ends or a timeout occurs."""
         self.__close_check()
 
         if not self.__asynchronous:
@@ -221,7 +225,7 @@ class Logging (object):
 
 
     def close(self) -> None:
-        """关闭日志记录"""
+        """Close logging."""
         self.__close_check()
 
         with self.__set_lock:
@@ -233,13 +237,13 @@ class Logging (object):
 
 
     def is_close(self) -> bool:
-        """日志记录是否已关闭"""
+        """Logging is close."""
         with self.__set_lock:
             return self.__is_close
 
 
     def __try_op_call(self, content: dict) -> None:
-        """尝试将日志消息传递到输出对象"""
+        """Try to pass the log message to the output object."""
         with self.__set_lock:
             call_list = self.__op_list.copy()
 
@@ -252,7 +256,7 @@ class Logging (object):
 
 
     def __try_op_call_asynchronous(self) -> None:
-        """尝试将日志消息传递到输出对象 异步模式"""
+        """Try to pass the log message to the output object, in asynchronous mode."""
         with self.__call_lock:
             if not len(self.__message_list): return None
 
@@ -267,7 +271,7 @@ class Logging (object):
 
 
     def __async_mainloop(self, *args, **kwds):
-        """异步模式主任务"""
+        """Asynchronous mode threading task."""
         while not self.__asynchronous_stop:
             self.__call_event.wait()
             self.__try_op_call_asynchronous()
@@ -275,30 +279,30 @@ class Logging (object):
 
 
     def __run_call_asynchronous(self, content: dict) -> None:
-        """准备输出日志消息 异步模式"""
+        """Preparing output logs, in asynchronous mode."""
         with self.__call_lock: self.__message_list.append(content)
         self.__call_event.set()
 
 
     def __run_call(self, content: dict) -> None:
-        """准备输出日志消息"""
+        """Preparing output logs."""
         if self.__asynchronous: self.__run_call_asynchronous(content)
         else: self.__try_op_call(content)
 
 
     def call(self, level: int = INFO, levelname: str = "INFO", message: str = "", mark: str = "",
              *, double_back: bool = False) -> None:
-        """输出日志
+        """Output log.
 
-        level: 日志级别
+        level: Log level.
 
-        levelname: 级别名称
+        levelname: Level name.
 
-        message: 消息内容
+        message: Message content.
 
-        mark: 额外标记名称 ( 扩展内容 ), 默认日志格式不会输出这项信息
+        mark: Additional tag name (extended content), which is not output by the default log format.
 
-        double_back: 从上一个函数栈中获取状态信息
+        double_back: Gets state information from the previous function stack
         """
         self.__close_check()
 
@@ -314,17 +318,18 @@ class Logging (object):
 
         content["date"] = now.strftime("%Y-%m-%d")
         content["time"] = now.strftime("%H:%M:%S")
-        content["moment"] = now.strftime('%f')[:3]
-        content["micro"] = now.strftime('%f')[3:]
+        content["moment"] = now.strftime("%f")[:3]
+        content["micro"] = now.strftime("%f")[3:]
 
         content["process"] = multiprocessing.current_process().name
         content["thread"] = threading.current_thread().name
 
-        if double_back: frame = inspect.currentframe().f_back.f_back
-        else: frame = inspect.currentframe().f_back
+        current_frame = inspect.currentframe()
+        if double_back: frame = current_frame.f_back.f_back
+        else: frame = current_frame.f_back
 
         abspath = os.path.abspath(frame.f_code.co_filename)
-        local = os.path.join(sys.path[0], '')
+        local = os.path.join(sys.path[0], "")
         slen = len(local)
         if abspath[:slen] == local: file = abspath[slen:]
         else: file = abspath
@@ -336,17 +341,6 @@ class Logging (object):
         content["line"] = frame.f_lineno
 
         self.__run_call(content)
-
-
-    def __get_call(self, alias: str = "info"):
-        """输出日志 自定义日志等级模式"""
-        def call_table(message: object = "", mark: str = ""):
-            nonlocal self
-            nonlocal alias
-            level, name = LEVEL_TABLE[alias]
-            self.call(level, name, message, mark, double_back=True)
-
-        return call_table
 
 
     def trace(self, message: object = "", mark: str = ""):
@@ -383,6 +377,17 @@ class Logging (object):
 
     def critical(self, message: object = "", mark: str = ""):
         self.call(CRITICAL, "CRITICAL", message, mark, double_back=True)
+
+
+    def __get_call(self, alias: str = "info"):
+        """Output logs using custom log levels"""
+        def call_table(message: object = "", mark: str = ""):
+            nonlocal self
+            nonlocal alias
+            level, name = LEVEL_TABLE[alias]
+            self.call(level, name, message, mark, double_back=True)
+
+        return call_table
 
 
     def __getattr__(self, __name):

@@ -14,17 +14,17 @@ OFF      =   0x7F
 
 
 LEVEL_TABLE = {
-    'trace': (TRACE, 'TRACE'),
-    'debug': (DEBUG, 'DEBUG'),
-    'info': (INFO, 'INFO'),
-    'warn': (WARN, 'WARN'),
-    'warning': (WARNING, 'WARNING'),
-    'severe': (SEVERE, 'SEVERE'),
-    'error': (ERROR, 'ERROR'),
-    'fatal': (FATAL, 'FATAL'),
-    'critical': (CRITICAL, 'CRITICAL')
+    "trace": (TRACE, "TRACE"),
+    "debug": (DEBUG, "DEBUG"),
+    "info": (INFO, "INFO"),
+    "warn": (WARN, "WARN"),
+    "warning": (WARNING, "WARNING"),
+    "severe": (SEVERE, "SEVERE"),
+    "error": (ERROR, "ERROR"),
+    "fatal": (FATAL, "FATAL"),
+    "critical": (CRITICAL, "CRITICAL")
 }
-# ? levelTable[alias] = [level, levelname]
+# ? LEVEL_TABLE[alias] = [level, levelname]
 
 
 __all__ = [

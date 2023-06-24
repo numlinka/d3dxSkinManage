@@ -23,6 +23,7 @@ _VARIABLE_TABLE = """ $(variable)
 .function   函数
 .line       行
 .message    消息
+.mark       标记名称
 """
 
 
