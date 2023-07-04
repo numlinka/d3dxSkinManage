@@ -13,6 +13,7 @@ import ttkbootstrap
 
 # project
 import core
+from constant import *
 
 
 
@@ -37,14 +38,29 @@ class AddMods(object):
             sha1.update(self.content)
             self.SHA = sha1.hexdigest().upper()
 
-        self.object_ = core.UI.ModsManage.sbin_get_select_objects()
+
+        # 如果 index 里面已经存储过该 SHA 的数据则直接保存 Mod 文件
+        if core.module.mods_index.get_item(self.SHA) is not None:
+            try:
+                with open(os.path.join(core.env.directory.resources.mods, self.SHA), 'wb') as fileobject:
+                    fileobject.write(self.content)
+
+            except Exception:
+                core.window.messagebox.showerror(title='未知错误', message='Mod 文件保存错误\n未知错误')
+                return
+
+            core.construct.event.set_event(E.MODS_INDEX_UPDATE)
+            return
+
+
+        self.object_ = core.window.interface.mods_manage.sbin_get_select_objects()
         self.object_ = self.object_ if self.object_ else ''
 
         self.windows = ttkbootstrap.Toplevel('添加 Mod')
 
         try:
-            self.windows.iconbitmap(default=core.environment.local.iconbitmap)
-            self.windows.iconbitmap(bitmap=core.environment.local.iconbitmap)
+            self.windows.iconbitmap(default=core.env.file.local.iconbitmap)
+            self.windows.iconbitmap(bitmap=core.env.file.local.iconbitmap)
         except Exception:
             ...
 
@@ -64,6 +80,10 @@ class AddMods(object):
         self.Combobox_grading = ttkbootstrap.Combobox(self.Frame_grading,
                                                       values=['G - 大众级', 'P - 指导级', 'R - 成人级'])
         self.Label_grading = ttkbootstrap.Label(self.Frame_grading, text='年龄分级：')
+
+        self.Frame_author = ttkbootstrap.Frame(self.windows)
+        self.Entry_author = ttkbootstrap.Entry(self.Frame_author, width=width)
+        self.Label_author = ttkbootstrap.Label(self.Frame_author, text='模组作者：')
 
         self.Frame_explain = ttkbootstrap.Frame(self.windows)
         self.Entry_explain = ttkbootstrap.Entry(self.Frame_explain, width=width)
@@ -100,6 +120,10 @@ class AddMods(object):
         self.Label_grading.pack(side='left', padx=(0, 5))
         self.Combobox_grading.pack(side='left', fill='x', expand=1)
 
+        self.Frame_author.pack(side='top', fill='x', padx=10, pady=(0, 10))
+        self.Label_author.pack(side='left', padx=(0, 5))
+        self.Entry_author.pack(side='left', fill='x', expand=1)
+
         self.Frame_explain.pack(side='top', fill='x', padx=10, pady=(0, 10))
         self.Label_explain.pack(side='left', padx=(0, 5))
         self.Entry_explain.pack(side='left', fill='x', expand=1)
@@ -121,7 +145,19 @@ class AddMods(object):
 
         self.Label_except.pack(side='right', fill='x', expand=True, padx=(10, 0), pady=(0, 10))
 
-        core.UI.Windows.update()
+        _alt_set = core.window.annotation_toplevel.register
+        _alt_set(self.Label_SHA, T.ANNOTATION_SHA)
+        _alt_set(self.Entry_object, T.ANNOTATION_OBJECT)
+        _alt_set(self.Entry_name, T.ANNOTATION_NAME)
+        _alt_set(self.Entry_author, T.ANNOTATION_AUTHOR)
+        _alt_set(self.Combobox_grading, T.ANNOTATION_GRADING)
+        _alt_set(self.Entry_explain, T.ANNOTATION_EXPLAIN)
+        _alt_set(self.Entry_tags, T.ANNOTATION_TAGS)
+        _alt_set(self.Button_ok, T.ANNOTATION_ADD_MOD_OK)
+        _alt_set(self.Button_help, T.ANNOTATION_ADD_MOD_HELP)
+
+
+        core.window.mainwindow.update()
 
         width = self.windows.winfo_width()
         height = self.windows.winfo_height()
@@ -138,7 +174,7 @@ class AddMods(object):
 
         self.windows.resizable(False, False)
 
-        # 输入初始值
+        # 如果 SHA 是全新的则根据操作环境推断
         if self.object_:
             self.Entry_object.insert(0, self.object_)
         else:
@@ -154,19 +190,23 @@ class AddMods(object):
         self.Entry_explain.insert(0, AddModInputCache.explain)
         self.Entry_tags.insert(0, AddModInputCache.tags)
 
+
     def bin_open_help(self, *args, **kwds):
         webbrowser.open('http://d3dxskinmanage.numlinka.com/#/enhance/001')
+
 
     def bin_ok(self, *args, **kwds):
         s_object = self.Entry_object.get()
         s_name = self.Entry_name.get()
         s_grading = self.Combobox_grading.get()
+        s_author = self.Entry_author.get()
         s_explain = self.Entry_explain.get()
         s_tags = self.Entry_tags.get()
 
         z_object = s_object.strip()
         z_name = s_name.strip()
         z_grading = s_grading[0] if s_grading else ''
+        z_author = s_author.strip()
         z_explain = s_explain.strip()
         z_tags = [x for x in s_tags.split(' ') if x]
 
@@ -186,59 +226,28 @@ class AddMods(object):
             self.Label_except['text'] = '年龄分级 只能是 G P R 其中之一'
             return
 
-        filepath = os.path.join(core.environment.user.modsIndex, 'self-index.json')
-        if os.path.isfile(filepath):
-            try:
-                with open(filepath, 'r', encoding='utf-8') as fileobject:
-                    filecontent = fileobject.read()
+        filepath = os.path.join(core.userenv.directory.mods_index, 'self-index.json')
 
-                datacontent = json.loads(filecontent)
-
-            except Exception:
-                core.UI.Messagebox.showerror(title='数据序列化错误', message='索引文件数据反序列化错误\n请检查 self-index.json 文件是否损坏')
-                return
-
-        else:
-            datacontent = {}
-
-        if 'mods' not in datacontent: datacontent['mods'] = {}
-        datacontent['mods'][self.SHA] = {
+        datacontent = {
             'object': z_object,
             'type': self.suffix,
             'name': z_name,
-            'explain': z_explain,
+            'author': z_author,
             'grading': z_grading,
+            'explain': z_explain,
             'tags': z_tags
         }
 
-        newfilecontent = json.dumps(datacontent, ensure_ascii=False, sort_keys=False, indent=4)
-
         try:
-            with open(filepath, 'w', encoding='utf-8') as fileobject:
-                fileobject.write(newfilecontent)
-
-        except Exception:
-            core.UI.Messagebox.showerror(title='未知错误', message='数据文件保存错误\n未知错误')
-            return
-
-        try:
-            with open(os.path.join(core.environment.resources.mods, self.SHA), 'wb') as fileobject:
+            with open(os.path.join(core.env.directory.resources.mods, self.SHA), 'wb') as fileobject:
                 fileobject.write(self.content)
 
         except Exception:
-            core.UI.Messagebox.showerror(title='未知错误', message='Mod 文件保存错误\n未知错误')
+            core.window.messagebox.showerror(title='未知错误', message='Mod 文件保存错误\n未知错误')
             return
 
+        core.module.mods_index.item_data_new(filepath, self.SHA, datacontent)
         self.windows.destroy()
-        core.control.addTask('重载私有索引文件', core.Module.IndexManage.load_file,
-                             ('self-index.json', 'json', 'cover'))
-        core.control.addTask('重载 Mods 管理', core.Module.ModsManage.refresh)
-
-        if self.object_ == z_object:
-            core.control.addTask('刷新对象列表', core.UI.ModsManage.bin_objects_TreeviewSelect)
-
-        else:
-            core.control.addTask('刷新分类列表', core.UI.ModsManage.reload_classification)
 
         # 保存输入记忆
         AddModInputCache.object_ = z_object
@@ -251,7 +260,7 @@ class AddMods(object):
 def add_mod_is_dir(dirpath: str):
     basename = os.path.basename(dirpath)
     tempfilename = hex(int(time.time() * 10 ** 8)) + '.7z'
-    tempfilepath = os.path.join(core.environment.resources.cache, tempfilename)
-    core.External.a7z(os.path.join(dirpath, '*'), tempfilepath)
+    tempfilepath = os.path.join(core.env.directory.resources.cache, tempfilename)
+    core.external.a7z(os.path.join(dirpath, '*'), tempfilepath)
     AddMods(tempfilepath, basename)
     os.remove(tempfilepath)

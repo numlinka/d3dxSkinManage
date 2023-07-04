@@ -62,6 +62,9 @@ class Logging (object):
             raise LoggingIsClosedError("Logging is closed.")
 
 
+    def set_level(self, level: int | str) -> None:
+        ...
+
     def set_level(self, level: Union[int, str]) -> None:
         """Setting the log Level.
 

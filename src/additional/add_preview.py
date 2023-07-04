@@ -21,7 +21,7 @@ class AddPreview (object):
 
         self.SHA = SHA
 
-        item = core.Module.ModsIndex.get_item(SHA)
+        item = core.module.mods_index.get_item(SHA)
         object_ = item['object']
         name = item['name']
 
@@ -29,8 +29,8 @@ class AddPreview (object):
         self.windows.attributes("-topmost", True)
 
         try:
-            self.windows.iconbitmap(default=core.environment.local.iconbitmap)
-            self.windows.iconbitmap(bitmap=core.environment.local.iconbitmap)
+            self.windows.iconbitmap(default=core.env.file.local.iconbitmap)
+            self.windows.iconbitmap(bitmap=core.env.file.local.iconbitmap)
         except Exception:
             ...
 
@@ -64,29 +64,30 @@ class AddPreview (object):
 
 
     def bin_to_surface(self, *args):
-        if not os.path.isdir(core.environment.resources.preview): os.mkdir(core.environment.resources.preview)
-        with open(os.path.join(core.environment.resources.preview, f'{self.SHA}{self.suffix}'), 'wb') as fileobject:
+        if not os.path.isdir(core.env.directory.resources.preview): os.mkdir(core.env.directory.resources.preview)
+        with open(os.path.join(core.env.directory.resources.preview, f'{self.SHA}{self.suffix}'), 'wb') as fileobject:
             fileobject.write(self.content)
-        core.UI.ModsManage.sbin_update_preview(self.SHA)
+        # core.UI.ModsManage.sbin_update_preview(self.SHA)
+        core.window.interface.mods_manage.sbin_update_preview()
         self.windows.destroy()
 
 
     def bin_to_inside(self, *args):
-        if not os.path.isdir(core.environment.resources.preview_screen): os.mkdir(core.environment.resources.preview_screen)
-        with open(os.path.join(core.environment.resources.preview_screen, f'{self.SHA}{self.suffix}'), 'wb') as fileobject:
+        if not os.path.isdir(core.env.directory.resources.preview_screen): os.mkdir(core.env.directory.resources.preview_screen)
+        with open(os.path.join(core.env.directory.resources.preview_screen, f'{self.SHA}{self.suffix}'), 'wb') as fileobject:
             fileobject.write(self.content)
         self.windows.destroy()
 
 
 def add_preview(filepath: str):
-    SHA = core.UI.ModsManage.sbin_get_select_choices()
+    SHA = core.window.interface.mods_manage.sbin_get_select_choices()
 
     if SHA is None:
-        object_ = core.UI.ModsManage.sbin_get_select_objects()
-        SHA = core.Module.ModsManage.get_load_object_SHA(object_)
+        object_ = core.window.interface.mods_manage.sbin_get_select_objects()
+        SHA = core.module.mods_manage.get_load_object_sha(object_)
 
     if SHA is None:
-        core.UI.Messagebox.showerror(title='未选中错误', message='需要先选中一个 Mod\n才能添加预览图')
+        core.window.messagebox.showerror(title='未选中错误', message='需要先选中一个 Mod\n才能添加预览图')
         return
 
     threading.Thread(None, AddPreview, 'Add-Preview', (SHA, filepath), daemon=True).start()

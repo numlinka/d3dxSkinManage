@@ -9,6 +9,7 @@ import PIL.ImageTk
 from typing import Union
 
 import core
+from constant import *
 
 
 def image_resize(image_: Union[PIL.Image.Image, str], width: int, height: int, tkimg: bool = False) -> PIL.Image.Image:
@@ -55,15 +56,15 @@ def get_preview_image(SHA: str | None, width: int, height: int):
         # return PIL.ImageTk.PhotoImage(PIL.Image.new('RGBA', (width, height), "#00000000"))
 
     for suffix in ['.png', '.jpg']:
-        target = os.path.join(core.environment.resources.preview, f'{SHA}{suffix}')
+        target = os.path.join(core.env.directory.resources.preview, f'{SHA}{suffix}')
         if os.path.isfile(target):
             return core.module.image.image_resize(target, width, height, tkimg=True)
 
     for suffix in ['.png', '.jpg']:
-        target = os.path.join(core.environment.user.loadMods, SHA, f'preview{suffix}')
+        target = os.path.join(core.userenv.directory.work_mods, SHA, f'preview{suffix}')
         if os.path.isfile(target):
             with open(target, 'rb') as fileobject:
-                with open(os.path.join(core.environment.resources.preview, f'{SHA}{suffix}'), 'wb') as tofileobject:
+                with open(os.path.join(core.env.directory.resources.preview, f'{SHA}{suffix}'), 'wb') as tofileobject:
                     tofileobject.write(fileobject.read())
 
             return core.module.image.image_resize(target, width, height, tkimg=True)
@@ -75,18 +76,18 @@ def get_preview_image(SHA: str | None, width: int, height: int):
 def get_full_screen_preview(SHA: str | None, width: int, height: int):
     if SHA is None: return None
 
-    if not os.path.isdir(core.environment.resources.preview_screen): os.mkdir(core.environment.resources.preview_screen)
+    if not os.path.isdir(core.env.directory.resources.preview_screen): os.mkdir(core.env.directory.resources.preview_screen)
 
     for suffix in ['.png', '.jpg']:
-        target = os.path.join(core.environment.resources.preview_screen, f'{SHA}{suffix}')
+        target = os.path.join(core.env.directory.resources.preview_screen, f'{SHA}{suffix}')
         if os.path.isfile(target):
             return core.module.image.image_resize(target, width, height, tkimg=True)
 
     for suffix in ['.png', '.jpg']:
-        target = os.path.join(core.environment.user.loadMods, SHA, f'preview_screen{suffix}')
+        target = os.path.join(core.userenv.directory.work_mods, SHA, f'preview_screen{suffix}')
         if os.path.isfile(target):
             with open(target, 'rb') as fileobject:
-                with open(os.path.join(core.environment.resources.preview_screen, f'{SHA}{suffix}'), 'wb') as tofileobject:
+                with open(os.path.join(core.env.directory.resources.preview_screen, f'{SHA}{suffix}'), 'wb') as tofileobject:
                     tofileobject.write(fileobject.read())
 
     return get_preview_image(SHA, width, height)
@@ -130,15 +131,15 @@ class ImageTkThumbnailGroup(object):
 
 
     def add_image(self, image_: Union[PIL.Image.Image, str], name_: str = ...) -> None:
-        core.Log.debug(f"加载缩略图图像 {image_}")
+        core.log.debug(f"加载缩略图图像 {image_}", L.MODULE_IMAGE)
         if isinstance(image_, PIL.Image.Image):
             if name_ is Ellipsis:
-                core.Log.error(f"加载缩略图图像: 参数类型错误")
+                core.log.error(f"加载缩略图图像: 参数类型错误", L.MODULE_IMAGE)
                 raise ValueError("name_ must be provided when image_ is an Image object.")
 
         if isinstance(image_, str):
             if not os.path.isfile(image_):
-                core.Log.error(f"加载缩略图图像: 文件不存在")
+                core.log.error(f"加载缩略图图像: 文件不存在", L.MODULE_IMAGE)
                 raise FileNotFoundError("File path not found.")
 
             filename = os.path.basename(image_)
@@ -169,13 +170,13 @@ class ImageTkThumbnailGroup(object):
             except Exception: ...
 
 
-    def add_image_from_redirectionConfigFile(self, path: str) -> None:
+    def add_image_from_redirection_config_file(self, path: str) -> None:
         if not isinstance(path, str):
-            core.Log.error(f"参数类型错误")
+            core.log.error(f"参数类型错误", L.MODULE_IMAGE)
             raise TypeError("The path type is not str.")
 
         if not os.path.isfile(path):
-            core.Log.error(f"重定向配置文件 {path} 不存在")
+            core.log.error(f"重定向配置文件 {path} 不存在", L.MODULE_IMAGE)
             raise FileNotFoundError("FileNotFoundError as .")
 
         with open(path, 'r', encoding='utf-8') as fileobject: contentlst = fileobject.readlines()
@@ -191,7 +192,7 @@ class ImageTkThumbnailGroup(object):
                     filename = statement[index + 1:].strip()
                     filepath = os.path.join(filedirname, filename)
 
-                    core.Log.info(f"头像缩略图加载指令 {statement}")
+                    core.log.info(f"头像缩略图加载指令 {statement}", L.MODULE_IMAGE)
                     self.add_image(filepath, name)
 
                 except:
@@ -201,13 +202,26 @@ class ImageTkThumbnailGroup(object):
                 dirname = statement[4:-2]
                 dirpath = os.path.join(filedirname, dirname)
                 try:
-                    core.Log.info(f"头像缩略图加载指令 {statement}")
+                    core.log.info(f"头像缩略图加载指令 {statement}", L.MODULE_IMAGE)
                     self.add_image_from_dirs(dirpath)
 
                 except Exception:
                     ...
 
+        core.log.info("头像缩略图加载完成", L.MODULE_IMAGE)
+        core.construct.event.set_event(E.THUMBNAIL_LOADED)
+
 
     def get(self, name: str) -> PIL.ImageTk.PhotoImage:
-        return self.__table.get(name, self.__none)
+        if name in self.__table:
+            return self.__table.get(name, self.__none)
+
+        for key, value in self.__table.items():
+            if key in name:
+                return value
+
+        else:
+            return self.__none
+
+        return self.__none
 
