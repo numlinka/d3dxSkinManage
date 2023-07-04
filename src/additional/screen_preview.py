@@ -24,9 +24,9 @@ class FullScreenPreview (object):
 
 
 def full_screen_preview(*args):
-    SHA = core.UI.ModsManage.Label_SHA['text']
-    width = core.UI.Windows.winfo_screenwidth()
-    height = core.UI.Windows.winfo_screenheight()
+    SHA = core.window.interface.mods_manage.label_SHA['text']
+    width = core.window.mainwindow.winfo_screenwidth()
+    height = core.window.mainwindow.winfo_screenheight()
     tkimg = core.module.image.get_full_screen_preview(SHA, width, height)
     if tkimg is None: return
     FullScreenPreview(tkimg)

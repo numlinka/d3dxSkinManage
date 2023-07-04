@@ -1,9 +1,7 @@
 # -*- coding: utf-8 -*-
 
-import os
 import sys
 import ctypes
-# import inspect
 
 import core
 
@@ -20,11 +18,4 @@ def main():
 
 if __name__ == '__main__':
     main()
-
-
-try:
-    sys.exit(0)  # SystemExit
-except Exception:
-    os._exit(0)
-
-# exit()
+    sys.exit(0)

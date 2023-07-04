@@ -11,6 +11,7 @@ import ttkbootstrap
 
 # project
 import core
+from constant import *
 
 
 illegalchat = ['/', '\\', ':', '*', '?', '"', '<', '>', '|']
@@ -24,20 +25,20 @@ class new_classification (object):
     def __init__(self):
         result = selfstatus.action.acquire(timeout=0.01)
         if not result:
-            core.UI.Messagebox.showerror(title='互斥锁请求超时', message='互斥锁正在被其他线程占用\n上一次操作未结束或锁没有被正确释放\n亦或是你想测试这个操作是不是线程安全的')
+            core.window.messagebox.showerror(title='互斥锁请求超时', message='互斥锁正在被其他线程占用\n上一次操作未结束或锁没有被正确释放\n亦或是你想测试这个操作是不是线程安全的')
             return
 
         self.install()
 
     def install(self):
-        self.classname = core.UI.ModsManage.sbin_get_select_classification()
+        self.classname = core.window.interface.mods_manage.sbin_get_select_classification()
         self.mark_newclass = True if self.classname in [None, '未分类'] else False
         windowsname = '添加分类' if self.mark_newclass else '修改分类'
         self.windows = ttkbootstrap.Toplevel(windowsname)
 
         try:
-            self.windows.iconbitmap(default=core.environment.local.iconbitmap)
-            self.windows.iconbitmap(bitmap=core.environment.local.iconbitmap)
+            self.windows.iconbitmap(default=core.env.file.local.iconbitmap)
+            self.windows.iconbitmap(bitmap=core.env.file.local.iconbitmap)
         except Exception:
             ...
 
@@ -50,9 +51,9 @@ class new_classification (object):
         self.Text_content = ttkbootstrap.Text(self.Frame_content, height=20)
         self.Scrollbar_content = ttkbootstrap.Scrollbar(self.Frame_content, command=self.Text_content.yview)
         self.Frame_options = ttkbootstrap.Frame(self.windows)
-        self.Button_ok = ttkbootstrap.Button(self.Frame_options, text='保存', width=10, bootstyle="success", command=self.bin_ok)
-        self.Button_cancel = ttkbootstrap.Button(self.Frame_options, text='取消', width=10, bootstyle="warning", command=self.bin_cancel)
-        self.Button_delete = ttkbootstrap.Button(self.Frame_options, text='删除', width=10, bootstyle="danger", command=self.bin_delete)
+        self.Button_ok = ttkbootstrap.Button(self.Frame_options, text='保存', width=10, bootstyle="success-outline", command=self.bin_ok)
+        self.Button_cancel = ttkbootstrap.Button(self.Frame_options, text='取消', width=10, bootstyle="warning-outline", command=self.bin_cancel)
+        self.Button_delete = ttkbootstrap.Button(self.Frame_options, text='删除', width=10, bootstyle="danger-outline", command=self.bin_delete)
         self.Label_errormsg = ttkbootstrap.Label(self.Frame_options, text='', bootstyle="danger")
 
         self.Text_content.config(yscrollcommand=self.Scrollbar_content.set)
@@ -71,11 +72,17 @@ class new_classification (object):
 
         self.windows.protocol('WM_DELETE_WINDOW', self.bin_cancel)
 
+        _alt_set = core.window.annotation_toplevel.register
+        _alt_set(self.Entry_classname, T.ANNOTATION_CLASS_NAME)
+        _alt_set(self.Button_ok, T.ANNOTATION_MODIFY_CLASS_OK)
+        _alt_set(self.Button_cancel, T.ANNOTATION_MODIFY_CLASS_CANCEL)
+        _alt_set(self.Button_delete, T.ANNOTATION_MODIFY_CLASS_DELETE)
+
         self.correction()
 
 
     def __get_classification_file_content(self):
-        filepath = os.path.join(core.environment.user.classification, self.classname)
+        filepath = os.path.join(core.userenv.directory.classification, self.classname)
         try:
             with open(filepath, 'r', encoding='utf-8') as f:
                 content = f.read()
@@ -122,10 +129,10 @@ class new_classification (object):
 
         content = self.Text_content.get(0.0, 'end')[:-1]
 
-        newfilepath = os.path.join(core.environment.user.classification, newclassname)
+        newfilepath = os.path.join(core.userenv.directory.classification, newclassname)
 
         if not self.mark_newclass:
-            oldfilepath = os.path.join(core.environment.user.classification, self.classname)
+            oldfilepath = os.path.join(core.userenv.directory.classification, self.classname)
             if newfilepath != oldfilepath:
                 if os.path.exists(newfilepath):
                     self.Label_errormsg.config(text="分类名称已存在或被占用")
@@ -151,15 +158,14 @@ class new_classification (object):
 
 
     def bin_delete(self, *args):
-        filepath = os.path.join(core.environment.user.classification, self.classname)
+        filepath = os.path.join(core.userenv.directory.classification, self.classname)
         os.remove(filepath)
         self.bin_over_content()
 
 
     def bin_over_content(self):
         self.bin_cancel()
-        core.control.addTask('更新数据', core.Module.ModsManage.refresh)
-        core.control.addTask('刷新列表', core.UI.ModsManage.bin_refresh)
+        core.module.mods_manage.refresh()
 
 
 def modify_classification(*args):

@@ -1,0 +1,53 @@
+# -*- coding: utf-8 -*-
+
+
+import webbrowser
+import ttkbootstrap
+
+import core
+
+
+
+class Status (object):
+    def __init__(self, master):
+        self.master = master
+
+        self.sizegrip = ttkbootstrap.Sizegrip(self.master)
+        self.label_username = ttkbootstrap.Label(self.master, text="* /")
+        self.label_mark = ttkbootstrap.Label(self.master, text="[S]")
+        self.label_status = ttkbootstrap.Label(self.master, text="-")
+        self.progressbar_step = ttkbootstrap.Progressbar(self.master)
+
+        # self.Label_logout = ttkbootstrap.Label(self.master, text="[ 注销 ]", foreground="#00FFFF", cursor="hand2")
+        # self.Label_logout.pack(side="right", padx=10, pady=5 )
+
+        self.sizegrip.pack(side="right", fill="y")
+
+        self.label_help = ttkbootstrap.Label(self.master, text="[ 帮助 ]", cursor="hand2")
+        self.label_help.pack(side="right", padx=10, pady=5 )
+
+        self.label_username.pack(side="left", padx=5, pady=5)
+        self.label_mark.pack(side="left", padx=5, pady=5)
+        self.label_status.pack(side="left", padx=5, pady=5)
+        self.progressbar_step.pack(side="left", padx=5, pady=5)
+
+        self.label_help.bind("<Button-1>", self.bin_open_help)
+
+
+    def bin_open_help(self, *args):
+        webbrowser.open(core.env.Link.help)
+
+
+    def set_userName(self, userName):
+        self.label_username["text"] = f"* {userName}"
+
+
+    def set_mark(self, mark):
+        self.label_mark["text"] = f"[{mark}]"
+
+
+    def set_status(self, status, LEVEL: int = 0):
+        if not isinstance(LEVEL, int): LEVEL = 0
+        color = ["", "red", "orange"][LEVEL]
+        self.label_status["text"] = status
+        self.label_status["foreground"] = color

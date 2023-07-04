@@ -1,188 +1,97 @@
 # -*- coding: utf-8 -*-
 
-# * domain: core
-
 # std
-import time
-import threading
-import subprocess
-
-from typing import Any, Iterable, Mapping
+import traceback
 
 # self
-from . import environment
+from . import env
+from . import userenv
+from . import basic_event
+from . import external
 
-# project
-import module
-import additional
-import windows
-
+# libs
 import libs.logop
+from constant import *
 
-Log = libs.logop.logging.Logging(libs.logop.level.ALL, "[$(.date) $(.time).$(.moment)] [$(.thread)/$(.levelname)] [$(.function)] $(.message)", stdout=False, asynchronous=True)
-Log.add_op(libs.logop.logoutput.LogopFile(pathdir=(environment.root.cwd, "logs")))
-Log.info("初始化完成")
+import module
 
-class Module(object):
-    IndexManage = module.indexManage.IndexManage()
-    ModsIndex = module.modsIndex.ModsIndex()
-    ModsManage = module.modsManage.ModsManage()
-    ModsDownload = module.modsDownload.ModsDownload()
+log = libs.logop.logging.Logging(stdout=False, asynchronous=True)
+log.set_format("[$(.date) $(.time).$(.moment)] [$(.levelname)] [$(.thread)] $(.message) ($(.mark))")
+log.add_op(libs.logop.logoutput.LogopStandardPlus())
+log.add_op(libs.logop.logoutput.LogopFile())
 
+log.info("initial...", L.CORE)
 
-class UI(object):
-    Windows = windows.Windows
-    Messagebox = windows.Messagebox
-    Status = windows.Status
-    Login = windows.Login
-    ModsManage = windows.ModsManage
-    D3dxManage = windows.D3dxManage
-    ModsWarehouse = windows.ModsWarehouse
-    con = windows.con
+construct = module.construct.Structural(20, [getattr(E, x) for x in E.__all__])
+sync = module.synchronization.SynchronizationTask()
 
 
-class content(object):
-    ThumbnailGroup = module.image.ImageTkThumbnailGroup(40, 40)
-
-
-
-class Control(object):
-    def __init__(self):
-        self.running = False
-        self.__controlLock = threading.RLock()
-        self.__enableEvent = threading.Event()
-        self.controlThread = threading.Thread(None, self.run, 'control', (), daemon=True)
-
-
-        self.__taskTable = []
-
-
-    def run(self):
-        while True:
-            self.__enableEvent.wait()
-            with self.__controlLock:
-                if not self.__taskTable:
-                    self.__enableEvent.clear()
-                    UI.Status.set_mark('S')
-                    UI.Status.set_status('-')
-                    continue
-
-                else:
-                    task = self.__taskTable.pop(0)
-                    length = len(self.__taskTable)
-                    UI.Status.set_mark(length)
-
-            try:
-                name, function_, args, kwds = task
-                UI.Status.set_status(name)
-                Log.debug(f"执行同步任务 {name} {function_}")
-                function_(*args, **kwds)
-                time.sleep(environment.configuration.control_each_task_sleep_time_seconds)
-
-            except Exception as e:
-                UI.Status.set_mark('X')
-                Log.error(f"同步任务抛出异常 {e.__class__}: {e}")
-                UI.Status.set_status(f'{e.__class__}: {e}', 1)
-                self.clear()
-
-
-    def addTask(self, name: str, functuon_: object, args: Iterable = (), kwds: Mapping = {}) -> None:
-        if not isinstance(name, str): return
-        if not isinstance(args, Iterable): return
-        if not isinstance(kwds, Mapping): return
-
-        content = (name, functuon_, args, kwds)
-
-        with self.__controlLock:
-            Log.debug(f"添加同步任务 {name} {functuon_}")
-            self.__taskTable.append(content)
-        self.__enableEvent.set()
-
-
-    def clear(self):
-        with self.__controlLock:
-            self.__taskTable = []
-        self.__enableEvent.clear()
-
-
-    def start(self):
-        with self.__controlLock:
-            if self.controlThread.is_alive(): return None
-            self.controlThread.start()
-            Log.info("control 线程启动")
-            self.running = True
-
-
-def login(userName):
-    control.addTask('登录用户界面', UI.con.login, (userName, ))
-    control.addTask('登录用户环境', environment.login, (userName, ))
-    control.addTask('更新索引管理', Module.IndexManage.update)
-    control.addTask('清除索引列表', Module.ModsIndex.clear)
-    control.addTask('加载模组索引', Module.IndexManage.first_load)
-    control.addTask('刷新模组管理', Module.ModsManage.refresh)
-    control.addTask('刷新列表', UI.ModsManage.bin_refresh)
-    control.addTask('更新 d3dx 信息', UI.D3dxManage.update)
-    control.addTask('更新模组仓库列表', UI.ModsWarehouse.refresh)
-
-
-control = Control()
+import window
+import additional
 
 
 def run():
-    windows.initial()
-    control.start()
-    control.addTask('检查更新', module.update.check)
-    control.addTask('加载缩略图', content.ThumbnailGroup.add_image_from_redirectionConfigFile, (environment.resources.f_redirection,))
-    control.addTask('就绪', windows.ready)
-    UI.Windows.mainloop()
+    try: log.set_level(env.configuration.log_level)
+    except Exception as e: env.configuration.log_level = libs.logop.level.INFO
+
+    sync.start()
+    window.initial()
+    basic_event.initial()
+    additional.initial()
+
+    log.info("进入主循环", L.WINDOW)
+    construct.event.set_event(E.ENTER_MAINPOOL)
+
+    try:
+        window.mainwindow.mainloop()
+
+    except Exception as e:
+        exc = traceback.format_exc()
+        log.error(f"{e.__class__}: {e}\n{exc}", L.WINDOW)
+
+    _exit()
 
 
-class External(object):
-    def IsMainThread(*args, **kwds) -> bool:
-        return threading.current_thread() is threading.main_thread()
+def login(name):
+    log.info(f"登录用户名 \"{name}\"", L.CORE_LOGIN)
+    userenv.login(name)
+    window._login(name)
+
+    construct.event.set_event(E.USER_LOGGED_IN)
 
 
-    @staticmethod
-    def x7z(from_file: str, to_path: str):
-        PIPE = subprocess.PIPE
-        DEVNULL = subprocess.DEVNULL
-        command = (environment.local.t7z, 'x', '-y', f'-o{to_path}', from_file)
-        task = subprocess.Popen(command, shell=True, stdin=PIPE, stdout=DEVNULL, stderr=DEVNULL, cwd=environment.root.cwd)
-        task.wait()
+def logout():
+    log.info(f"注销登录", L.CORE_LOGOUT)
+    ...
 
-
-    def a7z(from_file: str, to_path: str):
-        PIPE = subprocess.PIPE
-        DEVNULL = subprocess.DEVNULL
-        command = (environment.local.t7z, 'a', '-t7z', to_path, from_file)
-        task = subprocess.Popen(command, shell=True, stdin=PIPE, stdout=DEVNULL, stderr=DEVNULL, cwd=environment.root.cwd)
-        task.wait()
+    construct.event.set_event(E.USER_LOGGED_OUT)
 
 
 def _exit():
-    try:
-        Log.close()
-        environment.user.object_configuration._con_asve_as_json(environment.user.f_configuration)
+    log.info("程序请求退出", L.CORE_EXIT)
 
-    except Exception:
+    task_list = [
+        (env.configuration._con_asve_as_json, (env.file.local.configuration, )),
+        (log.close, ())
+    ]
+
+    try:
+        # todo 程序推出时应该保存用户数据
+        task_list.insert(0, (userenv.configuration._con_asve_as_json, (userenv.file.configuration, )))
+
+    except Exception as e:
         ...
 
-    UI.Windows.destroy()
+    log.info("正在回收资源...", L.CORE_EXIT)
+    for task in task_list:
+        try:
+            task[0](*task[1])
+
+        except Exception as e:
+            ...
 
 
-UI.Windows.protocol('WM_DELETE_WINDOW', _exit)
-
-
-
-# class Exit (object):
-#     def __init__(self):
-#         self.__call_lock = threading._RLock()
-#         self.__exit_task = [
-#             (999, Log.close, (), {})
-#             (1000, environment.user.object_configuration._con_asve_as_json, (environment.user.f_configuration, ), {})
-#         ]
-
-
-#     def __call__(self, *args: Any, **kwds: Any) -> Any:
-#         ...
-
+__all__ = [
+    "env"
+    "structure"
+]
