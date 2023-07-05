@@ -25,6 +25,7 @@ class INDEX ():
     NAME = "name"
     EXPLAIN = "explain"
     GRADING = "grading"
+    AUTHOR = "author"
     TAGS = "tags"
     GET = "get"
 

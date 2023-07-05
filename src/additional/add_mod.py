@@ -69,7 +69,7 @@ class AddMods(object):
         self.Label_SHA = ttkbootstrap.Label(self.windows, text=f'SHA: {self.SHA}')
 
         self.Frame_object = ttkbootstrap.Frame(self.windows)
-        self.Entry_object = ttkbootstrap.Entry(self.Frame_object, width=width)
+        self.Combobox_object = ttkbootstrap.Combobox(self.Frame_object, width=width)
         self.Label_object = ttkbootstrap.Label(self.Frame_object, text='作用对象：')
 
         self.Frame_name = ttkbootstrap.Frame(self.windows)
@@ -110,7 +110,7 @@ class AddMods(object):
 
         self.Frame_object.pack(side='top', fill='x', padx=10, pady=(0, 10))
         self.Label_object.pack(side='left', padx=(0, 5))
-        self.Entry_object.pack(side='left', fill='x', expand=1)
+        self.Combobox_object.pack(side='left', fill='x', expand=1)
 
         self.Frame_name.pack(side='top', fill='x', padx=10, pady=(0, 10))
         self.Label_name.pack(side='left', padx=(0, 5))
@@ -147,7 +147,7 @@ class AddMods(object):
 
         _alt_set = core.window.annotation_toplevel.register
         _alt_set(self.Label_SHA, T.ANNOTATION_SHA)
-        _alt_set(self.Entry_object, T.ANNOTATION_OBJECT)
+        _alt_set(self.Combobox_object, T.ANNOTATION_OBJECT)
         _alt_set(self.Entry_name, T.ANNOTATION_NAME)
         _alt_set(self.Entry_author, T.ANNOTATION_AUTHOR)
         _alt_set(self.Combobox_grading, T.ANNOTATION_GRADING)
@@ -175,10 +175,16 @@ class AddMods(object):
         self.windows.resizable(False, False)
 
         # 如果 SHA 是全新的则根据操作环境推断
+
+        class_name = core.window.interface.mods_manage.sbin_get_select_classification()
+        if class_name is not None:
+            object_list = core.module.mods_manage.get_reference_object_list(class_name)
+            self.Combobox_object.config(values=object_list)
+
         if self.object_:
-            self.Entry_object.insert(0, self.object_)
+            self.Combobox_object.insert(0, self.object_)
         else:
-            self.Entry_object.insert(0, AddModInputCache.object_)
+            self.Combobox_object.insert(0, AddModInputCache.object_)
 
         self.Entry_name.insert(0, self.prefix)
 
@@ -196,7 +202,7 @@ class AddMods(object):
 
 
     def bin_ok(self, *args, **kwds):
-        s_object = self.Entry_object.get()
+        s_object = self.Combobox_object.get()
         s_name = self.Entry_name.get()
         s_grading = self.Combobox_grading.get()
         s_author = self.Entry_author.get()

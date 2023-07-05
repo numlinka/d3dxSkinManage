@@ -19,6 +19,7 @@ def initial():
 
     core.construct.event.register(E.WINDOW_MODS_MANAGE_TS_CLASS, update_objects_list)
     core.construct.event.register(E.WINDOW_MODS_MANAGE_TS_OBJECT, update_choices_list)
+    core.construct.event.register(E.WINDOW_MODS_MANAGE_TS_OBJECT, update_preview)
     core.construct.event.register(E.WINDOW_MODS_MANAGE_TS_CHOICE, update_preview)
     core.construct.event.register(E.MOD_DOWNLOAD_TASK_ALTERATION, update_warehouse_list)
 

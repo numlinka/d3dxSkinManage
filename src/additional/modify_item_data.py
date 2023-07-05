@@ -305,8 +305,6 @@ class ModifyItemData (object):
 
         self.bin_cancel()
 
-        core.module.mods_manage.refresh()
-
 
     def bin_remove(self, *args):
         core.module.mods_manage.unload(self.old_object)
