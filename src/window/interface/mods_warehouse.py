@@ -59,6 +59,7 @@ class ModsWarehouse(object):
         if search in item["object"]: return True
         if search in item.get("grading", "x"): return True
         if search in ", ".join(item.get("tags", [])): return True
+        if search in item.get(K.INDEX.AUTHOR, "-"): return True
         else: return False
 
 
@@ -77,12 +78,14 @@ class ModsWarehouse(object):
         all_list = core.module.mods_index.get_all_sha_list()
         exist_list = self.Treeview_items.get_children()
         to_list = []
+        to_data = {}
 
         for SHA in all_list:
             item = core.module.mods_index.get_item(SHA)
             if not item.get(K.INDEX.GET, None): continue
             if not self.__dict_item_conform(SHA, item, search): continue
             to_list.append(SHA)
+            to_data[SHA] = item
 
         # 剔除已经不存在的分类
         intersection = set(exist_list) - set(to_list)
@@ -90,10 +93,12 @@ class ModsWarehouse(object):
 
         for index, SHA in enumerate(to_list):
             try:
-                item = core.module.mods_index.get_item(SHA)
+                item = to_data[SHA]
                 object_ = item[K.INDEX.OBJECT]
                 name = item[K.INDEX.NAME]
                 grading = item.get(K.INDEX.GRADING, "X")
+                author = item.get(K.INDEX.AUTHOR, "-")
+                author = "-" if not author else author
                 tags = ", ".join(item.get(K.INDEX.TAGS, []))
                 local_ = core.module.mods_manage.is_local_sha(SHA)
 
@@ -101,7 +106,7 @@ class ModsWarehouse(object):
                 isdownloading = " [正在下载...]" if core.module.mod_download.is_downloading(SHA) else ""
 
                 text = f"{object_}\n{name}"
-                values = (f"[{tags}]\n[{grading}]{islocal}{isdownloading}", )
+                values = (f"{author} {tags}\n[{grading}]{islocal}{isdownloading}", )
 
                 image = core.window.treeview_thumbnail.get(object_)
 

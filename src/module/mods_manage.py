@@ -127,8 +127,13 @@ class ModsManage (object):
                 if "未分类" not in self.__classification: self.__classification["未分类"] = []
                 self.__classification["未分类"] += list(_object_lst)
 
+        # 对 Mod 列表排序 (依据 Mod 名称)
+        for _, lst in self.__local_object_sha_lst.items(): lst.sort(key=_list_sort_for_item_name)
+
+        # 对 Mod 列表排序 (依据 Mod 分级)
+        for _, lst in self.__local_object_sha_lst.items(): lst.sort(key=_list_sort_for_item_grading)
+
         # todo 对分类的每个列表进行排序
-        for _, lst in self.__local_object_sha_lst.items(): lst.sort(key=_name_sort)
         for _, lst in self.__classification.items(): lst.sort()
 
         self.__classification_lst = [x for x in self.__classification if x != '未分类']
@@ -183,6 +188,10 @@ class ModsManage (object):
     def get_class_list(self) -> list[str]:
         return [x for x in self.__reference_classification] + ["未分类"]
         # return self.__classification_lst.copy()
+
+
+    def get_reference_object_list(self, class_: str) -> list[str]:
+        return self.__reference_classification.get(class_, []).copy()
 
 
     def get_object_list(self, class_: str) -> list[str]:
@@ -282,9 +291,17 @@ class ModsManage (object):
             shutil.rmtree(target)
 
 
-def _name_sort(key) -> str:
+def _list_sort_for_item_name(key) -> str:
     try:
         return core.module.mods_index.get_item(key)["name"]
+
+    except Exception:
+        return key
+
+
+def _list_sort_for_item_grading(key) -> str:
+    try:
+        return core.module.mods_index.get_item(key)[K.INDEX.GRADING]
 
     except Exception:
         return key

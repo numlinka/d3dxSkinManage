@@ -24,8 +24,9 @@ ANNOTATION_D3DX_SET_GAME_PATH = "用户必须使用文件选择工具修改游�
 
 ANNOTATION_D3DX_GAME_WORK_DIR = "在文件资源管理器中打开游戏所在目录"
 
-ANNOTATION_WAREHOUSE_SEARCH = """可通过 SHA、对象、名称、分级、tags 等字段筛选 Mod
-使用空格分割多个关键字\n按回车筛选 Mod"""
+ANNOTATION_WAREHOUSE_SEARCH = """可通过 SHA、对象、名称、分级、作者、标签 等字段筛选
+使用空格分割多个关键字
+按回车筛选 Mod"""
 
 ANNOTATION_WAREHOUSE_DOWNLOAD = "将下载任务添加到任务队列中\n在 Mods 列表双击选中的对象也有同样的效果"
 

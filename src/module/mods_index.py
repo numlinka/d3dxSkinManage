@@ -278,6 +278,11 @@ class ModsIndex (object):
         """新的 item 的数据"""
         core.log.warn(f"新的 index 数据 SHA - {SHA}", L.MODULE_MODS_INDEX)
         with self.__call_lock:
+
+            # 删除冲突的 SHA 来源
+            for key, value in self.__table_from.items():
+                if SHA in value: del value[value.index(SHA)]
+
             # 更新缓存数据
             if from_ not in self.__table_from:
                 self.__table_from[from_] = [SHA]
@@ -287,10 +292,6 @@ class ModsIndex (object):
 
             self.__table_mods[SHA] = data
             self.cache_update()
-
-            # 删除冲突的 SHA 来源
-            for key, value in self.__table_from.items():
-                if SHA in value: del value[value.index(SHA)]
 
             # 更新原始数据
             if from_ not in self.__original_index:

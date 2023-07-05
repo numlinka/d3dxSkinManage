@@ -45,8 +45,8 @@ class ModsManage(object):
         self.scrollbar_objects.pack(side="left", fill="y", padx=(2, 5), pady=10)
         self.treeview_choices.pack(side="left", fill="y", padx=(0, 0), pady=10)
         self.scrollbar_choices.pack(side="left", fill="y", padx=(2, 10), pady=10)
-        self.label_preview.pack(side="top", fill="both", padx=(0, 10), pady=(10, 0), expand=1)
         self.label_SHA.pack(side="bottom", fill="x", padx=(0, 10), pady=(10, 5))
+        self.label_preview.pack(side="top", fill="both", padx=(0, 10), pady=(10, 0), expand=1)
         # self.label_explain.pack(side="bottom", fill="x", padx=(0, 10), pady=(5, 10))
         # self.Button_refresh.pack(side="top", fill="x", padx=(0, 10), pady=(0, 10))
 
@@ -87,8 +87,9 @@ class ModsManage(object):
 
         if SHA is Ellipsis:
             SHA = self.sbin_get_select_choices()
+            SHA = Ellipsis if SHA is None else SHA
 
-        if SHA is None:
+        if SHA is Ellipsis:
             object_ = self.sbin_get_select_objects()
             SHA = core.module.mods_manage.get_load_object_sha(object_)
 
@@ -187,8 +188,10 @@ class ModsManage(object):
                 data = core.module.mods_index.get_item(SHA)
                 n = data["name"]
                 g = data["grading"]
-                atags = "[" + " ".join(data.get("tags", [])) + "]"
-                value = (f"[{g}] {n}\n{atags}", )
+                a = data.get(K.INDEX.AUTHOR, "-")
+                a = "-" if not a else a
+                atags = " ".join(data.get("tags", []))
+                value = (f"[{g}] {n}\n{a} {atags}",)
 
             if object_name in exist_object_list:
                 self.treeview_objects.item(
@@ -228,19 +231,21 @@ class ModsManage(object):
             item = core.module.mods_index.get_item(SHA)
             name = item["name"]
             grading = item["grading"]
-            atags = "[" + " ".join(item.get("tags", [])) + "]"
+            a = item.get(K.INDEX.AUTHOR, "-")
+            a = "-" if not a else a
+            atags = " ".join(item.get("tags", []))
 
             if SHA in exist_mods_list:
                 self.treeview_choices.item(
                     SHA,
-                    text=f"[{grading}] {name}\n{atags}", 
+                    text=f"[{grading}] {name}\n{a} {atags}", 
                     tags=(SHA, )
                 )
 
             else:
                 self.treeview_choices.insert(
                     "", index, SHA,
-                    text=f"[{grading}] {name}\n{atags}", 
+                    text=f"[{grading}] {name}\n{a} {atags}", 
                     tags=(SHA, )
                 )
 
@@ -250,9 +255,9 @@ class ModsManage(object):
             tags=("--X--")
         )
 
-        SHA = core.module.mods_manage.get_load_object_sha(object_)
-        if SHA is None: self.sbin_update_preview(None)
-        else: self.sbin_update_preview(SHA)
+        # SHA = core.module.mods_manage.get_load_object_sha(object_)
+        # if SHA is None: self.sbin_update_preview(None)
+        # else: self.sbin_update_preview(SHA)
 
 
     def bin_load_mod(self, *args):
