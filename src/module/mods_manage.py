@@ -52,7 +52,7 @@ class ModsManage (object):
         with self.__call_lock:
             self.__reference_classification = {}
             self.__table_loads = {}
-            self.__local_SHA_lst = []
+            self.__local_sha_lst = []
             self.__local_object_lst = []
             self.__local_object_sha_lst = {}
             self.__classification = {}
@@ -82,14 +82,14 @@ class ModsManage (object):
                 path = os.path.join(core.env.directory.resources.mods, SHA)
                 if not os.path.isfile(path): continue
                 if SHA not in SHA_lst: continue
-                self.__local_SHA_lst.append(SHA)
+                self.__local_sha_lst.append(SHA)
 
 
     def update_local_object_list(self):
         core.log.debug("构建本地对象列表...", L.MODULE_MODS_MANAGE)
         with self.__call_lock:
             self.__local_object_lst = []
-            for SHA in self.__local_SHA_lst:
+            for SHA in self.__local_sha_lst:
                 item = core.module.mods_index.get_item(SHA)
                 if item is None:
                     continue
@@ -104,7 +104,7 @@ class ModsManage (object):
     def update_local_object_sha_list(self):
         core.log.debug("构建本地对象 SHA 列表...", L.MODULE_MODS_MANAGE)
         with self.__call_lock:
-            _local_SHA_set = set(self.__local_SHA_lst)
+            _local_SHA_set = set(self.__local_sha_lst)
             for object_ in self.__local_object_lst:
                 SHA_list = core.module.mods_index.get_object_sha_list(object_)
                 intersection = set(SHA_list) & _local_SHA_set
@@ -136,12 +136,17 @@ class ModsManage (object):
         # todo 对分类的每个列表进行排序
         for _, lst in self.__classification.items(): lst.sort()
 
-        self.__classification_lst = [x for x in self.__classification if x != '未分类']
+        # ! 本地分类列表
+        # self.__classification_lst = [x for x in self.__classification if x != '未分类']
+
+        # ! 参照分类列表
+        self.__classification_lst = [x for x in self.__reference_classification if x != '未分类']
 
         # todo 对分类列表进行排序
-        self.__classification_lst.sort()
+        self.__classification_lst.sort(key=_list_sort_for_class_name)
 
-        if '未分类' in self.__classification: self.__classification_lst += ['未分类']
+        # if '未分类' in self.__classification: self.__classification_lst += ['未分类']
+        self.__classification_lst += ['未分类']
 
 
     def update_loaded_mods(self):
@@ -186,8 +191,8 @@ class ModsManage (object):
 
 
     def get_class_list(self) -> list[str]:
-        return [x for x in self.__reference_classification] + ["未分类"]
-        # return self.__classification_lst.copy()
+        # return [x for x in self.__reference_classification] + ["未分类"]
+        return self.__classification_lst.copy()
 
 
     def get_reference_object_list(self, class_: str) -> list[str]:
@@ -212,7 +217,7 @@ class ModsManage (object):
 
 
     def is_local_sha(self, SHA: str):
-        if SHA in self.__local_SHA_lst: return True
+        if SHA in self.__local_sha_lst: return True
         return False
 
 
@@ -235,6 +240,10 @@ class ModsManage (object):
         core.log.debug(f"加载 Mod {SHA}", L.MODULE_MODS_MANAGE)
         with self.__call_lock:
             object_ = core.module.mods_index.get_item(SHA)['object']
+
+            # 如果 SHA 已经被加载则不做任何操作
+            if SHA == self.__table_loads.get(object_, None):
+                return
 
             # 如果 SHA 存在且拥有禁用标识则去除
             dsname = f"{K.DISABLED}-{SHA}"
@@ -305,3 +314,15 @@ def _list_sort_for_item_grading(key) -> str:
 
     except Exception:
         return key
+
+
+CLASS_NAME_SORT_LIST = ["角色.", "武器.", "."]
+
+
+def _list_sort_for_class_name(key) -> int:
+    for index, value in enumerate(CLASS_NAME_SORT_LIST):
+        if value in key:
+            return index
+
+    else:
+        return len(CLASS_NAME_SORT_LIST)

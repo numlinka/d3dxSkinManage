@@ -22,6 +22,7 @@ class AddModInputCache(object):
     grading = ''
     explain = ''
     tags = ''
+    author = ''
 
 
 
@@ -57,6 +58,8 @@ class AddMods(object):
         self.object_ = self.object_ if self.object_ else ''
 
         self.windows = ttkbootstrap.Toplevel('添加 Mod')
+        self.windows.transient(core.window.mainwindow)
+        # self.windows.grab_set()
 
         try:
             self.windows.iconbitmap(default=core.env.file.local.iconbitmap)
@@ -193,6 +196,7 @@ class AddMods(object):
         else:
             self.Combobox_grading.insert(0, 'G - 大众级')
 
+        self.Entry_author.insert(0, AddModInputCache.author)
         self.Entry_explain.insert(0, AddModInputCache.explain)
         self.Entry_tags.insert(0, AddModInputCache.tags)
 
@@ -260,6 +264,8 @@ class AddMods(object):
         AddModInputCache.grading = s_grading
         AddModInputCache.tags = s_tags
         AddModInputCache.explain = z_explain
+        AddModInputCache.author = z_author
+        core.window.annotation_toplevel.withdraw()
 
 
 

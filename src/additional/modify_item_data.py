@@ -2,6 +2,7 @@
 
 # std
 import os
+import tkinter.filedialog
 import threading
 
 # install
@@ -27,6 +28,9 @@ class ModifyItemData (object):
         self.SHA = SHA
 
         self.windows = ttkbootstrap.Toplevel('修改 SHA 信息 - new construction options')
+        self.windows.transient(core.window.mainwindow)
+        # self.windows.grab_set()
+        # self.windows = tkinter.Toplevel(core.window.mainwindow)
 
         try:
             self.windows.iconbitmap(default=core.env.file.local.iconbitmap)
@@ -163,6 +167,12 @@ class ModifyItemData (object):
         width = self.windows.winfo_width()
         height = self.windows.winfo_height()
 
+        sw = self.windows.winfo_screenwidth()
+        sh = self.windows.winfo_screenheight()
+
+        mx = sw - width
+        my = sh - height
+
         _x, _y = win32gui.GetCursorInfo()[2]
 
         x = _x - width // 2
@@ -170,6 +180,9 @@ class ModifyItemData (object):
 
         if x < 0: x = 0
         if y < 0: y = 0
+
+        if x > mx: x = mx
+        if y > my: y = my
 
         self.windows.geometry(f'+{x}+{y}')
         self.windows.resizable(False, False)
@@ -289,6 +302,7 @@ class ModifyItemData (object):
 
     def bin_cancel(self, *args):
         self.windows.destroy()
+        core.window.annotation_toplevel.withdraw()
         selfstatus.action.release()
 
 

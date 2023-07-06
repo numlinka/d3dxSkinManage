@@ -15,10 +15,12 @@ class ModsWarehouse(object):
         self.master = master
         titles = (("#0", "object / name", 360), ("enabled", "tags", 480))
 
+        self.value_entry_search = ttkbootstrap.StringVar()
+
         self.Frame_list = ttkbootstrap.Frame(self.master)
         self.Frame_list.pack(side="left", fill="y")
 
-        self.Entry_search = ttkbootstrap.Entry(self.Frame_list)
+        self.Entry_search = ttkbootstrap.Entry(self.Frame_list, textvariable=self.value_entry_search)
         self.Treeview_items = ttkbootstrap.Treeview(self.Frame_list, show="tree headings", selectmode="extended", columns=("enabled",))
         self.Scrollbar_items = ttkbootstrap.Scrollbar(self.Frame_list, command=self.Treeview_items.yview)
         self.Frame_Button = ttkbootstrap.Frame(self.master)
@@ -40,7 +42,8 @@ class ModsWarehouse(object):
 
         self.Treeview_items.bind("<<TreeviewSelect>>", self.bin_items_TreeviewSelect)
         self.Treeview_items.bind("<Double-1>", self.bin_download)
-        self.Entry_search.bind("<Return>", self.refresh)
+        # self.Entry_search.bind("<Return>", self.refresh)
+        self.value_entry_search.trace("w", self.refresh)
         # self.Entry_search.bind("<Key>", self.bin_refresh)
         for tree, text, width in titles:
             self.Treeview_items.column(tree, width=width, anchor="w")
@@ -74,7 +77,7 @@ class ModsWarehouse(object):
     def refresh(self, *_):
         core.log.debug("更新 Mods 列表", L.WINDOS_MODS_WAREHOUSE)
 
-        search = self.Entry_search.get()
+        search = self.value_entry_search.get()
         all_list = core.module.mods_index.get_all_sha_list()
         exist_list = self.Treeview_items.get_children()
         to_list = []

@@ -27,6 +27,8 @@ class AddPreview (object):
 
         self.windows = ttkbootstrap.Toplevel('操作确认')
         self.windows.attributes("-topmost", True)
+        self.windows.transient(core.window.mainwindow)
+        # self.windows.grab_set()
 
         try:
             self.windows.iconbitmap(default=core.env.file.local.iconbitmap)
