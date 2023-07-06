@@ -12,18 +12,22 @@ class ModsManage(object):
 
         self.FC_WIDTH = 200
 
+        self.value_entry_search = ttkbootstrap.StringVar()
+        self.frame_choice = ttkbootstrap.Frame(self.master)
+
         self.treeview_classification = ttkbootstrap.Treeview(self.master, show="tree headings", selectmode="extended")
         self.treeview_objects = ttkbootstrap.Treeview(self.master, show="tree headings", selectmode="extended", columns=("enabled",))
-        self.treeview_choices = ttkbootstrap.Treeview(self.master, selectmode="extended", show="tree headings")
+        self.treeview_choices = ttkbootstrap.Treeview(self.frame_choice, selectmode="extended", show="tree headings")
 
         self.scrollbar_classification = ttkbootstrap.Scrollbar(self.master, command=self.treeview_classification.yview)
         self.scrollbar_objects = ttkbootstrap.Scrollbar(self.master, command=self.treeview_objects.yview)
-        self.scrollbar_choices = ttkbootstrap.Scrollbar(self.master, command=self.treeview_choices.yview)
+        self.scrollbar_choices = ttkbootstrap.Scrollbar(self.frame_choice, command=self.treeview_choices.yview)
+
+        self.entry_search = ttkbootstrap.Entry(self.frame_choice, textvariable=self.value_entry_search)
 
         # self.label_explain = ttkbootstrap.Label(self.master, anchor="center", text="无附加描述")
         self.label_SHA = ttkbootstrap.Label(self.master, anchor="center", text="SHA")
         self.label_preview = ttkbootstrap.Label(self.master, anchor="center", text="无预览图", cursor="plus")
-
 
         self.treeview_classification.config(yscrollcommand=self.scrollbar_classification.set)
         self.treeview_objects.config(yscrollcommand=self.scrollbar_objects.set)
@@ -43,8 +47,10 @@ class ModsManage(object):
         self.scrollbar_classification.pack(side="left", fill="y", padx=(2, 5), pady=10)
         self.treeview_objects.pack(side="left", fill="y", padx=(0, 0), pady=10)
         self.scrollbar_objects.pack(side="left", fill="y", padx=(2, 5), pady=10)
-        self.treeview_choices.pack(side="left", fill="y", padx=(0, 0), pady=10)
-        self.scrollbar_choices.pack(side="left", fill="y", padx=(2, 10), pady=10)
+        self.frame_choice.pack(side="left", fill="y")
+        self.entry_search.pack(side="bottom", fill="x", padx=(0, 10), pady=(5, 10))
+        self.treeview_choices.pack(side="left", fill="y", padx=(0, 0), pady=(10, 0))
+        self.scrollbar_choices.pack(side="left", fill="y", padx=(2, 10), pady=(10, 0))
         self.label_SHA.pack(side="bottom", fill="x", padx=(0, 10), pady=(10, 5))
         self.label_preview.pack(side="top", fill="both", padx=(0, 10), pady=(10, 0), expand=1)
         # self.label_explain.pack(side="bottom", fill="x", padx=(0, 10), pady=(5, 10))
@@ -56,6 +62,8 @@ class ModsManage(object):
         self.treeview_choices.bind("<<TreeviewSelect>>", lambda *_: core.construct.event.set_event(E.WINDOW_MODS_MANAGE_TS_CHOICE))
 
         self.treeview_choices.bind("<Double-1>", self.bin_load_mod)
+        # self.entry_search.bind("<Return>", self.update_choices_list)
+        self.value_entry_search.trace("w", self.update_choices_list)
         
         self.label_preview.bind("<Motion>", lambda *_: core.window.annotation_toplevel.update_position())
         self.label_preview.bind("<Enter>", lambda *_: self.bin_update_explain())
@@ -116,6 +124,25 @@ class ModsManage(object):
         # if isinstance(item, dict): text = item.get("explain", "")
         # else: text = "无附加描述"
         # self.label_explain.config(text=text if text else "无附加描述")
+
+
+    def __dict_item_conform_one(self, SHA: str, item: dict, search: str = "") -> bool:
+        if search == "": return True
+        if search in SHA: return True
+        if search in item["name"]: return True
+        if search in item["object"]: return True
+        if search in item.get("grading", "x"): return True
+        if search in ", ".join(item.get("tags", [])): return True
+        if search in item.get(K.INDEX.AUTHOR, "-"): return True
+        else: return False
+
+
+    def __dict_item_conform(self, SHA: str, item: dict, search: str = "") -> bool:
+        search_lst = search.split(" ")
+        for search_ in search_lst:
+            if not self.__dict_item_conform_one(SHA, item, search_):
+                return False
+        return True
 
 
     def bin_update_explain(self):
@@ -220,14 +247,24 @@ class ModsManage(object):
             self.sbin_clear_treeview_choices()
             return
 
-        mods_list = core.module.mods_manage.get_object_sha_list(object_)
+        all_mods_list = core.module.mods_manage.get_object_sha_list(object_)
         exist_mods_list = self.treeview_choices.get_children()
+        search = self.value_entry_search.get()
+
+        to_list = []
+        to_data = {}
+
+        for SHA in all_mods_list:
+            item = core.module.mods_index.get_item(SHA)
+            if not self.__dict_item_conform(SHA, item, search): continue
+            to_list.append(SHA)
+            to_data[SHA] = item
 
         # 剔除已经不存在的 Mod
-        intersection = set(exist_mods_list) - set(mods_list)
+        intersection = set(exist_mods_list) - set(to_data)
         self.treeview_choices.delete(*intersection)
 
-        for index, SHA in enumerate(mods_list):
+        for index, SHA in enumerate(to_data):
             item = core.module.mods_index.get_item(SHA)
             name = item["name"]
             grading = item["grading"]

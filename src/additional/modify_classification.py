@@ -35,6 +35,8 @@ class new_classification (object):
         self.mark_newclass = True if self.classname in [None, '未分类'] else False
         windowsname = '添加分类' if self.mark_newclass else '修改分类'
         self.windows = ttkbootstrap.Toplevel(windowsname)
+        self.windows.transient(core.window.mainwindow)
+        # self.windows.grab_set()
 
         try:
             self.windows.iconbitmap(default=core.env.file.local.iconbitmap)

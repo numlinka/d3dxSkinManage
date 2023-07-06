@@ -71,6 +71,11 @@ def initial():
     _alt_set(login.button_login, T.ANNOTATION_LOGIN)
     _alt_set(status.label_help, T.ANNOTATION_HELP)
 
+    _alt_set(interface.mods_manage.treeview_classification, T.ANNOTATION_MANAGE_CLASSIFICATION)
+    _alt_set(interface.mods_manage.treeview_objects, T.ANNOTATION_MANAGE_OBJECTS)
+    _alt_set(interface.mods_manage.treeview_choices, T.ANNOTATION_MANAGE_CHOICES)
+    _alt_set(interface.mods_manage.entry_search, T.ANNOTATION_MANAGE_SEARCH)
+
     _alt_set(interface.d3dx_manage.combobox_versions, T.ANNOTATION_D3DX_VERSION)
     _alt_set(interface.d3dx_manage.button_injection, T.ANNOTATION_D3DX_INJECTION)
     _alt_set(interface.d3dx_manage.button_d3dxstart, T.ANNOTATION_D3DX_START)
