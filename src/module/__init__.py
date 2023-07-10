@@ -5,6 +5,7 @@ from . import construct
 from . import synchronization
 from . import wget
 from . import update
+from . import extension
 
 from .index_manage import IndexManage
 from .mods_index import ModsIndex
@@ -22,6 +23,7 @@ __all__ = [
     "synchronization",
     "wget",
     "update",
+    "extension",
     "index_manage",
     "mods_index",
     "mods_manage",

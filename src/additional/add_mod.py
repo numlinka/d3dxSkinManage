@@ -51,6 +51,8 @@ class AddMods(object):
                 return
 
             core.construct.event.set_event(E.MODS_INDEX_UPDATE)
+
+            core.additional.modify_item_data.ModifyItemData(self.SHA)
             return
 
 

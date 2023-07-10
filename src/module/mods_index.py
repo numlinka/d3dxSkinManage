@@ -177,6 +177,7 @@ class ModsIndex (object):
 
     def cache_update(self) -> None:
         with self.__call_lock:
+            self.__cache_object = {}
             for SHA, data in self.__table_mods.items():
                 name = data["object"]
 
