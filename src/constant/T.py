@@ -1,6 +1,24 @@
 # -*- coding: utf-8 -*-
 
 
+TEXT_ADOUT = """d3dxSkinManage
+
+若对软件的操作抱有疑问，请点击右下方的 “[帮助]” 前往帮助页面解答
+若仍不能解决问题，请点击该页面下方的 “聊天室” 联系技术人员以寻求帮助
+有好的建议或软件的问题也可以在我的频道中提出
+
+如果你喜欢这个工具可以点击该页面下方的 “爱发电” 赞助我
+
+
+在此鸣谢
+    - 页面编辑：黎愔
+
+
+d3dxSkinManage (3DMiGoto Mods 辅助管理工具)
+由 numLinka 提供技术支持
+"""
+
+
 ANNOTATION_USER_DESCRIPTION = """这是该用户的描述文档
 你可以修改 ./home/<USERNAME>/ 下的 description.txt 文件来修改这项描述"""
 
@@ -32,6 +50,7 @@ ANNOTATION_MANAGE_CHOICES = "\n".join([
 ANNOTATION_MANAGE_SEARCH = """可通过以下字段的内容筛选 Mod
 SHA、对象、名称、分级、作者、标签
 使用空格分割多个关键字
+使用 "!" 符号开头拒绝对应关键词
 切换对象仍然有效"""
 
 ANNOTATION_D3DX_VERSION = """点击右侧的下拉箭头或输入框底部唤出下拉菜单
@@ -50,7 +69,8 @@ ANNOTATION_D3DX_GAME_WORK_DIR = "在文件资源管理器中打开游戏所在�
 
 ANNOTATION_WAREHOUSE_SEARCH = """可通过以下字段的内容筛选 Mod
 SHA、对象、名称、分级、作者、标签
-使用空格分割多个关键字"""
+使用空格分割多个关键字
+使用 "!" 符号开头拒绝对应关键词"""
 
 ANNOTATION_WAREHOUSE_DOWNLOAD = "将下载任务添加到任务队列中\n在 Mods 列表双击选中的对象也有同样的效果"
 

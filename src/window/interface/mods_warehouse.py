@@ -55,25 +55,6 @@ class ModsWarehouse(object):
         self.install(master)
 
 
-    def __dict_item_conform_one(self, SHA: str, item: dict, search: str = "") -> bool:
-        if search == "": return True
-        if search in SHA: return True
-        if search in item["name"]: return True
-        if search in item["object"]: return True
-        if search in item.get("grading", "x"): return True
-        if search in ", ".join(item.get("tags", [])): return True
-        if search in item.get(K.INDEX.AUTHOR, "-"): return True
-        else: return False
-
-
-    def __dict_item_conform(self, SHA: str, item: dict, search: str = "") -> bool:
-        search_lst = search.split(" ")
-        for search_ in search_lst:
-            if not self.__dict_item_conform_one(SHA, item, search_):
-                return False
-        return True
-
-
     def refresh(self, *_):
         core.log.debug("更新 Mods 列表", L.WINDOS_MODS_WAREHOUSE)
 
@@ -86,7 +67,7 @@ class ModsWarehouse(object):
         for SHA in all_list:
             item = core.module.mods_index.get_item(SHA)
             if not item.get(K.INDEX.GET, None): continue
-            if not self.__dict_item_conform(SHA, item, search): continue
+            if not core.module.extension.item_dict_conform(SHA, item, search): continue
             to_list.append(SHA)
             to_data[SHA] = item
 

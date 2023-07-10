@@ -192,7 +192,7 @@ class ModifyItemData (object):
 
         self.old_object = data['object']
         self.old_name = data['name']
-        self.old_explain = data.get('explain', '')
+        self.old_explain = data.get('explain', '').replace("\n", "\\n")
         self.old_grading = data.get('grading', '')
         self.old_author = data.get('author', '')
         self.old_tags = ' '.join(data.get('tags', []))
@@ -234,7 +234,7 @@ class ModifyItemData (object):
         self.new_object = s_object.strip()
         self.new_name = s_name.strip()
         self.new_grading = s_grading[0] if s_grading else ''
-        self.new_explain = s_explain.strip()
+        self.new_explain = s_explain.strip().replace("\\n", "\n")
         self.new_tags = [x for x in s_tags.split(' ') if x]
         self.new_author = s_author.strip()
 

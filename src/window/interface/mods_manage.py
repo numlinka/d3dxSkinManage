@@ -126,31 +126,23 @@ class ModsManage(object):
         # self.label_explain.config(text=text if text else "无附加描述")
 
 
-    def __dict_item_conform_one(self, SHA: str, item: dict, search: str = "") -> bool:
-        if search == "": return True
-        if search in SHA: return True
-        if search in item["name"]: return True
-        if search in item["object"]: return True
-        if search in item.get("grading", "x"): return True
-        if search in ", ".join(item.get("tags", [])): return True
-        if search in item.get(K.INDEX.AUTHOR, "-"): return True
-        else: return False
-
-
-    def __dict_item_conform(self, SHA: str, item: dict, search: str = "") -> bool:
-        search_lst = search.split(" ")
-        for search_ in search_lst:
-            if not self.__dict_item_conform_one(SHA, item, search_):
-                return False
-        return True
-
-
     def bin_update_explain(self):
         SHA = self.label_SHA["text"]
         item = core.module.mods_index.get_item(SHA)
         if isinstance(item, dict):
-            text = item.get(K.INDEX.EXPLAIN, "<无附加描述>")
-            text = "<无附加描述>" if text == "" else text
+            text = ""
+
+            name = item.get(K.INDEX.NAME)
+            author = item.get(K.INDEX.AUTHOR, "<未知>")
+            author = "<未知>" if author == "" else author
+            atags = " ".join(item.get(K.INDEX.TAGS, []))
+            explath = item.get(K.INDEX.EXPLAIN, "<无附加描述>")
+            explath = "<无附加描述>" if explath == "" else explath
+
+            text += f"名称：{name}\n"
+            text += f"作者：{author}\n\n{explath}"
+            if atags: text += f"\n\n{atags}"
+
             core.window.annotation_toplevel.deiconify_content(text)
 
         else:
@@ -256,7 +248,7 @@ class ModsManage(object):
 
         for SHA in all_mods_list:
             item = core.module.mods_index.get_item(SHA)
-            if not self.__dict_item_conform(SHA, item, search): continue
+            if not core.module.extension.item_dict_conform(SHA, item, search): continue
             to_list.append(SHA)
             to_data[SHA] = item
 

@@ -4,6 +4,7 @@ import webbrowser
 import ttkbootstrap
 
 import core
+from constant import *
 
 class About (object):
     def install(self, master):
@@ -12,7 +13,7 @@ class About (object):
         self.frame = ttkbootstrap.Frame(self.master)
         self.frame.pack(side="top", fill="x", padx=10, pady=10)
 
-        self.what_to_look_at = ttkbootstrap.Label(self.frame, text="看什么看")
+        self.what_to_look_at = ttkbootstrap.Label(self.frame, text=T.TEXT_ADOUT)
         self.what_to_look_at.pack(side="left")
 
         self.frame_afdian = ttkbootstrap.Frame(self.master)
