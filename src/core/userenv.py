@@ -15,7 +15,8 @@ import core
 from constant import *
 
 user_name: str = ...
-configuration: libs.econfiguration.Configuration = ...
+class configuration(libs.econfiguration.Configuration):
+    GamePath: str
 
 
 class __directory (Directory):

@@ -5,6 +5,8 @@ import ttkbootstrap
 import core
 from constant import *
 
+CMD_UNLOAD = "--X--"
+
 
 class ModsManage(object):
     def install(self, *args, **kwds):
@@ -64,13 +66,26 @@ class ModsManage(object):
         self.treeview_choices.bind("<Double-1>", self.bin_load_mod)
         # self.entry_search.bind("<Return>", self.update_choices_list)
         self.value_entry_search.trace("w", self.update_choices_list)
-        
-        self.label_preview.bind("<Motion>", lambda *_: core.window.annotation_toplevel.update_position())
-        self.label_preview.bind("<Enter>", lambda *_: self.bin_update_explain())
-        self.label_preview.bind("<Leave>", lambda *_: core.window.annotation_toplevel.withdraw())
+
+        # self.treeview_choices.bind("<Motion>", self.bin_treeview_choices_motion)
+        self.treeview_choices.bind("<Motion>", self.bin_treeview_choices_motion)
+        self.treeview_choices.bind("<Leave>", lambda *_: core.window.annotation_toplevel.withdraw())
+
+        # self.label_preview.bind("<Motion>", lambda *_: core.window.annotation_toplevel.update_position())
+        # self.label_preview.bind("<Enter>", lambda *_: self.bin_update_explain())
+        # self.label_preview.bind("<Leave>", lambda *_: core.window.annotation_toplevel.withdraw())
 
         # self.label_explain.bind("<Double-Button-3>",  lambda *_: self.refresh_classification())
         # self.label_explain.bind("<Button-1>",  lambda *_: core.module.mods_manage.refresh())
+
+
+    def initial(self):
+        _alt_set = core.window.annotation_toplevel.register
+
+        _alt_set(self.treeview_classification, T.ANNOTATION_MANAGE_CLASSIFICATION)
+        _alt_set(self.treeview_objects, T.ANNOTATION_MANAGE_OBJECTS)
+        # _alt_set(interface.mods_manage.treeview_choices, T.ANNOTATION_MANAGE_CHOICES)
+        _alt_set(self.entry_search, T.ANNOTATION_MANAGE_SEARCH, 1)
 
 
     def __init__(self, master):
@@ -126,6 +141,36 @@ class ModsManage(object):
         # self.label_explain.config(text=text if text else "无附加描述")
 
 
+    def bin_treeview_choices_motion(self, event):
+        core.window.annotation_toplevel.update_position()
+        iid = self.treeview_choices.identify("item", event.x, event.y)
+        if iid == "":
+            core.window.annotation_toplevel.withdraw()
+            core.window.annotation_toplevel.deiconify_content(T.ANNOTATION_MANAGE_CHOICES, 3)
+            return
+
+        if iid == CMD_UNLOAD:
+            core.window.annotation_toplevel.deiconify_content("卸载", 1)
+            return
+
+        item = core.module.mods_index.get_item(iid)
+        if isinstance(item, dict):
+            text = ""
+
+            name = item.get(K.INDEX.NAME)
+            author = item.get(K.INDEX.AUTHOR, "<未知>")
+            author = "<未知>" if author == "" else author
+            atags = " ".join(item.get(K.INDEX.TAGS, []))
+            explath = item.get(K.INDEX.EXPLAIN, "<无附加描述>")
+            explath = "<无附加描述>" if explath == "" else explath
+
+            text += f"名称：{name}\n"
+            text += f"作者：{author}\n\n{explath}"
+            if atags: text += f"\n\n{atags}"
+
+            core.window.annotation_toplevel.deiconify_content(text, 1)
+
+
     def bin_update_explain(self):
         SHA = self.label_SHA["text"]
         item = core.module.mods_index.get_item(SHA)
@@ -143,7 +188,7 @@ class ModsManage(object):
             text += f"作者：{author}\n\n{explath}"
             if atags: text += f"\n\n{atags}"
 
-            core.window.annotation_toplevel.deiconify_content(text)
+            core.window.annotation_toplevel.deiconify_content(text, 1)
 
         else:
             # text = "无附加描述"
@@ -158,8 +203,8 @@ class ModsManage(object):
         exist_class_list = self.treeview_classification.get_children()
 
         # 剔除已经不存在的分类
-        intersection = set(exist_class_list) - set(class_list)
-        self.treeview_classification.delete(*intersection)
+        nonexistent = set(exist_class_list) - set(class_list)
+        self.treeview_classification.delete(*nonexistent)
 
         for index, class_ in enumerate(class_list):
             lst = core.module.mods_manage.get_object_list(class_)
@@ -191,8 +236,8 @@ class ModsManage(object):
         exist_object_list = self.treeview_objects.get_children()
 
         # 剔除已经不存在的对象
-        intersection = set(exist_object_list) - set(object_list)
-        self.treeview_objects.delete(*intersection)
+        nonexistent = set(exist_object_list) - set(object_list)
+        self.treeview_objects.delete(*nonexistent)
 
         for index, object_name in enumerate(object_list):
             local_ = len(core.module.mods_manage.get_object_sha_list(object_name))
@@ -253,8 +298,8 @@ class ModsManage(object):
             to_data[SHA] = item
 
         # 剔除已经不存在的 Mod
-        intersection = set(exist_mods_list) - set(to_data)
-        self.treeview_choices.delete(*intersection)
+        nonexistent = set(exist_mods_list) - set(to_data)
+        self.treeview_choices.delete(*nonexistent)
 
         for index, SHA in enumerate(to_data):
             item = core.module.mods_index.get_item(SHA)
@@ -279,9 +324,9 @@ class ModsManage(object):
                 )
 
         self.treeview_choices.insert(
-            "", 0, "--X--",
+            "", 0, CMD_UNLOAD,
             text=f"- [X] 卸载该对象 -",
-            tags=("--X--")
+            tags=(CMD_UNLOAD)
         )
 
         # SHA = core.module.mods_manage.get_load_object_sha(object_)
@@ -296,7 +341,7 @@ class ModsManage(object):
 
         name = self.treeview_choices.item(self.treeview_choices.focus())["text"]
 
-        if SHA == "--X--":
+        if SHA == CMD_UNLOAD:
             self.treeview_objects.item(self.treeview_objects.focus(), value=())
             tags = self.treeview_objects.item(self.treeview_objects.focus())["tags"]
             if not tags: return None
@@ -317,27 +362,15 @@ class ModsManage(object):
 
 
     def sbin_get_select_classification(self):
-        tags = self.treeview_classification.item(self.treeview_classification.focus())["tags"]
-        if not tags: return None
-        class_ = tags[0]
-
-        return class_
+        return self.treeview_classification.focus()
 
 
     def sbin_get_select_objects(self):
-        tags = self.treeview_objects.item(self.treeview_objects.focus())["tags"]
-        if not tags: return None
-        object_ = tags[0]
-
-        return object_
+        return self.treeview_objects.focus()
 
 
     def sbin_get_select_choices(self):
-        tags = self.treeview_choices.item(self.treeview_choices.focus())["tags"]
-        if not tags: return None
-        SHA = tags[0]
-
-        return SHA
+        return self.treeview_choices.focus()
 
 
     def on_mouse_move(self, event):

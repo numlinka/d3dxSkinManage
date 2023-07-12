@@ -8,6 +8,7 @@ from . import env
 from . import userenv
 from . import basic_event
 from . import external
+from . import amend
 
 # libs
 import libs.logop
@@ -31,8 +32,18 @@ import additional
 
 
 def run():
-    try: log.set_level(env.configuration.log_level)
-    except Exception as e: env.configuration.log_level = libs.logop.level.INFO
+    try:
+        amend.env_config_amend()
+
+    except Exception as e:
+        log.error("配置文件数据修正错误", L.CORE)
+
+    try:
+        log.set_level(env.configuration.log_level)
+
+    except Exception as e:
+        env.configuration.log_level = libs.logop.level.INFO
+
 
     sync.start()
     window.initial()

@@ -133,7 +133,7 @@ class ModsManage (object):
         # 对 Mod 列表排序 (依据 Mod 分级)
         for _, lst in self.__local_object_sha_lst.items(): lst.sort(key=_list_sort_for_item_grading)
 
-        # todo 对分类的每个列表进行排序
+        # 对分类的每个列表进行排序
         for _, lst in self.__classification.items(): lst.sort()
 
         # ! 本地分类列表
@@ -142,7 +142,7 @@ class ModsManage (object):
         # ! 参照分类列表
         self.__classification_lst = [x for x in self.__reference_classification if x != '未分类']
 
-        # todo 对分类列表进行排序
+        # 对分类列表进行排序
         self.__classification_lst.sort(key=_list_sort_for_class_name)
 
         # if '未分类' in self.__classification: self.__classification_lst += ['未分类']
@@ -316,7 +316,7 @@ def _list_sort_for_item_grading(key) -> str:
         return key
 
 
-CLASS_NAME_SORT_LIST = ["角色.", "武器.", "."]
+CLASS_NAME_SORT_LIST = ["角色", "武器", "."]
 
 
 def _list_sort_for_class_name(key) -> int:

@@ -151,15 +151,15 @@ class AddMods(object):
         self.Label_except.pack(side='right', fill='x', expand=True, padx=(10, 0), pady=(0, 10))
 
         _alt_set = core.window.annotation_toplevel.register
-        _alt_set(self.Label_SHA, T.ANNOTATION_SHA)
-        _alt_set(self.Combobox_object, T.ANNOTATION_OBJECT)
-        _alt_set(self.Entry_name, T.ANNOTATION_NAME)
-        _alt_set(self.Entry_author, T.ANNOTATION_AUTHOR)
-        _alt_set(self.Combobox_grading, T.ANNOTATION_GRADING)
-        _alt_set(self.Entry_explain, T.ANNOTATION_EXPLAIN)
-        _alt_set(self.Entry_tags, T.ANNOTATION_TAGS)
-        _alt_set(self.Button_ok, T.ANNOTATION_ADD_MOD_OK)
-        _alt_set(self.Button_help, T.ANNOTATION_ADD_MOD_HELP)
+        _alt_set(self.Label_SHA, T.ANNOTATION_SHA, 2)
+        _alt_set(self.Combobox_object, T.ANNOTATION_OBJECT, 2)
+        _alt_set(self.Entry_name, T.ANNOTATION_NAME, 2)
+        _alt_set(self.Entry_author, T.ANNOTATION_AUTHOR, 2)
+        _alt_set(self.Combobox_grading, T.ANNOTATION_GRADING, 2)
+        _alt_set(self.Entry_explain, T.ANNOTATION_EXPLAIN, 2)
+        _alt_set(self.Entry_tags, T.ANNOTATION_TAGS, 2)
+        _alt_set(self.Button_ok, T.ANNOTATION_ADD_MOD_OK, 2)
+        _alt_set(self.Button_help, T.ANNOTATION_ADD_MOD_HELP, 2)
 
 
         core.window.mainwindow.update()

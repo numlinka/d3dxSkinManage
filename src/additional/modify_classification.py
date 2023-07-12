@@ -75,10 +75,10 @@ class new_classification (object):
         self.windows.protocol('WM_DELETE_WINDOW', self.bin_cancel)
 
         _alt_set = core.window.annotation_toplevel.register
-        _alt_set(self.Entry_classname, T.ANNOTATION_CLASS_NAME)
-        _alt_set(self.Button_ok, T.ANNOTATION_MODIFY_CLASS_OK)
-        _alt_set(self.Button_cancel, T.ANNOTATION_MODIFY_CLASS_CANCEL)
-        _alt_set(self.Button_delete, T.ANNOTATION_MODIFY_CLASS_DELETE)
+        _alt_set(self.Entry_classname, T.ANNOTATION_CLASS_NAME, 2)
+        _alt_set(self.Button_ok, T.ANNOTATION_MODIFY_CLASS_OK, 2)
+        _alt_set(self.Button_cancel, T.ANNOTATION_MODIFY_CLASS_CANCEL, 2)
+        _alt_set(self.Button_delete, T.ANNOTATION_MODIFY_CLASS_DELETE, 2)
 
         self.correction()
 
@@ -123,6 +123,7 @@ class new_classification (object):
 
     def bin_ok(self, *args):
         newclassname = self.Entry_classname.get().strip()
+        core.log.debug(f"分类名称 \"{newclassname}\" ")
 
         for chat in illegalchat:
             if chat in newclassname:

@@ -10,43 +10,121 @@ import pywintypes
 import ttkbootstrap
 
 import core
+from constant import *
+
+
+LOG_LEVEL = {
+    "ALL": ~ 0x7F,
+    "TRACE": ~ 0x40,
+    "DEBUG": ~ 0x20,
+    "INFO": 0x00,
+    "WARN": 0x20,
+    "SEVERE": 0x30,
+    "ERROR": 0x40,
+    "FATAL": 0x60,
+    "OFF": 0x7F
+}
+
+ANNOTATION_LEVEL = {
+    "全部": 3,
+    "较多": 2,
+    "较少": 1,
+    "关闭": 0
+}
+
 
 
 class D3dxManage(object):
     def install(self, master):
         self.master = master
+        self.style = ttkbootstrap.Style()
 
         BUTTON_WIDTH = 32
 
-        self.labelframe_replace = ttkbootstrap.LabelFrame(master, text="3DMigoto 版本")
-        self.labelframe_gamepath = ttkbootstrap.LabelFrame(master, text="游戏路径")
+        self.labelframe_global = ttkbootstrap.LabelFrame(self.master, text="全局设置")
+        self.labelframe_userenv = ttkbootstrap.LabelFrame(self.master, text="用户设置")
 
+        self.labelframe_global.pack(side="left", fill="both", padx=10, pady=10, expand=True)
+        self.labelframe_userenv.pack(side="left", fill="both", padx=(0, 10), pady=10, expand=True)
+
+
+        self.frame_theme = ttkbootstrap.Frame(self.labelframe_global)
+        self.label_theme = ttkbootstrap.Label(self.frame_theme, text="主题风格")
+        self.combobox_theme = ttkbootstrap.Combobox(self.frame_theme)
+
+        self.frame_theme.pack(side="top", fill="x", padx=10, pady=(10, 10))
+        self.label_theme.pack(side="left", padx=(0, 5))
+        self.combobox_theme.pack(side="right")
+
+        self.frame_log_level = ttkbootstrap.Frame(self.labelframe_global)
+        self.label_log_level = ttkbootstrap.Label(self.frame_log_level, text="日志等级")
+        self.combobox_log_level = ttkbootstrap.Combobox(self.frame_log_level, values=[x for x in LOG_LEVEL])
+
+        self.frame_log_level.pack(side="top", fill="x", padx=10, pady=(0, 10))
+        self.label_log_level.pack(side="left", padx=(0, 5))
+        self.combobox_log_level.pack(side="right")
+
+        self.frame_annotation_level = ttkbootstrap.Frame(self.labelframe_global)
+        self.label_annotation_level = ttkbootstrap.Label(self.frame_annotation_level, text="描述提示词数量")
+        self.combobox_annotation_level = ttkbootstrap.Combobox(self.frame_annotation_level, values=[x for x in ANNOTATION_LEVEL])
+
+        self.frame_annotation_level.pack(side="top", fill="x", padx=10, pady=(0, 10))
+        self.label_annotation_level.pack(side="left", padx=(0, 5))
+        self.combobox_annotation_level.pack(side="right")
+
+
+        self.labelframe_replace = ttkbootstrap.LabelFrame(self.labelframe_userenv, text="3DMigoto 版本")
+        self.labelframe_gamepath = ttkbootstrap.LabelFrame(self.labelframe_userenv, text="游戏路径")
 
         self.labelframe_replace.pack(side="top", fill="x", padx=10, pady=10)
         self.labelframe_gamepath.pack(side="top", fill="x", padx=10, pady=(0, 10))
  
-        self.combobox_versions = ttkbootstrap.Combobox(self.labelframe_replace, bootstyle="light")
+        self.combobox_versions = ttkbootstrap.Combobox(self.labelframe_replace)#, bootstyle="light")
         self.combobox_versions.pack(side="top", fill="x", expand=True, padx=10, pady=10)
 
-        self.button_d3dxstart = ttkbootstrap.Button(self.labelframe_replace, text="启动 3DMiGoto 加载器", bootstyle="light-outline", width=BUTTON_WIDTH, command=self.bin_launch_d3dx)
-        self.button_injection = ttkbootstrap.Button(self.labelframe_replace, text="一键启动", bootstyle="light-outline", width=BUTTON_WIDTH, command=self.bin_onekey_launch)
-        self.button_open_work = ttkbootstrap.Button(self.labelframe_replace, text="打开工作目录", bootstyle="light-outline", width=BUTTON_WIDTH, command=self.bin_open_work)
+        self.button_d3dxstart = ttkbootstrap.Button(self.labelframe_replace, text="启动 3DMiGoto 加载器", bootstyle="outline", width=BUTTON_WIDTH, command=self.bin_launch_d3dx)
+        self.button_injection = ttkbootstrap.Button(self.labelframe_replace, text="一键启动", bootstyle="outline", width=BUTTON_WIDTH, command=self.bin_onekey_launch)
+        self.button_open_work = ttkbootstrap.Button(self.labelframe_replace, text="打开工作目录", bootstyle="outline", width=BUTTON_WIDTH, command=self.bin_open_work)
         self.button_injection.pack(side="left", padx=(10, 10), pady=(0, 10))
         self.button_d3dxstart.pack(side="left", padx=(0, 10), pady=(0, 10))
         self.button_open_work.pack(side="left", padx=(0, 10), pady=(0, 10))
 
-        self.entry_gamepath = ttkbootstrap.Entry(self.labelframe_gamepath, bootstyle="light")
+        self.entry_gamepath = ttkbootstrap.Entry(self.labelframe_gamepath)#, bootstyle="light")
         self.entry_gamepath.pack(side="top", fill="x", expand=True, padx=10, pady=10)
 
-        self.button_filechoice = ttkbootstrap.Button(self.labelframe_gamepath, text="文件选择工具", bootstyle="light-outline", width=BUTTON_WIDTH, command=self.bin_choice_file)
-        self.button_gamestart = ttkbootstrap.Button(self.labelframe_gamepath, text="启动游戏", bootstyle="light-outline", width=BUTTON_WIDTH, command=self.bin_launch_game)
-        self.button_open_game = ttkbootstrap.Button(self.labelframe_gamepath, text="打开游戏目录", bootstyle="light-outline", width=BUTTON_WIDTH, command=self.bin_open_game)
+        self.button_filechoice = ttkbootstrap.Button(self.labelframe_gamepath, text="文件选择工具", bootstyle="outline", width=BUTTON_WIDTH, command=self.bin_choice_file)
+        self.button_gamestart = ttkbootstrap.Button(self.labelframe_gamepath, text="启动游戏", bootstyle="outline", width=BUTTON_WIDTH, command=self.bin_launch_game)
+        self.button_open_game = ttkbootstrap.Button(self.labelframe_gamepath, text="打开游戏目录", bootstyle="outline", width=BUTTON_WIDTH, command=self.bin_open_game)
         self.button_filechoice.pack(side="left", padx=(10, 10), pady=(0, 10))
         self.button_gamestart.pack(side="left", padx=(0, 10), pady=(0, 10))
         self.button_open_game.pack(side="left", padx=(0, 10), pady=(0, 10))
 
-        self.combobox_versions.bind("<FocusIn>", self.bin_selection_clear)
+        self.combobox_theme.bind("<FocusIn>", lambda *_: self.combobox_theme.selection_clear())
+        self.combobox_versions.bind("<FocusIn>", lambda *_: self.combobox_versions.selection_clear())
+        self.combobox_log_level.bind("<FocusIn>", lambda *_: self.combobox_log_level.selection_clear())
+        self.combobox_annotation_level.bind("<FocusIn>", lambda *_: self.combobox_annotation_level.selection_clear())
+
         self.combobox_versions.bind("<<ComboboxSelected>>", self.bin_choice_version)
+        self.combobox_theme.bind("<<ComboboxSelected>>", self.bin_set_style_theme)
+        self.combobox_log_level.bind("<<ComboboxSelected>>", self.bin_set_log_level)
+        self.combobox_annotation_level.bind("<<ComboboxSelected>>", self.bin_set_annotation_level)
+
+
+    def initial(self):
+        _alt_set = core.window.annotation_toplevel.register
+
+        _alt_set(self.combobox_theme, T.ANNOTATION_STYLE_THEME, 2)
+        _alt_set(self.combobox_log_level, T.ANNOTATION_LOG_LEVEL, 2)
+        _alt_set(self.combobox_annotation_level, T.ANNOTATION_ANNOTATION_LEVEL, 2)
+
+        _alt_set(self.combobox_versions, T.ANNOTATION_D3DX_VERSION, 2)
+        _alt_set(self.button_injection, T.ANNOTATION_D3DX_INJECTION, 2)
+        _alt_set(self.button_d3dxstart, T.ANNOTATION_D3DX_START, 2)
+        _alt_set(self.button_open_work, T.ANNOTATION_D3DX_OPEN_WORK_DIR, 2)
+        _alt_set(self.entry_gamepath, T.ANNOTATION_D3DX_SET_GAME_PATH, 2)
+        _alt_set(self.button_filechoice, T.ANNOTATION_D3DX_SET_GAME_PATH, 2)
+        _alt_set(self.button_gamestart, T.ANNOTATION_D3DX_START, 2)
+        _alt_set(self.button_open_game, T.ANNOTATION_D3DX_GAME_WORK_DIR, 2)
 
 
     def __init__(self, master):
@@ -56,6 +134,20 @@ class D3dxManage(object):
 
     def update(self):
         core.log.info("更新 d3dx 环境设置信息...")
+
+        self.combobox_theme.config(values=core.window.style_theme_names)
+        self.combobox_theme.insert(0, core.env.configuration.style_theme)
+
+        for key, value in LOG_LEVEL.items():
+            if core.env.configuration.log_level == value:
+                self.combobox_log_level.insert(0, key)
+                break
+
+        for key, value in ANNOTATION_LEVEL.items():
+            if core.env.configuration.annotation_level == value:
+                self.combobox_annotation_level.insert(0, key)
+                break
+
         _GamePath = core.userenv.configuration.GamePath
         if _GamePath is None: _GamePath = "< 未设置 >"
         self.sbin_update_game_path(_GamePath)
@@ -80,8 +172,39 @@ class D3dxManage(object):
         self.entry_gamepath.insert(0, text)
 
 
+    def bin_set_style_theme(self, *_):
+        self.combobox_theme.selection_clear()
+        value = self.combobox_theme.get()
+        if value not in core.window.style_theme_names:
+            return
+        
+        core.window.style.theme_use(value)
+        core.env.configuration.style_theme = value
+        core.window.style.configure("Treeview", rowheight=48)
+
+
+    def bin_set_log_level(self, *_):
+        self.combobox_log_level.selection_clear()
+        key = self.combobox_log_level.get()
+        value = LOG_LEVEL.get(key, None)
+        if value is None:
+            return
+        core.env.configuration.log_level = value
+
+
+    def bin_set_annotation_level(self, *_):
+        self.combobox_annotation_level.selection_clear()
+        key = self.combobox_annotation_level.get()
+        value = ANNOTATION_LEVEL.get(key, None)
+        if value is None:
+            return
+        core.env.configuration.annotation_level = value
+
+
     def bin_selection_clear(self, *args, **kwds):
         self.combobox_versions.selection_clear()
+        self.combobox_log_level.selection_clear()
+        self.combobox_annotation_level.selection_clear()
 
 
     def bin_choice_version(self, *args, **kwds):
