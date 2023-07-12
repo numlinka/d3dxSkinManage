@@ -11,8 +11,10 @@ class AnnotationToplevel (object):
     def __init__(self):
         self.toplevel = ttkbootstrap.Toplevel()
         self.toplevel.overrideredirect(True)
-        self.label = ttkbootstrap.Label(self.toplevel, text="这是一个测试描述\n当然他是可以修改的")
-        self.label.pack()
+        self.frame = ttkbootstrap.Frame(self.toplevel, borderwidth=2, relief="solid")
+        self.frame.pack()
+        self.label = ttkbootstrap.Label(self.frame, text="这是一个测试描述\n当然他是可以修改的", )
+        self.label.pack(padx=4, pady=4)
         self.withdraw()
         self._sw = self.toplevel.winfo_screenwidth()
         self._sh = self.toplevel.winfo_screenheight()
@@ -47,7 +49,10 @@ class AnnotationToplevel (object):
         self.toplevel.deiconify()
 
 
-    def deiconify_content(self, content):
+    def deiconify_content(self, content: str, level: int = 3):
+        if level > core.env.configuration.annotation_level:
+            return
+
         self.update_content(content)
         self.deiconify()
 
@@ -56,7 +61,7 @@ class AnnotationToplevel (object):
         self.label.config(text=f"{content}")
 
 
-    def register(self, control, content: str):
+    def register(self, control, content: str, level: int = 3):
         control.bind("<Motion>", lambda *_: self.update_position())
-        control.bind("<Enter>", lambda *_: self.deiconify_content(content))
+        control.bind("<Enter>", lambda *_: self.deiconify_content(content, level))
         control.bind("<Leave>", lambda *_: self.withdraw())

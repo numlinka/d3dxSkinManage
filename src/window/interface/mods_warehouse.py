@@ -50,6 +50,14 @@ class ModsWarehouse(object):
             self.Treeview_items.heading(tree, text=text)
 
 
+    def initial(self):
+        _alt_set = core.window.annotation_toplevel.register
+
+        _alt_set(self.Entry_search, T.ANNOTATION_WAREHOUSE_SEARCH, 1)
+        _alt_set(self.Button_download, T.ANNOTATION_WAREHOUSE_DOWNLOAD, 2)
+        _alt_set(self.Button_open_url, T.ANNOTATION_WAREHOUSE_OPEN_URL, 2)
+
+
     def __init__(self, master):
         self.master = master
         self.install(master)
@@ -72,8 +80,8 @@ class ModsWarehouse(object):
             to_data[SHA] = item
 
         # 剔除已经不存在的分类
-        intersection = set(exist_list) - set(to_list)
-        self.Treeview_items.delete(*intersection)
+        nonexistent = set(exist_list) - set(to_list)
+        self.Treeview_items.delete(*nonexistent)
 
         for index, SHA in enumerate(to_list):
             try:
@@ -83,7 +91,7 @@ class ModsWarehouse(object):
                 grading = item.get(K.INDEX.GRADING, "X")
                 author = item.get(K.INDEX.AUTHOR, "-")
                 author = "-" if not author else author
-                tags = ", ".join(item.get(K.INDEX.TAGS, []))
+                tags = " ".join(item.get(K.INDEX.TAGS, []))
                 local_ = core.module.mods_manage.is_local_sha(SHA)
 
                 islocal = " [已下载]" if local_ else ""
@@ -117,9 +125,7 @@ class ModsWarehouse(object):
 
 
     def bin_items_TreeviewSelect(self, *args):
-        tags = self.Treeview_items.item(self.Treeview_items.focus())["tags"]
-        if not tags: SHA = None
-        else: SHA = tags[0]
+        SHA = self.Treeview_items.focus()
         self.sbin_update_preview(SHA)
 
 

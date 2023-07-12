@@ -39,12 +39,14 @@ login = Login(frame_login)
 block = Block(frame_block)
 interface = Interface(frame_notebook)
 
+style = ttkbootstrap.Style()
+style_theme_names = style.theme_names()
+
 
 def initial():
     core.log.info("初始化主窗口...", L.WINDOW)
-    ttkbootstrap.Style(theme="darkly")
 
-    style = ttkbootstrap.Style()
+    style.theme_use(core.env.configuration.style_theme)
     style.configure("Treeview", rowheight=48)
 
     mainwindow.title(core.env.MAIN_TITLE)
@@ -67,27 +69,12 @@ def initial():
     frame_status.pack(side="bottom", fill="x")
 
     _alt_set = annotation_toplevel.register
-    _alt_set(login.label_description, T.ANNOTATION_USER_DESCRIPTION)
-    _alt_set(login.button_login, T.ANNOTATION_LOGIN)
-    _alt_set(status.label_help, T.ANNOTATION_HELP)
+    _alt_set(login.label_description, T.ANNOTATION_USER_DESCRIPTION, 2)
+    _alt_set(login.button_login, T.ANNOTATION_LOGIN, 1)
+    _alt_set(status.label_help, T.ANNOTATION_HELP, 1)
+    interface.initial()
 
-    _alt_set(interface.mods_manage.treeview_classification, T.ANNOTATION_MANAGE_CLASSIFICATION)
-    _alt_set(interface.mods_manage.treeview_objects, T.ANNOTATION_MANAGE_OBJECTS)
-    _alt_set(interface.mods_manage.treeview_choices, T.ANNOTATION_MANAGE_CHOICES)
-    _alt_set(interface.mods_manage.entry_search, T.ANNOTATION_MANAGE_SEARCH)
 
-    _alt_set(interface.d3dx_manage.combobox_versions, T.ANNOTATION_D3DX_VERSION)
-    _alt_set(interface.d3dx_manage.button_injection, T.ANNOTATION_D3DX_INJECTION)
-    _alt_set(interface.d3dx_manage.button_d3dxstart, T.ANNOTATION_D3DX_START)
-    _alt_set(interface.d3dx_manage.button_open_work, T.ANNOTATION_D3DX_OPEN_WORK_DIR)
-    _alt_set(interface.d3dx_manage.entry_gamepath, T.ANNOTATION_D3DX_SET_GAME_PATH)
-    _alt_set(interface.d3dx_manage.button_filechoice, T.ANNOTATION_D3DX_SET_GAME_PATH)
-    _alt_set(interface.d3dx_manage.button_gamestart, T.ANNOTATION_D3DX_START)
-    _alt_set(interface.d3dx_manage.button_open_game, T.ANNOTATION_D3DX_GAME_WORK_DIR)
-
-    _alt_set(interface.mods_warehouse.Entry_search, T.ANNOTATION_WAREHOUSE_SEARCH)
-    _alt_set(interface.mods_warehouse.Button_download, T.ANNOTATION_WAREHOUSE_DOWNLOAD)
-    _alt_set(interface.mods_warehouse.Button_open_url, T.ANNOTATION_WAREHOUSE_OPEN_URL)
 
 
 def ready_login():

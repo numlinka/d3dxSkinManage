@@ -13,9 +13,9 @@ from .structure import *
 PROJECT = "d3dxSkinManage"
 AUTHOR = "numlinka"
 
-VERSION_CODE = 1_05_04_000
+VERSION_CODE = 1_05_05_000
 VERSION_TYPE = ""
-VERSION_NAME = "1.5.4"
+VERSION_NAME = "1.5.5"
 
 MAIN_TITLE = f"{PROJECT} v{VERSION_NAME} -by {AUTHOR}"
 
@@ -63,10 +63,17 @@ class file (static):
         configuration = __(base.local, "configuration")
 
 
-configuration = libs.econfiguration.Configuration
+class configuration(libs.econfiguration.Configuration):
+    log_level: int | str # 日志等级
+    annotation_level: int # 描述提示词等级
+    style_theme: str # 主题风格
 
-try: configuration = libs.econfiguration.Configuration(file.local.configuration)
-except Exception: configuration = libs.econfiguration.Configuration()
+
+try:
+    configuration = libs.econfiguration.Configuration(file.local.configuration)
+
+except Exception:
+    configuration = libs.econfiguration.Configuration()
 
 
 class Link (object):
