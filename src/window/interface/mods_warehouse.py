@@ -126,6 +126,7 @@ class ModsWarehouse(object):
 
     def bin_items_TreeviewSelect(self, *args):
         SHA = self.Treeview_items.focus()
+        SHA = SHA if SHA else None
         self.sbin_update_preview(SHA)
 
 
