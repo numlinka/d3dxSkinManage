@@ -362,15 +362,18 @@ class ModsManage(object):
 
 
     def sbin_get_select_classification(self):
-        return self.treeview_classification.focus()
+        answer = self.treeview_classification.focus()
+        return answer if answer else None
 
 
     def sbin_get_select_objects(self):
-        return self.treeview_objects.focus()
+        answer = self.treeview_objects.focus()
+        return answer if answer else None
 
 
     def sbin_get_select_choices(self):
-        return self.treeview_choices.focus()
+        answer = self.treeview_choices.focus()
+        return answer if answer else None
 
 
     def on_mouse_move(self, event):

@@ -151,7 +151,7 @@ class ModsIndex (object):
                 # 从 SHA 来源表中剔除重复的值
                 for filename in self.__table_from:
                     now_lst = self.__table_from[filename]
-                    self.__table_from[file] = list(set(now_lst) - intersection)
+                    self.__table_from[filename] = list(set(now_lst) - intersection)
 
             # 跳过重复的 SHA
             elif action == K.ACTION_VALUE.SKIP:
