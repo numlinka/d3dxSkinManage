@@ -3,6 +3,7 @@
 # std
 import os
 import shutil
+import fnmatch
 import threading
 
 import core
@@ -114,18 +115,29 @@ class ModsManage (object):
     def update_local_classification(self):
         core.log.debug("构建本地分类...", L.MODULE_MODS_MANAGE)
         with self.__call_lock:
-            _object_lst = set(self.__local_object_lst)
+            # _object_lst = set(self.__local_object_lst)
+            _object_lst = self.__local_object_lst
+            _object_lst_surplus = set(self.__local_object_lst)
 
             for class_, object_list in self.__reference_classification.items():
-                intersection = _object_lst & set(object_list)
-                if len(intersection) == 0: continue
+                # intersection = _object_lst & set(object_list)
+                # if len(intersection) == 0: continue
 
-                self.__classification[class_] = list(intersection)
-                _object_lst -= intersection
+                intersection = []
+
+                for reference_object_name in object_list:
+                    for object_name in self.__local_object_lst:
+                        if fnmatch.fnmatch(object_name, reference_object_name):
+                            intersection.append(object_name)
+
+
+                self.__classification[class_] = intersection
+                # _object_lst -= intersection
+                _object_lst_surplus -= set(intersection)
 
             if len(_object_lst) != 0:
                 if "未分类" not in self.__classification: self.__classification["未分类"] = []
-                self.__classification["未分类"] += list(_object_lst)
+                self.__classification["未分类"] += list(_object_lst_surplus)
 
         # 对 Mod 列表排序 (依据 Mod 名称)
         for _, lst in self.__local_object_sha_lst.items(): lst.sort(key=_list_sort_for_item_name)

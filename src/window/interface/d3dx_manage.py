@@ -75,9 +75,11 @@ class D3dxManage(object):
 
         self.labelframe_replace = ttkbootstrap.LabelFrame(self.labelframe_userenv, text="3DMigoto 版本")
         self.labelframe_gamepath = ttkbootstrap.LabelFrame(self.labelframe_userenv, text="游戏路径")
+        self.labelframe_custom = ttkbootstrap.LabelFrame(self.labelframe_userenv, text="自定义启动项")
 
         self.labelframe_replace.pack(side="top", fill="x", padx=10, pady=10)
         self.labelframe_gamepath.pack(side="top", fill="x", padx=10, pady=(0, 10))
+        self.labelframe_custom.pack(side="top", fill="x", padx=10, pady=(0, 10))
  
         self.combobox_versions = ttkbootstrap.Combobox(self.labelframe_replace)#, bootstyle="light")
         self.combobox_versions.pack(side="top", fill="x", expand=True, padx=10, pady=10)
@@ -90,7 +92,9 @@ class D3dxManage(object):
         self.button_open_work.pack(side="left", padx=(0, 10), pady=(0, 10))
 
         self.entry_gamepath = ttkbootstrap.Entry(self.labelframe_gamepath)#, bootstyle="light")
+        self.entry_game_argument = ttkbootstrap.Entry(self.labelframe_gamepath)#, bootstyle="light")
         self.entry_gamepath.pack(side="top", fill="x", expand=True, padx=10, pady=10)
+        self.entry_game_argument.pack(side="top", fill="x", expand=True, padx=10, pady=(0, 10))
 
         self.button_filechoice = ttkbootstrap.Button(self.labelframe_gamepath, text="文件选择工具", bootstyle="outline", width=BUTTON_WIDTH, command=self.bin_choice_file)
         self.button_gamestart = ttkbootstrap.Button(self.labelframe_gamepath, text="启动游戏", bootstyle="outline", width=BUTTON_WIDTH, command=self.bin_launch_game)
@@ -98,6 +102,19 @@ class D3dxManage(object):
         self.button_filechoice.pack(side="left", padx=(10, 10), pady=(0, 10))
         self.button_gamestart.pack(side="left", padx=(0, 10), pady=(0, 10))
         self.button_open_game.pack(side="left", padx=(0, 10), pady=(0, 10))
+
+        self.entry_custom = ttkbootstrap.Entry(self.labelframe_custom)#, bootstyle="light")
+        self.entry_custom_argument = ttkbootstrap.Entry(self.labelframe_custom)#, bootstyle="light")
+        self.entry_custom.pack(side="top", fill="x", expand=True, padx=10, pady=10)
+        self.entry_custom_argument.pack(side="top", fill="x", expand=True, padx=10, pady=(0, 10))
+
+        self.button_custom_filechoice = ttkbootstrap.Button(self.labelframe_custom, text="文件选择工具", bootstyle="outline", width=BUTTON_WIDTH, command=self.bin_custom_choice_file)
+        self.button_custom_start = ttkbootstrap.Button(self.labelframe_custom, text="启动程序", bootstyle="outline", width=BUTTON_WIDTH, command=self.bin_custom_launch)
+        self.button_custom_openpath = ttkbootstrap.Button(self.labelframe_custom, text="打开所在目录", bootstyle="outline", width=BUTTON_WIDTH, command=self.bin_custom_open_path)
+
+        self.button_custom_filechoice.pack(side="left", padx=(10, 10), pady=(0, 10))
+        self.button_custom_start.pack(side="left", padx=(0, 10), pady=(0, 10))
+        self.button_custom_openpath.pack(side="left", padx=(0, 10), pady=(0, 10))
 
         self.combobox_theme.bind("<FocusIn>", lambda *_: self.combobox_theme.selection_clear())
         self.combobox_versions.bind("<FocusIn>", lambda *_: self.combobox_versions.selection_clear())
@@ -121,10 +138,18 @@ class D3dxManage(object):
         _alt_set(self.button_injection, T.ANNOTATION_D3DX_INJECTION, 2)
         _alt_set(self.button_d3dxstart, T.ANNOTATION_D3DX_START, 2)
         _alt_set(self.button_open_work, T.ANNOTATION_D3DX_OPEN_WORK_DIR, 2)
+
         _alt_set(self.entry_gamepath, T.ANNOTATION_D3DX_SET_GAME_PATH, 2)
+        _alt_set(self.entry_game_argument, T.ANNOTATION_D3DX_GAME_ARGUMENT, 2)
         _alt_set(self.button_filechoice, T.ANNOTATION_D3DX_SET_GAME_PATH, 2)
         _alt_set(self.button_gamestart, T.ANNOTATION_D3DX_START, 2)
         _alt_set(self.button_open_game, T.ANNOTATION_D3DX_GAME_WORK_DIR, 2)
+
+        _alt_set(self.entry_custom, T.ANNOTATION_D3DX_CUSTOM_PATH, 2)
+        _alt_set(self.entry_custom_argument, T.ANNOTATION_D3DX_CUSTOM_ARGUMENT, 2)
+        _alt_set(self.button_custom_filechoice, T.ANNOTATION_D3DX_CUSTOM_PATH, 2)
+        _alt_set(self.button_custom_start, T.ANNOTATION_D3DX_CUSTOM_LAUNCH, 2)
+        _alt_set(self.button_custom_openpath, T.ANNOTATION_D3DX_CUSTOM_DIR, 2)
 
 
     def __init__(self, master):
@@ -165,6 +190,22 @@ class D3dxManage(object):
 
         except Exception:
             ...
+
+        custom_file = core.userenv.configuration.custom_launch
+        if custom_file is None: custom_file = "< 未设置 >"
+        self.entry_custom.insert(0, custom_file)
+
+        game_launch_argument = core.userenv.configuration.game_launch_argument
+
+        if isinstance(game_launch_argument, str):
+            self.entry_game_argument.insert(0, game_launch_argument)
+
+        custom_launch_argument = core.userenv.configuration.custom_launch_argument
+
+        if isinstance(custom_launch_argument, str):
+            self.entry_custom_argument.insert(0, custom_launch_argument)
+
+
 
 
     def sbin_update_game_path(self, text):
@@ -305,11 +346,15 @@ class D3dxManage(object):
 
     def bin_launch_game(self, *args, **kwds):
         path = core.userenv.configuration.GamePath
+
+        argument = self.entry_game_argument.get().strip()
+        core.userenv.configuration.game_launch_argument = argument
+
         if path is None:
             core.window.messagebox.showerror(title="数据未设置", message="无法启动游戏\n未设置游戏路径")
             return
         try:
-            win32api.ShellExecute(None, "open", path, None, os.path.realpath(os.path.dirname(path)), 1)
+            win32api.ShellExecute(None, "open", path, argument, os.path.realpath(os.path.dirname(path)), 1)
         except pywintypes.error as e:
             core.window.messagebox.showerror(title="异常捕获", message=f"{e.args[1]}: {e.args[0]}\n{e.args[2]}")
         except Exception:
@@ -350,3 +395,47 @@ class D3dxManage(object):
                 iF.write(iS)
         except Exception:
             core.window.messagebox.showerror(title="意料之外的错误", message="在修改 d3dx.ini 时出现了意料之外的错误")
+
+
+    def bin_custom_choice_file(self, *_):
+        choice_PATH = tkinter.filedialog.askopenfilename(title="选择应用程序", filetypes=[("应用程序", "*.exe"), ("All Files", "*")])
+        choice_PATH = choice_PATH.replace("/", "\\")
+        if not choice_PATH: return None
+        choice_NAME = os.path.basename(choice_PATH)
+
+        if choice_NAME[choice_NAME.rfind("."):] != ".exe":
+            core.window.messagebox.showerror(title="错误的映像名", message="你选择了一个非 .exe 后缀名的文件\n请确认选择的是应用程序文件\n操作已被阻止")
+            return
+
+        core.userenv.configuration.custom_launch = choice_PATH
+        self.entry_custom.delete(0, "end")
+        self.entry_custom.insert(0, choice_PATH)
+
+
+    def bin_custom_launch(self, *_):
+        path = core.userenv.configuration.custom_launch
+        if path is None:
+            core.window.messagebox.showerror(title="数据未设置", message="无法启动程序\n未设置程序路径")
+            return
+
+        argument = self.entry_custom_argument.get().strip()
+        core.userenv.configuration.custom_launch_argument = argument
+
+        try:
+            win32api.ShellExecute(None, "open", path, argument, os.path.realpath(os.path.dirname(path)), 1)
+        except pywintypes.error as e:
+            core.window.messagebox.showerror(title="异常捕获", message=f"{e.args[1]}: {e.args[0]}\n{e.args[2]}")
+        except Exception:
+            core.window.messagebox.showerror(title="程序故障", message="无法找到正确的方式启动该程序")
+            return
+
+
+    def bin_custom_open_path(self, *_):
+        path = core.userenv.configuration.custom_launch
+        if path is None:
+            core.window.messagebox.showerror(title="数据未设置", message="无法打开程序目录\n未设置程序路径")
+            return
+
+        path = os.path.dirname(path)
+
+        win32api.ShellExecute(None, "open", path, None, path, 1)

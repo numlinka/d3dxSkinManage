@@ -18,13 +18,13 @@ Windows 10+
 ### 依赖库
 
 ```
-numpy
+<!-- numpy -->
 pillow
 requests
 pywin32
 ttkbootstrap
 windnd
-webbrowser
+pygetwindow
 ```
 
 ### 运行
