@@ -1,13 +1,12 @@
 # -*- coding: utf-8 -*-
 
 # std
-import re
 import os
 import copy
 import json
 import threading
 
-import numpy
+# import numpy
 
 import core
 
@@ -93,13 +92,13 @@ class ModsIndex (object):
         return data_content
 
 
-    def __analyze_npy(self, file: str) -> dict[str: dict]:
-        if not os.path.isfile(file): raise FileNotFoundError()
+    # def __analyze_npy(self, file: str) -> dict[str: dict]:
+    #     if not os.path.isfile(file): raise FileNotFoundError()
 
-        numpy_object = numpy.load(file, allow_pickle=True)
-        data_content = numpy_object.item()
+    #     numpy_object = numpy.load(file, allow_pickle=True)
+    #     data_content = numpy_object.item()
 
-        return data_content
+    #     return data_content
 
 
     def load(self, file: str, mode: str, action: str = K.ACTION_VALUE.RAISE) -> None | list:
@@ -249,6 +248,15 @@ class ModsIndex (object):
         with self.__call_lock:
             if file_from not in self.__original_index: return None
             newfilecontent = json.dumps(self.__original_index[file_from], ensure_ascii=False, sort_keys=False, indent=4)
+
+            try:
+                verify_data = json.loads(newfilecontent)
+                verify_data["mods"]
+
+            except Exception as e:
+                core.log.error("保存 index 文件时验证异常", L.MODULE_MODS_INDEX)
+                return
+
             with open(file_from, "w", encoding=K.CODE.U8) as fileobject: fileobject.write(newfilecontent)
 
 

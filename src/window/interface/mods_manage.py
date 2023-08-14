@@ -1,5 +1,11 @@
 # -*- coding: utf-8 -*-
 
+import os
+import tkinter.filedialog
+import tkinter.font
+
+
+import win32api
 import ttkbootstrap
 
 import core
@@ -64,6 +70,7 @@ class ModsManage(object):
         self.treeview_choices.bind("<<TreeviewSelect>>", lambda *_: core.construct.event.set_event(E.WINDOW_MODS_MANAGE_TS_CHOICE))
 
         self.treeview_choices.bind("<Double-1>", self.bin_load_mod)
+        self.treeview_choices.bind("<Button-3>", self.bin_show_choices_menu)
         # self.entry_search.bind("<Return>", self.update_choices_list)
         self.value_entry_search.trace("w", self.update_choices_list)
 
@@ -77,6 +84,8 @@ class ModsManage(object):
 
         # self.label_explain.bind("<Double-Button-3>",  lambda *_: self.refresh_classification())
         # self.label_explain.bind("<Button-1>",  lambda *_: core.module.mods_manage.refresh())
+
+        self.value_choice_item = ""
 
 
     def initial(self):
@@ -351,6 +360,51 @@ class ModsManage(object):
         else:
             self.treeview_objects.item(self.treeview_objects.focus(), value=(name, ))
             core.module.mods_manage.load(SHA)
+
+
+    def bin_show_choices_menu(self, event):
+        self.value_choice_item = self.treeview_choices.identify("item", event.x, event.y)
+
+        try:
+            default_font = tkinter.font.nametofont("TkDefaultFont")
+            menu = ttkbootstrap.Menu(self.treeview_choices, tearoff=False, font=(default_font.actual("family"), default_font.actual("size")))
+
+        except Exception as e:
+            menu = ttkbootstrap.Menu(self.treeview_choices, tearoff=False)
+
+        if self.value_choice_item != "":
+            menu.add_command(label="编辑 Mod 信息", command=self.bin_choices_menu_modify_item_data)
+            menu.add_command(label="查看原始文件", command=self.bin_choices_menu_view_original_file)
+            menu.add_separator()
+
+        menu.add_command(label="添加文件夹的形式的 Mod", command=self.bin_choices_menu_add_mod_from_dir)
+        menu.add_command(label="添加压缩包的形式的 Mod", command=self.bin_choices_menu_add_mod_from_file)
+
+        menu.post(event.x_root+10 , event.y_root+10)
+
+
+    def bin_choices_menu_modify_item_data(self, *_):
+        core.additional.modify_item_data.ModifyItemData(self.value_choice_item)
+
+
+    def bin_choices_menu_view_original_file(self, *_):
+        path = os.path.abspath(os.path.join(core.env.directory.resources.mods, self.value_choice_item))
+        win32api.ShellExecute(None, "open", "explorer", f"/select,{path}", path, 1)
+
+
+    def bin_choices_menu_view_cache_file(self, *_):
+        path = os.path.abspath(os.path.join(core.userenv.directory.work_mods, ))
+
+
+    def bin_choices_menu_add_mod_from_file(self, *_):
+        path = tkinter.filedialog.askopenfilename(title="选择 Mod 压缩包", filetypes=[("压缩文件", ["*.zip", "*.rar", "*.7z"])])
+        if path: core.additional.add_mod.AddMods(path)
+
+
+    def bin_choices_menu_add_mod_from_dir(self, *_):
+        path = tkinter.filedialog.askdirectory(title="选择 Mod 文件夹")
+        if path:
+            core.construct.taskpool.addtask(core.additional.add_mod.add_mod_is_dir, (path,), answer=False)
 
 
     def bin_refresh(self, *args):

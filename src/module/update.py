@@ -118,7 +118,7 @@ def get_update(index_content: dict):
         with open(filepath, "wb") as fileobject: fileobject.write(content)
         target = "update.exe"
         os.system(f"start \"update\" {target}")
-        stop_control("等待程序重启")
+        core.window.status.set_status("等待程序重启", 1)
         os._exit(0)
 
     except Exception as e:

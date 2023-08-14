@@ -11,6 +11,7 @@ from . import hook_dropfiles
 from . import modify_classification
 from . import screen_preview
 from . import modify_item_data
+from . import add_mod
 
 
 def initial():

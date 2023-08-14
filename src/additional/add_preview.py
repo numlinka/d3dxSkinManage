@@ -63,7 +63,7 @@ class AddPreview (object):
 
         self.windows.geometry(f'+{x}+{y}')
         self.windows.resizable(False, False)
-
+        # self.bin_to_surface()
 
     def bin_to_surface(self, *args):
         if not os.path.isdir(core.env.directory.resources.preview): os.mkdir(core.env.directory.resources.preview)

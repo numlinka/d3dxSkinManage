@@ -83,7 +83,7 @@ class AddMods(object):
 
         self.Frame_grading = ttkbootstrap.Frame(self.windows)
         self.Combobox_grading = ttkbootstrap.Combobox(self.Frame_grading,
-                                                      values=['G - 大众级', 'P - 指导级', 'R - 成人级'])
+                                                      values=['G - 大众级', 'P - 指导级', 'R - 成人级', 'X - 限制级'])
         self.Label_grading = ttkbootstrap.Label(self.Frame_grading, text='年龄分级：')
 
         self.Frame_author = ttkbootstrap.Frame(self.windows)
@@ -234,8 +234,8 @@ class AddMods(object):
             self.Label_except['text'] = '未填写 年龄分级'
             return
 
-        if z_grading not in ['G', 'P', 'R']:
-            self.Label_except['text'] = '年龄分级 只能是 G P R 其中之一'
+        if z_grading not in ['G', 'P', 'R', 'X']:
+            self.Label_except['text'] = '年龄分级 只能是 G P R X 其中之一'
             return
 
         filepath = os.path.join(core.userenv.directory.mods_index, 'self-index.json')

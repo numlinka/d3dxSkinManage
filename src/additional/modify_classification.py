@@ -104,7 +104,8 @@ class new_classification (object):
             self.Entry_classname.insert(0, self.classname)
             self.Text_content.insert(0.0, self.__get_classification_file_content())
 
-        time.sleep(0.01)
+        # time.sleep(0.01)
+        self.windows.update()
 
         width = self.windows.winfo_width()
         height = self.windows.winfo_height()
