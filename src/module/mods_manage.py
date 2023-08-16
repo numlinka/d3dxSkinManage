@@ -228,6 +228,18 @@ class ModsManage (object):
         return False
 
 
+    def is_load_sha(self, sha: str):
+        with self.__call_lock:
+            for key, value in self.__table_loads.items():
+                if sha == value: return True
+            else: return False
+
+
+    def is_have_cache_load(self, sha: str):
+        path = os.path.join(core.userenv.directory.work_mods, f"{K.DISABLED}-{sha}")
+        return os.path.isdir(path)
+
+
     def is_local_sha(self, SHA: str):
         if SHA in self.__local_sha_lst: return True
         return False

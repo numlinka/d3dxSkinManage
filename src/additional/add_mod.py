@@ -27,40 +27,33 @@ class AddModInputCache(object):
 
 
 class AddMods(object):
-    def __init__(self, filepath: str, filename: str = None):
-        self.filepath = filepath
-        self.basename = os.path.basename(filepath)
-        self.suffix = self.basename[self.basename.rfind('.') + 1:]
-        self.prefix = self.basename[:self.basename.rfind('.')] if not isinstance(filename, str) else filename
+    def __init__(self, path: str, filename: str = None):
+        self.original_path = path
+        self.markers_exit = False
 
-        with open(self.filepath, 'rb') as fileobject:
-            self.content = fileobject.read()
-            sha1 = hashlib.sha1()
-            sha1.update(self.content)
-            self.SHA = sha1.hexdigest().upper()
+        if os.path.isfile(path):
+            self.filepath = path
+            self.basename = os.path.basename(path)
+            self.suffix = self.basename[self.basename.rfind('.') + 1:]
+            self.prefix = self.basename[:self.basename.rfind('.')] if not isinstance(filename, str) else filename
 
+        elif os.path.isdir(path):
+            self.basename = os.path.basename(path)
+            self.suffix = "7z"
+            self.prefix = self.basename
 
-        # 如果 index 里面已经存储过该 SHA 的数据则直接保存 Mod 文件
-        if core.module.mods_index.get_item(self.SHA) is not None:
-            try:
-                with open(os.path.join(core.env.directory.resources.mods, self.SHA), 'wb') as fileobject:
-                    fileobject.write(self.content)
-
-            except Exception:
-                core.window.messagebox.showerror(title='未知错误', message='Mod 文件保存错误\n未知错误')
-                return
-
-            core.construct.event.set_event(E.MODS_INDEX_UPDATE)
-
-            core.additional.modify_item_data.ModifyItemData(self.SHA)
+        else:
+            core.window.messagebox.showerror("文件类型错误", "文件不存在或不符合规则")
             return
 
+        self.SHA = None
 
         self.object_ = core.window.interface.mods_manage.sbin_get_select_objects()
         self.object_ = self.object_ if self.object_ else ''
 
         self.windows = ttkbootstrap.Toplevel('添加 Mod')
         self.windows.transient(core.window.mainwindow)
+        self.windows.protocol("WM_DELETE_WINDOW", self.close)
         # self.windows.grab_set()
 
         try:
@@ -71,7 +64,7 @@ class AddMods(object):
 
         width = 60
 
-        self.Label_SHA = ttkbootstrap.Label(self.windows, text=f'SHA: {self.SHA}')
+        self.Label_SHA = ttkbootstrap.Label(self.windows, text=f'SHA: 计算中...')
 
         self.Frame_object = ttkbootstrap.Frame(self.windows)
         self.Combobox_object = ttkbootstrap.Combobox(self.Frame_object, width=width)
@@ -202,6 +195,47 @@ class AddMods(object):
         self.Entry_explain.insert(0, AddModInputCache.explain)
         self.Entry_tags.insert(0, AddModInputCache.tags)
 
+        core.construct.taskpool.addtask(self.calculate_sha, answer=False)
+
+
+    def calculate_sha(self):
+        if os.path.isdir(self.original_path):
+            tempfilename = hex(int(time.time() * 10 ** 8)) + '.7z'
+            tempfilepath = os.path.join(core.env.directory.resources.cache, tempfilename)
+            core.external.a7z(os.path.join(self.original_path, '*'), tempfilepath)
+            self.filepath = tempfilepath
+            # os.remove(tempfilepath)
+
+            if self.markers_exit is True:
+                os.remove(tempfilepath)
+                core.log.warn("添加 Mod 操作提前退出")
+
+        with open(self.filepath, 'rb') as fileobject:
+            self.content = fileobject.read()
+            sha1 = hashlib.sha1()
+            sha1.update(self.content)
+            self.SHA = sha1.hexdigest().upper()
+
+        self.Label_SHA.config(text=f"SHA: {self.SHA}")
+
+
+        # 如果 index 里面已经存储过该 SHA 的数据则直接保存 Mod 文件
+        if core.module.mods_index.get_item(self.SHA) is not None:
+            try:
+                with open(os.path.join(core.env.directory.resources.mods, self.SHA), 'wb') as fileobject:
+                    fileobject.write(self.content)
+
+            except Exception:
+                core.window.messagebox.showerror(title='未知错误', message='Mod 文件保存错误\n未知错误')
+                self.close()
+                return
+
+            core.construct.event.set_event(E.MODS_INDEX_UPDATE)
+
+            core.additional.modify_item_data.ModifyItemData(self.SHA)
+            self.close()
+            return
+
 
     def bin_open_help(self, *args, **kwds):
         webbrowser.open('http://d3dxskinmanage.numlinka.com/#/enhance/001')
@@ -221,6 +255,10 @@ class AddMods(object):
         z_author = s_author.strip()
         z_explain = s_explain.strip()
         z_tags = [x for x in s_tags.split(' ') if x]
+
+        if self.SHA is None:
+            self.Label_except['text'] = '请等待 SHA 计算完成'
+            return
 
         if not z_object:
             self.Label_except['text'] = '未填写 作用对象'
@@ -259,7 +297,7 @@ class AddMods(object):
             return
 
         core.module.mods_index.item_data_new(filepath, self.SHA, datacontent)
-        self.windows.destroy()
+        self.close()
 
         # 保存输入记忆
         AddModInputCache.object_ = z_object
@@ -269,12 +307,24 @@ class AddMods(object):
         AddModInputCache.author = z_author
         core.window.annotation_toplevel.withdraw()
 
+        self.markers_exit = True
+
+        if os.path.isdir(self.original_path) and os.path.isfile(self.filepath):
+            os.remove(self.filepath)
+
+
+    def close(self, *_):
+        self.markers_exit = True
+        self.windows.destroy()
 
 
 def add_mod_is_dir(dirpath: str):
-    basename = os.path.basename(dirpath)
-    tempfilename = hex(int(time.time() * 10 ** 8)) + '.7z'
-    tempfilepath = os.path.join(core.env.directory.resources.cache, tempfilename)
-    core.external.a7z(os.path.join(dirpath, '*'), tempfilepath)
-    AddMods(tempfilepath, basename)
-    os.remove(tempfilepath)
+    # basename = os.path.basename(dirpath)
+    # tempfilename = hex(int(time.time() * 10 ** 8)) + '.7z'
+    # tempfilepath = os.path.join(core.env.directory.resources.cache, tempfilename)
+    # core.external.a7z(os.path.join(dirpath, '*'), tempfilepath)
+    # AddMods(tempfilepath, basename)
+    # os.remove(tempfilepath)
+
+    AddMods(dirpath)
+
