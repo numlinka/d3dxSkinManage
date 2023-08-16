@@ -372,9 +372,18 @@ class ModsManage(object):
         except Exception as e:
             menu = ttkbootstrap.Menu(self.treeview_choices, tearoff=False)
 
-        if self.value_choice_item != "":
+        sha = self.value_choice_item
+
+        if sha != "":
             menu.add_command(label="编辑 Mod 信息", command=self.bin_choices_menu_modify_item_data)
             menu.add_command(label="查看原始文件", command=self.bin_choices_menu_view_original_file)
+
+            if core.module.mods_manage.is_load_sha(sha):
+                menu.add_command(label="查看工作文件", command=self.bin_choices_menu_view_work_file)
+
+            if core.module.mods_manage.is_have_cache_load(sha):
+                menu.add_command(label="查看缓存文件", command=self.bin_choices_menu_view_cache_file)
+
             menu.add_separator()
 
         menu.add_command(label="添加文件夹的形式的 Mod", command=self.bin_choices_menu_add_mod_from_dir)
@@ -392,8 +401,14 @@ class ModsManage(object):
         win32api.ShellExecute(None, "open", "explorer", f"/select,{path}", path, 1)
 
 
+    def bin_choices_menu_view_work_file(self, *_):
+        path = os.path.abspath(os.path.join(core.userenv.directory.work_mods, self.value_choice_item))
+        win32api.ShellExecute(None, "open", "explorer", f"{path}", path, 1)
+
+
     def bin_choices_menu_view_cache_file(self, *_):
-        path = os.path.abspath(os.path.join(core.userenv.directory.work_mods, ))
+        path = os.path.abspath(os.path.join(core.userenv.directory.work_mods, f"{K.DISABLED}-{self.value_choice_item}"))
+        win32api.ShellExecute(None, "open", "explorer", f"{path}", path, 1)
 
 
     def bin_choices_menu_add_mod_from_file(self, *_):

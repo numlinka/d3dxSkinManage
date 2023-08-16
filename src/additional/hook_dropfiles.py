@@ -82,7 +82,7 @@ def bin_dropfiles_single(content):
 
 
     elif os.path.isdir(content):
-        if not core.window.messagebox.askyesno(title='操作确认', message='是否将该文件夹作为 Mod 导入?'): return
+        # if not core.window.messagebox.askyesno(title='操作确认', message='是否将该文件夹作为 Mod 导入?'): return
         __exec_call(add_mod.add_mod_is_dir, True, content)
 
 
