@@ -283,7 +283,7 @@ class ModsIndex (object):
             core.construct.event.set_event(E.MODS_INDEX_UPDATE)
 
 
-    def item_data_new(self, from_: str, SHA: str, data: dict) -> bool:
+    def item_data_new(self, from_: str, SHA: str, data: dict, restrain: bool = False) -> bool:
         """新的 item 的数据"""
         core.log.warn(f"新的 index 数据 SHA - {SHA}", L.MODULE_MODS_INDEX)
         with self.__call_lock:
@@ -310,6 +310,7 @@ class ModsIndex (object):
             # 保存 index 文件
             self.save_index_file(from_)
 
+        if not restrain:
             core.construct.event.set_event(E.MODS_INDEX_UPDATE)
 
 

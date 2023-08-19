@@ -39,7 +39,7 @@ class D3dxManage(object):
         self.master = master
         self.style = ttkbootstrap.Style()
 
-        BUTTON_WIDTH = 32
+        BUTTON_WIDTH = 32 # 24
 
         self.labelframe_global = ttkbootstrap.LabelFrame(self.master, text="全局设置")
         self.labelframe_userenv = ttkbootstrap.LabelFrame(self.master, text="用户设置")
@@ -99,9 +99,11 @@ class D3dxManage(object):
         self.button_filechoice = ttkbootstrap.Button(self.labelframe_gamepath, text="文件选择工具", bootstyle="outline", width=BUTTON_WIDTH, command=self.bin_choice_file)
         self.button_gamestart = ttkbootstrap.Button(self.labelframe_gamepath, text="启动游戏", bootstyle="outline", width=BUTTON_WIDTH, command=self.bin_launch_game)
         self.button_open_game = ttkbootstrap.Button(self.labelframe_gamepath, text="打开游戏目录", bootstyle="outline", width=BUTTON_WIDTH, command=self.bin_open_game)
+        # self.button_unity_argument = ttkbootstrap.Button(self.labelframe_gamepath, text="Unity 通用启动参数", bootstyle="outline", width=BUTTON_WIDTH)
         self.button_filechoice.pack(side="left", padx=(10, 10), pady=(0, 10))
         self.button_gamestart.pack(side="left", padx=(0, 10), pady=(0, 10))
         self.button_open_game.pack(side="left", padx=(0, 10), pady=(0, 10))
+        # self.button_unity_argument.pack(side="left", padx=(0, 10), pady=(0, 10))
 
         self.entry_custom = ttkbootstrap.Entry(self.labelframe_custom)#, bootstyle="light")
         self.entry_custom_argument = ttkbootstrap.Entry(self.labelframe_custom)#, bootstyle="light")

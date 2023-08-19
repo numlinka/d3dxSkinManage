@@ -8,6 +8,7 @@ import core
 from constant import *
 from . import ocd_crop
 from . import cache_cleanup
+from . import old_migration
 
 TEXT_OCD_CROP = """
 强迫症预览图裁剪工具
@@ -27,6 +28,16 @@ TEXT_CACHE_CLEANUP = """
 释放硬盘空间
 """
 
+TEXT_OLD_MIGRATION = """
+旧版 Mod 管理器数据迁移工具
+
+迁移 3DMiModsManage 的数据到 d3dsSkinManage
+解决老用户因为旧版数据太多迁移到新版麻烦的问题
+有一些小小的 BUG
+但总体上是成功的
+"""
+
+
 
 class Tools (object):
     def __init__(self, master, *_):
@@ -37,14 +48,19 @@ class Tools (object):
     def install(self):
         self.frame_1 = ttkbootstrap.Frame(self.master)
         self.frame_2 = ttkbootstrap.Frame(self.master)
+        self.frame_3 = ttkbootstrap.Frame(self.master)
         self.frame_1.pack(side="left", fill="y", padx=10, pady=10)
         self.frame_2.pack(side="left", fill="y", padx=(0, 10), pady=10)
+        self.frame_3.pack(side="left", fill="y", padx=(0, 10), pady=10)
 
         self.button_ocd_crop = ttkbootstrap.Button(self.frame_1, text=TEXT_OCD_CROP, bootstyle="outline", command=self.bin_open_ocd_crop)
         self.button_ocd_crop.pack(side="top")
 
         self.button_cache_cleanup = ttkbootstrap.Button(self.frame_2, text=TEXT_CACHE_CLEANUP, bootstyle="outline", command=self.bin_open_cache_cleanup)
         self.button_cache_cleanup.pack(side="top")
+
+        self.button_old_version_migration = ttkbootstrap.Button(self.frame_1, text=TEXT_OLD_MIGRATION, bootstyle="outline", command=self.bin_open_old_migration)
+        self.button_old_version_migration.pack(side="top", fill="x", pady=10)
 
 
     def initial(self):
@@ -57,3 +73,7 @@ class Tools (object):
 
     def bin_open_cache_cleanup(self, *_):
         cache_cleanup.CacheCleanup()
+
+
+    def bin_open_old_migration(self, *_):
+        old_migration.OldMigration()
