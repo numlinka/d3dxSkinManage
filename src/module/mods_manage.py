@@ -123,15 +123,15 @@ class ModsManage (object):
                 # intersection = _object_lst & set(object_list)
                 # if len(intersection) == 0: continue
 
-                intersection = []
+                intersection = set()
 
                 for reference_object_name in object_list:
                     for object_name in self.__local_object_lst:
                         if fnmatch.fnmatch(object_name, reference_object_name):
-                            intersection.append(object_name)
+                            intersection |= {object_name}
 
 
-                self.__classification[class_] = intersection
+                self.__classification[class_] = list(intersection)
                 # _object_lst -= intersection
                 _object_lst_surplus -= set(intersection)
 
