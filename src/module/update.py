@@ -6,7 +6,7 @@ import threading
 import requests
 
 import core
-from constant import L
+from constant import *
 
 __event = threading.Event()
 
@@ -111,11 +111,28 @@ def get_update(index_content: dict):
         mode = index_content["get"]["mode"]
 
 
-        content = core.module.wget.wget(url, mode)
-        if content is None: raise Exception
+        # content = core.module.wget.wget(url, mode)
+        # if content is None: raise Exception
 
         filepath = os.path.join(core.env.directory.resources.cache, "update.pack")
-        with open(filepath, "wb") as fileobject: fileobject.write(content)
+        # with open(filepath, "wb") as fileobject: fileobject.write(content)
+
+        headers = {
+            "user-agent": S.USER_AGENT,
+            "accept-language": S.ACCEPT_LANGUAGE
+        }
+
+        response = requests.get(url, stream=True, headers=headers)
+        file_size = int(response.headers.get('content-length', 0))
+
+        with open(filepath, 'wb') as file:
+            # 使用iter_content方法以1 KB的数据块下载文件，并在下载每个数据块后调用回调函数
+            for chunk_number, chunk in enumerate(response.iter_content(chunk_size=1024)):
+                file.write(chunk)
+                # 调用回调函数来显示下载进度
+                progress_bar(chunk_number + 1, 1024, file_size)
+
+
         target = "update.exe"
         os.system(f"start \"update\" {target}")
         core.window.status.set_status("等待程序重启", 1)
@@ -123,6 +140,11 @@ def get_update(index_content: dict):
 
     except Exception as e:
         stop_control("更新包下载失败")
+
+
+def progress_bar(chunk_number, chunk_size, total_size):
+    percent_complete = int((chunk_number * chunk_size / total_size) * 100)
+    core.window.status.set_progress(percent_complete)
 
 
 def block(message):

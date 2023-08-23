@@ -9,6 +9,7 @@ from constant import *
 from . import ocd_crop
 from . import cache_cleanup
 from . import old_migration
+from . import development
 
 TEXT_OCD_CROP = """
 强迫症预览图裁剪工具
@@ -37,6 +38,17 @@ TEXT_OLD_MIGRATION = """
 但总体上是成功的
 """
 
+TEXT_DEVELOPMENT = """
+开发者调试工具
+
+警告！你需要对自己的行为负责，自行承担后果
+该工具可以略过行为检查直接对 core 模块进行操作
+操作不当会导致其他模块故障或损坏数据库
+你已经被警告过了
+"""
+
+class containe ():
+    rejection_count = 1
 
 
 class Tools (object):
@@ -54,13 +66,16 @@ class Tools (object):
         self.frame_3.pack(side="left", fill="y", padx=(0, 10), pady=10)
 
         self.button_ocd_crop = ttkbootstrap.Button(self.frame_1, text=TEXT_OCD_CROP, bootstyle="outline", command=self.bin_open_ocd_crop)
-        self.button_ocd_crop.pack(side="top")
+        self.button_ocd_crop.pack(side="top", fill="x")
 
         self.button_cache_cleanup = ttkbootstrap.Button(self.frame_2, text=TEXT_CACHE_CLEANUP, bootstyle="outline", command=self.bin_open_cache_cleanup)
-        self.button_cache_cleanup.pack(side="top")
+        self.button_cache_cleanup.pack(side="top", fill="x")
 
         self.button_old_version_migration = ttkbootstrap.Button(self.frame_1, text=TEXT_OLD_MIGRATION, bootstyle="outline", command=self.bin_open_old_migration)
         self.button_old_version_migration.pack(side="top", fill="x", pady=10)
+
+        self.button_development_debug = ttkbootstrap.Button(self.frame_1, text=TEXT_DEVELOPMENT, bootstyle="outline", command=self.bin_open_development_debug)
+        self.button_development_debug.pack(side="top", fill="x")
 
 
     def initial(self):
@@ -77,3 +92,12 @@ class Tools (object):
 
     def bin_open_old_migration(self, *_):
         old_migration.OldMigration()
+
+
+    def bin_open_development_debug(self, *_):
+        if containe.rejection_count <= 3:
+            containe.rejection_count += 1
+            core.window.messagebox.showerror(title="访问被拒绝", message="开发者调试工具：访问被拒绝")
+            return
+
+        development.Development()

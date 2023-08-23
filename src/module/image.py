@@ -5,6 +5,7 @@ import os
 import PIL.Image
 import PIL.ImageTk
 # import PIL.ImageDraw
+from fuzzywuzzy import fuzz
 
 from typing import Union
 
@@ -216,12 +217,27 @@ class ImageTkThumbnailGroup(object):
         if name in self.__table:
             return self.__table.get(name, self.__none)
 
-        for key, value in self.__table.items():
-            if key in name:
-                return value
+        # for key, value in self.__table.items():
+        #     if key in name:
+        #         return value
 
-        else:
-            return self.__none
+        # else:
+        #     return self.__none
+
+        key = find_most_similar(name, self.__table)
+        return self.__table.get(key, self.__none)
 
         return self.__none
 
+
+def find_most_similar(input_str, string_list):
+    max_similarity = 0
+    most_similar_str = None
+
+    for candidate in string_list:
+        similarity = fuzz.ratio(input_str, candidate)
+        if similarity > max_similarity:
+            max_similarity = similarity
+            most_similar_str = candidate
+
+    return most_similar_str

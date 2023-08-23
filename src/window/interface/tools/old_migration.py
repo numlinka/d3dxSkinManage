@@ -234,7 +234,7 @@ class ScanInquire (object):
             self.sbin_update_info()
 
             if len(containe.item_list) == 0:
-                core.window.messagebox.showerror(title="Waht are you doing?", message="这里面什么都没有\n你怕不是在消遣洒家", parent=Tcl.window)
+                core.window.messagebox.showerror(title="What are you doing?", message="这里面什么都没有\n你怕不是在消遣洒家", parent=Tcl.window)
                 Tcl.main.bin_close()
 
 
