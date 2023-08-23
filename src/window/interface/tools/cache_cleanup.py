@@ -231,7 +231,7 @@ class CacheCleanup (object):
                     self.value_often_count_bytes += get_folder_size(dir_path)
                     self.sbin_update_often()
 
-                # 若任存在于 SHA 表中则为不常用缓存
+                # 若只存在于 SHA 表中则为不常用缓存
                 elif SHA in all_sha_list:
                     self.value_rarely_count_files += 1
                     self.value_rarely_direc_lists += [dir_path]

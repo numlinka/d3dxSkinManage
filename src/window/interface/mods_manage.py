@@ -362,66 +362,6 @@ class ModsManage(object):
             core.module.mods_manage.load(SHA)
 
 
-    def bin_show_choices_menu(self, event):
-        self.value_choice_item = self.treeview_choices.identify("item", event.x, event.y)
-
-        try:
-            default_font = tkinter.font.nametofont("TkDefaultFont")
-            menu = ttkbootstrap.Menu(self.treeview_choices, tearoff=False, font=(default_font.actual("family"), default_font.actual("size")))
-
-        except Exception as e:
-            menu = ttkbootstrap.Menu(self.treeview_choices, tearoff=False)
-
-        sha = self.value_choice_item
-
-        if sha != "":
-            menu.add_command(label="编辑 Mod 信息", command=self.bin_choices_menu_modify_item_data)
-            menu.add_command(label="查看原始文件", command=self.bin_choices_menu_view_original_file)
-
-            if core.module.mods_manage.is_load_sha(sha):
-                menu.add_command(label="查看工作文件", command=self.bin_choices_menu_view_work_file)
-
-            if core.module.mods_manage.is_have_cache_load(sha):
-                menu.add_command(label="查看缓存文件", command=self.bin_choices_menu_view_cache_file)
-
-            menu.add_separator()
-
-        menu.add_command(label="添加文件夹的形式的 Mod", command=self.bin_choices_menu_add_mod_from_dir)
-        menu.add_command(label="添加压缩包的形式的 Mod", command=self.bin_choices_menu_add_mod_from_file)
-
-        menu.post(event.x_root+10 , event.y_root+10)
-
-
-    def bin_choices_menu_modify_item_data(self, *_):
-        core.additional.modify_item_data.ModifyItemData(self.value_choice_item)
-
-
-    def bin_choices_menu_view_original_file(self, *_):
-        path = os.path.abspath(os.path.join(core.env.directory.resources.mods, self.value_choice_item))
-        win32api.ShellExecute(None, "open", "explorer", f"/select,{path}", path, 1)
-
-
-    def bin_choices_menu_view_work_file(self, *_):
-        path = os.path.abspath(os.path.join(core.userenv.directory.work_mods, self.value_choice_item))
-        win32api.ShellExecute(None, "open", "explorer", f"{path}", path, 1)
-
-
-    def bin_choices_menu_view_cache_file(self, *_):
-        path = os.path.abspath(os.path.join(core.userenv.directory.work_mods, f"{K.DISABLED}-{self.value_choice_item}"))
-        win32api.ShellExecute(None, "open", "explorer", f"{path}", path, 1)
-
-
-    def bin_choices_menu_add_mod_from_file(self, *_):
-        path = tkinter.filedialog.askopenfilename(title="选择 Mod 压缩包", filetypes=[("压缩文件", ["*.zip", "*.rar", "*.7z"])])
-        if path: core.additional.add_mod.AddMods(path)
-
-
-    def bin_choices_menu_add_mod_from_dir(self, *_):
-        path = tkinter.filedialog.askdirectory(title="选择 Mod 文件夹")
-        if path:
-            core.construct.taskpool.addtask(core.additional.add_mod.add_mod_is_dir, (path,), answer=False)
-
-
     def bin_refresh(self, *args):
         self.sbin_clear_treeview_classification()
         self.sbin_clear_treeview_objects()
@@ -447,3 +387,92 @@ class ModsManage(object):
 
     def on_mouse_move(self, event):
         core.window.annotation_toplevel.update_position()
+
+
+
+
+
+    def bin_show_choices_menu(self, event):
+        self.value_choice_item = self.treeview_choices.identify("item", event.x, event.y)
+
+        try:
+            default_font = tkinter.font.nametofont("TkDefaultFont")
+            menu = ttkbootstrap.Menu(self.treeview_choices, tearoff=False, font=(default_font.actual("family"), default_font.actual("size")))
+
+        except Exception as e:
+            menu = ttkbootstrap.Menu(self.treeview_choices, tearoff=False)
+
+        sha = self.value_choice_item
+
+        if sha != "":
+            menu.add_command(label="编辑 Mod 信息", command=self.bin_choices_menu_modify_item_data)
+            menu.add_command(label="导出 Mod 文件", command=self.bin_choices_menu_export_file)
+            menu.add_command(label="查看原始文件", command=self.bin_choices_menu_view_original_file)
+
+            if core.module.mods_manage.is_load_sha(sha):
+                menu.add_command(label="查看工作文件", command=self.bin_choices_menu_view_work_file)
+
+            if core.module.mods_manage.is_have_cache_load(sha):
+                menu.add_command(label="查看缓存文件", command=self.bin_choices_menu_view_cache_file)
+
+            menu.add_separator()
+
+        menu.add_command(label="添加文件夹的形式的 Mod", command=self.bin_choices_menu_add_mod_from_dir)
+        menu.add_command(label="添加压缩包的形式的 Mod", command=self.bin_choices_menu_add_mod_from_file)
+
+        menu.post(event.x_root+10 , event.y_root+10)
+
+
+    def bin_choices_menu_modify_item_data(self, *_):
+        core.additional.modify_item_data.ModifyItemData(self.value_choice_item)
+
+
+    def bin_choices_menu_view_original_file(self, *_):
+        path = os.path.abspath(os.path.join(core.env.directory.resources.mods, self.value_choice_item))
+        # win32api.ShellExecute(None, "open", "explorer", f"/select,{path}", path, 1)
+        core.external.view_file(path)
+
+
+    def bin_choices_menu_view_work_file(self, *_):
+        path = os.path.abspath(os.path.join(core.userenv.directory.work_mods, self.value_choice_item))
+        # win32api.ShellExecute(None, "open", "explorer", f"{path}", path, 1)
+        core.external.view_directory(path)
+
+
+    def bin_choices_menu_view_cache_file(self, *_):
+        path = os.path.abspath(os.path.join(core.userenv.directory.work_mods, f"{K.DISABLED}-{self.value_choice_item}"))
+        # win32api.ShellExecute(None, "open", "explorer", f"{path}", path, 1)
+        core.external.view_directory(path)
+
+
+    def bin_choices_menu_add_mod_from_file(self, *_):
+        path = tkinter.filedialog.askopenfilename(title="选择 Mod 压缩包", filetypes=[("压缩文件", ["*.zip", "*.rar", "*.7z"])])
+        if path: core.additional.add_mod.AddMods(path)
+
+
+    def bin_choices_menu_add_mod_from_dir(self, *_):
+        path = tkinter.filedialog.askdirectory(title="选择 Mod 文件夹")
+        if path:
+            core.construct.taskpool.addtask(core.additional.add_mod.add_mod_is_dir, (path,), answer=False)
+
+
+    def bin_choices_menu_export_file(self, *_):
+        SHA = self.value_choice_item
+        data = core.module.mods_index.get_item(SHA)
+        suffix = data[K.INDEX.TYPE]
+        suffix = suffix if suffix.startswith(".") else f".{suffix}"
+        name = data[K.INDEX.NAME]
+
+        path = tkinter.filedialog.asksaveasfilename(
+            title="导出 Mod 文件",
+            initialfile=name,
+            defaultextension=suffix,
+            filetypes=[("压缩文件", suffix)]
+            )
+        path = path if path.endswith(suffix) else f"{path}{suffix}"
+
+        with open(os.path.join(core.env.directory.resources.mods, SHA), "rb") as rfobj:
+            content = rfobj.read()
+
+        with open(path, "wb") as wfobj:
+            wfobj.write(content)

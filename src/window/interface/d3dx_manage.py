@@ -311,7 +311,8 @@ class D3dxManage(object):
 
 
     def bin_open_work(self, *args, **kwds):
-        win32api.ShellExecute(None, "open", os.path.abspath(core.userenv.directory.work), None, os.path.abspath(core.userenv.directory.work), 1)
+        # win32api.ShellExecute(None, "open", os.path.abspath(core.userenv.directory.work), None, os.path.abspath(core.userenv.directory.work), 1)
+        core.external.view_directory(os.path.abspath(core.userenv.directory.work))
 
 
     def bin_open_game(self, *args, **kwds):
@@ -322,7 +323,8 @@ class D3dxManage(object):
 
         path = os.path.dirname(path)
 
-        win32api.ShellExecute(None, "open", path, None, path, 1)
+        # win32api.ShellExecute(None, "open", path, None, path, 1)
+        core.external.view_directory(path)
 
 
     def bin_choice_file(self, *args, **kdws):
@@ -440,4 +442,5 @@ class D3dxManage(object):
 
         path = os.path.dirname(path)
 
-        win32api.ShellExecute(None, "open", path, None, path, 1)
+        # win32api.ShellExecute(None, "open", path, None, path, 1)
+        core.external.view_directory(path)

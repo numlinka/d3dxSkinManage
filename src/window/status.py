@@ -46,6 +46,11 @@ class Status (object):
         self.label_mark["text"] = f"[{mark}]"
 
 
+    def set_progress(self, value: int):
+        if not isinstance(value, int): return
+        self.progressbar_step.config(value=value)
+
+
     def set_status(self, status, LEVEL: int = 0):
         if not isinstance(LEVEL, int): LEVEL = 0
         color = ["", "red", "orange"][LEVEL]
