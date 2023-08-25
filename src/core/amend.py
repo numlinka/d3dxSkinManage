@@ -22,3 +22,6 @@ def env_config_amend():
 
     if not isinstance(core.env.configuration.view_directory_rule, str):
         core.env.configuration.view_directory_rule = "{path}"
+
+    if not isinstance(core.env.configuration.thumbnail_approximate_algorithm, str):
+        core.env.configuration.thumbnail_approximate_algorithm = "similarity/key-in"

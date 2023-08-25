@@ -4,8 +4,8 @@ import os
 import tkinter.filedialog
 import tkinter.font
 
-
 import win32api
+import pyperclip
 import ttkbootstrap
 
 import core
@@ -34,7 +34,7 @@ class ModsManage(object):
         self.entry_search = ttkbootstrap.Entry(self.frame_choice, textvariable=self.value_entry_search)
 
         # self.label_explain = ttkbootstrap.Label(self.master, anchor="center", text="无附加描述")
-        self.label_SHA = ttkbootstrap.Label(self.master, anchor="center", text="SHA")
+        self.label_SHA = ttkbootstrap.Label(self.master, anchor="center", text="SHA", cursor="hand2")
         self.label_preview = ttkbootstrap.Label(self.master, anchor="center", text="无预览图", cursor="plus")
 
         self.treeview_classification.config(yscrollcommand=self.scrollbar_classification.set)
@@ -71,6 +71,7 @@ class ModsManage(object):
 
         self.treeview_choices.bind("<Double-1>", self.bin_load_mod)
         self.treeview_choices.bind("<Button-3>", self.bin_show_choices_menu)
+        self.treeview_objects.bind("<Button-3>", self.bin_show_objects_menu)
         # self.entry_search.bind("<Return>", self.update_choices_list)
         self.value_entry_search.trace("w", self.update_choices_list)
 
@@ -85,7 +86,10 @@ class ModsManage(object):
         # self.label_explain.bind("<Double-Button-3>",  lambda *_: self.refresh_classification())
         # self.label_explain.bind("<Button-1>",  lambda *_: core.module.mods_manage.refresh())
 
+        self.label_SHA.bind("<Double-1>", pyperclip.copy(self.label_SHA["text"]))
+
         self.value_choice_item = ""
+        self.value_object_item = ""
 
 
     def initial(self):
@@ -95,6 +99,7 @@ class ModsManage(object):
         _alt_set(self.treeview_objects, T.ANNOTATION_MANAGE_OBJECTS)
         # _alt_set(interface.mods_manage.treeview_choices, T.ANNOTATION_MANAGE_CHOICES)
         _alt_set(self.entry_search, T.ANNOTATION_MANAGE_SEARCH, 1)
+        _alt_set(self.label_SHA, T.ANNOTATION_COPY_SHA, 2)
 
 
     def __init__(self, master):
@@ -390,6 +395,33 @@ class ModsManage(object):
 
 
 
+    # ================================================================================================================================
+    # 对象列表右键菜单
+    # ================================================================================================================================
+
+
+
+    def bin_show_objects_menu(self, event):
+        self.value_object_item = self.treeview_objects.identify("item", event.x, event.y)
+
+        try:
+            default_font = tkinter.font.nametofont("TkDefaultFont")
+            menu = ttkbootstrap.Menu(self.treeview_choices, tearoff=False, font=(default_font.actual("family"), default_font.actual("size")))
+
+        except Exception as e:
+            menu = ttkbootstrap.Menu(self.treeview_choices, tearoff=False)
+
+        if self.value_object_item != "":
+            menu.add_command(label="复制对象名称", command=lambda: pyperclip.copy(self.value_object_item))
+
+            menu.post(event.x_root+10 , event.y_root+10)
+
+
+
+    # ================================================================================================================================
+    # 选择列表右键菜单
+    # ================================================================================================================================
+
 
 
     def bin_show_choices_menu(self, event):
@@ -407,6 +439,7 @@ class ModsManage(object):
         if sha != "":
             menu.add_command(label="编辑 Mod 信息", command=self.bin_choices_menu_modify_item_data)
             menu.add_command(label="导出 Mod 文件", command=self.bin_choices_menu_export_file)
+            menu.add_command(label="复制 SHA 值", command=self.bin_choices_menu_copy_sha)
             menu.add_command(label="查看原始文件", command=self.bin_choices_menu_view_original_file)
 
             if core.module.mods_manage.is_load_sha(sha):
@@ -414,6 +447,8 @@ class ModsManage(object):
 
             if core.module.mods_manage.is_have_cache_load(sha):
                 menu.add_command(label="查看缓存文件", command=self.bin_choices_menu_view_cache_file)
+
+            menu.add_command(label="查看预览图文件", command=self.bin_choices_menu_add_view_preview)
 
             menu.add_separator()
 
@@ -476,3 +511,19 @@ class ModsManage(object):
 
         with open(path, "wb") as wfobj:
             wfobj.write(content)
+
+
+    def bin_choices_menu_copy_sha(self, *_):
+        pyperclip.copy(self.value_choice_item)
+
+
+    def bin_choices_menu_add_view_preview(self, *_):
+        SHA = self.value_choice_item
+        for suffix in ['.png', '.jpg']:
+            target = os.path.join(core.env.directory.resources.preview, f'{SHA}{suffix}')
+            if os.path.isfile(target):
+                core.external.view_file(target)
+                return
+
+        else:
+            core.window.messagebox.showerror(title="目标不存在", message="该 Item 没有预览图文件")

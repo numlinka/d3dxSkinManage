@@ -33,6 +33,8 @@ ANNOTATION_LEVEL = {
 }
 
 
+APPROXIMATE_MATCH = ["key-in only", "similarity only", "similarity threshold", "similarity/key-in"]
+
 
 class D3dxManage(object):
     def install(self, master):
@@ -46,31 +48,69 @@ class D3dxManage(object):
 
         self.labelframe_global.pack(side="left", fill="both", padx=10, pady=10, expand=True)
         self.labelframe_userenv.pack(side="left", fill="both", padx=(0, 10), pady=10, expand=True)
+        # self.labelframe_global.grid_columnconfigure(0, weight=0)
+        self.labelframe_global.grid_columnconfigure(1, weight=1)
+
+        STICKY_KEY = "e"
+        STICKY_VALUE = "ew"
 
 
-        self.frame_theme = ttkbootstrap.Frame(self.labelframe_global)
-        self.label_theme = ttkbootstrap.Label(self.frame_theme, text="主题风格")
-        self.combobox_theme = ttkbootstrap.Combobox(self.frame_theme)
+        # self.frame_theme = ttkbootstrap.Frame(self.labelframe_global)
+        # self.label_theme = ttkbootstrap.Label(self.frame_theme, text="主题风格")
+        # self.combobox_theme = ttkbootstrap.Combobox(self.frame_theme)
 
-        self.frame_theme.pack(side="top", fill="x", padx=10, pady=(10, 10))
-        self.label_theme.pack(side="left", padx=(0, 5))
-        self.combobox_theme.pack(side="right")
+        self.label_theme = ttkbootstrap.Label(self.labelframe_global, text="主题风格")
+        self.combobox_theme = ttkbootstrap.Combobox(self.labelframe_global)
 
-        self.frame_log_level = ttkbootstrap.Frame(self.labelframe_global)
-        self.label_log_level = ttkbootstrap.Label(self.frame_log_level, text="日志等级")
-        self.combobox_log_level = ttkbootstrap.Combobox(self.frame_log_level, values=[x for x in LOG_LEVEL])
+        # self.frame_theme.pack(side="top", fill="x", padx=10, pady=(10, 10))
+        # self.label_theme.pack(side="left", padx=(0, 5))
+        # self.combobox_theme.pack(side="right")
 
-        self.frame_log_level.pack(side="top", fill="x", padx=10, pady=(0, 10))
-        self.label_log_level.pack(side="left", padx=(0, 5))
-        self.combobox_log_level.pack(side="right")
+        self.label_theme.grid(row=0, column=0, pady=10, padx=10, sticky=STICKY_KEY)
+        self.combobox_theme.grid(row=0, column=1, pady=10, padx=(0, 10), sticky=STICKY_VALUE)
 
-        self.frame_annotation_level = ttkbootstrap.Frame(self.labelframe_global)
-        self.label_annotation_level = ttkbootstrap.Label(self.frame_annotation_level, text="描述提示词数量")
-        self.combobox_annotation_level = ttkbootstrap.Combobox(self.frame_annotation_level, values=[x for x in ANNOTATION_LEVEL])
+        # self.frame_log_level = ttkbootstrap.Frame(self.labelframe_global)
+        # self.label_log_level = ttkbootstrap.Label(self.frame_log_level, text="日志等级")
+        # self.combobox_log_level = ttkbootstrap.Combobox(self.frame_log_level, values=[x for x in LOG_LEVEL])
 
-        self.frame_annotation_level.pack(side="top", fill="x", padx=10, pady=(0, 10))
-        self.label_annotation_level.pack(side="left", padx=(0, 5))
-        self.combobox_annotation_level.pack(side="right")
+        self.label_log_level = ttkbootstrap.Label(self.labelframe_global, text="日志等级")
+        self.combobox_log_level = ttkbootstrap.Combobox(self.labelframe_global, values=[x for x in LOG_LEVEL])
+
+        # self.frame_log_level.pack(side="top", fill="x", padx=10, pady=(0, 10))
+        # self.label_log_level.pack(side="left", padx=(0, 5))
+        # self.combobox_log_level.pack(side="right")
+
+        self.label_log_level.grid(row=1, column=0, pady=(0, 10), padx=10, sticky=STICKY_KEY)
+        self.combobox_log_level.grid(row=1, column=1, pady=(0, 10), padx=(0, 10), sticky=STICKY_VALUE)
+
+        # self.frame_annotation_level = ttkbootstrap.Frame(self.labelframe_global)
+        # self.label_annotation_level = ttkbootstrap.Label(self.frame_annotation_level, text="描述提示词数量")
+        # self.combobox_annotation_level = ttkbootstrap.Combobox(self.frame_annotation_level, values=[x for x in ANNOTATION_LEVEL])
+
+        self.label_annotation_level = ttkbootstrap.Label(self.labelframe_global, text="描述提示词数量")
+        self.combobox_annotation_level = ttkbootstrap.Combobox(self.labelframe_global, values=[x for x in ANNOTATION_LEVEL])
+
+        # self.frame_annotation_level.pack(side="top", fill="x", padx=10, pady=(0, 10))
+        # self.label_annotation_level.pack(side="left", padx=(0, 5))
+        # self.combobox_annotation_level.pack(side="right")
+
+        self.label_annotation_level.grid(row=2, column=0, pady=(0, 10), padx=10, sticky=STICKY_KEY)
+        self.combobox_annotation_level.grid(row=2, column=1, pady=(0, 10), padx=(0, 10), sticky=STICKY_VALUE)
+
+        # self.frame_approximate = ttkbootstrap.Frame(self.labelframe_global)
+        # self.label_approximate = ttkbootstrap.Label(self.frame_approximate, text="头像匹配算法", width=50)
+        # self.combobox_approximate = ttkbootstrap.Combobox(self.frame_approximate, values=APPROXIMATE_MATCH)
+
+        self.label_approximate = ttkbootstrap.Label(self.labelframe_global, text="头像名称匹配算法")
+        self.combobox_approximate = ttkbootstrap.Combobox(self.labelframe_global, values=APPROXIMATE_MATCH)
+
+        # self.frame_approximate.pack(side="top", fill="x", padx=10, pady=(0, 10))
+        # self.label_approximate.pack(side="left", padx=(0, 5))
+        # self.combobox_approximate.pack(side="right")
+
+        self.label_approximate.grid(row=3, column=0, pady=(0, 10), padx=10, sticky=STICKY_KEY)
+        self.combobox_approximate.grid(row=3, column=1, pady=(0, 10), padx=(0, 10), sticky=STICKY_VALUE)
+
 
 
         self.labelframe_replace = ttkbootstrap.LabelFrame(self.labelframe_userenv, text="3DMigoto 版本")
@@ -122,11 +162,13 @@ class D3dxManage(object):
         self.combobox_versions.bind("<FocusIn>", lambda *_: self.combobox_versions.selection_clear())
         self.combobox_log_level.bind("<FocusIn>", lambda *_: self.combobox_log_level.selection_clear())
         self.combobox_annotation_level.bind("<FocusIn>", lambda *_: self.combobox_annotation_level.selection_clear())
+        self.combobox_approximate.bind("<FocusIn>", lambda *_: self.combobox_approximate.selection_clear())
 
         self.combobox_versions.bind("<<ComboboxSelected>>", self.bin_choice_version)
         self.combobox_theme.bind("<<ComboboxSelected>>", self.bin_set_style_theme)
         self.combobox_log_level.bind("<<ComboboxSelected>>", self.bin_set_log_level)
         self.combobox_annotation_level.bind("<<ComboboxSelected>>", self.bin_set_annotation_level)
+        self.combobox_approximate.bind("<<ComboboxSelected>>", self.bin_set_approximate)
 
 
     def initial(self):
@@ -174,6 +216,8 @@ class D3dxManage(object):
             if core.env.configuration.annotation_level == value:
                 self.combobox_annotation_level.insert(0, key)
                 break
+
+        self.combobox_approximate.insert(0, core.env.configuration.thumbnail_approximate_algorithm)
 
         _GamePath = core.userenv.configuration.GamePath
         if _GamePath is None: _GamePath = "< 未设置 >"
@@ -242,6 +286,14 @@ class D3dxManage(object):
         if value is None:
             return
         core.env.configuration.annotation_level = value
+
+
+    def bin_set_approximate(self, *_):
+        self.combobox_approximate.selection_clear()
+        value = self.combobox_approximate.get()
+        core.env.configuration.thumbnail_approximate_algorithm = value
+        core.window.interface.mods_manage.update_classification_list()
+        core.window.interface.mods_warehouse.refresh()
 
 
     def bin_selection_clear(self, *args, **kwds):

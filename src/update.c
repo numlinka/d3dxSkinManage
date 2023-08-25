@@ -71,19 +71,17 @@ void step_stop(void) {
     if (ans == 0) {
         return;
 
-    } else {
-    if (ans == 128) {
+    } else if (ans == 128) {
         printf("[WARN] %s not running.\n", FILE_EXE);
 
-    } else {
-    if (ans == 255) {
+    } else if (ans == 255) {
         printf("[ERROR] No administrator rights.\n");
         exception_exit(3);
 
     } else {
         printf("[WARN] Unknown return value.\n");
 
-    }}}
+    }
 }
 
 

@@ -7,7 +7,7 @@ from .mods_manage import ModsManage
 from .d3dx_manage import D3dxManage
 from .mods_warehouse import ModsWarehouse
 from .tools import Tools
-# from .individuation import Individuation
+from .individuation import Individuation
 
 
 class Interface(object):
@@ -32,15 +32,15 @@ class Interface(object):
         self.frame_tools = ttkbootstrap.Frame(self.notebook)
         self.notebook.add(self.frame_tools, text='工具')
 
-        # self.frame_individuation = ttkbootstrap.Frame(self.notebook)
-        # self.notebook.add(self.frame_individuation, text='个性化')
+        self.frame_individuation = ttkbootstrap.Frame(self.notebook)
+        self.notebook.add(self.frame_individuation, text='个性化')
 
         self.mods_manage = ModsManage(self.frame_mods_manage)
         self.d3dx_manage = D3dxManage(self.frame_d3dx_manage)
         self.mods_warehouse = ModsWarehouse(self.frame_mods_warehouse)
         self.about = About(self.frame_about)
         self.tools = Tools(self.frame_tools)
-        # self.individuation = Individuation(self.frame_individuation)
+        self.individuation = Individuation(self.frame_individuation)
 
     def initial(self):
         self.mods_manage.initial()
