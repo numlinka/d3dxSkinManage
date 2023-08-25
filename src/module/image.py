@@ -231,13 +231,55 @@ class ImageTkThumbnailGroup(object):
 
 
 def find_most_similar(input_str, string_list):
-    max_similarity = 0
-    most_similar_str = None
+    match core.env.configuration.thumbnail_approximate_algorithm:
+        case "key-in only":
+            for strcs in string_list:
+                if strcs in input_str:
+                    return strcs
 
-    for candidate in string_list:
-        similarity = fuzz.ratio(input_str, candidate)
-        if similarity > max_similarity:
-            max_similarity = similarity
-            most_similar_str = candidate
 
-    return most_similar_str
+        case "similarity only":
+            max_similarity = 0
+            most_similar_str = None
+
+            for candidate in string_list:
+                similarity = fuzz.ratio(input_str, candidate)
+                if similarity > max_similarity:
+                    max_similarity = similarity
+                    most_similar_str = candidate
+
+            return most_similar_str
+
+
+        case "similarity threshold":
+            max_similarity = 0
+            most_similar_str = None
+
+            for candidate in string_list:
+                similarity = fuzz.ratio(input_str, candidate)
+                if similarity > max_similarity and similarity >= 50:
+                    max_similarity = similarity
+                    most_similar_str = candidate
+
+            return most_similar_str
+
+
+        case "similarity/key-in":
+            max_similarity = 0
+            most_similar_str = None
+
+            for candidate in string_list:
+                similarity = fuzz.ratio(input_str, candidate)
+                if similarity > max_similarity and similarity >= 50:
+                    max_similarity = similarity
+                    most_similar_str = candidate
+
+                if candidate in input_str and similarity > max_similarity:
+                    max_similarity = similarity
+                    most_similar_str = candidate
+
+            return most_similar_str
+
+
+    return None
+

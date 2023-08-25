@@ -66,6 +66,8 @@ SHA、对象、名称、分级、作者、标签
 切换对象仍然有效
 """.strip()
 
+ANNOTATION_COPY_SHA = "点击复制 SHA 值"
+
 ANNOTATION_STYLE_THEME = """
 主题风格
 挑选一个你喜欢的色彩搭配

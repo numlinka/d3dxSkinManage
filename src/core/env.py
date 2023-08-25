@@ -13,9 +13,9 @@ from .structure import *
 PROJECT = "d3dxSkinManage"
 AUTHOR = "numlinka"
 
-VERSION_CODE = 1_05_15_000
+VERSION_CODE = 1_05_17_000
 VERSION_TYPE = ""
-VERSION_NAME = "1.5.15"
+VERSION_NAME = "1.5.17"
 
 MAIN_TITLE = f"{PROJECT} v{VERSION_NAME} -by {AUTHOR}"
 
@@ -70,6 +70,7 @@ class configuration(libs.econfiguration.Configuration):
     view_explorer_path: str # 资源管理器程序
     view_file_rule: str # 文件预览 参数规则
     view_directory_rule: str # 文件夹预览 参数规则
+    thumbnail_approximate_algorithm: str # thumbnail 匹配算法
 
 
 try:
