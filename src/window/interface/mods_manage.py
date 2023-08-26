@@ -86,7 +86,7 @@ class ModsManage(object):
         # self.label_explain.bind("<Double-Button-3>",  lambda *_: self.refresh_classification())
         # self.label_explain.bind("<Button-1>",  lambda *_: core.module.mods_manage.refresh())
 
-        self.label_SHA.bind("<Double-1>", pyperclip.copy(self.label_SHA["text"]))
+        self.label_SHA.bind("<Button-1>", lambda *_: pyperclip.copy(self.label_SHA["text"]))
 
         self.value_choice_item = ""
         self.value_object_item = ""

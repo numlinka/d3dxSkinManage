@@ -6,6 +6,7 @@ def item_dict_conform_one(SHA: str, item: dict, search: str = "") -> bool:
     if search == "": return True
 
     content = [
+        SHA,
         item["name"],
         item["object"],
         item.get("grading", "X"),

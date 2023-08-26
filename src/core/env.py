@@ -13,9 +13,9 @@ from .structure import *
 PROJECT = "d3dxSkinManage"
 AUTHOR = "numlinka"
 
-VERSION_CODE = 1_05_17_000
+VERSION_CODE = 1_05_18_000
 VERSION_TYPE = ""
-VERSION_NAME = "1.5.17"
+VERSION_NAME = "1.5.18"
 
 MAIN_TITLE = f"{PROJECT} v{VERSION_NAME} -by {AUTHOR}"
 
