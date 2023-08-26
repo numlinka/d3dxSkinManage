@@ -1,12 +1,15 @@
 # -*- coding: utf-8 -*-
 
 # std
+import io
 import os
+import time
 import threading
 
 # install
 import win32gui
 import ttkbootstrap
+from PIL import Image, ImageGrab
 
 # project
 import core
@@ -114,3 +117,13 @@ def add_preview(filepath: str):
         core.UI.Messagebox.showerror(title='操作失败', message='预览图设置失败\n未知错误')
 
     core.UI.ModsManage.sbin_update_preview(SHA)
+
+
+def add_preview_from_clipboard(*_):
+    image = ImageGrab.grabclipboard()
+
+    tempfilename = hex(int(time.time() * 10 ** 8)) + '.png'
+    path = os.path.join(core.env.directory.resources.cache, tempfilename)
+    if isinstance(image, Image.Image):
+        image.save(path)
+        add_preview(path)
