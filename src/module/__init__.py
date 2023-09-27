@@ -7,6 +7,8 @@ from . import wget
 from . import update
 from . import extension
 
+from . import plugins
+
 from .index_manage import IndexManage
 from .mods_index import ModsIndex
 from .mods_manage import ModsManage

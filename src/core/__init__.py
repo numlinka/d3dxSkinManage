@@ -31,6 +31,12 @@ import window
 import additional
 
 
+class record (object):
+    LOAD_MOD_SHA: str = ""
+    UNLOAD_MOD_SHA: str = ""
+
+
+
 def run():
     try:
         amend.env_config_amend()

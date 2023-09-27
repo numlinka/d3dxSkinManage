@@ -289,7 +289,9 @@ class ModsManage (object):
 
             # 更新缓存
             self.__table_loads[object_] = SHA
+            core.record.LOAD_MOD_SHA = SHA
 
+            core.construct.event.set_event(E.MOD_LOADED)
             return None
 
 
@@ -315,6 +317,8 @@ class ModsManage (object):
                 ...
 
             finally:
+                core.record.UNLOAD_MOD_SHA = SHA
+                core.construct.event.set_event(E.MOD_UNLOADED)
                 del self.__table_loads[object_]
 
 
