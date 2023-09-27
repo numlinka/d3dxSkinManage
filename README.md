@@ -23,6 +23,8 @@ pillow
 requests
 pywin32
 ttkbootstrap
+fuzzywuzzy
+pyperclip
 windnd
 pygetwindow
 ```
