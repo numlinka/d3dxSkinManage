@@ -6,6 +6,12 @@ import importlib
 import core
 
 
+
+class PluginsData:
+    alias_table = {}
+
+
+
 def load_plugins():
     for name in os.listdir(core.env.base.plugins):
         path = os.path.join(core.env.base.plugins, name)
@@ -23,9 +29,12 @@ def load_plugins():
             result = dynamic_module.main()
 
             core.log.info(f"{filepath} 已加载")
+            PluginsData.alias_table[name] = dynamic_module
 
         except BaseException as e:
             core.log.error(f"{filepath} 加载失败 {e.__class__} {e}")
+
+    core.window.interface.plugins.update()
 
 
 def main():

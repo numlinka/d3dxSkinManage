@@ -356,15 +356,18 @@ class ModsManage(object):
         name = self.treeview_choices.item(self.treeview_choices.focus())["text"]
 
         if SHA == CMD_UNLOAD:
-            self.treeview_objects.item(self.treeview_objects.focus(), value=())
             tags = self.treeview_objects.item(self.treeview_objects.focus())["tags"]
             if not tags: return None
             object_ = tags[0]
             core.module.mods_manage.unload(object_)
 
+            self.treeview_objects.item(self.treeview_objects.focus(), value=())
+
         else:
-            self.treeview_objects.item(self.treeview_objects.focus(), value=(name, ))
             core.module.mods_manage.load(SHA)
+
+            self.treeview_objects.item(self.treeview_objects.focus(), value=(name, ))
+
 
 
     def bin_refresh(self, *args):

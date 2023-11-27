@@ -8,6 +8,7 @@ import threading
 
 import core
 from constant import *
+from .exceptions import *
 
 
 class ModsManage (object):
@@ -265,6 +266,9 @@ class ModsManage (object):
         with self.__call_lock:
             object_ = core.module.mods_index.get_item(SHA)['object']
 
+            # 卸载冲突对象的 SHA Mod
+            self.unload(object_)
+
             # 如果 SHA 已经被加载则不做任何操作
             if SHA == self.__table_loads.get(object_, None):
                 return
@@ -282,10 +286,6 @@ class ModsManage (object):
                 to_path = os.path.join(core.userenv.directory.work_mods, SHA)
 
                 core.external.x7z(from_file, to_path)
-
-            # 卸载冲突对象的 SHA Mod
-            try: self.unload(object_)
-            except Exception: ...
 
             # 更新缓存
             self.__table_loads[object_] = SHA
@@ -313,13 +313,20 @@ class ModsManage (object):
             except FileNotFoundError:
                 ...
 
-            except Exception:
-                ...
+            except PermissionError as e:
+                core.window.messagebox.showerror(title=f"操作中断：权限错误", message=f"{e}")
+                raise OperationInterrupted
+
+            except Exception as e:
+                core.window.messagebox.showerror(title=f"操作中断：未定义错误", message=f"{e.__class__}\n\n{e}")
+                raise OperationInterrupted
 
             finally:
-                core.record.UNLOAD_MOD_SHA = SHA
-                core.construct.event.set_event(E.MOD_UNLOADED)
-                del self.__table_loads[object_]
+                ...
+
+            core.record.UNLOAD_MOD_SHA = SHA
+            core.construct.event.set_event(E.MOD_UNLOADED)
+            del self.__table_loads[object_]
 
 
     def remove(self, SHA: str) -> None:
