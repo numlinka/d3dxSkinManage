@@ -33,8 +33,8 @@ class About (object):
         self.label_channel = ttkbootstrap.Label(self.frame_channel, text="频道: ", font=("黑体", 16))
         self.label_vocechat = ttkbootstrap.Label(self.frame_channel, text=">> 聊天室 >>>", font=("黑体", 16), foreground="deep sky blue", cursor="hand2")
 
-        self.label_channel.pack(side="left")
-        self.label_vocechat.pack(side="left")
+        # self.label_channel.pack(side="left")
+        # self.label_vocechat.pack(side="left")
 
         self.label_afdian.bind("<Button-1>", self.bin_open_afdian)
         self.label_vocechat.bind("<Button-1>", self.bin_open_vocechat)

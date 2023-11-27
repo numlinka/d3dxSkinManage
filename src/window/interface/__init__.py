@@ -8,6 +8,7 @@ from .d3dx_manage import D3dxManage
 from .mods_warehouse import ModsWarehouse
 from .tools import Tools
 from .individuation import Individuation
+from .plugins import Plugins
 
 
 class Interface(object):
@@ -26,21 +27,25 @@ class Interface(object):
         self.frame_mods_warehouse = ttkbootstrap.Frame(self.notebook)
         self.notebook.add(self.frame_mods_warehouse, text='Mods 仓库')
 
-        self.frame_about = ttkbootstrap.Frame(self.notebook)
-        self.notebook.add(self.frame_about, text='关于')
-
         self.frame_tools = ttkbootstrap.Frame(self.notebook)
         self.notebook.add(self.frame_tools, text='工具')
 
-        self.frame_individuation = ttkbootstrap.Frame(self.notebook)
-        self.notebook.add(self.frame_individuation, text='个性化')
+        # self.frame_individuation = ttkbootstrap.Frame(self.notebook)
+        # self.notebook.add(self.frame_individuation, text='个性化')
+
+        self.frame_plugins = ttkbootstrap.Frame(self.notebook)
+        self.notebook.add(self.frame_plugins, text='插件')
+
+        self.frame_about = ttkbootstrap.Frame(self.notebook)
+        self.notebook.add(self.frame_about, text='关于')
 
         self.mods_manage = ModsManage(self.frame_mods_manage)
         self.d3dx_manage = D3dxManage(self.frame_d3dx_manage)
         self.mods_warehouse = ModsWarehouse(self.frame_mods_warehouse)
         self.about = About(self.frame_about)
         self.tools = Tools(self.frame_tools)
-        self.individuation = Individuation(self.frame_individuation)
+        self.plugins = Plugins(self.frame_plugins)
+        # self.individuation = Individuation(self.frame_individuation)
 
     def initial(self):
         self.mods_manage.initial()

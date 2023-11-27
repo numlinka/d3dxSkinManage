@@ -17,6 +17,11 @@ from constant import *
 
 
 
+FILE_WRAN_SIZE = 100 * 1024 * 1024
+FILE_WRAN_SIZE_MARK = "MiB"
+
+
+
 class AddModInputCache(object):
     object_ = ''
     grading = ''
@@ -64,7 +69,7 @@ class AddMods(object):
 
         width = 60
 
-        self.Label_SHA = ttkbootstrap.Label(self.windows, text=f'SHA: 计算中...')
+        self.Label_SHA = ttkbootstrap.Label(self.windows, text=f'SHA: 扫描中...')
 
         self.Frame_object = ttkbootstrap.Frame(self.windows)
         self.Combobox_object = ttkbootstrap.Combobox(self.Frame_object, width=width)
@@ -199,41 +204,74 @@ class AddMods(object):
 
 
     def calculate_sha(self):
-        if os.path.isdir(self.original_path):
-            tempfilename = hex(int(time.time() * 10 ** 8)) + '.7z'
-            tempfilepath = os.path.join(core.env.directory.resources.cache, tempfilename)
-            core.external.a7z(os.path.join(self.original_path, '*'), tempfilepath)
-            self.filepath = tempfilepath
-            # os.remove(tempfilepath)
+        try:
+            if os.path.isdir(self.original_path):
+                dir_size = get_folder_size(self.original_path)
 
-            if self.markers_exit is True:
-                os.remove(tempfilepath)
-                core.log.warn("添加 Mod 操作提前退出")
+                if dir_size > FILE_WRAN_SIZE:
+                    if not core.window.messagebox.askokcancel(
+                        title="超出意外的大小",
+                        message=f"指定目标达到 {dir_size/1024/1024:.2f} {FILE_WRAN_SIZE_MARK}\n这超出常规 Mod 大小，是否任然导入？",
+                        parent=self.windows):
+                        self.close()
+                        return
 
-        with open(self.filepath, 'rb') as fileobject:
-            self.content = fileobject.read()
-            sha1 = hashlib.sha1()
-            sha1.update(self.content)
-            self.SHA = sha1.hexdigest().upper()
+                self.Label_SHA.config(text=f"SHA: 计算中...")
 
-        self.Label_SHA.config(text=f"SHA: {self.SHA}")
+                tempfilename = hex(int(time.time() * 10 ** 8)) + '.7z'
+                tempfilepath = os.path.join(core.env.directory.resources.cache, tempfilename)
+                core.external.a7z(os.path.join(self.original_path, '*'), tempfilepath)
+                self.filepath = tempfilepath
+                # os.remove(tempfilepath)
+
+                if self.markers_exit is True:
+                    os.remove(tempfilepath)
+                    core.log.warn("添加 Mod 操作提前退出")
 
 
-        # 如果 index 里面已经存储过该 SHA 的数据则直接保存 Mod 文件
-        if core.module.mods_index.get_item(self.SHA) is not None:
-            try:
-                with open(os.path.join(core.env.directory.resources.mods, self.SHA), 'wb') as fileobject:
-                    fileobject.write(self.content)
+            if os.path.isfile(self.original_path):
+                file_size = os.path.getsize(self.original_path)
 
-            except Exception:
-                core.window.messagebox.showerror(title='未知错误', message='Mod 文件保存错误\n未知错误')
+                if file_size > FILE_WRAN_SIZE:
+                    if not core.window.messagebox.askokcancel(
+                        title="超出意外的大小",
+                        message=f"指定目标达到 {dir_size/1024/1024:.2f} {FILE_WRAN_SIZE_MARK}\n这超出常规 Mod 大小，是否任然导入？",
+                        parent=self.windows
+                        ):
+                        self.close()
+                        return
+
+                self.Label_SHA.config(text=f"SHA: 计算中...")
+
+            with open(self.filepath, 'rb') as fileobject:
+                self.content = fileobject.read()
+                sha1 = hashlib.sha1()
+                sha1.update(self.content)
+                self.SHA = sha1.hexdigest().upper()
+
+            self.Label_SHA.config(text=f"SHA: {self.SHA}")
+
+            # 如果 index 里面已经存储过该 SHA 的数据则直接保存 Mod 文件
+            if core.module.mods_index.get_item(self.SHA) is not None:
+                try:
+                    with open(os.path.join(core.env.directory.resources.mods, self.SHA), 'wb') as fileobject:
+                        fileobject.write(self.content)
+
+                except Exception:
+                    core.window.messagebox.showerror(title='未知错误', message='Mod 文件保存错误\n未知错误')
+                    self.close()
+                    return
+
+                core.construct.event.set_event(E.MODS_INDEX_UPDATE)
+
+                core.additional.modify_item_data.ModifyItemData(self.SHA)
                 self.close()
                 return
 
-            core.construct.event.set_event(E.MODS_INDEX_UPDATE)
-
-            core.additional.modify_item_data.ModifyItemData(self.SHA)
-            self.close()
+        except Exception as e:
+            self.Label_SHA.config(text=f"SHA: 操作中断")
+            self.Label_except['text'] = '操作中断'
+            core.window.messagebox.showerror(title="操作中断：未定义错误", message=f"{e.__class__}\n\n{e}")
             return
 
 
@@ -328,3 +366,11 @@ def add_mod_is_dir(dirpath: str):
 
     AddMods(dirpath)
 
+
+def get_folder_size(folder_path):
+    total_size = 0
+    for dirpath, dirnames, filenames in os.walk(folder_path):
+        for filename in filenames:
+            file_path = os.path.join(dirpath, filename)
+            total_size += os.path.getsize(file_path)
+    return total_size

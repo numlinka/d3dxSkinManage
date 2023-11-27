@@ -211,6 +211,9 @@ class CacheCleanup (object):
             self.value_often_direc_lists = []
 
             for dirname in os.listdir(core.userenv.directory.work_mods):
+                if not os.path.isdir(os.path.join(core.userenv.directory.work_mods), dirname):
+                    continue
+
                 if dirname.upper().startswith(f"{K.DISABLED_UPPER}-"):
                     length = len(K.DISABLED_UPPER)+1
                     SHA = dirname[length:length+40]
