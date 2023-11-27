@@ -235,7 +235,7 @@ class AddMods(object):
                 if file_size > FILE_WRAN_SIZE:
                     if not core.window.messagebox.askokcancel(
                         title="超出意外的大小",
-                        message=f"指定目标达到 {dir_size/1024/1024:.2f} {FILE_WRAN_SIZE_MARK}\n这超出常规 Mod 大小，是否任然导入？",
+                        message=f"指定目标达到 {file_size/1024/1024:.2f} {FILE_WRAN_SIZE_MARK}\n这超出常规 Mod 大小，是否任然导入？",
                         parent=self.windows
                         ):
                         self.close()
