@@ -273,19 +273,35 @@ class ModsManage (object):
             if SHA == self.__table_loads.get(object_, None):
                 return
 
-            # 如果 SHA 存在且拥有禁用标识则去除
-            dsname = f"{K.DISABLED}-{SHA}"
-            if dsname in os.listdir(core.userenv.directory.work_mods):
-                old_path = os.path.join(core.userenv.directory.work_mods, dsname)
-                new_path = os.path.join(core.userenv.directory.work_mods, SHA)
-                os.rename(old_path, new_path)
+            try:
+                # 如果 SHA 存在且拥有禁用标识则去除
+                dsname = f"{K.DISABLED}-{SHA}"
+                if dsname in os.listdir(core.userenv.directory.work_mods):
+                    old_path = os.path.join(core.userenv.directory.work_mods, dsname)
+                    new_path = os.path.join(core.userenv.directory.work_mods, SHA)
+                    os.rename(old_path, new_path)
 
-            # 如果 SHA 不存在则从资源解压
-            else:
-                from_file = os.path.join(core.env.directory.resources.mods, SHA)
-                to_path = os.path.join(core.userenv.directory.work_mods, SHA)
+                # 如果 SHA 不存在则从资源解压
+                else:
+                    from_file = os.path.join(core.env.directory.resources.mods, SHA)
+                    to_path = os.path.join(core.userenv.directory.work_mods, SHA)
 
-                core.external.x7z(from_file, to_path)
+                    core.external.x7z(from_file, to_path)
+
+            except FileNotFoundError:
+                core.window.messagebox.showerror(title=f"操作中断：文件缺失", message=f"{e}")
+                raise OperationInterrupted
+
+            except PermissionError as e:
+                core.window.messagebox.showerror(title=f"操作中断：权限错误", message=f"{e}\n\n当前文件正在被其他程序访问\n请关闭该程序或资源管理器后重试")
+                raise OperationInterrupted
+
+            except Exception as e:
+                core.window.messagebox.showerror(title=f"操作中断：未定义错误", message=f"{e.__class__}\n\n{e}")
+                raise OperationInterrupted
+
+            finally:
+                ...
 
             # 更新缓存
             self.__table_loads[object_] = SHA
@@ -329,10 +345,15 @@ class ModsManage (object):
             del self.__table_loads[object_]
 
 
-    def remove(self, SHA: str) -> None:
+    def remove(self, SHA: str) -> int:
         with self.__call_lock:
             target = os.path.join(core.userenv.directory.work_mods, SHA)
-            shutil.rmtree(target)
+            try:
+                shutil.rmtree(target)
+                return 0
+
+            except Exception as _:
+                return 1
 
 
 def _list_sort_for_item_name(key) -> str:

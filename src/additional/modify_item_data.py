@@ -307,7 +307,8 @@ class ModifyItemData (object):
 
 
     def bin_delete(self, *args):
-        core.module.mods_manage.remove(self.old_object)
+        # core.module.mods_manage.unload(self.old_object)
+        core.module.mods_manage.remove(self.SHA)
 
         core.module.mods_index.item_data_del(self.SHA)
 
@@ -321,7 +322,8 @@ class ModifyItemData (object):
 
 
     def bin_remove(self, *args):
-        core.module.mods_manage.remove(self.old_object)
+        # core.module.mods_manage.unload(self.old_object)
+        core.module.mods_manage.remove(self.SHA)
 
         try:
             os.remove(os.path.join(core.env.directory.resources.mods, self.SHA))
