@@ -33,6 +33,7 @@ ANNOTATION_LEVEL = {
 }
 
 
+end = "end"
 APPROXIMATE_MATCH = ["key-in only", "similarity only", "similarity threshold", "similarity/key-in"]
 
 
@@ -205,18 +206,22 @@ class D3dxManage(object):
         core.log.info("更新 d3dx 环境设置信息...")
 
         self.combobox_theme.config(values=core.window.style_theme_names)
+        self.combobox_theme.delete(0, end)
         self.combobox_theme.insert(0, core.env.configuration.style_theme)
 
         for key, value in LOG_LEVEL.items():
             if core.env.configuration.log_level == value:
+                self.combobox_log_level.delete(0, end)
                 self.combobox_log_level.insert(0, key)
                 break
 
         for key, value in ANNOTATION_LEVEL.items():
             if core.env.configuration.annotation_level == value:
+                self.combobox_annotation_level.delete(0, end)
                 self.combobox_annotation_level.insert(0, key)
                 break
 
+        self.combobox_approximate.delete(0, end)
         self.combobox_approximate.insert(0, core.env.configuration.thumbnail_approximate_algorithm)
 
         _GamePath = core.userenv.configuration.GamePath
@@ -239,23 +244,26 @@ class D3dxManage(object):
 
         custom_file = core.userenv.configuration.custom_launch
         if custom_file is None: custom_file = "< 未设置 >"
+        self.entry_custom.delete(0, end)
         self.entry_custom.insert(0, custom_file)
 
         game_launch_argument = core.userenv.configuration.game_launch_argument
 
         if isinstance(game_launch_argument, str):
+            self.entry_game_argument.delete(0, end)
             self.entry_game_argument.insert(0, game_launch_argument)
 
         custom_launch_argument = core.userenv.configuration.custom_launch_argument
 
         if isinstance(custom_launch_argument, str):
+            self.entry_custom_argument.delete(0, end)
             self.entry_custom_argument.insert(0, custom_launch_argument)
 
 
 
 
     def sbin_update_game_path(self, text):
-        self.entry_gamepath.delete(0, "end")
+        self.entry_gamepath.delete(0, end)
         self.entry_gamepath.insert(0, text)
 
 
@@ -464,7 +472,7 @@ class D3dxManage(object):
             return
 
         core.userenv.configuration.custom_launch = choice_PATH
-        self.entry_custom.delete(0, "end")
+        self.entry_custom.delete(0, end)
         self.entry_custom.insert(0, choice_PATH)
 
 
