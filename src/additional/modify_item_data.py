@@ -307,7 +307,7 @@ class ModifyItemData (object):
 
 
     def bin_delete(self, *args):
-        core.module.mods_manage.unload(self.old_object)
+        core.module.mods_manage.remove(self.old_object)
 
         core.module.mods_index.item_data_del(self.SHA)
 
@@ -321,7 +321,7 @@ class ModifyItemData (object):
 
 
     def bin_remove(self, *args):
-        core.module.mods_manage.unload(self.old_object)
+        core.module.mods_manage.remove(self.old_object)
 
         try:
             os.remove(os.path.join(core.env.directory.resources.mods, self.SHA))
@@ -333,7 +333,9 @@ class ModifyItemData (object):
 
 
 def modify_item_data(*args):
-    choice = core.window.interface.mods_manage.sbin_get_select_choices()
-    if choice is None: return
+    choice = core.window.interface.mods_manage.value_choice_item
+    if not core.window.interface.mods_manage._is_valid_sha(choice):
+        choice = core.window.interface.mods_manage.sbin_get_select_choices()
+        if choice is None: return
     if core.module.mods_index.get_item(choice) is None: return
     ModifyItemData(choice)

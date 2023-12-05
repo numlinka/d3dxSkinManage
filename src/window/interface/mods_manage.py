@@ -1,15 +1,21 @@
-# -*- coding: utf-8 -*-
+# Licensed under the GPL 3.0 License.
+# d3dxSkinManage by numlinka.
 
+# std
 import os
 import tkinter.filedialog
 import tkinter.font
 
-import win32api
+# site
+# import win32api
 import pyperclip
 import ttkbootstrap
 
+# local
 import core
+import widgets
 from constant import *
+
 
 CMD_UNLOAD = "--X--"
 
@@ -70,8 +76,8 @@ class ModsManage(object):
         self.treeview_choices.bind("<<TreeviewSelect>>", lambda *_: core.construct.event.set_event(E.WINDOW_MODS_MANAGE_TS_CHOICE))
 
         self.treeview_choices.bind("<Double-1>", self.bin_load_mod)
-        self.treeview_choices.bind("<Button-3>", self.bin_show_choices_menu)
-        self.treeview_objects.bind("<Button-3>", self.bin_show_objects_menu)
+        # self.treeview_choices.bind("<Button-3>", self.bin_show_choices_menu)
+        # self.treeview_objects.bind("<Button-3>", self.bin_show_objects_menu)
         # self.entry_search.bind("<Return>", self.update_choices_list)
         self.value_entry_search.trace("w", self.update_choices_list)
 
@@ -88,8 +94,13 @@ class ModsManage(object):
 
         self.label_SHA.bind("<Button-1>", lambda *_: pyperclip.copy(self.label_SHA["text"]))
 
+        self.value_classification_item = ""
         self.value_choice_item = ""
         self.value_object_item = ""
+
+        self.treeview_classification_menu = widgets.DynamicMenu(self.treeview_classification, offsets=(10, 10), value_source=self.bin_get_classification_identify)
+        self.treeview_objects_menu = widgets.DynamicMenu(self.treeview_objects, offsets=(10, 10), value_source=self.bin_get_objects_identify)
+        self.treeview_choices_menu = widgets.DynamicMenu(self.treeview_choices, offsets=(10, 10), value_source=self.bin_get_choices_identify)
 
 
     def initial(self):
@@ -100,6 +111,9 @@ class ModsManage(object):
         # _alt_set(interface.mods_manage.treeview_choices, T.ANNOTATION_MANAGE_CHOICES)
         _alt_set(self.entry_search, T.ANNOTATION_MANAGE_SEARCH, 1)
         _alt_set(self.label_SHA, T.ANNOTATION_COPY_SHA, 2)
+        self.treeview_classification_menu_initial()
+        self.treeview_objects_menu_initial()
+        self.treeview_choices_menu_initial()
 
 
     def __init__(self, master):
@@ -399,11 +413,58 @@ class ModsManage(object):
 
 
     # ================================================================================================================================
+    # 分类列表右键菜单
+    # ================================================================================================================================
+
+
+
+    def bin_get_classification_identify(self, event):
+        result = self.treeview_classification.identify("item", event.x, event.y)
+        self.value_classification_item = result
+        return result
+
+
+    def treeview_classification_menu_initial(self):
+        _alt = self.treeview_classification_menu.add_label
+        _alt("修改分类参照", command=core.additional.modify_classification.modify_classification, condition=self._is_valid_classification, need_value=True)
+        _alt("添加新的分类", command=self.bin_classification_menu_new_classification)
+
+
+    def _is_valid_classification(self, classification_name):
+        return False if classification_name in ["", None, "未分类"] else True
+
+
+    def bin_classification_menu_new_classification(self, *_):
+        core.additional.modify_classification.NewClassification(True)
+
+
+
+    # ================================================================================================================================
     # 对象列表右键菜单
     # ================================================================================================================================
 
 
 
+    def bin_get_objects_identify(self, event):
+        result = self.treeview_objects.identify("item", event.x, event.y)
+        self.value_object_item = result
+        return result
+
+
+    def treeview_objects_menu_initial(self):
+        _alt = self.treeview_objects_menu.add_label
+        _alt("复制对象名称", command=self.bin_objects_menu_copy_object_name, condition=self._is_valid_object, need_value=True)
+
+
+    def _is_valid_object(self, object_name):
+        return True if object_name else False
+
+
+    def bin_objects_menu_copy_object_name(self, *_):
+        pyperclip.copy(self.value_object_item)
+
+
+    # ! 无效函数, 现在它已被弃用
     def bin_show_objects_menu(self, event):
         self.value_object_item = self.treeview_objects.identify("item", event.x, event.y)
 
@@ -427,6 +488,31 @@ class ModsManage(object):
 
 
 
+    def bin_get_choices_identify(self, event):
+        result = self.treeview_choices.identify("item", event.x, event.y)
+        self.value_choice_item = result
+        return result
+
+
+    def treeview_choices_menu_initial(self):
+        _alt = self.treeview_choices_menu.add_label
+        _alt("编辑 Mod 信息",  self.bin_choices_menu_modify_item_data,   condition=self._is_valid_sha, need_value=True)
+        _alt("导出 Mod 文件",  self.bin_choices_menu_export_file,        condition=self._is_valid_sha, need_value=True)
+        _alt("复制 SHA 值",    self.bin_choices_menu_copy_sha,           condition=self._is_valid_sha, need_value=True)
+        _alt("查看原始文件",   self.bin_choices_menu_view_original_file, condition=self._is_valid_sha, need_value=True)
+        _alt("查看工作文件",   self.bin_choices_menu_view_work_file,     condition=core.module.mods_manage.is_load_sha,        need_value=True)
+        _alt("查看缓存文件",   self.bin_choices_menu_view_cache_file,    condition=core.module.mods_manage.is_have_cache_load, need_value=True)
+        _alt("查看预览图文件", self.bin_choices_menu_add_view_preview,   condition=self._is_valid_sha, need_value=True)
+
+        _alt("添加文件夹的形式的 Mod", self.bin_choices_menu_add_mod_from_dir,  200)
+        _alt("添加压缩包的形式的 Mod", self.bin_choices_menu_add_mod_from_file, 200)
+
+
+    def _is_valid_sha(self, sha):
+        return False if sha in ("", CMD_UNLOAD) else True
+
+
+    # ! 无效函数, 现在它已被弃用
     def bin_show_choices_menu(self, event):
         self.value_choice_item = self.treeview_choices.identify("item", event.x, event.y)
 

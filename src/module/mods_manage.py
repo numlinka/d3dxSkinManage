@@ -314,7 +314,7 @@ class ModsManage (object):
                 ...
 
             except PermissionError as e:
-                core.window.messagebox.showerror(title=f"操作中断：权限错误", message=f"{e}")
+                core.window.messagebox.showerror(title=f"操作中断：权限错误", message=f"{e}\n\n当前文件正在被其他程序访问\n请关闭该程序或资源管理器后重试")
                 raise OperationInterrupted
 
             except Exception as e:

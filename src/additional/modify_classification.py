@@ -21,18 +21,26 @@ class selfstatus (object):
     action = threading.Lock()
 
 
-class new_classification (object):
-    def __init__(self):
+class NewClassification (object):
+    def __init__(self, new_class: bool = False):
         result = selfstatus.action.acquire(timeout=0.01)
         if not result:
             core.window.messagebox.showerror(title='互斥锁请求超时', message='互斥锁正在被其他线程占用\n上一次操作未结束或锁没有被正确释放\n亦或是你想测试这个操作是不是线程安全的')
             return
 
-        self.install()
+        self.install(new_class)
 
-    def install(self):
-        self.classname = core.window.interface.mods_manage.sbin_get_select_classification()
-        self.mark_newclass = True if self.classname in [None, '未分类'] else False
+
+    def install(self, new_class: bool = False):
+        if new_class:
+            self.mark_newclass = True
+
+        else:
+            self.classname = core.window.interface.mods_manage.value_classification_item
+            self.mark_newclass = True if self.classname in ["", None, "未分类"] else False
+
+        # self.classname = core.window.interface.mods_manage.sbin_get_select_classification()
+        # self.mark_newclass = True if self.classname in [None, '未分类'] else False
         windowsname = '添加分类' if self.mark_newclass else '修改分类'
         self.windows = ttkbootstrap.Toplevel(windowsname)
         self.windows.transient(core.window.mainwindow)
@@ -126,6 +134,10 @@ class new_classification (object):
         newclassname = self.Entry_classname.get().strip()
         core.log.debug(f"分类名称 \"{newclassname}\" ")
 
+        if not newclassname:
+            self.Label_errormsg.config(text="分类名称不能为空")
+            return
+
         for chat in illegalchat:
             if chat in newclassname:
                 self.Label_errormsg.config(text="分类名称包含非法字符")
@@ -173,4 +185,5 @@ class new_classification (object):
 
 
 def modify_classification(*args):
-    threading.Thread(None, new_classification, 'modify', (), {}, daemon=True).start()
+    NewClassification()
+    # threading.Thread(None, NewClassification, 'modify', (), {}, daemon=True).start()
