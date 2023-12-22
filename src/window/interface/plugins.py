@@ -16,10 +16,10 @@ class Plugins(object):
 
         self.treeview_plugins = ttkbootstrap.Treeview(self.master, selectmode="extended", show="tree")
         self.treeview_plugins.column("#0", width=300, anchor="w")
-        self.treeview_plugins.pack(side="left", fill="y", padx=20, pady=20)
+        self.treeview_plugins.pack(side="left", fill="y", padx=10, pady=10)
 
         self.label_description = ttkbootstrap.Text(self.master)
-        self.label_description.pack(side="top", fill="both", expand=True, padx=(0, 20), pady=(20, 20))
+        self.label_description.pack(side="top", fill="both", expand=True, padx=(0, 10), pady=10)
 
         self.treeview_plugins.bind("<<TreeviewSelect>>", self.bin_plugins_TreeviewSelect)
         self.label_description.config(state="disabled")

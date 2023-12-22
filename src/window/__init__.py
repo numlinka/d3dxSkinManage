@@ -5,6 +5,7 @@ import ttkbootstrap
 # import tkinterdnd2
 
 # self
+from . import methods
 from .messagebox import Messagebox
 from .title import Title
 from .status import Status

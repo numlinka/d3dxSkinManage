@@ -6,6 +6,7 @@ import shutil
 import tkinter.filedialog
 
 import win32api
+import win32gui
 import pywintypes
 import ttkbootstrap
 
@@ -37,12 +38,120 @@ end = "end"
 APPROXIMATE_MATCH = ["key-in only", "similarity only", "similarity threshold", "similarity/key-in"]
 
 
+
+
+class UnityArgs (object):
+    def __init__ (self, *_):
+        self.window = ttkbootstrap.Toplevel("Unity 通用参数设置")
+        self.window.transient(core.window.mainwindow)
+        self.window.grab_set()
+
+        self.window.resizable(False, False)
+
+        try:
+            self.window.iconbitmap(default=core.env.file.local.iconbitmap)
+            self.window.iconbitmap(bitmap=core.env.file.local.iconbitmap)
+
+        except Exception:
+            ...
+
+        SKL = "w"
+        SKB = "ew"
+        WIDTH = 30
+
+        self.vs_popupwindow = ["False", "True"]
+        self.vs_fullscreen = ["不设置", "0", "1"]
+        self.vn_width = 300
+        self.vx_width = self.window.winfo_screenwidth()
+        self.vn_height = 200
+        self.vx_height = self.window.winfo_screenheight()
+
+        self.wfe_args = ttkbootstrap.Frame(self.window)
+        self.wfe_args.pack(side="top", fill="x")
+
+        self.wll_popupwindow = ttkbootstrap.Label(self.wfe_args, text="无边框窗口")
+        self.wll_fullscreen = ttkbootstrap.Label(self.wfe_args, text="全屏运行")
+        self.wll_screen_width = ttkbootstrap.Label(self.wfe_args, text="窗口宽度")
+        self.wll_screen_height = ttkbootstrap.Label(self.wfe_args, text="窗口高度")
+
+        self.wcb_popupwindow = ttkbootstrap.Combobox(self.wfe_args, values=self.vs_popupwindow, width=WIDTH)
+        self.wcb_fullscreen = ttkbootstrap.Combobox(self.wfe_args, values=self.vs_fullscreen, width=WIDTH)
+        self.wsb_screen_width = ttkbootstrap.Spinbox(self.wfe_args, from_=self.vn_width, to=self.vx_width, width=WIDTH)
+        self.wsb_screen_height = ttkbootstrap.Spinbox(self.wfe_args, from_=self.vn_height, to=self.vx_height, width=WIDTH)
+
+        self.wll_popupwindow.grid(row=0, column=0, pady=10, padx=10, sticky=SKL)
+        self.wll_fullscreen.grid(row=1, column=0, pady=(0, 10), padx=10, sticky=SKL)
+        self.wll_screen_width.grid(row=2, column=0, pady=(0, 10), padx=10, sticky=SKL)
+        self.wll_screen_height.grid(row=3, column=0, pady=(0, 10), padx=10, sticky=SKL)
+
+        self.wcb_popupwindow.grid(row=0, column=1, pady=10, padx=10, sticky=SKB)
+        self.wcb_fullscreen.grid(row=1, column=1, pady=(0, 10), padx=10, sticky=SKB)
+        self.wsb_screen_width.grid(row=2, column=1, pady=(0, 10), padx=10, sticky=SKB)
+        self.wsb_screen_height.grid(row=3, column=1, pady=(0, 10), padx=10, sticky=SKB)
+
+        self.wbn_ok = ttkbootstrap.Button(self.window, text="确定", width=10, bootstyle="success-outline", command=self.bin_ok)
+        self.wbn_ok.pack(side="right", padx=10, pady=(0, 10))
+
+        core.window.mainwindow.update()
+
+        width = self.window.winfo_width()
+        height = self.window.winfo_height()
+
+        _x, _y = win32gui.GetCursorInfo()[2]
+
+        x = _x - width // 2
+        y = _y - height // 2 - 20
+
+        if x < 0: x = 0
+        if y < 0: y = 0
+
+        self.window.geometry(f'+{x}+{y}')
+
+
+    def bin_ok(self, *_):
+        arguments = []
+
+        v_pw = self.wcb_popupwindow.get().strip()
+        v_fs = self.wcb_fullscreen.get().strip()
+        v_sw = self.wsb_screen_width.get().strip()
+        v_sh = self.wsb_screen_height.get().strip()
+
+        if v_pw in ["True", "true", "TRUE", "1"]: arguments.append("-popupwindow")
+        if v_fs in ["True", "true", "TRUE", "1"]: arguments.append("-screen-fullscreen 1")
+        elif v_fs in ["False", "false", "FALSE", "0"]: arguments.append("-screen-fullscreen 0")
+
+        try:
+            value = int(v_sw)
+            if value <= 300:
+                v_sw = "300"
+            arguments.append(f"-screen-width {v_sw}")
+
+        except Exception:
+            ...
+
+        try:
+            value = int(v_sh)
+            if value <= 200:
+                v_sh = "200"
+            arguments.append(f"-screen-height {v_sh}")
+
+        except Exception:
+            ...
+
+        texts = " ".join(arguments)
+        core.window.interface.d3dx_manage.entry_game_argument.delete(0, "end")
+        core.window.interface.d3dx_manage.entry_game_argument.insert(0, texts)
+
+        self.window.destroy()
+
+
+
 class D3dxManage(object):
     def install(self, master):
         self.master = master
         self.style = ttkbootstrap.Style()
 
-        BUTTON_WIDTH = 32 # 24
+        BUTTON_WIDTH = 36 # 24
 
         self.labelframe_global = ttkbootstrap.LabelFrame(self.master, text="全局设置")
         self.labelframe_userenv = ttkbootstrap.LabelFrame(self.master, text="用户设置")
@@ -125,25 +234,29 @@ class D3dxManage(object):
         self.combobox_versions = ttkbootstrap.Combobox(self.labelframe_replace)#, bootstyle="light")
         self.combobox_versions.pack(side="top", fill="x", expand=True, padx=10, pady=10)
 
-        self.button_d3dxstart = ttkbootstrap.Button(self.labelframe_replace, text="启动 3DMiGoto 加载器", bootstyle="outline", width=BUTTON_WIDTH, command=self.bin_launch_d3dx)
+        self.button_d3dxstart = ttkbootstrap.Button(self.labelframe_replace, text="启动加载器", bootstyle="outline", width=BUTTON_WIDTH, command=self.bin_launch_d3dx)
         self.button_injection = ttkbootstrap.Button(self.labelframe_replace, text="一键启动", bootstyle="outline", width=BUTTON_WIDTH, command=self.bin_onekey_launch)
         self.button_open_work = ttkbootstrap.Button(self.labelframe_replace, text="打开工作目录", bootstyle="outline", width=BUTTON_WIDTH, command=self.bin_open_work)
-        self.button_injection.pack(side="left", padx=(10, 10), pady=(0, 10))
-        self.button_d3dxstart.pack(side="left", padx=(0, 10), pady=(0, 10))
-        self.button_open_work.pack(side="left", padx=(0, 10), pady=(0, 10))
+        self.button_injection.pack(side="left", padx=(10, 10), pady=(0, 10), fill="x", expand=True)
+        self.button_d3dxstart.pack(side="left", padx=(0, 10), pady=(0, 10), fill="x", expand=True)
+        self.button_open_work.pack(side="left", padx=(0, 10), pady=(0, 10), fill="x", expand=True)
 
         self.entry_gamepath = ttkbootstrap.Entry(self.labelframe_gamepath)#, bootstyle="light")
-        self.entry_game_argument = ttkbootstrap.Entry(self.labelframe_gamepath)#, bootstyle="light")
+        self.wfe_game_args = ttkbootstrap.Frame(self.labelframe_gamepath)
+        self.entry_game_argument = ttkbootstrap.Entry(self.wfe_game_args)#, bootstyle="light")
+        self.wbn_unity_args = ttkbootstrap.Button(self.wfe_game_args, text="+", command=UnityArgs)
         self.entry_gamepath.pack(side="top", fill="x", expand=True, padx=10, pady=10)
-        self.entry_game_argument.pack(side="top", fill="x", expand=True, padx=10, pady=(0, 10))
+        self.wfe_game_args.pack(side="top", fill="x", expand=True, padx=10, pady=(0, 10))
+        self.entry_game_argument.pack(side="left", fill="x", expand=True)
+        self.wbn_unity_args.pack(side="left", padx=(5, 0))
 
         self.button_filechoice = ttkbootstrap.Button(self.labelframe_gamepath, text="文件选择工具", bootstyle="outline", width=BUTTON_WIDTH, command=self.bin_choice_file)
         self.button_gamestart = ttkbootstrap.Button(self.labelframe_gamepath, text="启动游戏", bootstyle="outline", width=BUTTON_WIDTH, command=self.bin_launch_game)
         self.button_open_game = ttkbootstrap.Button(self.labelframe_gamepath, text="打开游戏目录", bootstyle="outline", width=BUTTON_WIDTH, command=self.bin_open_game)
         # self.button_unity_argument = ttkbootstrap.Button(self.labelframe_gamepath, text="Unity 通用启动参数", bootstyle="outline", width=BUTTON_WIDTH)
-        self.button_filechoice.pack(side="left", padx=(10, 10), pady=(0, 10))
-        self.button_gamestart.pack(side="left", padx=(0, 10), pady=(0, 10))
-        self.button_open_game.pack(side="left", padx=(0, 10), pady=(0, 10))
+        self.button_filechoice.pack(side="left", padx=(10, 10), pady=(0, 10), fill="x", expand=True)
+        self.button_gamestart.pack(side="left", padx=(0, 10), pady=(0, 10), fill="x", expand=True)
+        self.button_open_game.pack(side="left", padx=(0, 10), pady=(0, 10), fill="x", expand=True)
         # self.button_unity_argument.pack(side="left", padx=(0, 10), pady=(0, 10))
 
         self.entry_custom = ttkbootstrap.Entry(self.labelframe_custom)#, bootstyle="light")
@@ -155,9 +268,9 @@ class D3dxManage(object):
         self.button_custom_start = ttkbootstrap.Button(self.labelframe_custom, text="启动程序", bootstyle="outline", width=BUTTON_WIDTH, command=self.bin_custom_launch)
         self.button_custom_openpath = ttkbootstrap.Button(self.labelframe_custom, text="打开所在目录", bootstyle="outline", width=BUTTON_WIDTH, command=self.bin_custom_open_path)
 
-        self.button_custom_filechoice.pack(side="left", padx=(10, 10), pady=(0, 10))
-        self.button_custom_start.pack(side="left", padx=(0, 10), pady=(0, 10))
-        self.button_custom_openpath.pack(side="left", padx=(0, 10), pady=(0, 10))
+        self.button_custom_filechoice.pack(side="left", padx=(10, 10), pady=(0, 10), fill="x", expand=True)
+        self.button_custom_start.pack(side="left", padx=(0, 10), pady=(0, 10), fill="x", expand=True)
+        self.button_custom_openpath.pack(side="left", padx=(0, 10), pady=(0, 10), fill="x", expand=True)
 
         self.combobox_theme.bind("<FocusIn>", lambda *_: self.combobox_theme.selection_clear())
         self.combobox_versions.bind("<FocusIn>", lambda *_: self.combobox_versions.selection_clear())
@@ -186,6 +299,7 @@ class D3dxManage(object):
 
         _alt_set(self.entry_gamepath, T.ANNOTATION_D3DX_SET_GAME_PATH, 2)
         _alt_set(self.entry_game_argument, T.ANNOTATION_D3DX_GAME_ARGUMENT, 2)
+        _alt_set(self.wbn_unity_args, T.ANNOTATION_UNITY_ARGS, 2)
         _alt_set(self.button_filechoice, T.ANNOTATION_D3DX_SET_GAME_PATH, 2)
         _alt_set(self.button_gamestart, T.ANNOTATION_D3DX_START, 2)
         _alt_set(self.button_open_game, T.ANNOTATION_D3DX_GAME_WORK_DIR, 2)
