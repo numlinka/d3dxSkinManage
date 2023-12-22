@@ -59,7 +59,26 @@ ANNOTATION_MANAGE_CHOICES = """
 左键双击 \"卸载该对象\" 卸载 Mod
 """.strip()
 
-ANNOTATION_MANAGE_SEARCH = """
+ANNOTATION_MANAGE_CLASSIFICATION_SEARCH = """
+可通过关键字段筛选分类
+使用空格分割多个关键字
+使用 "!" 符号开头拒绝对应关键词
+
+什么？你说搜索框为什么不放在顶部而是底部
+天知道！
+""".strip()
+
+ANNOTATION_MANAGE_OBJECTS_SEARCH = """
+可通过关键字段筛选对象
+使用空格分割多个关键字
+使用 "!" 符号开头拒绝对应关键词
+切换分类仍然有效
+
+如果你每个分类都很明确
+这个功能就不是那么有用
+""".strip()
+
+ANNOTATION_MANAGE_CHOICES_SEARCH = """
 可通过以下字段的内容筛选 Mod
 SHA、对象、名称、分级、作者、标签
 使用空格分割多个关键字
@@ -139,6 +158,8 @@ ANNOTATION_D3DX_CUSTOM_LAUNCH = """
 """.strip()
 
 ANNOTATION_D3DX_CUSTOM_DIR = "在文件资源管理器中打开程序所在目录"
+
+ANNOTATION_UNITY_ARGS = "设置 unity 通用启动参数"
 
 ANNOTATION_WAREHOUSE_SEARCH = """
 可通过以下字段的内容筛选 Mod

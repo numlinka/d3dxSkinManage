@@ -13,6 +13,7 @@ import ttkbootstrap
 
 # local
 import core
+import window
 import widgets
 from constant import *
 
@@ -26,22 +27,30 @@ class ModsManage(object):
 
         self.FC_WIDTH = 200
 
-        self.value_entry_search = ttkbootstrap.StringVar()
-        self.frame_choice = ttkbootstrap.Frame(self.master)
+        self.value_classification_search = ttkbootstrap.StringVar()
+        self.value_objects_search = ttkbootstrap.StringVar()
+        self.value_choices_search = ttkbootstrap.StringVar()
 
-        self.treeview_classification = ttkbootstrap.Treeview(self.master, show="tree headings", selectmode="extended")
-        self.treeview_objects = ttkbootstrap.Treeview(self.master, show="tree headings", selectmode="extended", columns=("enabled",))
-        self.treeview_choices = ttkbootstrap.Treeview(self.frame_choice, selectmode="extended", show="tree headings")
+        self.frame_classification = ttkbootstrap.Frame(self.master)
+        self.frame_objects = ttkbootstrap.Frame(self.master)
+        self.frame_choices = ttkbootstrap.Frame(self.master)
+        self.frame_preview = ttkbootstrap.Frame(self.master)
 
-        self.scrollbar_classification = ttkbootstrap.Scrollbar(self.master, command=self.treeview_classification.yview)
-        self.scrollbar_objects = ttkbootstrap.Scrollbar(self.master, command=self.treeview_objects.yview)
-        self.scrollbar_choices = ttkbootstrap.Scrollbar(self.frame_choice, command=self.treeview_choices.yview)
+        self.treeview_classification = ttkbootstrap.Treeview(self.frame_classification, show="tree headings", selectmode="extended")
+        self.treeview_objects = ttkbootstrap.Treeview(self.frame_objects, show="tree headings", selectmode="extended", columns=("enabled",))
+        self.treeview_choices = ttkbootstrap.Treeview(self.frame_choices, selectmode="extended", show="tree headings")
 
-        self.entry_search = ttkbootstrap.Entry(self.frame_choice, textvariable=self.value_entry_search)
+        self.scrollbar_classification = ttkbootstrap.Scrollbar(self.frame_classification, command=self.treeview_classification.yview)
+        self.scrollbar_objects = ttkbootstrap.Scrollbar(self.frame_objects, command=self.treeview_objects.yview)
+        self.scrollbar_choices = ttkbootstrap.Scrollbar(self.frame_choices, command=self.treeview_choices.yview)
+
+        self.entry_classification_search = ttkbootstrap.Entry(self.frame_classification, textvariable=self.value_classification_search)
+        self.entry_objects_search = ttkbootstrap.Entry(self.frame_objects, textvariable=self.value_objects_search)
+        self.entry_choices_search = ttkbootstrap.Entry(self.frame_choices, textvariable=self.value_choices_search)
 
         # self.label_explain = ttkbootstrap.Label(self.master, anchor="center", text="无附加描述")
-        self.label_SHA = ttkbootstrap.Label(self.master, anchor="center", text="SHA", cursor="hand2")
-        self.label_preview = ttkbootstrap.Label(self.master, anchor="center", text="无预览图", cursor="plus")
+        self.label_SHA = ttkbootstrap.Label(self.frame_preview, anchor="center", text="SHA", cursor="hand2")
+        self.label_preview = ttkbootstrap.Label(self.frame_preview, anchor="center", text="无预览图", cursor="plus")
 
         self.treeview_classification.config(yscrollcommand=self.scrollbar_classification.set)
         self.treeview_objects.config(yscrollcommand=self.scrollbar_objects.set)
@@ -57,16 +66,25 @@ class ModsManage(object):
             self.treeview_objects.heading(tree, text=text)
 
 
-        self.treeview_classification.pack(side="left", fill="y", padx=(10, 0), pady=10)
-        self.scrollbar_classification.pack(side="left", fill="y", padx=(2, 5), pady=10)
-        self.treeview_objects.pack(side="left", fill="y", padx=(0, 0), pady=10)
-        self.scrollbar_objects.pack(side="left", fill="y", padx=(2, 5), pady=10)
-        self.frame_choice.pack(side="left", fill="y")
-        self.entry_search.pack(side="bottom", fill="x", padx=(0, 10), pady=(5, 10))
-        self.treeview_choices.pack(side="left", fill="y", padx=(0, 0), pady=(10, 0))
-        self.scrollbar_choices.pack(side="left", fill="y", padx=(2, 10), pady=(10, 0))
-        self.label_SHA.pack(side="bottom", fill="x", padx=(0, 10), pady=(10, 5))
-        self.label_preview.pack(side="top", fill="both", padx=(0, 10), pady=(10, 0), expand=1)
+        self.frame_classification.pack(side="left", fill="both", padx=(10, 0), pady=10)
+        self.frame_objects.pack(side="left", fill="both", padx=(5, 0), pady=10)
+        self.frame_choices.pack(side="left", fill="both", padx=(5, 0), pady=10)
+        self.frame_preview.pack(side="left", fill="both", expand=True, padx=10, pady=10)
+
+        self.entry_classification_search.pack(side="bottom", fill="x", padx=0, pady=(2, 0))
+        self.treeview_classification.pack(side="left", fill="both", expand=True, padx=0, pady=0)
+        self.scrollbar_classification.pack(side="left", fill="y", padx=(2, 0), pady=0)
+
+        self.entry_objects_search.pack(side="bottom", fill="x", padx=0, pady=(2, 0))
+        self.treeview_objects.pack(side="left", fill="both", expand=True, padx=0, pady=0)
+        self.scrollbar_objects.pack(side="left", fill="y", padx=(2, 0), pady=0)
+
+        self.entry_choices_search.pack(side="bottom", fill="x", padx=0, pady=(2, 0))
+        self.treeview_choices.pack(side="left", fill="both", expand=True, padx=0, pady=0)
+        self.scrollbar_choices.pack(side="left", fill="y", padx=(2, 0), pady=0)
+
+        self.label_SHA.pack(side="bottom", fill="x", padx=0, pady=0)
+        self.label_preview.pack(side="top", fill="both", padx=0, pady=(0, 10), expand=1)
         # self.label_explain.pack(side="bottom", fill="x", padx=(0, 10), pady=(5, 10))
         # self.Button_refresh.pack(side="top", fill="x", padx=(0, 10), pady=(0, 10))
 
@@ -79,7 +97,9 @@ class ModsManage(object):
         # self.treeview_choices.bind("<Button-3>", self.bin_show_choices_menu)
         # self.treeview_objects.bind("<Button-3>", self.bin_show_objects_menu)
         # self.entry_search.bind("<Return>", self.update_choices_list)
-        self.value_entry_search.trace("w", self.update_choices_list)
+        self.value_classification_search.trace("w", self.update_classification_list)
+        self.value_objects_search.trace("w", self.update_objects_list)
+        self.value_choices_search.trace("w", self.update_choices_list)
 
         # self.treeview_choices.bind("<Motion>", self.bin_treeview_choices_motion)
         self.treeview_choices.bind("<Motion>", self.bin_treeview_choices_motion)
@@ -102,6 +122,11 @@ class ModsManage(object):
         self.treeview_objects_menu = widgets.DynamicMenu(self.treeview_objects, offsets=(10, 10), value_source=self.bin_get_objects_identify)
         self.treeview_choices_menu = widgets.DynamicMenu(self.treeview_choices, offsets=(10, 10), value_source=self.bin_get_choices_identify)
 
+        # window.methods.motion.motion_treeview_width(window.mainwindow, self.treeview_objects, self.treeview_objects)
+        # window.methods.motion.motion_frame_width(window.mainwindow, self.frame_classification, self.treeview_classification)
+        # window.methods.motion.motion_frame_width(window.mainwindow, self.frame_objects, self.treeview_objects)
+        # window.methods.motion.motion_frame_width(window.mainwindow, self.frame_choices, self.treeview_choices)
+
 
     def initial(self):
         _alt_set = core.window.annotation_toplevel.register
@@ -109,7 +134,9 @@ class ModsManage(object):
         _alt_set(self.treeview_classification, T.ANNOTATION_MANAGE_CLASSIFICATION)
         _alt_set(self.treeview_objects, T.ANNOTATION_MANAGE_OBJECTS)
         # _alt_set(interface.mods_manage.treeview_choices, T.ANNOTATION_MANAGE_CHOICES)
-        _alt_set(self.entry_search, T.ANNOTATION_MANAGE_SEARCH, 1)
+        _alt_set(self.entry_classification_search, T.ANNOTATION_MANAGE_CLASSIFICATION_SEARCH, 1)
+        _alt_set(self.entry_objects_search, T.ANNOTATION_MANAGE_OBJECTS_SEARCH, 1)
+        _alt_set(self.entry_choices_search, T.ANNOTATION_MANAGE_CHOICES_SEARCH, 1)
         _alt_set(self.label_SHA, T.ANNOTATION_COPY_SHA, 2)
         self.treeview_classification_menu_initial()
         self.treeview_objects_menu_initial()
@@ -224,17 +251,24 @@ class ModsManage(object):
         # self.label_explain.config(text=text if text else "无附加描述")
 
 
-    def update_classification_list(self):
+    def update_classification_list(self, *_):
         core.log.debug("更新分类列表", L.WINDOS_MODS_MANAGE)
 
-        class_list = core.module.mods_manage.get_class_list()
+        all_class_list = core.module.mods_manage.get_class_list()
         exist_class_list = self.treeview_classification.get_children()
+        search = self.value_classification_search.get()
+
+        to_list = []
+
+        for classname in all_class_list:
+            if not core.module.extension.item_text_conform(classname, search): continue
+            to_list.append(classname)
 
         # 剔除已经不存在的分类
-        nonexistent = set(exist_class_list) - set(class_list)
+        nonexistent = set(exist_class_list) - set(to_list)
         self.treeview_classification.delete(*nonexistent)
 
-        for index, class_ in enumerate(class_list):
+        for index, class_ in enumerate(to_list):
             lst = core.module.mods_manage.get_object_list(class_)
             amount = len(lst)
 
@@ -254,20 +288,27 @@ class ModsManage(object):
                 )
 
 
-    def update_objects_list(self, *agrs):
+    def update_objects_list(self, *_):
         core.log.debug("更新对象列表", L.WINDOS_MODS_MANAGE)
 
         class_ = self.sbin_get_select_classification()
         if class_ is None: return
 
-        object_list = core.module.mods_manage.get_object_list(class_)
+        all_object_list = core.module.mods_manage.get_object_list(class_)
         exist_object_list = self.treeview_objects.get_children()
+        search = self.value_objects_search.get()
+
+        to_list = []
+
+        for objectname in all_object_list:
+            if not core.module.extension.item_text_conform(objectname, search): continue
+            to_list.append(objectname)
 
         # 剔除已经不存在的对象
-        nonexistent = set(exist_object_list) - set(object_list)
+        nonexistent = set(exist_object_list) - set(to_list)
         self.treeview_objects.delete(*nonexistent)
 
-        for index, object_name in enumerate(object_list):
+        for index, object_name in enumerate(to_list):
             local_ = len(core.module.mods_manage.get_object_sha_list(object_name))
             all_ = len(core.module.mods_index.get_object_sha_list(object_name))
 
@@ -304,7 +345,7 @@ class ModsManage(object):
                 )
 
 
-    def update_choices_list(self, *args):
+    def update_choices_list(self, *_):
         core.log.debug("更新选择列表", L.WINDOS_MODS_MANAGE)
 
         object_ = self.sbin_get_select_objects()
@@ -314,7 +355,7 @@ class ModsManage(object):
 
         all_mods_list = core.module.mods_manage.get_object_sha_list(object_)
         exist_mods_list = self.treeview_choices.get_children()
-        search = self.value_entry_search.get()
+        search = self.value_choices_search.get()
 
         to_list = []
         to_data = {}
@@ -426,8 +467,8 @@ class ModsManage(object):
 
     def treeview_classification_menu_initial(self):
         _alt = self.treeview_classification_menu.add_label
-        _alt("修改分类参照", command=core.additional.modify_classification.modify_classification, condition=self._is_valid_classification, need_value=True)
-        _alt("添加新的分类", command=self.bin_classification_menu_new_classification)
+        _alt("修改分类参照", command=core.additional.modify_classification.modify_classification, order=1000, condition=self._is_valid_classification, need_value=True)
+        _alt("添加新的分类", command=self.bin_classification_menu_new_classification, order=1010)
 
 
     def _is_valid_classification(self, classification_name):
@@ -453,7 +494,7 @@ class ModsManage(object):
 
     def treeview_objects_menu_initial(self):
         _alt = self.treeview_objects_menu.add_label
-        _alt("复制对象名称", command=self.bin_objects_menu_copy_object_name, condition=self._is_valid_object, need_value=True)
+        _alt("复制对象名称", command=self.bin_objects_menu_copy_object_name, order=1000, condition=self._is_valid_object, need_value=True)
 
 
     def _is_valid_object(self, object_name):
@@ -496,16 +537,16 @@ class ModsManage(object):
 
     def treeview_choices_menu_initial(self):
         _alt = self.treeview_choices_menu.add_label
-        _alt("编辑 Mod 信息",  self.bin_choices_menu_modify_item_data,   condition=self._is_valid_sha, need_value=True)
-        _alt("导出 Mod 文件",  self.bin_choices_menu_export_file,        condition=self._is_valid_sha, need_value=True)
-        _alt("复制 SHA 值",    self.bin_choices_menu_copy_sha,           condition=self._is_valid_sha, need_value=True)
-        _alt("查看原始文件",   self.bin_choices_menu_view_original_file, condition=self._is_valid_sha, need_value=True)
-        _alt("查看工作文件",   self.bin_choices_menu_view_work_file,     condition=core.module.mods_manage.is_load_sha,        need_value=True)
-        _alt("查看缓存文件",   self.bin_choices_menu_view_cache_file,    condition=core.module.mods_manage.is_have_cache_load, need_value=True)
-        _alt("查看预览图文件", self.bin_choices_menu_add_view_preview,   condition=self._is_valid_sha, need_value=True)
+        _alt("编辑 Mod 信息",  self.bin_choices_menu_modify_item_data,   order=1000, condition=self._is_valid_sha, need_value=True)
+        _alt("导出 Mod 文件",  self.bin_choices_menu_export_file,        order=1010, condition=self._is_valid_sha, need_value=True)
+        _alt("复制 SHA 值",    self.bin_choices_menu_copy_sha,           order=1020, condition=self._is_valid_sha, need_value=True)
+        _alt("查看原始文件",   self.bin_choices_menu_view_original_file, order=1030, condition=self._is_valid_sha, need_value=True)
+        _alt("查看工作文件",   self.bin_choices_menu_view_work_file,     order=1040, condition=core.module.mods_manage.is_load_sha,        need_value=True)
+        _alt("查看缓存文件",   self.bin_choices_menu_view_cache_file,    order=1040, condition=core.module.mods_manage.is_have_cache_load, need_value=True)
+        _alt("查看预览图文件", self.bin_choices_menu_add_view_preview,   order=1050, condition=self._is_valid_sha, need_value=True)
 
-        _alt("添加文件夹的形式的 Mod", self.bin_choices_menu_add_mod_from_dir,  200)
-        _alt("添加压缩包的形式的 Mod", self.bin_choices_menu_add_mod_from_file, 200)
+        _alt("添加文件夹的形式的 Mod", self.bin_choices_menu_add_mod_from_dir,  200, order=1000)
+        _alt("添加压缩包的形式的 Mod", self.bin_choices_menu_add_mod_from_file, 200, order=1010)
 
 
     def _is_valid_sha(self, sha):
