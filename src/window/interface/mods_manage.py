@@ -3,6 +3,7 @@
 
 # std
 import os
+import shutil
 import tkinter.filedialog
 import tkinter.font
 
@@ -408,17 +409,22 @@ class ModsManage(object):
 
         if SHA is None: return
 
-        name = self.treeview_choices.item(self.treeview_choices.focus())["text"]
+        # name = self.treeview_choices.item(self.treeview_choices.focus())["text"]
+        name = self.sbin_get_select_choices()
 
         if SHA == CMD_UNLOAD:
-            tags = self.treeview_objects.item(self.treeview_objects.focus())["tags"]
-            if not tags: return None
-            object_ = tags[0]
+            # tags = self.treeview_objects.item(self.treeview_objects.focus())["tags"]
+            # if not tags: return None
+            # object_ = tags[0]
+            object_ = self.sbin_get_select_objects()
+            if not object_: return None
+            # core.sync.addtask(f"卸载 {object_}", core.module.mods_manage.unload, (object_, ))
             core.module.mods_manage.unload(object_)
 
             self.treeview_objects.item(self.treeview_objects.focus(), value=())
 
         else:
+            # core.sync.addtask(f"加载 {name}", core.module.mods_manage.load, (SHA, ))
             core.module.mods_manage.load(SHA)
 
             self.treeview_objects.item(self.treeview_objects.focus(), value=(name, ))
@@ -543,6 +549,7 @@ class ModsManage(object):
         _alt("查看原始文件",   self.bin_choices_menu_view_original_file, order=1030, condition=self._is_valid_sha, need_value=True)
         _alt("查看工作文件",   self.bin_choices_menu_view_work_file,     order=1040, condition=core.module.mods_manage.is_load_sha,        need_value=True)
         _alt("查看缓存文件",   self.bin_choices_menu_view_cache_file,    order=1040, condition=core.module.mods_manage.is_have_cache_load, need_value=True)
+        # _alt("删除缓存文件",   self.bin_choices_menu_remove_cache_file,  order=1045, condition=core.module.mods_manage.is_have_cache_load, need_value=True)
         _alt("查看预览图文件", self.bin_choices_menu_add_view_preview,   order=1050, condition=self._is_valid_sha, need_value=True)
 
         _alt("添加文件夹的形式的 Mod", self.bin_choices_menu_add_mod_from_dir,  200, order=1000)
@@ -610,6 +617,12 @@ class ModsManage(object):
         core.external.view_directory(path)
 
 
+    def bin_choices_menu_remove_cache_file(self, *_):
+        path = os.path.abspath(os.path.join(core.userenv.directory.work_mods, f"{K.DISABLED}-{self.value_choice_item}"))
+        if os.path.exists(path):
+            shutil.rmtree(path)
+
+
     def bin_choices_menu_add_mod_from_file(self, *_):
         path = tkinter.filedialog.askopenfilename(title="选择 Mod 压缩包", filetypes=[("压缩文件", ["*.zip", "*.rar", "*.7z"])])
         if path: core.additional.add_mod.AddMods(path)
@@ -634,6 +647,7 @@ class ModsManage(object):
             defaultextension=suffix,
             filetypes=[("压缩文件", suffix)]
             )
+        if not path: return
         path = path if path.endswith(suffix) else f"{path}{suffix}"
 
         with open(os.path.join(core.env.directory.resources.mods, SHA), "rb") as rfobj:
