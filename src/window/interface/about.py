@@ -10,18 +10,21 @@ class About (object):
     def install(self, master):
         self.master = master
 
-        self.frame = ttkbootstrap.Frame(self.master)
-        self.frame.pack(side="top", fill="x", padx=10, pady=10)
-
-        self.what_to_look_at = ttkbootstrap.Label(self.frame, text=T.TEXT_ADOUT)
-        self.what_to_look_at.pack(side="left")
-
+        self.frame_about = ttkbootstrap.Frame(self.master)
         self.frame_afdian = ttkbootstrap.Frame(self.master)
         self.frame_channel = ttkbootstrap.Frame(self.master)
-
         self.frame_afdian.pack(side="bottom", fill="x", padx=10, pady=10)
-        self.frame_channel.pack(side="bottom", fill="x", padx=10, pady=(10, 0))
+        # self.frame_channel.pack(side="bottom", fill="x", padx=10, pady=(10, 0))
+        self.frame_about.pack(side="top", fill="both", expand=True, padx=10, pady=(10, 0))
 
+        # self.what_to_look_at = ttkbootstrap.Label(self.frame, text=T.TEXT_ADOUT)
+        self.what_to_look_at = ttkbootstrap.Text(self.frame_about)
+        self.scrollbar_about = ttkbootstrap.Scrollbar(self.what_to_look_at, command=self.what_to_look_at.yview)
+        self.what_to_look_at.config(yscrollcommand=self.scrollbar_about.set)
+        self.what_to_look_at.insert(0.0, T.TEXT_ADOUT)
+        self.what_to_look_at.config(state="disabled")
+
+        self.what_to_look_at.pack(side="top", fill="both", expand=True)
 
         self.label_sponsor = ttkbootstrap.Label(self.frame_afdian, text="赞助: ", font=("黑体", 16))
         self.label_afdian = ttkbootstrap.Label(self.frame_afdian, text=">> 爱发电 >>>", font=("黑体", 16), foreground="medium purple", cursor="hand2")
@@ -38,6 +41,9 @@ class About (object):
 
         self.label_afdian.bind("<Button-1>", self.bin_open_afdian)
         self.label_vocechat.bind("<Button-1>", self.bin_open_vocechat)
+
+        self.what_to_look_at.bind("<Motion>", lambda *_: self.scrollbar_about.pack(side="right", fill="y"))
+        self.what_to_look_at.bind("<Leave>", lambda *_: self.scrollbar_about.pack_forget())
 
 
     def __init__(self, master):

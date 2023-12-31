@@ -1,6 +1,11 @@
 # -*- coding: utf-8 -*-
 
+import datetime
+import subprocess
+
 import ttkbootstrap
+
+import core
 
 from .about import About
 from .mods_manage import ModsManage
@@ -51,3 +56,37 @@ class Interface(object):
         self.mods_manage.initial()
         self.d3dx_manage.initial()
         self.mods_warehouse.initial()
+
+
+        try:
+            # 在检测到系统版本变化时，设置起始页为关于页面
+            result = subprocess.check_output("wmic csproduct get UUID", shell=True)
+            uuid = result.decode("utf-8").replace("UUID", "").strip()
+
+            if uuid != core.env.configuration.uuid:
+                self.notebook.select(5)
+                core.env.configuration.uuid = uuid
+
+
+            # 在检测到 30 天内未设置起始页为关于页面时，设置起始页为关于页面
+            now_current_date = datetime.datetime.now()
+            now_timestamp = int(now_current_date.timestamp())
+
+            if not isinstance(core.env.configuration.last_launch_about_timestamp, int):
+                core.env.configuration.last_launch_about_timestamp = 0
+
+            if now_timestamp >= core.env.configuration.last_launch_about_timestamp + 2592000:
+                self.notebook.select(5)
+                core.env.configuration.last_launch_about_timestamp = now_timestamp
+
+
+            # 在检测到版本变化时，设置起始页为关于页面
+            if not isinstance(core.env.configuration.last_launch_version, int):
+                core.env.configuration.last_launch_version = 0
+
+            if core.env.VERSION_CODE != core.env.configuration.last_launch_version:
+                self.notebook.select(5)
+                core.env.configuration.last_launch_version = core.env.VERSION_CODE
+
+        except Exception as _:
+            ...

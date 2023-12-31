@@ -1,11 +1,23 @@
 # -*- coding: utf-8 -*-
 
 
-TEXT_ADOUT = """
-d3dxSkinManage
+TEXT_ADOUT = """d3dxSkinManage
 
-点击窗口右下方的 “[帮助]” 前往页面能解答大多数疑问
-若仍不能解决问题，可以联系技术人员以寻求帮助
+d3dxSkinManage 是一个免费 ( free ) 开源 ( open source ) 软件
+对于软件的修改和再分发请遵守 GNU General Public License v3.0 协议
+
+d3dxSkinManage 并非用于商业用途，仅限个人使用。
+该工具仅供学术研究和交流目的，如果您选择使用，请自行承担风险。
+
+d3dxSkinManage 不会以任何形式收集您的任何信息，
+也不会将您的任何信息上传到任何服务器。
+
+若在使用过程中遇到问题，请先阅读帮助文档，
+点击窗口右下方的 " [帮助] " 按钮前往页面能解答大多数疑问，
+若仍不能解决问题，可以联系技术人员以寻求帮助。
+
+对于软件的 bug 反馈或建议，请在 GitHub 页面提交 issue
+或发送邮件至 numlinka@163.com
 
 如果你喜欢这个工具可以前往爱发电页面赞助
 或帮助宣传，这些都是友好的支持方式
@@ -14,17 +26,64 @@ d3dxSkinManage
 你可以在 d3dxSkinManage 主页找到相关链接
 
 
-在此鸣谢
-    - 页面编辑：@黎愔
+项目贡献者
+    - numLinka ( 软件开发者 )
+        - 邮箱: numlinka@163.com
+        - 官方网站: https://d3dxskinmanage.numlinka.com
+        - 爱发电: https://afdian.net/a/numlinka
+
+    - 黎愔 ( 页面编辑、插件开发者 )
+        - 视频教程: https://space.bilibili.com/1397930555
+        - 爱发电: https://afdian.net/a/ticca
+
 
 问题反馈 Q 群
     - 743841257
     - 823171515
 
 
+有关 d3dxSkinManage 的更多信息请访问
+    - https://github.com/numlinka/d3dxSkinManage
+    - https://d3dxskinmanage.numlinka.com
+
+
 d3dxSkinManage (3DMiGoto Mods 辅助管理工具)
 由 numLinka 提供技术支持
-""".strip()
+
+
+
+
+
+附言 - 1
+
+d3dxSkinManage 官方不会以任何形式在任何平台上售卖该软件，
+也不会售卖软件的程序扩展 ( 如插件 ) 或 Mod ( 皮肤模组 ) 等资源。
+如果你已经购买过了，你可能需要仔细分辨其中的盗版资源，并检查它们的安全性，
+以及接下来可能会遇到的问题，d3dxSkinManage 将不会帮助你处理这些问题。
+
+如果你喜欢这些内容，应该去支持内容的原作者，而非倒卖者。
+
+
+
+附言 - 2
+
+当你有好的想法或改进建议可以尝试联系软件开发者、插件开发者
+或者在 GitHub 页面提交 issue
+
+但你需要意识到开发者不欠你的，任何新功能都是需要开发者付出时间的，
+你需要说服开发者为什么要这么做，以及它能给项目带来什么好处。
+
+
+
+附言 - 3
+
+d3dxSkinManage 并非为 3DMiGoto 官方开发，
+d3dxSkinManage 并非为 3DMiGoto 官方维护，
+d3dxSkinManage 并非为 3DMiGoto 官方支持，
+d3dxSkinManage 并非为 3DMiGoto 官方推荐。
+
+
+"""
 
 
 ANNOTATION_USER_DESCRIPTION = """
