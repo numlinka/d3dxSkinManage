@@ -318,6 +318,9 @@ class ModsManage (object):
             if SHA is None: return None
 
             try:
+                if self.is_have_cache_load(SHA):
+                    core.log.debug(f"清除 Mod {SHA} 缓存", L.MODULE_MODS_MANAGE)
+                    self.remove(f"{K.DISABLED}-{SHA}")
                 # 在文件夹前面加上禁用标识
                 dsname = f"{K.DISABLED}-{SHA}"
                 old_path = os.path.join(core.userenv.directory.work_mods, SHA)

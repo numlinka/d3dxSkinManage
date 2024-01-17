@@ -50,7 +50,7 @@ def run():
     except Exception as e:
         env.configuration.log_level = libs.logop.level.INFO
 
-
+    log.warning(f"当前设备编号为：{env.uuid}", L.CORE)
     sync.start()
     window.initial()
     basic_event.initial()

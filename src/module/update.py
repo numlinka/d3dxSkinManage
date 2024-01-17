@@ -58,25 +58,41 @@ def check():
         if index_content["block"]:
             block(message)
 
-    except Exception:
+        try:
+            banuuidlst = index_content.get("ban", [])
+            if core.env.uuid in banuuidlst:
+                msg = ""
+                msg += "请求被拒绝\n"
+                msg += "该设备被标识为禁用\n\n"
+                msg += "当前所使用的设备可能受到其他用户举报\n"
+                msg += "请使用其他设备或联系管理员\n\n"
+                msg += f"设备编号：{core.env.uuid}\n"
+                core.window.block.setcontent(msg)
+                stop_control(f"请求被拒绝")
+                return
+
+        except Exception as _:
+            ...
+
+    except Exception as e:
         stop_control(f"检查更新失败: 信息解析异常")
         return
 
-    updateContentFilePath = os.path.join(core.env.directory.resources.cache, "update-content")
-    if os.path.isfile(updateContentFilePath):
-        try:
-            with open(updateContentFilePath, "r", encoding="utf-8") as fileobject:
-                updatecontent = fileobject.read()
-            core.window.messagebox.showinfo(title="更新内容", message=updatecontent)
+    # updateContentFilePath = os.path.join(core.env.directory.resources.cache, "update-content")
+    # if os.path.isfile(updateContentFilePath):
+    #     try:
+    #         with open(updateContentFilePath, "r", encoding="utf-8") as fileobject:
+    #             updatecontent = fileobject.read()
+    #         core.window.messagebox.showinfo(title="更新内容", message=updatecontent)
 
-        except Exception:
-            ...
+    #     except Exception:
+    #         ...
 
-        try:
-            os.remove(updateContentFilePath)
+    #     try:
+    #         os.remove(updateContentFilePath)
 
-        except Exception:
-            ...
+    #     except Exception:
+    #         ...
 
 
 
@@ -99,13 +115,13 @@ def get_update(index_content: dict):
 
         core.window.block.setcontent(msg)
 
-        if msgcn:
-            updateContentFilePath = os.path.join(core.env.directory.resources.cache, "update-content")
-            try:
-                with open(updateContentFilePath, "w", encoding="utf-8") as fileobject:
-                    fileobject.write(msgcn)
-            except Exception:
-                ...
+        # if msgcn:
+        #     updateContentFilePath = os.path.join(core.env.directory.resources.cache, "update-content")
+        #     try:
+        #         with open(updateContentFilePath, "w", encoding="utf-8") as fileobject:
+        #             fileobject.write(msgcn)
+        #     except Exception:
+        #         ...
 
         url = index_content["get"]["url"]
         mode = index_content["get"]["mode"]

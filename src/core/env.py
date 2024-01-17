@@ -2,6 +2,7 @@
 
 # std
 import os
+import subprocess
 from os.path import join as __
 
 # self
@@ -13,9 +14,9 @@ from .structure import *
 PROJECT = "d3dxSkinManage"
 AUTHOR = "numlinka"
 
-VERSION_CODE = 1_05_24_000
+VERSION_CODE = 1_05_25_000
 VERSION_TYPE = ""
-VERSION_NAME = "1.5.24"
+VERSION_NAME = "1.5.25"
 
 MAIN_TITLE = f"{PROJECT} v{VERSION_NAME} -by {AUTHOR}"
 
@@ -85,6 +86,13 @@ class Link (object):
     help = 'https://d3dxskinmanage.numlinka.com/#/help'
     afdian = 'https://afdian.net/a/numlinka'
     vocechat = 'https://vocechat.numlinka.com'
+
+
+try:
+    uuid = subprocess.check_output("wmic csproduct get UUID", shell=True).decode("utf-8").replace("UUID", "").strip()
+
+except Exception:
+    uuid = ""
 
 
 __all__ = [
