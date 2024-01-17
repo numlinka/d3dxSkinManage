@@ -40,6 +40,11 @@ d3dxSkinManage 不会以任何形式收集您的任何信息，
 问题反馈 Q 群
     - 743841257
     - 823171515
+    - 
+
+
+Discord 频道
+    - https://discord.gg/DaZ6Ds5Af5
 
 
 有关 d3dxSkinManage 的更多信息请访问
@@ -143,6 +148,13 @@ SHA、对象、名称、分级、作者、标签
 使用空格分割多个关键字
 使用 "!" 符号开头拒绝对应关键词
 切换对象仍然有效
+""".strip()
+
+ANNOTATION_MANAGE_PREVIEW = """
+左键单击 查看全屏预览图
+右键单击 从剪切板拉取图片
+
+或将图片文件拖拽至窗口添加
 """.strip()
 
 ANNOTATION_COPY_SHA = "点击复制 SHA 值"

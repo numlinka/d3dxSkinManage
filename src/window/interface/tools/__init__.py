@@ -12,7 +12,7 @@ from . import old_migration
 from . import development
 
 TEXT_OCD_CROP = """
-强迫症预览图裁剪工具
+强迫症截图工具
 
 你是否因为在截取预览图时位置和大小参差不齐而烦恼
 但是现在没有关系

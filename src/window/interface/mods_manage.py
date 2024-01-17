@@ -138,6 +138,7 @@ class ModsManage(object):
         _alt_set(self.entry_classification_search, T.ANNOTATION_MANAGE_CLASSIFICATION_SEARCH, 1)
         _alt_set(self.entry_objects_search, T.ANNOTATION_MANAGE_OBJECTS_SEARCH, 1)
         _alt_set(self.entry_choices_search, T.ANNOTATION_MANAGE_CHOICES_SEARCH, 1)
+        _alt_set(self.label_preview, T.ANNOTATION_MANAGE_PREVIEW, 2)
         _alt_set(self.label_SHA, T.ANNOTATION_COPY_SHA, 2)
         self.treeview_classification_menu_initial()
         self.treeview_objects_menu_initial()

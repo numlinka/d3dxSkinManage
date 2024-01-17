@@ -60,8 +60,7 @@ class Interface(object):
 
         try:
             # 在检测到系统版本变化时，设置起始页为关于页面
-            result = subprocess.check_output("wmic csproduct get UUID", shell=True)
-            uuid = result.decode("utf-8").replace("UUID", "").strip()
+            uuid = core.env.uuid
 
             if uuid != core.env.configuration.uuid:
                 self.notebook.select(5)

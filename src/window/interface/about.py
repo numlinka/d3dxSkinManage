@@ -42,8 +42,8 @@ class About (object):
         self.label_afdian.bind("<Button-1>", self.bin_open_afdian)
         self.label_vocechat.bind("<Button-1>", self.bin_open_vocechat)
 
-        self.what_to_look_at.bind("<Motion>", lambda *_: self.scrollbar_about.pack(side="right", fill="y"))
-        self.what_to_look_at.bind("<Leave>", lambda *_: self.scrollbar_about.pack_forget())
+        self.what_to_look_at.bind("<Enter>", lambda *_: self.scrollbar_about.pack(side="right", fill="y"), "+")
+        self.what_to_look_at.bind("<Leave>", lambda *_: self.scrollbar_about.pack_forget(), "+")
 
 
     def __init__(self, master):

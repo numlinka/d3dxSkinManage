@@ -62,6 +62,6 @@ class AnnotationToplevel (object):
 
 
     def register(self, control, content: str, level: int = 3):
-        control.bind("<Motion>", lambda *_: self.update_position())
-        control.bind("<Enter>", lambda *_: self.deiconify_content(content, level))
-        control.bind("<Leave>", lambda *_: self.withdraw())
+        control.bind("<Motion>", lambda *_: self.update_position(), "+")
+        control.bind("<Enter>", lambda *_: self.deiconify_content(content, level), "+")
+        control.bind("<Leave>", lambda *_: self.withdraw(), "+")
