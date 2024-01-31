@@ -332,12 +332,16 @@ class Execute (object):
                 if os.path.isdir(s_path):
                     os.remove(tempfilepath)
 
+            except Exception as e:
+                ...
+
+            finally:
                 with self.lock:
                     self.value_residue -= 1
                     self.sbin_update_info()
 
-            except Exception as e:
-                ...
+
+
 
 
 

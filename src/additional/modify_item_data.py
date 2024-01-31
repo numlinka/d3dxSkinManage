@@ -12,6 +12,7 @@ import ttkbootstrap
 # project
 import core
 from constant import *
+import widgets
 
 
 class selfstatus (object):
@@ -19,75 +20,92 @@ class selfstatus (object):
 
 
 class ModifyItemData (object):
-    def __init__(self, SHA):
+    def __init__(self, master = ..., SHA: str = ...):
         result = selfstatus.action.acquire(timeout=0.01)
         if not result:
             core.window.messagebox.showerror(title='互斥锁请求超时', message='互斥锁正在被其他线程占用\n上一次操作未结束或锁没有被正确释放\n亦或是你想测试这个操作是不是线程安全的')
             return
 
         self.SHA = SHA
+        self.master = master
 
-        self.windows = ttkbootstrap.Toplevel('修改 SHA 信息 - new construction options')
-        self.windows.transient(core.window.mainwindow)
-        # self.windows.grab_set()
-        # self.windows = tkinter.Toplevel(core.window.mainwindow)
+        self._initial()
 
-        try:
-            self.windows.iconbitmap(default=core.env.file.local.iconbitmap)
-            self.windows.iconbitmap(bitmap=core.env.file.local.iconbitmap)
-        except Exception:
-            ...
 
+    def _initial(self):
+        if self.master is Ellipsis:
+            self.window = ttkbootstrap.Toplevel('修改 SHA 信息 - new construction options')
+            self.window.transient(core.window.mainwindow)
+            # self.windows.grab_set()
+            self.window.focus_set()
+            # self.windows = tkinter.Toplevel(core.window.mainwindow)
+
+            try:
+                self.window.iconbitmap(default=core.env.file.local.iconbitmap)
+                self.window.iconbitmap(bitmap=core.env.file.local.iconbitmap)
+            except Exception:
+                ...
+
+            self.master = self.window
+            self._initial_widget()
+            self._final_window_update()
+
+        else:
+            self._initial_widget()
+
+
+    def _initial_widget(self):
         width = 60
 
-        self.Label_SHA = ttkbootstrap.Label(self.windows, text=f'SHA: {self.SHA}')
+        self.Label_SHA = ttkbootstrap.Label(self.master, text=f'SHA: {self.SHA}')
 
-        self.Frame_object = ttkbootstrap.Frame(self.windows)
+        self.Frame_object = ttkbootstrap.Frame(self.master)
         self.Entry_object = ttkbootstrap.Entry(self.Frame_object, width=width)
         self.Label_object = ttkbootstrap.Label(self.Frame_object, text='作用对象：')
 
-        self.Frame_name = ttkbootstrap.Frame(self.windows)
+        self.Frame_name = ttkbootstrap.Frame(self.master)
         self.Entry_name = ttkbootstrap.Entry(self.Frame_name, width=width)
         self.Label_name = ttkbootstrap.Label(self.Frame_name, text='模组名称：')
 
-        self.Frame_author = ttkbootstrap.Frame(self.windows)
+        self.Frame_author = ttkbootstrap.Frame(self.master)
         self.Entry_author = ttkbootstrap.Entry(self.Frame_author, width=width)
         self.Label_author = ttkbootstrap.Label(self.Frame_author, text='模组作者：')
 
-        self.Frame_grading = ttkbootstrap.Frame(self.windows)
+        self.Frame_grading = ttkbootstrap.Frame(self.master)
         self.Combobox_grading = ttkbootstrap.Combobox(self.Frame_grading,
                                                       values=['G - 大众级', 'P - 指导级', 'R - 成人级', 'X - 限制级'])
         self.Label_grading = ttkbootstrap.Label(self.Frame_grading, text='年龄分级：')
 
-        self.Frame_explain = ttkbootstrap.Frame(self.windows)
+        self.Frame_explain = ttkbootstrap.Frame(self.master)
         self.Entry_explain = ttkbootstrap.Entry(self.Frame_explain, width=width)
         self.Label_explain = ttkbootstrap.Label(self.Frame_explain, text='附加描述：')
 
-        self.Frame_tags = ttkbootstrap.Frame(self.windows)
+        self.Frame_tags = ttkbootstrap.Frame(self.master)
         self.Entry_tags = ttkbootstrap.Entry(self.Frame_tags, width=width)
         self.Label_tags = ttkbootstrap.Label(self.Frame_tags, text='类型标签：')
+        self.Button_tags = ttkbootstrap.Button(self.Frame_tags, text='+', bootstyle="success-outline", command=self.set_tags)
 
-        self.Frame_get_1 = ttkbootstrap.Frame(self.windows)
+        self.Frame_get_1 = ttkbootstrap.Frame(self.master)
         self.Entry_url_1 = ttkbootstrap.Entry(self.Frame_get_1, width=width)
         self.Label_url_1 = ttkbootstrap.Label(self.Frame_get_1, text='下载地址：')
         self.Combobox_mode_1 = ttkbootstrap.Combobox(self.Frame_get_1, values=['get', 'lanzou'])
 
-        self.Frame_get_2 = ttkbootstrap.Frame(self.windows)
+        self.Frame_get_2 = ttkbootstrap.Frame(self.master)
         self.Entry_url_2 = ttkbootstrap.Entry(self.Frame_get_2, width=width)
         self.Label_url_2 = ttkbootstrap.Label(self.Frame_get_2, text='下载地址：')
         self.Combobox_mode_2 = ttkbootstrap.Combobox(self.Frame_get_2, values=['get', 'lanzou'])
 
-        self.Frame_get_3 = ttkbootstrap.Frame(self.windows)
+        self.Frame_get_3 = ttkbootstrap.Frame(self.master)
         self.Entry_url_3 = ttkbootstrap.Entry(self.Frame_get_3, width=width)
         self.Label_url_3 = ttkbootstrap.Label(self.Frame_get_3, text='下载地址：')
         self.Combobox_mode_3 = ttkbootstrap.Combobox(self.Frame_get_3, values=['get', 'lanzou'])
 
-        self.Button_ok = ttkbootstrap.Button(self.windows, text='保存', width=10, bootstyle="info-outline", command=self.bin_ok)
-        self.Button_cancel = ttkbootstrap.Button(self.windows, text='取消', width=10, bootstyle="success-outline", command=self.bin_cancel)
-        self.Button_remove = ttkbootstrap.Button(self.windows, text='删除', width=10, bootstyle="warning-outline", command=self.bin_remove)
-        self.Button_delete = ttkbootstrap.Button(self.windows, text='完全移除', width=10, bootstyle="danger-outline", command=self.bin_delete)
+        self.Button_ok = ttkbootstrap.Button(self.master, text='保存', width=10, bootstyle="info-outline", command=self.bin_ok)
+        self.Button_cancel = ttkbootstrap.Button(self.master, text='取消', width=10, bootstyle="success-outline", command=self.bin_cancel)
+        self.Button_remove = ttkbootstrap.Button(self.master, text='删除', width=10, bootstyle="warning-outline", command=self.bin_remove)
+        self.Button_delete = ttkbootstrap.Button(self.master, text='完全移除', width=10, bootstyle="danger-outline", command=self.bin_delete)
 
-        self.Label_except = ttkbootstrap.Label(self.windows, anchor='w', text='', foreground='red')
+        self.Label_except = ttkbootstrap.Label(self.master, anchor='w', text='', foreground='red')
 
         self.Label_SHA.pack(side='top', fill='x', padx=10, pady=10)
 
@@ -114,6 +132,7 @@ class ModifyItemData (object):
         self.Frame_tags.pack(side='top', fill='x', padx=10, pady=(0, 10))
         self.Label_tags.pack(side='left', padx=(0, 5))
         self.Entry_tags.pack(side='left', fill='x', expand=1)
+        self.Button_tags.pack(side='left', padx=(5, 0))
 
         self.Frame_get_1.pack(side='top', fill='x', padx=10, pady=(0, 10))
         self.Label_url_1.pack(side='left', padx=(0, 5))
@@ -141,7 +160,7 @@ class ModifyItemData (object):
 
         self.Label_except.pack(side='right', fill='x', expand=True, padx=(10, 0), pady=(0, 10))
 
-        self.windows.protocol('WM_DELETE_WINDOW', self.bin_cancel)
+        self.master.protocol('WM_DELETE_WINDOW', self.bin_cancel)
 
         _alt_set = core.window.annotation_toplevel.register
         _alt_set(self.Label_SHA, T.ANNOTATION_SHA, 2)
@@ -161,32 +180,6 @@ class ModifyItemData (object):
         _alt_set(self.Button_cancel, T.ANNOTATION_MODIFY_ITEM_CANCEL, 2)
         _alt_set(self.Button_remove, T.ANNOTATION_MODIFY_ITEM_REMOVE, 1)
         _alt_set(self.Button_delete, T.ANNOTATION_MODIFY_ITEM_DELETE, 1)
-
-        self.windows.update()
-
-        width = self.windows.winfo_width()
-        height = self.windows.winfo_height()
-
-        sw = self.windows.winfo_screenwidth()
-        sh = self.windows.winfo_screenheight()
-
-        mx = sw - width
-        my = sh - height
-
-        _x, _y = win32gui.GetCursorInfo()[2]
-
-        x = _x - width // 2
-        y = _y - height // 2 - 20
-
-        if x < 0: x = 0
-        if y < 0: y = 0
-
-        if x > mx: x = mx
-        if y > my: y = my
-
-        self.windows.geometry(f'+{x}+{y}')
-        self.windows.resizable(False, False)
-
 
         data = core.module.mods_index.get_item(self.SHA)
 
@@ -221,6 +214,21 @@ class ModifyItemData (object):
 
             else:
                 core.window.messagebox.showwarning(title='数据超出处理长度', message='get 数据数量超出处理长度\n修改会导致超出的部分数据丢失')
+
+
+    def _final_window_update(self):
+        self.master.update()
+        core.window.methods.center_window_for_window(self.master, core.window.mainwindow)
+        self.master.resizable(False, False)
+
+
+    def set_tags(self, *_):
+        o_tags = core.module.tags_manage.get_tags()
+        s_tags = self.Entry_tags.get()
+        # res = select2ags.select2ags("选择标签", s_tags, parent=self.master)
+        res = widgets.dialogs.select2ags("选择标签", o_tags, s_tags, parent=self.master)
+        self.Entry_tags.delete(0, 'end')
+        self.Entry_tags.insert(0, res)
 
 
     def bin_ok(self, **args):
@@ -301,7 +309,7 @@ class ModifyItemData (object):
 
 
     def bin_cancel(self, *args):
-        self.windows.destroy()
+        self.master.destroy()
         core.window.annotation_toplevel.withdraw()
         selfstatus.action.release()
 
@@ -340,4 +348,4 @@ def modify_item_data(*args):
         choice = core.window.interface.mods_manage.sbin_get_select_choices()
         if choice is None: return
     if core.module.mods_index.get_item(choice) is None: return
-    ModifyItemData(choice)
+    ModifyItemData(SHA=choice)

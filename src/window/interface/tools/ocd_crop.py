@@ -6,6 +6,7 @@ import threading
 import collections
 
 # site
+import win32api
 import win32con
 import win32clipboard
 import PIL.Image
@@ -106,10 +107,11 @@ class ReferenceLine (object):
         original_cs = (0, 0, ocis.width-1, ocis.height-1)
         window_cs = (wcis.rel_x, wcis.rel_y, wcis.rel_x+wcis.width-1, wcis.rel_y+wcis.height-1)
         target_cs = (tcis.rel_x, tcis.rel_y, tcis.rel_x+tcis.width-1, tcis.rel_y+tcis.height-1)
+        track_cs = (0, 0, wcis.rel_x, wcis.rel_y, tcis.rel_x, tcis.rel_y, 0, 0)
         self.canvas.create_rectangle(*original_cs, fill=self.grey, outline=self.white, tags=self.base)
         self.canvas.create_rectangle(*window_cs, fill=None, outline=self.white, tags=self.base)
         self.canvas.create_rectangle(*target_cs, fill=None, outline=self.white, tags=self.base)
-        self.canvas.create_line(0, 0, wcis.rel_x, wcis.rel_y, tcis.rel_x, tcis.rel_y, fill=self.white, tags=self.base)
+        self.canvas.create_line(*track_cs, fill=self.white, tags=self.base)
 
         text_size = f"{tcis.width} x {tcis.height}"
         text_site = f"{tcis.rel_x} ( {tcis.abs_x} ) / {tcis.rel_y} ( {tcis.abs_y} )"
@@ -305,6 +307,25 @@ class OCDCrop (object):
                 raise ValueError(msg)
 
 
+    def calculate_main_screen_vertex_coordinates(self) -> tuple[int, int]:
+        screen_amount = win32api.GetSystemMetrics(win32con.SM_CMONITORS)
+        if screen_amount <= 1:
+            return 0, 0
+
+        display_monitors = win32api.EnumDisplayMonitors(None, None)
+        vertex_x, vertex_y = 0, 0
+
+        for monitor in display_monitors:
+            nw_x, nw_y, se_x, se_y = monitor[-1]
+            vertex_x = min(vertex_x, nw_x)
+            vertex_y = min(vertex_y, nw_y)
+            continue
+
+            win32api.GetMonitorInfo(monitor[0])
+
+        return abs(vertex_x), abs(vertex_y)
+
+
     def calculate_original_window_coordinates(self) -> Coordinates:
         window_title = self.v_window_name.get()
 
@@ -375,12 +396,18 @@ class OCDCrop (object):
         if orimage is Ellipsis:
             ocis, wcis, tcis = self.calculate_coordinates()
             self.window_reference.draw(ocis, wcis, tcis)
-            orimage = PIL.ImageGrab.grab(bbox=(ocis.x, ocis.y, ocis.x+ocis.width, ocis.y+ocis.height))
+            nw_x = ocis.x
+            nw_y = ocis.y
+            se_x = nw_x + ocis.width
+            se_y = nw_y + ocis.height
+            site = (nw_x, nw_y, se_x, se_y)
+            orimage = PIL.ImageGrab.grab(bbox=site, all_screens=True)
+
         else:
             ocis, wcis, tcis = self.calculate_coordinates(orimage)
 
-        cis = (tcis.rel_x, tcis.rel_y, tcis.rel_x+tcis.width, tcis.rel_y+tcis.height)
-        result = orimage.crop(cis)
+        site = (tcis.rel_x, tcis.rel_y, tcis.rel_x+tcis.width, tcis.rel_y+tcis.height)
+        result = orimage.crop(site)
         containe.image = result
         self.window_preview.update()
 

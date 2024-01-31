@@ -2,6 +2,7 @@
 
 # std
 import os
+import copy
 import shutil
 import fnmatch
 import threading
@@ -222,6 +223,10 @@ class ModsManage (object):
 
     def get_load_object_sha(self, object_: str) -> str | None:
         return self.__table_loads.get(object_, None)
+
+
+    def get_table_loads(self) -> dict[str, str]:
+        return copy.deepcopy(self.__table_loads)
 
 
     def is_load_object(self, object_: str):

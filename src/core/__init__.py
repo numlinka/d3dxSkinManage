@@ -37,6 +37,14 @@ class record (object):
 
 
 
+class tasklist (object):
+    exit = [
+        (env.configuration._con_asve_as_json, (env.file.local.configuration, )),
+        (log.close, ())
+    ]
+
+
+
 def run():
     try:
         amend.env_config_amend()
@@ -53,6 +61,7 @@ def run():
     log.warning(f"当前设备编号为：{env.uuid}", L.CORE)
     sync.start()
     window.initial()
+    module.initial()
     basic_event.initial()
     additional.initial()
 
@@ -84,23 +93,20 @@ def logout():
     construct.event.set_event(E.USER_LOGGED_OUT)
 
 
+
+
 def _exit():
     log.info("程序请求退出", L.CORE_EXIT)
 
-    task_list = [
-        (env.configuration._con_asve_as_json, (env.file.local.configuration, )),
-        (log.close, ())
-    ]
-
     try:
         # todo 程序推出时应该保存用户数据
-        task_list.insert(0, (userenv.configuration._con_asve_as_json, (userenv.file.configuration, )))
+        tasklist.exit.insert(0, (userenv.configuration._con_asve_as_json, (userenv.file.configuration, )))
 
     except Exception as e:
         ...
 
     log.info("正在回收资源...", L.CORE_EXIT)
-    for task in task_list:
+    for task in tasklist.exit:
         try:
             task[0](*task[1])
 
