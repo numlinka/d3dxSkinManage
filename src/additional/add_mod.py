@@ -13,6 +13,7 @@ import ttkbootstrap
 
 # project
 import core
+import widgets
 from constant import *
 
 
@@ -60,6 +61,7 @@ class AddMods(object):
         self.windows.transient(core.window.mainwindow)
         self.windows.protocol("WM_DELETE_WINDOW", self.close)
         # self.windows.grab_set()
+        self.windows.focus_set()
 
         try:
             self.windows.iconbitmap(default=core.env.file.local.iconbitmap)
@@ -95,6 +97,7 @@ class AddMods(object):
         self.Frame_tags = ttkbootstrap.Frame(self.windows)
         self.Entry_tags = ttkbootstrap.Entry(self.Frame_tags, width=width)
         self.Label_tags = ttkbootstrap.Label(self.Frame_tags, text='类型标签：')
+        self.Button_tags = ttkbootstrap.Button(self.Frame_tags, text='+', bootstyle="success-outline", command=self.set_tags)
 
         self.Frame_url = ttkbootstrap.Frame(self.windows)
         self.Entry_url = ttkbootstrap.Entry(self.Frame_url, width=width)
@@ -134,6 +137,7 @@ class AddMods(object):
         self.Frame_tags.pack(side='top', fill='x', padx=10, pady=(0, 10))
         self.Label_tags.pack(side='left', padx=(0, 5))
         self.Entry_tags.pack(side='left', fill='x', expand=1)
+        self.Button_tags.pack(side='left', padx=(5, 0))
 
         # self.Frame_url.pack(side='top', fill='x', padx=10, pady=(0, 10))
         # self.Label_url.pack(side='left', padx=(0, 5))
@@ -273,6 +277,14 @@ class AddMods(object):
             self.Label_except['text'] = '操作中断'
             core.window.messagebox.showerror(title="操作中断：未定义错误", message=f"{e.__class__}\n\n{e}")
             return
+
+    def set_tags(self, *_):
+        o_tags = core.module.tags_manage.get_tags()
+        s_tags = self.Entry_tags.get()
+        # res = select2ags.select2ags("选择标签", s_tags, parent=self.master)
+        res = widgets.dialogs.select2ags("选择标签", o_tags, s_tags, parent=self.windows)
+        self.Entry_tags.delete(0, 'end')
+        self.Entry_tags.insert(0, res)
 
 
     def bin_open_help(self, *args, **kwds):

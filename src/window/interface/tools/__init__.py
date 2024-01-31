@@ -10,6 +10,7 @@ from . import ocd_crop
 from . import cache_cleanup
 from . import old_migration
 from . import development
+import widgets
 
 TEXT_OCD_CROP = """
 强迫症截图工具
@@ -47,6 +48,17 @@ TEXT_DEVELOPMENT = """
 你已经被警告过了
 """
 
+TEXT_TAGS_EDIT = """
+可选标签编辑工具
+
+你可以在此编辑 Mod 标签的可选内容和顺序
+使用空格和换行来分隔多个标签
+已出现过的标签会被追加到可选内容中
+如果出现错误请自行修复
+"""
+
+
+
 class containe ():
     rejection_count = 1
 
@@ -72,11 +84,13 @@ class Tools (object):
         self.button_cache_cleanup.pack(side="top", fill="x")
 
         self.button_old_version_migration = ttkbootstrap.Button(self.frame_1, text=TEXT_OLD_MIGRATION, bootstyle="outline", command=self.bin_open_old_migration)
-        self.button_old_version_migration.pack(side="top", fill="x", pady=10)
+        self.button_old_version_migration.pack(side="top", fill="x", pady=(10, 0))
 
         self.button_development_debug = ttkbootstrap.Button(self.frame_1, text=TEXT_DEVELOPMENT, bootstyle="outline", command=self.bin_open_development_debug)
-        self.button_development_debug.pack(side="top", fill="x")
+        self.button_development_debug.pack(side="top", fill="x", pady=(10, 0))
 
+        self.button_tags_edit = ttkbootstrap.Button(self.frame_2, text=TEXT_TAGS_EDIT, bootstyle="outline", command=self.bin_open_tags_edit)
+        self.button_tags_edit.pack(side="top", fill="x", pady=(10, 0))
 
     def initial(self):
         ...
@@ -101,3 +115,8 @@ class Tools (object):
             return
 
         development.Development()
+
+
+    def bin_open_tags_edit(self, *_):
+        res = widgets.dialogs.textedit(title="可选标签编辑", content=core.module.tags_manage.get_tags_content(), parent=core.window.mainwindow)
+        core.module.tags_manage.update_content(res)
