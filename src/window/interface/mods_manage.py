@@ -597,7 +597,7 @@ class ModsManage(object):
 
 
     def bin_choices_menu_modify_item_data(self, *_):
-        core.additional.modify_item_data.ModifyItemData(self.value_choice_item)
+        core.additional.modify_item_data.modify_item_data(self.value_choice_item)
 
 
     def bin_choices_menu_view_original_file(self, *_):
