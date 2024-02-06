@@ -13,6 +13,11 @@ import core
 from constant import *
 
 
+class cache ():
+    similarity_names = {}
+    last_match_mode = None
+
+
 def image_resize(image_: Union[PIL.Image.Image, str], width: int, height: int, tkimg: bool = False) -> PIL.Image.Image:
     """调整图片大小, 保持原图片比例"""
     if isinstance(image_, PIL.Image.Image): picture = image_
@@ -231,7 +236,16 @@ class ImageTkThumbnailGroup(object):
 
 
 def find_most_similar(input_str, string_list):
-    match core.env.configuration.thumbnail_approximate_algorithm:
+    match_mode = core.env.configuration.thumbnail_approximate_algorithm
+
+    if cache.last_match_mode != match_mode:
+        cache.last_match_mode = match_mode
+        cache.similarity_names = {}
+
+    if input_str in cache.similarity_names:
+        return cache.similarity_names[input_str]
+
+    match match_mode:
         case "key-in only":
             for strcs in string_list:
                 if strcs in input_str:
@@ -248,6 +262,7 @@ def find_most_similar(input_str, string_list):
                     max_similarity = similarity
                     most_similar_str = candidate
 
+            cache.similarity_names[input_str] = most_similar_str
             return most_similar_str
 
 
@@ -261,6 +276,7 @@ def find_most_similar(input_str, string_list):
                     max_similarity = similarity
                     most_similar_str = candidate
 
+            cache.similarity_names[input_str] = most_similar_str
             return most_similar_str
 
 
@@ -278,6 +294,7 @@ def find_most_similar(input_str, string_list):
                     max_similarity = similarity
                     most_similar_str = candidate
 
+            cache.similarity_names[input_str] = most_similar_str
             return most_similar_str
 
 

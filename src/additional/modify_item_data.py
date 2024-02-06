@@ -57,6 +57,8 @@ class ModifyItemData (object):
     def _initial_widget(self):
         width = 60
 
+        self.kv_author = ttkbootstrap.StringVar()
+
         self.Label_SHA = ttkbootstrap.Label(self.master, text=f'SHA: {self.SHA}')
 
         self.Frame_object = ttkbootstrap.Frame(self.master)
@@ -68,7 +70,7 @@ class ModifyItemData (object):
         self.Label_name = ttkbootstrap.Label(self.Frame_name, text='模组名称：')
 
         self.Frame_author = ttkbootstrap.Frame(self.master)
-        self.Entry_author = ttkbootstrap.Entry(self.Frame_author, width=width)
+        self.Entry_author = ttkbootstrap.Combobox(self.Frame_author, width=width, values=core.module.author_manage.get_authors_list(), textvariable=self.kv_author)
         self.Label_author = ttkbootstrap.Label(self.Frame_author, text='模组作者：')
 
         self.Frame_grading = ttkbootstrap.Frame(self.master)
@@ -215,6 +217,13 @@ class ModifyItemData (object):
             else:
                 core.window.messagebox.showwarning(title='数据超出处理长度', message='get 数据数量超出处理长度\n修改会导致超出的部分数据丢失')
 
+        self.kv_author.trace_add("write", self._event_author_name_updated)
+
+
+    def _event_author_name_updated(self, *_):
+        self.Entry_author.configure(values=core.module.author_manage.get_key_authors(self.kv_author.get()))
+        self.Entry_author.open()
+
 
     def _final_window_update(self):
         self.master.update()
@@ -225,7 +234,6 @@ class ModifyItemData (object):
     def set_tags(self, *_):
         o_tags = core.module.tags_manage.get_tags()
         s_tags = self.Entry_tags.get()
-        # res = select2ags.select2ags("选择标签", s_tags, parent=self.master)
         res = widgets.dialogs.select2ags("选择标签", o_tags, s_tags, parent=self.master)
         self.Entry_tags.delete(0, 'end')
         self.Entry_tags.insert(0, res)
@@ -342,10 +350,14 @@ class ModifyItemData (object):
         self.bin_cancel()
 
 
-def modify_item_data(*args):
-    choice = core.window.interface.mods_manage.value_choice_item
-    if not core.window.interface.mods_manage._is_valid_sha(choice):
-        choice = core.window.interface.mods_manage.sbin_get_select_choices()
-        if choice is None: return
-    if core.module.mods_index.get_item(choice) is None: return
-    ModifyItemData(SHA=choice)
+def modify_item_data(sha: str = None):
+    if isinstance(sha, str):
+        ...
+
+    else:
+        sha = core.window.interface.mods_manage.value_choice_item
+        if not core.window.interface.mods_manage._is_valid_sha(sha):
+            sha = core.window.interface.mods_manage.sbin_get_select_choices()
+            if sha is None: return
+    if core.module.mods_index.get_item(sha) is None: return
+    ModifyItemData(SHA=sha)

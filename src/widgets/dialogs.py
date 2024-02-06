@@ -13,12 +13,32 @@ class SelectTags (object):
             title: str = "",
             optional: str | list[str] | list[list[str]] = "",
             selected: str | list[str] = "",
+            extracos: bool = True,
+            *,
+            window_width: int = 500,
+            window_height: int = 400,
             parent: ttkbootstrap.Window = None
             ):
+        """
+        ## 标签选择器
 
+        ```TEXT
+        args:
+            title: str 窗口标题
+            optional: str | list[str] | list[list[str]] 选择器可选项，支持多行，每行支持多个标签
+            selected: str | list[str] 选择器默认选中项，支持多选
+            extracos: bool 是否允许额外添加标签
+            window_width: int 窗口宽度, 不能小于 100，默认为 500
+            window_height: int 窗口高度，不能小于 100，默认为 400
+            parent: ttkbootstrap.Window 父窗口
+        ```
+        """
         self.title = title
         self.optional = optional
         self.selected = selected
+        self.extracos = extracos
+        self.window_width = 500 if not isinstance(window_width, int) or window_width < 100 else window_width
+        self.window_height = 400 if not isinstance(window_height, int) or window_height < 100 else window_height
         self.parent = parent
 
         self._initial()
@@ -42,7 +62,7 @@ class SelectTags (object):
         self.window.transient(self.parent)
         self.window.grab_set()
         self.window.focus_set()
-        core.window.methods.center_window_for_window(self.window, self.parent, 500, 400, True)
+        core.window.methods.center_window_for_window(self.window, self.parent, self.window_width, self.window_height, True)
 
 
     def _initial_widget(self):
@@ -53,7 +73,7 @@ class SelectTags (object):
         self.wbn_cancel = ttkbootstrap.Button(self.wfe_option, text="取消", width=10, bootstyle=(WARNING, OUTLINE, TOOLBUTTON), command=self.bin_cancel)
 
         self.wsl_tags.pack(side=TOP, fill=BOTH, expand=True, padx=5, pady=5)
-        self.wet_extra.pack(side=TOP, fill=X, padx=5, pady=(0, 5))
+        if self.extracos: self.wet_extra.pack(side=TOP, fill=X, padx=5, pady=(0, 5))
         self.wfe_option.pack(side=TOP, fill=X, padx=5, pady=(0, 5))
         self.wbn_sure.pack(side=RIGHT)
         self.wbn_cancel.pack(side=RIGHT, padx=(0, 5))
@@ -120,7 +140,7 @@ class SelectTags (object):
 
     def bin_sure(self, *_):
         self.result = [x for x in self.vtags if self.vtags[x].get()]
-        self.result.extend(self._format_selected(self.wet_extra.get()))
+        if self.extracos: self.result.extend(self._format_selected(self.wet_extra.get()))
         self.window.destroy()
 
 
@@ -130,6 +150,13 @@ class SelectTags (object):
 
 
     def wait(self) -> list[str]:
+        """
+        ## 等待窗口关闭
+
+        ```TEXT
+        return: list[str] 返回已选择的标签
+        ```
+        """
         self.window.wait_window()
         return self.result
 
@@ -140,15 +167,27 @@ class TextEdit (object):
             self,
             title: str = "",
             content: str = "",
-            width: int = ...,
-            height: int = ...,
+            *,
+            window_width: int = 500,
+            window_height: int = 400,
             parent: ttkbootstrap.Window = None
             ):
+        """
+        ## 文本编辑器
 
+        ```TEXT
+        args:
+            title: str 窗口标题
+            content: str 编辑器初始内容
+            window_width: int 编辑器宽度
+            window_height: int 编辑器高度
+            parent: ttkbootstrap.Window 父窗口
+        ```
+        """
         self.title = title
         self.content = content
-        self.width = width if isinstance(width, int) else 500
-        self.height = height if isinstance(height, int) else 400
+        self.window_width = 500 if not isinstance(window_width, int) or window_width < 100 else window_width
+        self.window_height = 400 if not isinstance(window_height, int) or window_height < 100 else window_height
         self.parent = parent
 
         self._initial()
@@ -166,7 +205,7 @@ class TextEdit (object):
         self.window.transient(self.parent)
         self.window.grab_set()
         self.window.focus_set()
-        core.window.methods.center_window_for_window(self.window, self.parent, self.width, self.height, True)
+        core.window.methods.center_window_for_window(self.window, self.parent, self.window_width, self.window_height, True)
 
 
     def _initial_widget(self):
@@ -205,22 +244,61 @@ def select2ags (
         title: str = "",
         optional: str | list[str] | list[list[str]] = "",
         selected: str | list[str] = "",
+        extracos: bool = True,
+        *,
+        window_width: int = 500,
+        window_height: int = 400,
         parent: ttkbootstrap.Window = None
         ) -> list[str]:
+    """
+    ## 标签选择器
 
-    conobj = SelectTags(title=title, optional=optional, selected=selected, parent=parent)
-    result = conobj.wait()
+    ```TEXT
+    args:
+        title: str 窗口标题
+        optional: str | list[str] | list[list[str]] 选择器可选项，支持多行，每行支持多个标签
+        selected: str | list[str] 选择器默认选中项，支持多选
+        extracos: bool 是否允许额外添加标签
+        window_width: int 窗口宽度, 不能小于 100，默认为 500
+        window_height: int 窗口高度，不能小于 100，默认为 400
+        parent: ttkbootstrap.Window 父窗口
+
+    return:
+        list[str] 返回已选择的标签
+        若点击了取消则返回 selected 的内容
+    ```
+    """
+    kwargs = locals()
+    kernel = SelectTags(**kwargs)
+    result = kernel.wait()
     return result
 
 
 def textedit(
         title: str = "",
         content: str = "",
-        width: int = ...,
-        height: int = ...,
+        *,
+        window_width: int = 500,
+        window_height: int = 400,
         parent: ttkbootstrap.Window = None
         ) -> str:
-    
-    conobj = TextEdit(title=title, content=content, width=width, height=height, parent=parent)
-    result = conobj.wait()
+    """
+    ## 文本编辑器
+
+    ```TEXT
+    args:
+        title: str 窗口标题
+        content: str 编辑器初始内容
+        window_width: int 编辑器宽度
+        window_height: int 编辑器高度
+        parent: ttkbootstrap.Window 父窗口
+
+    return:
+        str 返回编辑器内容
+        若点击了取消则返回 content 的内容
+    ```
+    """
+    kwargs = locals()
+    kernel = TextEdit(**kwargs)
+    result = kernel.wait()
     return result
