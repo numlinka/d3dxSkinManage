@@ -71,6 +71,8 @@ class AddMods(object):
 
         width = 60
 
+        self.kv_author = ttkbootstrap.StringVar()
+
         self.Label_SHA = ttkbootstrap.Label(self.windows, text=f'SHA: 扫描中...')
 
         self.Frame_object = ttkbootstrap.Frame(self.windows)
@@ -87,7 +89,7 @@ class AddMods(object):
         self.Label_grading = ttkbootstrap.Label(self.Frame_grading, text='年龄分级：')
 
         self.Frame_author = ttkbootstrap.Frame(self.windows)
-        self.Entry_author = ttkbootstrap.Entry(self.Frame_author, width=width)
+        self.Entry_author = ttkbootstrap.Combobox(self.Frame_author, width=width, values=core.module.author_manage.get_authors_list(), textvariable=self.kv_author)
         self.Label_author = ttkbootstrap.Label(self.Frame_author, text='模组作者：')
 
         self.Frame_explain = ttkbootstrap.Frame(self.windows)
@@ -205,6 +207,12 @@ class AddMods(object):
         self.Entry_tags.insert(0, AddModInputCache.tags)
 
         core.construct.taskpool.addtask(self.calculate_sha, answer=False)
+
+        self.kv_author.trace_add("write", self._event_author_name_updated)
+
+
+    def _event_author_name_updated(self, *_):
+        self.Entry_author.configure(values=core.module.author_manage.get_key_authors(self.kv_author.get()))
 
 
     def calculate_sha(self):
@@ -386,3 +394,4 @@ def get_folder_size(folder_path):
             file_path = os.path.join(dirpath, filename)
             total_size += os.path.getsize(file_path)
     return total_size
+#TODO 添加 mod 窗口的拆分优化

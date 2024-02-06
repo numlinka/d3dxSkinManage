@@ -57,6 +57,8 @@ def initial():
     _w, _h = 1440, 900
     mainwindow.geometry(f"{_w}x{_h}+{(_sw - _w) // 2}+{(_sh - _h) // 2 - 40}")
     mainwindow.minsize(960, 600)
+    core.action.askexit.add_task(mainwindow.destroy, 10_000, "关闭窗口")
+    mainwindow.protocol("WM_DELETE_WINDOW", core.action.askexit.execute)
 
     try:
         mainwindow.iconbitmap(default=core.env.file.local.iconbitmap)

@@ -1,6 +1,8 @@
 # -*- coding: utf-8 -*-
 
 # std
+import sys
+import threading
 import traceback
 
 # self
@@ -9,6 +11,7 @@ from . import userenv
 from . import basic_event
 from . import external
 from . import amend
+from . import action
 
 # libs
 import libs.logop
@@ -36,17 +39,36 @@ class record (object):
     UNLOAD_MOD_SHA: str = ""
 
 
+# 最终退出信号
+# 你不需要手动置位
+# 除非你有特殊需求
+_final_exit_signal = threading.Event()
 
-class tasklist (object):
-    exit = [
-        (env.configuration._con_asve_as_json, (env.file.local.configuration, )),
-        (log.close, ())
-    ]
+
+
+def _save_env_config():
+    env.configuration._con_asve_as_json(env.file.local.configuration)
+
+
+def _save_user_config():
+    userenv.configuration._con_asve_as_json(userenv.file.configuration)
+
+
+def _set_final_exit_signal():
+    _final_exit_signal.set()
+
+
+def initial():
+    action.askexit.add_task(_save_env_config, 15_000, "保存环境配置文件", False)
+    action.askexit.add_task(_save_user_config, 15_100, "保存用户配置文件", False)
+    action.askexit.add_task(log.close, 20_000, "关闭日志记录器", False)
+    action.askexit.add_task(_set_final_exit_signal, 25_000, "设置最终退出信号", False)
 
 
 
 def run():
     try:
+        initial()
         amend.env_config_amend()
 
     except Exception as e:
@@ -75,7 +97,9 @@ def run():
         exc = traceback.format_exc()
         log.error(f"{e.__class__}: {e}\n{exc}", L.WINDOW)
 
-    _exit()
+    finally:
+        _final_exit_signal.wait()
+        sys.exit()
 
 
 def login(name):
@@ -91,27 +115,6 @@ def logout():
     ...
 
     construct.event.set_event(E.USER_LOGGED_OUT)
-
-
-
-
-def _exit():
-    log.info("程序请求退出", L.CORE_EXIT)
-
-    try:
-        # todo 程序推出时应该保存用户数据
-        tasklist.exit.insert(0, (userenv.configuration._con_asve_as_json, (userenv.file.configuration, )))
-
-    except Exception as e:
-        ...
-
-    log.info("正在回收资源...", L.CORE_EXIT)
-    for task in tasklist.exit:
-        try:
-            task[0](*task[1])
-
-        except Exception as e:
-            ...
 
 
 __all__ = [
