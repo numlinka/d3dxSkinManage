@@ -1,5 +1,10 @@
 # -*- coding: utf-8 -*-
 
+# ! 注意
+# ! 该模块已被弃用
+# ! 请使用 add_mod2
+
+
 # std
 import os
 import json

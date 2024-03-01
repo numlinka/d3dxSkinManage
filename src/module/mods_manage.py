@@ -353,15 +353,19 @@ class ModsManage (object):
             del self.__table_loads[object_]
 
 
-    def remove(self, SHA: str) -> int:
+    def remove(self, SHA: str) -> tuple[str, str] | None:
         with self.__call_lock:
             target = os.path.join(core.userenv.directory.work_mods, SHA)
             try:
+                if not os.path.isdir(target): return None
                 shutil.rmtree(target)
-                return 0
+                return None
 
-            except Exception as _:
-                return 1
+            except PermissionError as e:
+                return ("操作中断：权限错误", f"{e}\n\n当前文件正在被其他程序访问\n请关闭该程序或资源管理器后重试")
+
+            except Exception as e:
+                return ("操作中断：未知错误", f"{e.__class__}\n{e}")
 
 
 def _list_sort_for_item_name(key) -> str:

@@ -474,7 +474,10 @@ class D3dxManage(object):
         try:
             win32api.ShellExecute(None, "runas", launch_file, None, os.path.abspath(core.userenv.directory.work), 1)
         except pywintypes.error as e:
-            core.window.messagebox.showerror(title="异常捕获", message=f"{e.args[1]}: {e.args[0]}\n{e.args[2]}")
+            if e.args[0] == 5:
+                core.window.messagebox.showerror(title="权限请求被拒绝", message="你拒绝了程序请求管理员权限\n这是你的问题，而非程序出现了逻辑错误")
+            else:
+                core.window.messagebox.showerror(title="异常捕获", message=f"{e.args[1]}: {e.args[0]}\n{e.args[2]}")
         except Exception:
             core.window.messagebox.showerror(title="程序故障", message="无法找到正确的方式启动该程序")
             return 0
@@ -534,7 +537,10 @@ class D3dxManage(object):
         try:
             win32api.ShellExecute(None, "open", path, argument, os.path.realpath(os.path.dirname(path)), 1)
         except pywintypes.error as e:
-            core.window.messagebox.showerror(title="异常捕获", message=f"{e.args[1]}: {e.args[0]}\n{e.args[2]}")
+            if e.args[0] == 5:
+                core.window.messagebox.showerror(title="权限请求被拒绝", message="你拒绝了程序请求管理员权限\n这是你的问题，而非程序出现了逻辑错误")
+            else:
+                core.window.messagebox.showerror(title="异常捕获", message=f"{e.args[1]}: {e.args[0]}\n{e.args[2]}")
         except Exception:
             core.window.messagebox.showerror(title="程序故障", message="无法找到正确的方式启动该程序")
             return
@@ -602,7 +608,10 @@ class D3dxManage(object):
         try:
             win32api.ShellExecute(None, "open", path, argument, os.path.realpath(os.path.dirname(path)), 1)
         except pywintypes.error as e:
-            core.window.messagebox.showerror(title="异常捕获", message=f"{e.args[1]}: {e.args[0]}\n{e.args[2]}")
+            if e.args[0] == 5:
+                core.window.messagebox.showerror(title="权限请求被拒绝", message="你拒绝了程序请求管理员权限\n这是你的问题，而非程序出现了逻辑错误")
+            else:
+                core.window.messagebox.showerror(title="异常捕获", message=f"{e.args[1]}: {e.args[0]}\n{e.args[2]}")
         except Exception:
             core.window.messagebox.showerror(title="程序故障", message="无法找到正确的方式启动该程序")
             return

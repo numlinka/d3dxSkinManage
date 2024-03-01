@@ -119,4 +119,4 @@ class Tools (object):
 
     def bin_open_tags_edit(self, *_):
         res = widgets.dialogs.textedit(title="可选标签编辑", content=core.module.tags_manage.get_tags_content(), parent=core.window.mainwindow)
-        core.module.tags_manage.update_content(res)
+        core.module.tags_manage.update_content(res, True)
