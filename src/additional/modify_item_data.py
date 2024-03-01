@@ -324,7 +324,10 @@ class ModifyItemData (object):
 
     def bin_delete(self, *args):
         # core.module.mods_manage.unload(self.old_object)
-        core.module.mods_manage.remove(self.SHA)
+        result = core.module.mods_manage.remove(self.SHA)
+        if result is not None:
+            core.window.messagebox.showinfo(title=result[0], message=result[1])
+            return
 
         core.module.mods_index.item_data_del(self.SHA)
 
@@ -334,12 +337,15 @@ class ModifyItemData (object):
         except Exception:
             ...
 
+        core.construct.event.set_event(E.MODS_INDEX_UPDATE)
         self.bin_cancel()
 
 
     def bin_remove(self, *args):
-        # core.module.mods_manage.unload(self.old_object)
-        core.module.mods_manage.remove(self.SHA)
+        result = core.module.mods_manage.remove(self.SHA)
+        if result is not None:
+            core.window.messagebox.showinfo(title=result[0], message=result[1])
+            return
 
         try:
             os.remove(os.path.join(core.env.directory.resources.mods, self.SHA))
@@ -347,6 +353,7 @@ class ModifyItemData (object):
         except Exception:
             ...
 
+        core.construct.event.set_event(E.MODS_INDEX_UPDATE)
         self.bin_cancel()
 
 
