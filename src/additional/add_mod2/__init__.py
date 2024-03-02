@@ -1,5 +1,6 @@
 
 import os
+import fnmatch
 
 import core
 
@@ -26,6 +27,12 @@ def add_mods(paths: list[str]):
     efficient = True
     for path in paths:
         if os.path.isdir(path): continue
+        if os.path.isfile(path):
+            basename = os.path.basename(path)
+            if fnmatch.fnmatch(basename, "*.zip"): continue
+            if fnmatch.fnmatch(basename, "*.7z"): continue
+            if fnmatch.fnmatch(basename, "*.rar"): continue
+
         efficient = False
 
     if not efficient: return

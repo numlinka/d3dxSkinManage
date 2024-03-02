@@ -10,6 +10,7 @@ import core
 
 # self
 from .add_mod_unit import AddModUnit
+from .batch_edit import BatchEditUnit
 from . import keys
 
 
@@ -50,15 +51,27 @@ class AddModWindow (object):
         self.wbn_select.pack(side=LEFT, padx=(0, 5))
 
 
+        self.wfe_batch_edit = ttkbootstrap.Frame(self.wfe_unit)
+        self.batch_edit_unit = BatchEditUnit(self.wfe_batch_edit, self.window)
+
+
     def select_update(self, *_):
         if not main_threading_examine(self.select_update): return
 
-        result = self.wtv_tasklist.selection()
-        if not result: self.wfe_nowunit.pack_forget()
-        if len(result) != 1: return
-        taskid = result[0]
         self.wfe_nowunit.pack_forget()
-        self.wfe_nowunit = self._task[taskid][keys.frame]
+        result = self.wtv_tasklist.selection()
+
+        if not result: return
+
+        elif len(result) == 1:
+            taskid = result[0]
+            self.wfe_nowunit = self._task[taskid][keys.frame]
+
+        else:
+            units = [self._task[taskid][keys.unit] for taskid in result]
+            self.wfe_nowunit = self.wfe_batch_edit
+            self.batch_edit_unit.initial(units)
+
         self.wfe_nowunit.pack(side=TOP, fill=BOTH, expand=True)
 
 
@@ -121,7 +134,7 @@ class AddModWindow (object):
             self.wtv_tasklist.selection_set(all_items)
 
 
-    # ! 已启用
+    # ! 已弃用
     def add_old(self, path: str):
         with self._lock:
             taskid = self._serial_increment()

@@ -94,7 +94,7 @@ def async_hook_dropfiles_new(original_items: list):
                 return
 
         else:
-            core.window.messagebox.showerror(title="dropfiles: 消息检查错误", message=f"没有匹配到规则\nn没有处理对应多文件的触发器")
+            core.window.messagebox.showerror(title="dropfiles: 消息检查错误", message=f"没有匹配到规则\n没有处理对应多文件的触发器")
             return
 
     except Exception as e:
