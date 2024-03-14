@@ -141,26 +141,19 @@ class ModsManage (object):
                 if "未分类" not in self.__classification: self.__classification["未分类"] = []
                 self.__classification["未分类"] += list(_object_lst_surplus)
 
-        # 对 Mod 列表排序 (依据 Mod 名称)
-        for _, lst in self.__local_object_sha_lst.items(): lst.sort(key=_list_sort_for_item_name)
+            self.list_sort()
 
-        # 对 Mod 列表排序 (依据 Mod 分级)
-        for _, lst in self.__local_object_sha_lst.items(): lst.sort(key=_list_sort_for_item_grading)
+            # ! 本地分类列表
+            # self.__classification_lst = [x for x in self.__classification if x != '未分类']
 
-        # 对分类的每个列表进行排序
-        for _, lst in self.__classification.items(): lst.sort()
+            # ! 参照分类列表
+            self.__classification_lst = [x for x in self.__reference_classification if x != '未分类']
 
-        # ! 本地分类列表
-        # self.__classification_lst = [x for x in self.__classification if x != '未分类']
+            # 对分类列表进行排序
+            self.__classification_lst.sort(key=_list_sort_for_class_name)
 
-        # ! 参照分类列表
-        self.__classification_lst = [x for x in self.__reference_classification if x != '未分类']
-
-        # 对分类列表进行排序
-        self.__classification_lst.sort(key=_list_sort_for_class_name)
-
-        # if '未分类' in self.__classification: self.__classification_lst += ['未分类']
-        self.__classification_lst += ['未分类']
+            # if '未分类' in self.__classification: self.__classification_lst += ['未分类']
+            self.__classification_lst += ['未分类']
 
 
     def update_loaded_mods(self):
@@ -202,6 +195,18 @@ class ModsManage (object):
 
             for SHA in _accident + _conflict:
                 self.remove(SHA)
+
+
+    def list_sort(self):
+        with self.__call_lock:
+            # 对 Mod 列表排序 (依据 Mod 名称)
+            for _, lst in self.__local_object_sha_lst.items(): lst.sort(key=_list_sort_for_item_name)
+
+            # 对 Mod 列表排序 (依据 Mod 分级)
+            for _, lst in self.__local_object_sha_lst.items(): lst.sort(key=_list_sort_for_item_grading)
+
+            # 对分类的每个列表进行排序
+            for _, lst in self.__classification.items(): lst.sort()
 
 
     def get_class_list(self) -> list[str]:

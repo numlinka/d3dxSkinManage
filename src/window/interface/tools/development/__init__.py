@@ -59,6 +59,8 @@ class Development (object):
 
         self.label = ttkbootstrap.Label(self.frame_warn, text=TEXT)
         self.label.pack(fill="both", padx=10, pady=10)
+        self.window.update()
+        core.window.methods.center_window_for_window(self.window, core.window.mainwindow)
 
 
     def bin_close(self, *_):

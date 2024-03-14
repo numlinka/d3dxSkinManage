@@ -137,16 +137,17 @@ class CacheCleanup (object):
 
 
         self.window.update_idletasks()
-        width = self.window.winfo_reqwidth()
-        height = self.window.winfo_reqheight()
+        # width = self.window.winfo_reqwidth()
+        # height = self.window.winfo_reqheight()
 
-        screen_width = self.window.winfo_screenwidth()
-        screen_height = self.window.winfo_screenheight()
+        # screen_width = self.window.winfo_screenwidth()
+        # screen_height = self.window.winfo_screenheight()
 
-        x_coordinate = (screen_width - width) // 2
-        y_coordinate = (screen_height - height) // 2
+        # x_coordinate = (screen_width - width) // 2
+        # y_coordinate = (screen_height - height) // 2
 
-        self.window.geometry(f"+{x_coordinate}+{y_coordinate}")
+        # self.window.geometry(f"+{x_coordinate}+{y_coordinate}")
+        core.window.methods.center_window_for_window(self.window, core.window.mainwindow)
 
         core.construct.taskpool.addtask(self.bin_scan)
 

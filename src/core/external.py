@@ -2,6 +2,8 @@
 
 import core
 
+import os
+import typing
 import threading
 import subprocess
 
@@ -13,7 +15,7 @@ def is_main_thread(*args, **kwds) -> bool:
     return threading.current_thread() is threading.main_thread()
 
 
-def x7z(from_file: str, to_path: str):
+def x7z_old(from_file: str, to_path: str):
     PIPE = subprocess.PIPE
     DEVNULL = subprocess.DEVNULL
     command = (env.file.local.t7z, 'x', '-y', f'-o{to_path}', from_file)
@@ -21,12 +23,28 @@ def x7z(from_file: str, to_path: str):
     task.wait()
 
 
-def a7z(from_file: str, to_path: str):
+def a7z_old(from_file: str, to_path: str):
     PIPE = subprocess.PIPE
     DEVNULL = subprocess.DEVNULL
     command = (env.file.local.t7z, 'a', '-t7z', to_path, from_file)
     task = subprocess.Popen(command, shell=True, stdin=PIPE, stdout=DEVNULL, stderr=DEVNULL, cwd=env.base.cwd)
     task.wait()
+
+
+def x7z(from_file: str, to_path: str) -> typing.NoReturn:
+    abs_from_file = os.path.abspath(from_file)
+    abs_to_path = os.path.abspath(to_path)
+    abs_exec = os.path.abspath(env.file.local.t7z)
+    command = f"{abs_exec} x -y -o{abs_to_path} {abs_from_file}"
+    subprocess.getoutput(command)
+
+
+def a7z(from_file: str, to_path: str) -> typing.NoReturn:
+    abs_from_file = os.path.abspath(from_file)
+    abs_to_path = os.path.abspath(to_path)
+    abs_exec = os.path.abspath(env.file.local.t7z)
+    command = f"{abs_exec} a -t7z {abs_to_path} {abs_from_file}"
+    subprocess.getoutput(command)
 
 
 def view_file(path: str):

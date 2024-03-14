@@ -60,18 +60,20 @@ class OldMigration(object):
         Tcl.execute = Execute(self.frame_execute)
         Tcl.eomplete = Eomplete(self.frame_complete)
 
+        core.window.methods.center_window_for_window(self.window, core.window.mainwindow, 500, 300, True)
+
         # width = self.window.winfo_reqwidth()
         # height = self.window.winfo_reqheight()
-        width = 500
-        height = 300
+        # width = 500
+        # height = 300
 
-        screen_width = self.window.winfo_screenwidth()
-        screen_height = self.window.winfo_screenheight()
+        # screen_width = self.window.winfo_screenwidth()
+        # screen_height = self.window.winfo_screenheight()
 
-        x_coordinate = (screen_width - width) // 2
-        y_coordinate = (screen_height - height) // 2
+        # x_coordinate = (screen_width - width) // 2
+        # y_coordinate = (screen_height - height) // 2
 
-        self.window.geometry(f"{width}x{height}+{x_coordinate}+{y_coordinate}")
+        # self.window.geometry(f"{width}x{height}+{x_coordinate}+{y_coordinate}")
 
         self.frame_choice.pack(fill="both", expand=True)
         # core.window.mainwindow.withdraw()

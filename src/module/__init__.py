@@ -9,12 +9,12 @@ from . import extension
 
 from . import plugins
 
-from .index_manage import IndexManage
-from .mods_index import ModsIndex
-from .mods_manage import ModsManage
+from ._index_manage import IndexManage
+from ._mods_index import ModsIndex
+from ._mods_manage import ModsManage
 from .download import ModDownload
-from .tags_manage import TagsManage
-from .author_manage import AuthorManage
+from ._tags_manage import TagsManage
+from ._author_manage import AuthorManage
 
 index_manage = IndexManage()
 mods_index = ModsIndex()
