@@ -262,6 +262,10 @@ class OCDCrop (object):
         # self.wll_image.bind("<Double-1>", self.bin_skin)
         windnd.hook_dropfiles(self.window, func=self.bin_drop)
         self.window.protocol('WM_DELETE_WINDOW', self.bin_close)
+        self.window.update()
+        core.window.methods.center_window_for_window(self.window, core.window.mainwindow)
+
+        self.bin_load_setting()
 
 
     def examine(self, *_):
@@ -435,8 +439,34 @@ class OCDCrop (object):
         self.bin_withdraw()
 
 
+    def bin_load_setting(self, *_):
+        if core.env.configuration.ocd_window_name is None: return
+        self.v_window_name.set(core.env.configuration.ocd_window_name)
+        self.v_recoup_x.set(core.env.configuration.ocd_recoup_x)
+        self.v_recoup_y.set(core.env.configuration.ocd_recoup_y)
+        self.v_window_width.set(core.env.configuration.ocd_window_width)
+        self.v_window_height.set(core.env.configuration.ocd_window_height)
+        self.v_target_width.set(core.env.configuration.ocd_target_width)
+        self.v_target_height.set(core.env.configuration.ocd_target_height)
+        self.v_offset_x.set(core.env.configuration.ocd_offset_x)
+        self.v_offset_y.set(core.env.configuration.ocd_offset_y)
+
+
+    def bin_save_settings(self, *_):
+        core.env.configuration.ocd_window_name = self.v_window_name.get()
+        core.env.configuration.ocd_recoup_x = self.v_recoup_x.get()
+        core.env.configuration.ocd_recoup_y = self.v_recoup_y.get()
+        core.env.configuration.ocd_window_width = self.v_window_width.get()
+        core.env.configuration.ocd_window_height = self.v_window_height.get()
+        core.env.configuration.ocd_target_width = self.v_target_width.get()
+        core.env.configuration.ocd_target_height = self.v_target_height.get()
+        core.env.configuration.ocd_offset_x = self.v_offset_x.get()
+        core.env.configuration.ocd_offset_y = self.v_offset_y.get()
+
+
     def bin_screenshot(self, *_):
         self.execution()
+        self.bin_save_settings()
 
 
     def bin_clipboard(self, *_):

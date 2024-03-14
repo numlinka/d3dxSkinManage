@@ -5,6 +5,7 @@ import ttkbootstrap
 
 import core
 from constant import *
+from libs.dispatch import tkasyncmain
 
 class About (object):
     def install(self, master):

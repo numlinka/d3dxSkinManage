@@ -27,6 +27,8 @@ class AddModWindow (object):
 
         self._task = {}
 
+        self._is_first_deiconify = True
+
 
     def install(self):
         self.wtv_tasklist = ttkbootstrap.Treeview(self.window, selectmode=EXTENDED, show=TREE, height=8)
@@ -171,6 +173,11 @@ class AddModWindow (object):
                 unit.initial()
 
             self.wtv_tasklist.selection_set(taskid)
+
+            if self._is_first_deiconify:
+                self.window.update()
+                core.window.methods.center_window_for_window(self.window, core.window.mainwindow)
+                self._is_first_deiconify = False
 
 
 def main_threading_examine(func, *args) -> bool:

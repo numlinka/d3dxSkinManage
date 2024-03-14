@@ -12,7 +12,7 @@ import core
 from constant import L
 
 
-control_each_task_sleep_time_seconds = 0.2
+control_each_task_sleep_time_seconds = 0.1
 
 
 class SynchronizationTask (object):

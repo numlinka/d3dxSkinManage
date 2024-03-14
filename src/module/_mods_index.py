@@ -260,7 +260,7 @@ class ModsIndex (object):
             with open(file_from, "w", encoding=K.CODE.U8) as fileobject: fileobject.write(newfilecontent)
 
 
-    def item_data_update(self, SHA: str, data: dict) -> bool:
+    def item_data_update(self, SHA: str, data: dict, restrain: bool = False) -> bool:
         """更新 item 的数据
 
         若 SHA 不存在则返回 False
@@ -280,6 +280,7 @@ class ModsIndex (object):
             # 保存 index 文件
             self.save_index_file(from_)
 
+        if not restrain:
             core.construct.event.set_event(E.MODS_INDEX_UPDATE)
 
 

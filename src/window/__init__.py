@@ -3,6 +3,7 @@
 # libs
 import ttkbootstrap
 # import tkinterdnd2
+from libs import dispatch
 
 # self
 from . import methods
@@ -13,6 +14,7 @@ from .login import Login
 from .block import Block
 from .interface import Interface
 from .annotation_toplevel import AnnotationToplevel
+from ._inform import Inform
 
 from constant import *
 
@@ -24,6 +26,8 @@ mainwindow = ttkbootstrap.Window()
 # mainwindow.overrideredirect(True)
 messagebox = Messagebox(mainwindow)
 annotation_toplevel = AnnotationToplevel()
+dispatch.settings.tk_mainwindow = mainwindow
+inform = Inform()
 
 treeview_thumbnail = core.module.image.ImageTkThumbnailGroup(40, 40)
 

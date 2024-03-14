@@ -26,6 +26,7 @@ def initial():
 
 def when_entering_mainpool():
     core.sync.addtask("检查更新", core.module.update.check)
+    core.sync.addtask("inform", core.window.inform.check)
     core.sync.addtask("初始化登录用户列表", core.window.login.initial)
     core.sync.addtask("加载插件", core.module.plugins.main)
     core.sync.addtask("登录就绪", core.window.ready_login)

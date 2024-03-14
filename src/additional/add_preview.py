@@ -11,8 +11,11 @@ import win32gui
 import ttkbootstrap
 from PIL import Image, ImageGrab
 
+from libs.dispatch import tkasyncmain
+
 # project
 import core
+
 
 
 class AddPreview (object):
@@ -85,6 +88,7 @@ class AddPreview (object):
         self.windows.destroy()
 
 
+@tkasyncmain
 def add_preview(filepath: str):
     SHA = core.window.interface.mods_manage.sbin_get_select_choices()
 
@@ -92,7 +96,7 @@ def add_preview(filepath: str):
         object_ = core.window.interface.mods_manage.sbin_get_select_objects()
         SHA = core.module.mods_manage.get_load_object_sha(object_)
 
-    if SHA is None:
+    if SHA is None or SHA == "--X--":
         core.window.messagebox.showerror(title='未选中错误', message='需要先选中一个 Mod\n才能添加预览图')
         return
 
