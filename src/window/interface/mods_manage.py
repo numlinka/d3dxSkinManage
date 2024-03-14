@@ -626,13 +626,14 @@ class ModsManage(object):
 
     def bin_choices_menu_add_mod_from_file(self, *_):
         path = tkinter.filedialog.askopenfilename(title="选择 Mod 压缩包", filetypes=[("压缩文件", ["*.zip", "*.rar", "*.7z"])])
-        if path: core.additional.add_mod.AddMods(path)
+        if path:
+            core.additional.add_mod2.add_mods([path])
 
 
     def bin_choices_menu_add_mod_from_dir(self, *_):
         path = tkinter.filedialog.askdirectory(title="选择 Mod 文件夹")
         if path:
-            core.construct.taskpool.addtask(core.additional.add_mod.add_mod_is_dir, (path,), answer=False)
+            core.additional.add_mod2.add_mods([path])
 
 
     def bin_choices_menu_export_file(self, *_):
