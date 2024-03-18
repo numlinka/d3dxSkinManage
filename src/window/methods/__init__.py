@@ -24,4 +24,8 @@ def center_window_for_window(window: ttkbootstrap.Toplevel, target_window: ttkbo
     window.geometry(result)
 
 
+def fake_withdraw(window: ttkbootstrap.Toplevel):
+    window.geometry("+32000+32000")
+
+
 __all__ = ["motion", center_window_for_window]

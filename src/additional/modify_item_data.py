@@ -35,6 +35,7 @@ class ModifyItemData (object):
     def _initial(self):
         if self.master is Ellipsis:
             self.window = ttkbootstrap.Toplevel('修改 SHA 信息 - new construction options')
+            core.window.methods.fake_withdraw(self.window)
             self.window.transient(core.window.mainwindow)
             # self.windows.grab_set()
             self.window.focus_set()
@@ -222,7 +223,7 @@ class ModifyItemData (object):
 
     def _event_author_name_updated(self, *_):
         self.Entry_author.configure(values=core.module.author_manage.get_key_authors(self.kv_author.get()))
-        self.Entry_author.open()
+        # self.Entry_author.open() # ? 为什么这里有一个意义不明的调用
 
 
     def _final_window_update(self):

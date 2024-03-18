@@ -43,6 +43,7 @@ class NewClassification (object):
         # self.mark_newclass = True if self.classname in [None, '未分类'] else False
         windowsname = '添加分类' if self.mark_newclass else '修改分类'
         self.windows = ttkbootstrap.Toplevel(windowsname)
+        core.window.methods.fake_withdraw(self.windows)
         self.windows.transient(core.window.mainwindow)
         # self.windows.grab_set()
         self.windows.focus_set()
@@ -116,18 +117,19 @@ class NewClassification (object):
         # time.sleep(0.01)
         self.windows.update()
 
-        width = self.windows.winfo_width()
-        height = self.windows.winfo_height()
+        # width = self.windows.winfo_width()
+        # height = self.windows.winfo_height()
 
-        _x, _y = win32gui.GetCursorInfo()[2]
+        # _x, _y = win32gui.GetCursorInfo()[2]
 
-        x = _x - width // 2
-        y = _y - height // 2 - 20
+        # x = _x - width // 2
+        # y = _y - height // 2 - 20
 
-        if x < 0: x = 0
-        if y < 0: y = 0
+        # if x < 0: x = 0
+        # if y < 0: y = 0
 
-        self.windows.geometry(f'+{x}+{y}')
+        # self.windows.geometry(f'+{x}+{y}')
+        core.window.methods.center_window_for_window(self.windows, core.window.mainwindow)
         self.windows.resizable(False, False)
 
 

@@ -38,4 +38,8 @@ def load_plugins():
 
 
 def main():
-    core.construct.taskpool.newtask(load_plugins)
+    try:
+        load_plugins()
+
+    except Exception as e:
+        core.log.error(f"load_plugins 函数错误 {e.__class__} {e}")

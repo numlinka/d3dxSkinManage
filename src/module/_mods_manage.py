@@ -141,7 +141,6 @@ class ModsManage (object):
                 if "未分类" not in self.__classification: self.__classification["未分类"] = []
                 self.__classification["未分类"] += list(_object_lst_surplus)
 
-            self.list_sort()
 
             # ! 本地分类列表
             # self.__classification_lst = [x for x in self.__classification if x != '未分类']
@@ -149,8 +148,7 @@ class ModsManage (object):
             # ! 参照分类列表
             self.__classification_lst = [x for x in self.__reference_classification if x != '未分类']
 
-            # 对分类列表进行排序
-            self.__classification_lst.sort(key=_list_sort_for_class_name)
+            self.list_sort()
 
             # if '未分类' in self.__classification: self.__classification_lst += ['未分类']
             self.__classification_lst += ['未分类']
@@ -199,47 +197,81 @@ class ModsManage (object):
 
     def list_sort(self):
         with self.__call_lock:
-            # 对 Mod 列表排序 (依据 Mod 名称)
-            for _, lst in self.__local_object_sha_lst.items(): lst.sort(key=_list_sort_for_item_name)
+            try:
+                # 对分类列表进行排序
+                # self.__classification_lst.sort(key=_list_sort_for_class)
+                sort_for_class_list(self.__classification_lst)
 
-            # 对 Mod 列表排序 (依据 Mod 分级)
-            for _, lst in self.__local_object_sha_lst.items(): lst.sort(key=_list_sort_for_item_grading)
+                # 对每个分类的 object 列表进行排序
+                # for _, lst in self.__classification.items(): lst.sort(key=_list_sort_for_object)
+                for class_name, object_list in self.__classification.items():
+                    sort_for_object_list(class_name, object_list)
 
-            # 对分类的每个列表进行排序
-            for _, lst in self.__classification.items(): lst.sort()
+                # 对每个对象的 item 列表排序
+                # for _, lst in self.__local_object_sha_lst.items(): lst.sort(key=_list_sort_for_item)
+                for object_name, item_lost in self.__local_object_sha_lst.items():
+                    sort_for_item_list(object_name, item_lost)
+
+            except Exception as e:
+                core.log.error("缓存数据表排序失败: {e}", __name__)
 
 
     def get_class_list(self) -> list[str]:
-        # return [x for x in self.__reference_classification] + ["未分类"]
+        """获取分类列表副本"""
         return self.__classification_lst.copy()
 
 
+    def get_reference_class_list(self) -> list[str]:
+        """获取参照分类列表副本"""
+        return list(self.__reference_classification.keys())
+
+
     def get_reference_object_list(self, class_: str) -> list[str]:
+        """获取参照分类对象列表副本"""
         return self.__reference_classification.get(class_, []).copy()
 
 
     def get_object_list(self, class_: str) -> list[str]:
+        """获取分类对象列表副本"""
         return self.__classification.get(class_, []).copy()
 
 
     def get_object_sha_list(self, object_: str) -> list[str]:
+        """获取对象 SHA 列表副本"""
         return self.__local_object_sha_lst.get(object_, []).copy()
 
 
     def get_load_object_sha(self, object_: str) -> str | None:
+        """获取已加载对象 SHA"""
         return self.__table_loads.get(object_, None)
 
 
     def get_table_loads(self) -> dict[str, str]:
+        """获取已加载对象 SHA 缓存"""
         return copy.deepcopy(self.__table_loads)
 
 
     def is_load_object(self, object_: str):
+        """是否为已加载对象"""
         if object_ in self.__table_loads: return True
         return False
 
 
+    def object_name_class_prediction(self, object_name: str) -> list[str]:
+        """对象名称分类预测"""
+        with self.__call_lock:
+            class_list = []
+            for class_name, reference_list in self.__reference_classification.items():
+                for reference in reference_list:
+                    if fnmatch.fnmatch(object_name, reference):
+                        class_list.append(class_name)
+                        break
+
+            return class_list
+
+
     def is_load_sha(self, sha: str):
+        """是否为已加载 SHA"""
         with self.__call_lock:
             for key, value in self.__table_loads.items():
                 if sha == value: return True
@@ -247,11 +279,13 @@ class ModsManage (object):
 
 
     def is_have_cache_load(self, sha: str):
+        """是否为拥有缓存的 SHA"""
         path = os.path.join(core.userenv.directory.work_mods, f"{K.DISABLED}-{sha}")
         return os.path.isdir(path)
 
 
     def is_local_sha(self, SHA: str):
+        """是否为本地 SHA"""
         if SHA in self.__local_sha_lst: return True
         return False
 
@@ -373,6 +407,7 @@ class ModsManage (object):
                 return ("操作中断：未知错误", f"{e.__class__}\n{e}")
 
 
+# ! 已弃用
 def _list_sort_for_item_name(key) -> str:
     try:
         return core.module.mods_index.get_item(key)["name"]
@@ -381,6 +416,7 @@ def _list_sort_for_item_name(key) -> str:
         return key
 
 
+# ! 已弃用
 def _list_sort_for_item_grading(key) -> str:
     try:
         return core.module.mods_index.get_item(key)[K.INDEX.GRADING]
@@ -392,6 +428,7 @@ def _list_sort_for_item_grading(key) -> str:
 CLASS_NAME_SORT_LIST = ["角色", "武器", "."]
 
 
+# ! 已弃用
 def _list_sort_for_class_name(key) -> int:
     for index, value in enumerate(CLASS_NAME_SORT_LIST):
         if value in key:
@@ -399,3 +436,44 @@ def _list_sort_for_class_name(key) -> int:
 
     else:
         return len(CLASS_NAME_SORT_LIST)
+
+
+def _list_sort_for_item(key) -> tuple[str, str]:
+    try:
+        first = core.module.mods_index.get_item(key)[K.INDEX.GRADING]
+
+    except Exception as _:
+        first = key
+
+    try:
+        second = core.module.mods_index.get_item(key)[K.INDEX.NAME]
+
+    except Exception as _:
+        second = key
+
+    return (first, second)
+
+
+def _list_sort_for_object(key) -> str:
+    return key
+
+
+def _list_sort_for_class(key) -> tuple[int, str]:
+    for index, value in enumerate(CLASS_NAME_SORT_LIST):
+        if value in key:
+            return (index, key)
+
+    else:
+        return (len(CLASS_NAME_SORT_LIST), key)
+
+
+def sort_for_class_list(class_list: list[str]):
+    class_list.sort(key=_list_sort_for_class)
+
+
+def sort_for_object_list(class_name: str, object_list: list[str]):
+    object_list.sort(key=_list_sort_for_object)
+
+
+def sort_for_item_list(object_name: str, item_list: list[str]):
+    item_list.sort(key=_list_sort_for_item)

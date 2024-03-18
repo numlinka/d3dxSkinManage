@@ -186,6 +186,7 @@ class OCDCrop (object):
             return
 
         self.window = ttkbootstrap.Toplevel()
+        core.window.methods.fake_withdraw(self.window)
         # self.position_window = ttkbootstrap.Toplevel()
         self.window.title("强迫症截图工具")
         self.window.resizable(width=False, height=False)

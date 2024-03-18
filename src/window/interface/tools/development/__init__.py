@@ -32,6 +32,7 @@ class Development (object):
             return
 
         self.window = ttkbootstrap.Toplevel()
+        core.window.methods.fake_withdraw(self.window)
         self.window.title("development debug tool")
 
         try:

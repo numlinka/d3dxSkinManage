@@ -78,6 +78,7 @@ class CacheCleanup (object):
             return
 
         self.window = ttkbootstrap.Toplevel()
+        core.window.methods.fake_withdraw(self.window)
         self.window.title("缓存清理工具")
         self.window.resizable(width=False, height=False)
         # self.window.geometry(f"500x300")
