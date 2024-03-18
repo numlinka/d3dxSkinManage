@@ -19,6 +19,7 @@ class AddModWindow (object):
         self._lock = threading.RLock()
         self.auto_increment_serial = 0
         self.window = ttkbootstrap.Toplevel("添加 Mods - 处理队列")
+        core.window.methods.fake_withdraw(self.window)
         self.window.withdraw()
         self.window.protocol("WM_DELETE_WINDOW", self.window.withdraw)
         # self.window.transient(core.window.mainwindow)
@@ -31,7 +32,7 @@ class AddModWindow (object):
 
 
     def install(self):
-        self.wtv_tasklist = ttkbootstrap.Treeview(self.window, selectmode=EXTENDED, show=TREE, height=8)
+        self.wtv_tasklist = ttkbootstrap.Treeview(self.window, selectmode=EXTENDED, show=TREE, height=10)
         self.wfe_content = ttkbootstrap.Frame(self.window)
         self.wtv_tasklist.pack(side=LEFT, fill=Y, padx=5, pady=5)
         self.wfe_content.pack(side=RIGHT, fill=BOTH, expand=True, padx=(0, 5), pady=5)

@@ -35,6 +35,7 @@ class OldMigration(object):
         containe.stop = False
 
         self.window = ttkbootstrap.Toplevel()
+        core.window.methods.fake_withdraw(self.window)
         self.window.title("数据迁移工具")
         self.window.resizable(width=False, height=False)
         self.window.transient(core.window.mainwindow)

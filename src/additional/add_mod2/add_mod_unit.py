@@ -62,6 +62,7 @@ class AddModUnit (object):
         self.v_tags    = ttkbootstrap.StringVar()
 
         self.v_name.set(self.name)
+        self.v_object.trace_add("write", self._object_update)
         self.v_name.trace_add("write", self._name_update)
         self.install()
 
@@ -76,8 +77,20 @@ class AddModUnit (object):
         self.mistake.configure(text=text, bootstyle=DANGER)
 
 
+    def _set_warn(self, text: str = ""):
+        self.warn.configure(text=text, bootstyle=WARNING)
+
+
     def _set_sha(self, sha: str):
         self.w_label_sha_result.configure(text=sha)
+
+
+    def _object_update(self, *_):
+        object_ = self.v_object.get()
+        if not core.module.mods_manage.object_name_class_prediction(object_):
+            self._set_warn("无法预测对象名称的分类，该对象将会归于未分类")
+        else:
+            self._set_warn("")
 
 
     def _name_update(self, *_):
@@ -90,6 +103,9 @@ class AddModUnit (object):
 
         self.mistake = ttkbootstrap.Label(self.master)
         self.mistake.pack(side=TOP, fill=X, pady=10)
+
+        self.warn = ttkbootstrap.Label(self.master)
+        self.warn.pack(side=TOP, fill=X, pady=0)
 
         self.information.columnconfigure(1, weight=1)
         self.w_label_sha     = ttkbootstrap.Label(self.information, text="SHA: ")

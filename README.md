@@ -17,7 +17,7 @@
     <img src="https://img.shields.io/badge/License-GPLv3-lightblue" alt="GPLv3"/>
   </a>
   <a style="text-decoration:none" href="https://github.com/numlinka/d3dxSkinManage/releases">
-    <img src="https://img.shields.io/badge/releases-1.5.27-lightblue" alt="releases"/>
+    <img src="https://img.shields.io/badge/releases-1.5.33-lightblue" alt="releases"/>
   </a>
   <a style="text-decoration:none" href="https://www.python.org/downloads/release/python-3120/">
     <img src="https://img.shields.io/badge/Python-3.12-lightblue" alt="Python3.12"/>
@@ -70,6 +70,9 @@ d3dxSkinManage 是 3DMigoto 皮肤 Mods 辅助管理程序，可以更方便的�
 
 如果你不习惯 d3dxSkinManage 的操作方式，也可以尝试使用其他的管理工具，<br/>
 例如 [SkinSelectImpact](https://gamebanana.com/tools/12839) 或 [ModManager](https://d3dxskinmanage.numlinka.com/#/others/modmanager) 。
+
+This project is shit, any updates are just adding more shit to it.<br/>
+这个项目就是一坨屎，任何更新都是在这坨屎上添油加醋。
 
 
 ### 运行环境要求

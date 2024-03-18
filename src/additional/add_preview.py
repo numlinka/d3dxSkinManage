@@ -32,6 +32,7 @@ class AddPreview (object):
         name = item['name']
 
         self.windows = ttkbootstrap.Toplevel('操作确认')
+        core.window.methods.fake_withdraw(self.windows)
         self.windows.attributes("-topmost", True)
         self.windows.transient(core.window.mainwindow)
         # self.windows.grab_set()
