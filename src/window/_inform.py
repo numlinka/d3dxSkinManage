@@ -169,6 +169,8 @@ class Inform (object):
     def exhibit(self):
             window.methods.center_window_for_window(self.window, window.mainwindow, 600, 800, True)
             self.window.deiconify()
+            self.window.update()
+            self.window.focus_set()
             self.window.transient(window.mainwindow)
             self.window.grab_set()
             self.window.protocol("WM_DELETE_WINDOW", core.action.askexit.execute)

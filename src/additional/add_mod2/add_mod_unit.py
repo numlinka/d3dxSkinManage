@@ -19,6 +19,13 @@ from additional.add_mod import FILE_WRAN_SIZE, FILE_WRAN_SIZE_MARK
 option_list_grading = ["G - 大众级", "P - 指导级", "R - 成人级", "X - 限制级"]
 
 
+
+class AddModUnitCount (object):
+    lock = threading.RLock()
+    count = 0
+
+
+
 class AddModUnitInputCache (object):
     object_ = ""
     grading = "G"
@@ -236,8 +243,11 @@ class AddModUnit (object):
                 self._set_sha("正在压缩...")
                 self._state_update(state=f"正在压缩...")
 
+                with AddModUnitCount.lock:
+                    count = AddModUnitCount.count
+                    AddModUnitCount.count += 1
 
-                tempfilename = hex(int(time.time() * 10 ** 8)) + ".7z"
+                tempfilename = hex(int(time.time() * 10 ** 8)) + "_%05d"%(count) + ".7z"
                 tempfilepath = os.path.join(core.env.directory.resources.cache, tempfilename)
                 core.external.a7z(os.path.join(self.original_path, "*"), tempfilepath)
                 self.filepath = tempfilepath

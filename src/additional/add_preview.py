@@ -11,7 +11,7 @@ import win32gui
 import ttkbootstrap
 from PIL import Image, ImageGrab
 
-from libs.dispatch import tkasyncmain
+from libs.dispatch import TkAsyncMain
 
 # project
 import core
@@ -89,7 +89,7 @@ class AddPreview (object):
         self.windows.destroy()
 
 
-@tkasyncmain
+@TkAsyncMain
 def add_preview(filepath: str):
     SHA = core.window.interface.mods_manage.sbin_get_select_choices()
 
