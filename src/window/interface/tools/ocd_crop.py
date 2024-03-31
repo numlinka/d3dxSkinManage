@@ -155,6 +155,7 @@ class PreviewImage (object):
         self.image = PIL.ImageTk.PhotoImage(containe.image)
         self.wll.config(image=self.image)
         self.window.deiconify()
+        self.writeclipboard()
 
 
     def withdraw(self, *_):

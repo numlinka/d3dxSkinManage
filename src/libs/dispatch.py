@@ -11,7 +11,7 @@ class settings (object):
 
 
 
-class tkasyncmain (object):
+class TkAsyncMain (object):
     def __init__(self, func: types.FunctionType) -> None:
         self.func = func
         self.args = ()
@@ -58,6 +58,14 @@ class tkasyncmain (object):
 
     __call__ = agent
 
+
+
+def tkasyncmain(func: types.FunctionType) -> typing.Callable:
+    bas = TkAsyncMain(func)
+    def wrapper(*args, **kwargs):
+        return bas(*args, **kwargs)
+
+    return wrapper
 
 
 __all__ = [

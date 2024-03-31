@@ -28,6 +28,8 @@ class BatchEditUnit (object):
         self.masterwindow = masterwindow
 
         self.e_wait = threading.Event()
+        self.units = []
+        self.pause_editing = True
 
         self.sha     = ""
         self.v_object  = ttkbootstrap.StringVar()
@@ -46,9 +48,6 @@ class BatchEditUnit (object):
 
         self.v_name.set("不适用")
         self.install()
-
-        self.units = []
-        self.pause_editing = True
 
 
     def install(self):
@@ -142,8 +141,8 @@ class BatchEditUnit (object):
 
 
     def  _name_update(self, *_):
-        if self.pause_editing: return
         return
+        if self.pause_editing: return
         value = self.v_name.get()
         for unit in self.units:
             unit: AddModUnit
