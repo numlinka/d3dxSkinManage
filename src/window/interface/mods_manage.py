@@ -289,6 +289,9 @@ class ModsManage(object):
                     image=core.window.treeview_thumbnail.get(class_)
                 )
 
+        self.master.update()
+        core.construct.event.set_event(E.WINDOW_MODS_MANAGE_TV_CLASS_UPDATE)
+
 
     def update_objects_list(self, *_):
         core.log.debug("更新对象列表", L.WINDOS_MODS_MANAGE)
@@ -345,6 +348,9 @@ class ModsManage(object):
                     tags=object_name,
                     image=core.window.treeview_thumbnail.get(object_name)
                 )
+
+        self.master.update()
+        core.construct.event.set_event(E.WINDOW_MODS_MANAGE_TV_OBJECT_UPDATE)
 
 
     def update_choices_list(self, *_):
@@ -403,6 +409,8 @@ class ModsManage(object):
         # SHA = core.module.mods_manage.get_load_object_sha(object_)
         # if SHA is None: self.sbin_update_preview(None)
         # else: self.sbin_update_preview(SHA)
+        self.master.update()
+        core.construct.event.set_event(E.WINDOW_MODS_MANAGE_TV_CHOICE_UPDATE)
 
 
     def bin_load_mod(self, *args):

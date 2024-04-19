@@ -71,7 +71,7 @@ class Event(object):
             self.__table_event_lock.release()
             self.__call_lock.release()
 
-        unit.wait(timeout)
+        return unit.wait(timeout)
 
 
     def register(self, event: str, task: Any, args: Iterable = (), kwds: Mapping = {}) -> int:
@@ -176,8 +176,12 @@ class Event(object):
                 raise exceptions.EventNotExistError("The event does not exist.")
 
             if name in self.__wait:
-                for _ in range(len(self.__wait[name])):
-                    unit = self.__wait[name].pop(0)
+                # for _ in range(len(self.__wait[name])):
+                #     unit = self.__wait[name].pop(0)
+                #     unit.set()
+                event_lst = self.__wait[name]
+                self.__wait[name] = []
+                for unit in event_lst:
                     unit.set()
 
             if name in self.__signal:
