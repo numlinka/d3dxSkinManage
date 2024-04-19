@@ -65,11 +65,14 @@ class containe ():
 
 class Tools (object):
     def __init__(self, master, *_):
-        self.master = master
+        self.super_master = master
         self.install()
 
 
     def install(self):
+        self.master = widgets.ScrollFrame(self.super_master)
+        self.master.pack(fill="both", expand=True)
+
         self.frame_1 = ttkbootstrap.Frame(self.master)
         self.frame_2 = ttkbootstrap.Frame(self.master)
         self.frame_3 = ttkbootstrap.Frame(self.master)
@@ -91,6 +94,9 @@ class Tools (object):
 
         self.button_tags_edit = ttkbootstrap.Button(self.frame_2, text=TEXT_TAGS_EDIT, bootstyle="outline", command=self.bin_open_tags_edit)
         self.button_tags_edit.pack(side="top", fill="x", pady=(10, 0))
+
+        core.construct.event.register(E.USER_LOGGED_IN, self.master.bin_auto_resize)
+
 
     def initial(self):
         ...

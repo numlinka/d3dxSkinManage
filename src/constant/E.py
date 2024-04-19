@@ -26,6 +26,11 @@ WINDOW_MODS_MANAGE_TS_CLASS = "window-mods-manage-treeview-select-classification
 WINDOW_MODS_MANAGE_TS_OBJECT = "window-mods-manage-treeview-select-object"
 WINDOW_MODS_MANAGE_TS_CHOICE = "window-mods-manage-treeview-select-choice"
 
+# 列表更新
+WINDOW_MODS_MANAGE_TV_CLASS_UPDATE = "window-mods-manage-treeview-classification-update"
+WINDOW_MODS_MANAGE_TV_OBJECT_UPDATE = "window-mods-manage-treeview-object-update"
+WINDOW_MODS_MANAGE_TV_CHOICE_UPDATE = "window-mods-manage-treeview-choice-update"
+
 # 缩略图加载完成
 THUMBNAIL_LOADED = "thumbnail-loaded"
 
@@ -44,6 +49,9 @@ __all__ = [
     "WINDOW_MODS_MANAGE_TS_CLASS",
     "WINDOW_MODS_MANAGE_TS_OBJECT",
     "WINDOW_MODS_MANAGE_TS_CHOICE",
+    "WINDOW_MODS_MANAGE_TV_CLASS_UPDATE",
+    "WINDOW_MODS_MANAGE_TV_OBJECT_UPDATE",
+    "WINDOW_MODS_MANAGE_TV_CHOICE_UPDATE",
     "THUMBNAIL_LOADED",
     "MOD_DOWNLOAD_TASK_ALTERATION"
 ]

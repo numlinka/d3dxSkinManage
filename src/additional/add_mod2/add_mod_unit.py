@@ -12,6 +12,7 @@ import core
 import widgets
 
 from . import keys
+from .item_focus import focus_item
 from constant import K
 from additional.add_mod import FILE_WRAN_SIZE, FILE_WRAN_SIZE_MARK
 
@@ -400,6 +401,8 @@ class AddModUnit (object):
         AddModUnitInputCache.author = z_author
         AddModUnitInputCache.explain = z_explain
         AddModUnitInputCache.tags = " ".join(z_tags)
+
+        focus_item(self.sha, z_object)
 
 
     def action_cancel(self):
