@@ -11,9 +11,12 @@ from . import structure
 
 
 class Event(object):
-    def __init__(self, master: structure.Structure, event_list: list[str] = []):
+    def __init__(self, master: structure.Structure, event_list: list[str] = ...):
         if not isinstance(master, structure.Structure):
             raise TypeError("The master type is not Structure.")
+
+        if event_list is Ellipsis:
+            event_list = []
 
         if not isinstance(event_list, list):
             raise TypeError("The eventList type is not list.")
@@ -74,7 +77,7 @@ class Event(object):
         return unit.wait(timeout)
 
 
-    def register(self, event: str, task: Any, args: Iterable = (), kwds: Mapping = {}) -> int:
+    def register(self, event: str, task: Any, args: Iterable = ..., kwds: Mapping = ...) -> int:
         """ ## 注册触发任务
         在接收到对应的事件信号时执行该任务
 
@@ -92,6 +95,9 @@ class Event(object):
         """
         if not isinstance(event, str):
             raise TypeError("The event type is not str.")
+        
+        if args is Ellipsis: args = ()
+        if kwds is Ellipsis: kwds = {}
 
         try:
             self.__table_event_lock.acquire()

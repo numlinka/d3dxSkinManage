@@ -552,7 +552,7 @@ class ModsManage(object):
 
     def treeview_choices_menu_initial(self):
         _alt = self.treeview_choices_menu.add_label
-        _alt("编辑 Mod 信息",  self.bin_choices_menu_modify_item_data,   order=1000, condition=self._is_valid_sha, need_value=True)
+        _alt("编辑 Mod 信息 (旧版)",  self.bin_choices_menu_modify_item_data,   order=1000, condition=self._is_valid_sha, need_value=True)
         _alt("导出 Mod 文件",  self.bin_choices_menu_export_file,        order=1010, condition=self._is_valid_sha, need_value=True)
         _alt("复制 SHA 值",    self.bin_choices_menu_copy_sha,           order=1020, condition=self._is_valid_sha, need_value=True)
         _alt("查看原始文件",   self.bin_choices_menu_view_original_file, order=1030, condition=self._is_valid_sha, need_value=True)

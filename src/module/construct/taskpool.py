@@ -31,7 +31,7 @@ class TaskPool(object):
         self.set_task_pool_size(task_pool_size)
 
 
-    def newtask(self, task: Any, args: Iterable = (), kwds: Mapping = {}, answer: bool = True) -> int:
+    def newtask(self, task: Any, args: Iterable = ..., kwds: Mapping = ..., answer: bool = True) -> int:
         """ ## 添加任务
         任务会在一个独立的控制线程中执行
 
@@ -53,6 +53,9 @@ class TaskPool(object):
             使用 self.get_answer(iid) 获取返回值
         ```
         """
+        if args is Ellipsis: args = ()
+        if kwds is Ellipsis: kwds = {}
+
         iid = self.master.count
         data = {
             'iid': iid,
@@ -161,9 +164,12 @@ class TaskPool(object):
         return None
 
 
-    def __task_unit(self, iid: int, task: Any, args: Iterable = (), kwds: Mapping = {}, answer: bool = True) -> SystemExit:
+    def __task_unit(self, iid: int, task: Any, args: Iterable = ..., kwds: Mapping = ..., answer: bool = True) -> SystemExit:
         """ ## 任务单元
         """
+        if args is Ellipsis: args = ()
+        if kwds is Ellipsis: kwds = {}
+
         try:
             result = task(*args, **kwds)
         except BaseException as e: # 捕获 BaseException 它将包含 Exception 和 SystemExit

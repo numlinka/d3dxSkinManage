@@ -1,17 +1,20 @@
-import os
-import time
-import hashlib
+# Licensed under the GPL 3.0 License.
+# d3dxSkinManage by numlinka.
+
+# std
 import tkinter
-import datetime
 import threading
 
+# site
 import ttkbootstrap
 from ttkbootstrap.constants import *
 
-import core
+# local
+import module
 import widgets
 
-from .add_mod_unit import AddModUnit
+# self
+from .modify_item_unit import ModifyItemUnit
 
 
 option_list_grading = ["G - 大众级", "P - 指导级", "R - 成人级", "X - 限制级"]
@@ -73,7 +76,7 @@ class BatchEditUnit (object):
         self.w_label_tags    = ttkbootstrap.Label(self.information, text="类型标签：")
 
         self.w_label_sha_result = ttkbootstrap.Label   (self.information, text="批量编辑模式")
-        self.w_combobox_object  = ttkbootstrap.Combobox(self.information, width=60, textvariable=self.v_object)
+        self.w_combobox_object  = ttkbootstrap.Entry   (self.information, width=60, textvariable=self.v_object)
         self.w_entry_name       = ttkbootstrap.Entry   (self.information, width=60, textvariable=self.v_name)
         self.w_combobox_grading = ttkbootstrap.Combobox(self.information, width=60, textvariable=self.v_grading, values=option_list_grading)
         self.w_combobox_author  = ttkbootstrap.Combobox(self.information, width=60, textvariable=self.v_author)
@@ -101,7 +104,7 @@ class BatchEditUnit (object):
         self.w_button_tags.grid(row=6, column=2, sticky=W, padx=(5, 0), pady=(5, 0))
 
 
-    def initial(self, units: list[AddModUnit]):
+    def initial(self, units: list[ModifyItemUnit]):
         self.pause_editing = True
         self.units = units
         attr_name_list = [
@@ -116,7 +119,7 @@ class BatchEditUnit (object):
         for attr_name in attr_name_list:
             str_lst = []
             for unit in self.units:
-                unit: AddModUnit
+                unit: ModifyItemUnit
 
                 variable = getattr(unit, attr_name)
                 variable: ttkbootstrap.StringVar
@@ -129,6 +132,7 @@ class BatchEditUnit (object):
             variable: ttkbootstrap.StringVar
             variable.set(most_common)
 
+        self.w_combobox_author.configure(values=module.author_manage.get_authors_list())
         self.pause_editing = False
 
 
@@ -136,7 +140,7 @@ class BatchEditUnit (object):
         if self.pause_editing: return
         value = self.v_object.get()
         for unit in self.units:
-            unit: AddModUnit
+            unit: ModifyItemUnit
             unit.v_object.set(value)
 
 
@@ -144,7 +148,7 @@ class BatchEditUnit (object):
         if self.pause_editing: return
         value = self.v_name.get()
         for unit in self.units:
-            unit: AddModUnit
+            unit: ModifyItemUnit
             unit.v_name.set(value)
 
 
@@ -152,7 +156,7 @@ class BatchEditUnit (object):
         if self.pause_editing: return
         value = self.v_grading.get()
         for unit in self.units:
-            unit: AddModUnit
+            unit: ModifyItemUnit
             unit.v_grading.set(value)
 
 
@@ -160,7 +164,7 @@ class BatchEditUnit (object):
         if self.pause_editing: return
         value = self.v_author.get()
         for unit in self.units:
-            unit: AddModUnit
+            unit: ModifyItemUnit
             unit.v_author.set(value)
 
 
@@ -168,7 +172,7 @@ class BatchEditUnit (object):
         if self.pause_editing: return
         value = self.v_explain.get()
         for unit in self.units:
-            unit: AddModUnit
+            unit: ModifyItemUnit
             unit.v_explain.set(value)
 
 
@@ -176,12 +180,12 @@ class BatchEditUnit (object):
         if self.pause_editing: return
         value = self.v_tags.get()
         for unit in self.units:
-            unit: AddModUnit
+            unit: ModifyItemUnit
             unit.v_tags.set(value)
 
 
     def set_tags(self, *_):
-        o_tags = core.module.tags_manage.get_tags()
+        o_tags = module.tags_manage.get_tags()
         s_tags = self.v_tags.get()
         res = widgets.dialogs.select2ags("选择标签", o_tags, s_tags, parent=self.masterwindow)
         self.v_tags.set(" ".join(res))

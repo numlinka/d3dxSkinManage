@@ -11,6 +11,7 @@ from . import hook_dropfiles
 from . import modify_classification
 from . import screen_preview
 from . import modify_item_data
+from . import modify_item_data2
 from . import add_mod
 from . import add_mod2
 from . import add_preview
@@ -22,8 +23,9 @@ def initial():
     # # core.UI.ModsManage.Label_preview.bind('<Double-Button-1>', screen_preview.full_screen_preview)
     core.window.interface.mods_manage.label_preview.bind('<Button-1>', screen_preview.full_screen_preview)
     core.window.interface.mods_manage.label_preview.bind('<Button-3>', add_preview.add_preview_from_clipboard)
-    core.window.interface.mods_manage.treeview_choices.bind('<Double-Button-3>', modify_item_data.modify_item_data)
+    # core.window.interface.mods_manage.treeview_choices.bind('<Double-Button-3>', modify_item_data.modify_item_data)
     add_mod2.initial()
+    modify_item_data2.initial()
 
 
 
