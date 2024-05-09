@@ -7,6 +7,7 @@ from libs import dispatch
 
 # self
 from . import methods
+from . import _title_content
 from .messagebox import Messagebox
 from .title import Title
 from .status import Status
@@ -80,7 +81,7 @@ def initial():
     _alt_set(login.button_login, T.ANNOTATION_LOGIN, 1)
     _alt_set(status.label_help, T.ANNOTATION_HELP, 1)
     interface.initial()
-
+    _title_content.initial()
 
 
 

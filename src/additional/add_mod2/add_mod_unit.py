@@ -8,6 +8,8 @@ import threading
 import ttkbootstrap
 from ttkbootstrap.constants import *
 
+from libs import strutils
+
 import core
 import widgets
 
@@ -375,7 +377,7 @@ class AddModUnit (object):
             "name":     z_name,
             "author":   z_author,
             "grading":  z_grading,
-            "explain":  z_explain,
+            "explain":  strutils.escape_character_recognition(z_explain),
             "tags":     z_tags
         }
 

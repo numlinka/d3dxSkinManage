@@ -43,10 +43,6 @@ d3dxSkinManage 不会以任何形式收集您的任何信息，
     - 783983577
 
 
-Discord 频道
-    - https://discord.gg/DaZ6Ds5Af5
-
-
 有关 d3dxSkinManage 的更多信息请访问
     - https://github.com/numlinka/d3dxSkinManage
     - https://d3dxskinmanage.numlinka.com

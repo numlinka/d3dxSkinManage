@@ -10,6 +10,7 @@ from . import ocd_crop
 from . import cache_cleanup
 from . import old_migration
 from . import development
+from . import launch_script
 import widgets
 
 TEXT_OCD_CROP = """
@@ -43,7 +44,7 @@ TEXT_DEVELOPMENT = """
 开发者调试工具
 
 警告！你需要对自己的行为负责，自行承担后果
-该工具可以略过行为检查直接对 core 模块进行操作
+该工具可以略过行为检查直接进行操作
 操作不当会导致其他模块故障或损坏数据库
 你已经被警告过了
 """
@@ -55,6 +56,16 @@ TEXT_TAGS_EDIT = """
 使用空格和换行来分隔多个标签
 已出现过的标签会被追加到可选内容中
 如果出现错误请自行修复
+"""
+
+
+LAUNCH_SCRIPT = """
+生成启动脚本
+
+让你不再需要通过程序来启动 3DMiGoto
+注意，这里只提供最基础的启动方式
+如果你需要实现更复杂的逻辑
+请自行富化脚本内容
 """
 
 
@@ -95,6 +106,9 @@ class Tools (object):
         self.button_tags_edit = ttkbootstrap.Button(self.frame_2, text=TEXT_TAGS_EDIT, bootstyle="outline", command=self.bin_open_tags_edit)
         self.button_tags_edit.pack(side="top", fill="x", pady=(10, 0))
 
+        self.button_launch_script = ttkbootstrap.Button(self.frame_3, text=LAUNCH_SCRIPT, bootstyle="outline", command=self.bin_open_launch_script)
+        self.button_launch_script.pack(side="top", fill="x")
+
         core.construct.event.register(E.USER_LOGGED_IN, self.master.bin_auto_resize)
 
 
@@ -126,3 +140,7 @@ class Tools (object):
     def bin_open_tags_edit(self, *_):
         res = widgets.dialogs.textedit(title="可选标签编辑", content=core.module.tags_manage.get_tags_content(), parent=core.window.mainwindow)
         core.module.tags_manage.update_content(res, True)
+
+
+    def bin_open_launch_script(self, *_):
+        launch_script.LaunchScript()

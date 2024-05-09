@@ -534,6 +534,12 @@ class D3dxManage(object):
         if path is None:
             core.window.messagebox.showerror(title="数据未设置", message="无法启动游戏\n未设置游戏路径")
             return
+
+        # import win32process
+        # si = win32process.STARTUPINFO()
+        # win32process.CreateProcess(path, argument, None, None, False, 0, None, None, si)
+
+        # return
         try:
             win32api.ShellExecute(None, "open", path, argument, os.path.realpath(os.path.dirname(path)), 1)
         except pywintypes.error as e:

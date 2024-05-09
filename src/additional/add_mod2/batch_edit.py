@@ -74,7 +74,7 @@ class BatchEditUnit (object):
 
         self.w_label_sha_result = ttkbootstrap.Label   (self.information, text="批量编辑模式")
         self.w_combobox_object  = ttkbootstrap.Combobox(self.information, width=60, textvariable=self.v_object)
-        self.w_entry_name       = ttkbootstrap.Entry   (self.information, width=60, textvariable=self.v_name, state=DISABLED)
+        self.w_entry_name       = ttkbootstrap.Entry   (self.information, width=60, textvariable=self.v_name)
         self.w_combobox_grading = ttkbootstrap.Combobox(self.information, width=60, textvariable=self.v_grading, values=option_list_grading)
         self.w_combobox_author  = ttkbootstrap.Combobox(self.information, width=60, textvariable=self.v_author)
         self.w_entry_explain    = ttkbootstrap.Entry   (self.information, width=60, textvariable=self.v_explain)
@@ -141,7 +141,6 @@ class BatchEditUnit (object):
 
 
     def  _name_update(self, *_):
-        return
         if self.pause_editing: return
         value = self.v_name.get()
         for unit in self.units:
