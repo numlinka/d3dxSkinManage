@@ -220,13 +220,13 @@ class ModifyItemUnit (object):
 
 
     def action_remove(self):
-        result = module.mods_manage.remove(self.SHA)
+        result = module.mods_manage.remove(self.sha)
         if result is not None:
             window.messagebox.showinfo(title=result[0], message=result[1])
             return
 
         try:
-            os.remove(os.path.join(core.env.directory.resources.mods, self.SHA))
+            os.remove(os.path.join(core.env.directory.resources.mods, self.sha))
 
         except Exception:
             ...
@@ -236,15 +236,15 @@ class ModifyItemUnit (object):
 
 
     def action_delete(self):
-        result = module.mods_manage.remove(self.SHA)
+        result = module.mods_manage.remove(self.sha)
         if result is not None:
             window.messagebox.showinfo(title=result[0], message=result[1])
             return
 
-        module.mods_index.item_data_del(self.SHA)
+        module.mods_index.item_data_del(self.sha)
 
         try:
-            os.remove(os.path.join(core.env.directory.resources.mods, self.SHA))
+            os.remove(os.path.join(core.env.directory.resources.mods, self.sha))
 
         except Exception:
             ...

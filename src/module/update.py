@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 
 import os
+import hashlib
 import threading
 
 import requests
@@ -27,6 +28,12 @@ def stop_control(msg: str = "未知错误"):
 
 def check():
     core.log.info("检查更新...", L.MODULE_UPDATE)
+    try: # 我不是很相信这个东西
+        if verify_key(core.argv.noupdatecheck):
+            core.log.warning("跳过更新检查", L.MODULE_UPDATE)
+            return
+    except Exception as _:
+        ...
     core.window.block.setcontent("正在检查更新...")
     try:
         index_requests = requests.get(core.env.INDEX)
@@ -167,3 +174,14 @@ def block(message):
     core.window.block.setcontent(message)
     stop_control("启动程序被拒绝")
     ...
+
+
+def verify_key(key: str):
+    # You can clearly see how the key is calculated.
+    # It's just a gentleman's agreement.
+    u8 = "utf-8"
+    s1, s2, s3 = hashlib.sha512(), hashlib.sha512(), hashlib.md5()
+    s1.update(key.encode(u8))
+    s2.update(s1.hexdigest().encode(u8))
+    s3.update(s2.hexdigest().encode(u8))
+    return s3.hexdigest() == "2f7834e7172b72bdc3cf453f691eff55"

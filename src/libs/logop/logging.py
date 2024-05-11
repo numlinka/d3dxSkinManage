@@ -50,7 +50,7 @@ class Logging (object):
             self.__call_event = threading.Event()
             self.__message_list = []
             self.__asynchronous_stop = False
-            self.__asynchronous_task = threading.Thread(None, self.__async_mainloop, threadname, (), {}, daemon=False)
+            self.__asynchronous_task = threading.Thread(None, self.__async_mainloop, threadname, (), {}, daemon=True)
             self.__asynchronous_task.start()
 
 

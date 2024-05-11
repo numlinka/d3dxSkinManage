@@ -30,6 +30,7 @@ def when_entering_mainpool():
     core.sync.addtask("初始化登录用户列表", core.window.login.initial)
     core.sync.addtask("加载插件", core.module.plugins.main)
     core.sync.addtask("登录就绪", core.window.ready_login)
+    core.sync.addtask("自动登录检查", core.window.auto_login_check)
 
     core.construct.taskpool.newtask(core.window.treeview_thumbnail.add_image_from_redirection_config_file, (core.env.file.resources.redirection, ))
 

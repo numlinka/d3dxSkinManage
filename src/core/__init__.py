@@ -2,6 +2,7 @@
 
 # std
 import sys
+import argparse
 import threading
 import traceback
 
@@ -28,6 +29,12 @@ log.info("initial...", L.CORE)
 
 construct = module.construct.Structural(20, [getattr(E, x) for x in E.__all__])
 sync = module.synchronization.SynchronizationTask()
+
+__parser = argparse.ArgumentParser(description='Description of your program')
+__parser.add_argument("--autologin", default="", type=str, help="Automatically log in to the specified user environment.")
+__parser.add_argument("--noupdatecheck", default="", type=str, help="Turn off update checking.")
+
+argv: argparse.Namespace
 
 
 import window
@@ -67,6 +74,7 @@ def initial():
 
 
 def run():
+    global argv
     try:
         initial()
         amend.env_config_amend()
@@ -76,6 +84,7 @@ def run():
 
     try:
         log.set_level(env.configuration.log_level)
+        argv = __parser.parse_args() # 果然, 它不适合呆在这里
 
     except Exception as e:
         env.configuration.log_level = libs.logop.level.INFO
