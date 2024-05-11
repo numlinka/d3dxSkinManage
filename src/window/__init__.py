@@ -97,3 +97,13 @@ def _login(__name):
     frame_login.pack_forget()
     frame_notebook.pack(side='top', fill='both', expand=True)
     status.set_userName(__name)
+
+
+def auto_login_check():
+    try:
+        username = core.argv.autologin
+        if not username: return
+        core.login(username)
+
+    except Exception as _:
+        ...
