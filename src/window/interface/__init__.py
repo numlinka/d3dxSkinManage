@@ -1,9 +1,10 @@
 # -*- coding: utf-8 -*-
 
 import datetime
-import subprocess
+import webbrowser
 
 import ttkbootstrap
+from ttkbootstrap.constants import *
 
 import core
 
@@ -89,3 +90,33 @@ class Interface(object):
 
         except Exception as _:
             ...
+
+
+        try:
+            if not core.env.is_admin:
+                return
+                ...
+
+            self.w_admin = ttkbootstrap.Frame(self.master)
+            self.w_admin_warn = ttkbootstrap.Label(self.w_admin, text="警告：管理员运行可能会导致一些问题", bootstyle=WARNING)
+            self.w_admin_detail = ttkbootstrap.Label(self.w_admin, text="[详情]", cursor="hand2")
+            self.w_admin_close = ttkbootstrap.Label(self.w_admin, text="[关闭提醒]", cursor="hand2")
+
+            self.w_admin.place(x=-10, y=5, relx=1.0, rely=0, anchor=NE)
+            self.w_admin_warn.pack(side=LEFT)
+            self.w_admin_close.pack(side=RIGHT)
+            self.w_admin_detail.pack(side=RIGHT, padx=5)
+
+            self.w_admin_detail.bind("<Button-1>", self.bin_about_admin_warn)
+            self.w_admin_close.bind("<Button-1>", self.bin_close_admin_warn)
+
+        except Exception as _:
+            ...
+
+
+    def bin_about_admin_warn(self, *_) -> None:
+        webbrowser.open("https://d3dxskinmanage.numlinka.com/#/help/about_admin_rights")
+
+
+    def bin_close_admin_warn(self, *_) -> None:
+        self.w_admin.place_forget()

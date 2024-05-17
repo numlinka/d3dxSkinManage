@@ -11,7 +11,9 @@ from ttkbootstrap.constants import *
 
 # local
 import module
+import window
 import widgets
+from constant import T
 
 # self
 from .modify_item_unit import ModifyItemUnit
@@ -76,7 +78,7 @@ class BatchEditUnit (object):
         self.w_label_tags    = ttkbootstrap.Label(self.information, text="类型标签：")
 
         self.w_label_sha_result = ttkbootstrap.Label   (self.information, text="批量编辑模式")
-        self.w_combobox_object  = ttkbootstrap.Entry   (self.information, width=60, textvariable=self.v_object)
+        self.w_entry_object     = ttkbootstrap.Entry   (self.information, width=60, textvariable=self.v_object)
         self.w_entry_name       = ttkbootstrap.Entry   (self.information, width=60, textvariable=self.v_name)
         self.w_combobox_grading = ttkbootstrap.Combobox(self.information, width=60, textvariable=self.v_grading, values=option_list_grading)
         self.w_combobox_author  = ttkbootstrap.Combobox(self.information, width=60, textvariable=self.v_author)
@@ -94,7 +96,7 @@ class BatchEditUnit (object):
         self.w_label_tags    .grid(row=6, column=0, sticky=E, padx=(0, 0), pady=(5, 0))
 
         self.w_label_sha_result .grid(row=0, column=1, sticky=EW, padx=(5, 0), pady=(0, 0))
-        self.w_combobox_object  .grid(row=1, column=1, sticky=EW, padx=(5, 0), pady=(5, 0))
+        self.w_entry_object     .grid(row=1, column=1, sticky=EW, padx=(5, 0), pady=(5, 0))
         self.w_entry_name       .grid(row=2, column=1, sticky=EW, padx=(5, 0), pady=(5, 0))
         self.w_combobox_grading .grid(row=3, column=1, sticky=EW, padx=(5, 0), pady=(5, 0))
         self.w_combobox_author  .grid(row=4, column=1, sticky=EW, padx=(5, 0), pady=(5, 0))
@@ -102,6 +104,17 @@ class BatchEditUnit (object):
         self.w_entry_tags       .grid(row=6, column=1, sticky=EW, padx=(5, 0), pady=(5, 0))
 
         self.w_button_tags.grid(row=6, column=2, sticky=W, padx=(5, 0), pady=(5, 0))
+
+
+        _alt = window.annotation_toplevel.register
+        _alt(self.w_label_sha_result, T.ANNOADD.SHA_BATCH, 2)
+        _alt(self.w_entry_object, T.ANNOADD.OBJECT, 2)
+        _alt(self.w_entry_name, T.ANNOADD.NAME, 2)
+        _alt(self.w_combobox_grading, T.ANNOADD.GRADING, 2)
+        _alt(self.w_combobox_author, T.ANNOADD.AUTHOR, 2)
+        _alt(self.w_entry_explain, T.ANNOADD.EXPLAIN, 2)
+        _alt(self.w_entry_tags, T.ANNOADD.TAGS, 2)
+        _alt(self.w_button_tags, T.ANNOADD.TAG_SELECT_TOOL, 2)
 
 
     def initial(self, units: list[ModifyItemUnit]):

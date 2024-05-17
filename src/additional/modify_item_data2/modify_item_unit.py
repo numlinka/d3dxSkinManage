@@ -17,6 +17,7 @@ import core
 import module
 import window
 import widgets
+from constant import T
 from constant.E import *
 
 
@@ -106,7 +107,7 @@ class ModifyItemUnit (object):
         self.w_label_get3    = ttkbootstrap.Label(self.information, text="下载地址：")
 
         self.w_label_sha_result = ttkbootstrap.Label   (self.information, text=self.sha)
-        self.w_combobox_object  = ttkbootstrap.Entry   (self.information, width=60, textvariable=self.v_object)
+        self.w_entry_object     = ttkbootstrap.Entry   (self.information, width=60, textvariable=self.v_object)
         self.w_entry_name       = ttkbootstrap.Entry   (self.information, width=60, textvariable=self.v_name)
         self.w_combobox_grading = ttkbootstrap.Combobox(self.information, width=60, textvariable=self.v_grading, values=option_list_grading)
         self.w_combobox_author  = ttkbootstrap.Combobox(self.information, width=60, textvariable=self.v_author)
@@ -134,7 +135,7 @@ class ModifyItemUnit (object):
         # self.w_label_get3    .grid(row=9, column=0, sticky=E, padx=(0, 0), pady=(5, 0))
 
         self.w_label_sha_result .grid(row=0, column=1, sticky=EW, padx=(5, 0), pady=(0, 0))
-        self.w_combobox_object  .grid(row=1, column=1, sticky=EW, padx=(5, 0), pady=(5, 0))
+        self.w_entry_object     .grid(row=1, column=1, sticky=EW, padx=(5, 0), pady=(5, 0))
         self.w_entry_name       .grid(row=2, column=1, sticky=EW, padx=(5, 0), pady=(5, 0))
         self.w_combobox_grading .grid(row=3, column=1, sticky=EW, padx=(5, 0), pady=(5, 0))
         self.w_combobox_author  .grid(row=4, column=1, sticky=EW, padx=(5, 0), pady=(5, 0))
@@ -148,6 +149,17 @@ class ModifyItemUnit (object):
         # self.w_entry_get1_mode  .grid(row=7, column=2, sticky=W, padx=(5, 0), pady=(5, 0))
         # self.w_entry_get2_mode  .grid(row=8, column=2, sticky=W, padx=(5, 0), pady=(5, 0))
         # self.w_entry_get3_mode  .grid(row=9, column=2, sticky=W, padx=(5, 0), pady=(5, 0))
+
+
+        _alt = window.annotation_toplevel.register
+        _alt(self.w_label_sha_result, T.ANNOADD.SHA, 2)
+        _alt(self.w_entry_object, T.ANNOADD.OBJECT, 2)
+        _alt(self.w_entry_name, T.ANNOADD.NAME, 2)
+        _alt(self.w_combobox_grading, T.ANNOADD.GRADING, 2)
+        _alt(self.w_combobox_author, T.ANNOADD.AUTHOR, 2)
+        _alt(self.w_entry_explain, T.ANNOADD.EXPLAIN, 2)
+        _alt(self.w_entry_tags, T.ANNOADD.TAGS, 2)
+        _alt(self.w_button_tags, T.ANNOADD.TAG_SELECT_TOOL, 2)
 
 
     def set_tags(self, *_):

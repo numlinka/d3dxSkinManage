@@ -1,72 +1,110 @@
-# -*- coding: utf-8 -*-
+# Licensed under the GPL 3.0 License.
+# d3dxSkinManage by numlinka.
 
+# std
+import types
 
+# site
 import ttkbootstrap
+from ttkbootstrap.constants import *
 
-import core
+# local
+import module
+import window
+import widgets
+from constant import T
 
-from constant import *
+# self
 from . import ocd_crop
 from . import cache_cleanup
 from . import old_migration
 from . import development
 from . import launch_script
-import widgets
-
-TEXT_OCD_CROP = """
-强迫症截图工具
-
-你是否因为在截取预览图时位置和大小参差不齐而烦恼
-但是现在没有关系
-这个工具可以帮助你截取位置和大小一致的图片
-为你的强迫症之路舔砖 Java (加瓦)
-"""
-
-TEXT_CACHE_CLEANUP = """
-缓存清理工具
-
-在 1.5 版本之后会大量使用缓存提高操作速度
-但这些缓存不会因为 Mod 的删除而删除
-可以通过此工具扫描并清理这些无用的缓存文件
-释放硬盘空间
-"""
-
-TEXT_OLD_MIGRATION = """
-旧版 Mod 管理器数据迁移工具
-
-迁移 3DMiModsManage 的数据到 d3dsSkinManage
-解决老用户因为旧版数据太多迁移到新版麻烦的问题
-有一些小小的 BUG
-但总体上是成功的
-"""
-
-TEXT_DEVELOPMENT = """
-开发者调试工具
-
-警告！你需要对自己的行为负责，自行承担后果
-该工具可以略过行为检查直接进行操作
-操作不当会导致其他模块故障或损坏数据库
-你已经被警告过了
-"""
-
-TEXT_TAGS_EDIT = """
-可选标签编辑工具
-
-你可以在此编辑 Mod 标签的可选内容和顺序
-使用空格和换行来分隔多个标签
-已出现过的标签会被追加到可选内容中
-如果出现错误请自行修复
-"""
 
 
-LAUNCH_SCRIPT = """
-生成启动脚本
+class ColumnUnit (object):
+    frame: ttkbootstrap.Frame
+    pack: bool = False
+    button_list: list[ttkbootstrap.Button]
 
-让你不再需要通过程序来启动 3DMiGoto
-注意，这里只提供最基础的启动方式
-如果你需要实现更复杂的逻辑
-请自行富化脚本内容
-"""
+
+
+class Tools (object):
+    def __init__(self, master, *_):
+        self.super_master = master
+        self._table: dict[int, ColumnUnit] = {}
+        self.install()
+        self.initial()
+
+
+    def install(self):
+        self.master = widgets.ScrollFrame(self.super_master, scb_pad=5)
+        self.master.pack(fill=BOTH, expand=True, padx=5, pady=5)
+
+
+    def add_button(self, text: str, command: types.FunctionType, column: int = 0):
+        """## 添加按钮
+
+        text: 按钮文本
+        command: 回调函数 按钮点击事件
+        column: 预期列 如果列出现空缺则按顺序添加
+        """
+        if column < 0:
+            raise ValueError("column must be greater than or equal to 0.")
+
+        if column not in self._table:
+            # add new column
+            column_unit = ColumnUnit()
+            column_unit.frame = ttkbootstrap.Frame(self.master)
+            column_unit.button_list = []
+            self._table[column] = column_unit
+
+        # add button
+        column_unit = self._table[column]
+        button = ttkbootstrap.Button(column_unit.frame, text=text, command=command, bootstyle=OUTLINE, takefocus=False)
+        first = len(column_unit.button_list) == 0
+        column_unit.button_list.append(button)
+        button.pack(side=TOP, fill=X, padx=0, pady=(0 if first else 5, 0))
+
+        if column_unit.pack: return
+
+        if len(self._table) == 1:
+            column_unit.frame.pack(side=LEFT, fill=Y, padx=5, pady=5)
+            column_unit.pack = True
+            return
+
+        if max([x for x in self._table]) == column:
+            column_unit.frame.pack(side=LEFT, fill=Y, padx=(0, 5), pady=5)
+            column_unit.pack = True
+            return
+
+        else:
+            self.repack_all_column()
+
+
+    def repack_all_column(self):
+        column_lst = list(self._table.keys())
+        column_lst.sort()
+
+        for column in column_lst:
+            column_unit = self._table[column]
+            if column_unit.pack == True: column_unit.frame.pack_forget()
+
+        first = True
+        for column in column_lst:
+            column_unit = self._table[column]
+            column_unit.frame.pack(side=LEFT, fill=Y, padx=(5 if first else 0, 5), pady=5)
+            column_unit.pack = True
+            first = False
+
+
+    def initial(self):
+        self.add_button(T.TEXT_OCD_CROP, bin_open_ocd_crop, 1)
+        self.add_button(T.TEXT_OLD_MIGRATION, bin_open_old_migration, 1)
+        self.add_button(T.TEXT_DEVELOPMENT, bin_open_development_debug, 1)
+        self.add_button(T.TEXT_CACHE_CLEANUP, bin_open_cache_cleanup, 2)
+        self.add_button(T.TEXT_TAGS_EDIT, bin_open_tags_edit, 2)
+        self.add_button(T.TEXT_LAUNCH_SCRIPT, bin_open_launch_script, 2)
 
 
 
@@ -74,73 +112,26 @@ class containe ():
     rejection_count = 1
 
 
-class Tools (object):
-    def __init__(self, master, *_):
-        self.super_master = master
-        self.install()
 
+def bin_open_ocd_crop(*_):
+    ocd_crop.OCDCrop()
 
-    def install(self):
-        self.master = widgets.ScrollFrame(self.super_master)
-        self.master.pack(fill="both", expand=True)
+def bin_open_old_migration(*_):
+    old_migration.OldMigration()
 
-        self.frame_1 = ttkbootstrap.Frame(self.master)
-        self.frame_2 = ttkbootstrap.Frame(self.master)
-        self.frame_3 = ttkbootstrap.Frame(self.master)
-        self.frame_1.pack(side="left", fill="y", padx=10, pady=10)
-        self.frame_2.pack(side="left", fill="y", padx=(0, 10), pady=10)
-        self.frame_3.pack(side="left", fill="y", padx=(0, 10), pady=10)
+def bin_open_development_debug(*_):
+    if containe.rejection_count <= 3:
+        containe.rejection_count += 1
+        window.messagebox.showerror(title="访问被拒绝", message="开发者调试工具：访问被拒绝")
+        return
+    development.Development()
 
-        self.button_ocd_crop = ttkbootstrap.Button(self.frame_1, text=TEXT_OCD_CROP, bootstyle="outline", command=self.bin_open_ocd_crop)
-        self.button_ocd_crop.pack(side="top", fill="x")
+def bin_open_cache_cleanup(*_):
+    cache_cleanup.CacheCleanup()
 
-        self.button_cache_cleanup = ttkbootstrap.Button(self.frame_2, text=TEXT_CACHE_CLEANUP, bootstyle="outline", command=self.bin_open_cache_cleanup)
-        self.button_cache_cleanup.pack(side="top", fill="x")
+def bin_open_tags_edit(*_):
+    res = widgets.dialogs.textedit(title="可选标签编辑", content=module.tags_manage.get_tags_content(), parent=window.mainwindow)
+    module.tags_manage.update_content(res, True)
 
-        self.button_old_version_migration = ttkbootstrap.Button(self.frame_1, text=TEXT_OLD_MIGRATION, bootstyle="outline", command=self.bin_open_old_migration)
-        self.button_old_version_migration.pack(side="top", fill="x", pady=(10, 0))
-
-        self.button_development_debug = ttkbootstrap.Button(self.frame_1, text=TEXT_DEVELOPMENT, bootstyle="outline", command=self.bin_open_development_debug)
-        self.button_development_debug.pack(side="top", fill="x", pady=(10, 0))
-
-        self.button_tags_edit = ttkbootstrap.Button(self.frame_2, text=TEXT_TAGS_EDIT, bootstyle="outline", command=self.bin_open_tags_edit)
-        self.button_tags_edit.pack(side="top", fill="x", pady=(10, 0))
-
-        self.button_launch_script = ttkbootstrap.Button(self.frame_3, text=LAUNCH_SCRIPT, bootstyle="outline", command=self.bin_open_launch_script)
-        self.button_launch_script.pack(side="top", fill="x")
-
-        core.construct.event.register(E.USER_LOGGED_IN, self.master.bin_auto_resize)
-
-
-    def initial(self):
-        ...
-
-
-    def bin_open_ocd_crop(self, *_):
-        ocd_crop.OCDCrop()
-
-
-    def bin_open_cache_cleanup(self, *_):
-        cache_cleanup.CacheCleanup()
-
-
-    def bin_open_old_migration(self, *_):
-        old_migration.OldMigration()
-
-
-    def bin_open_development_debug(self, *_):
-        if containe.rejection_count <= 3:
-            containe.rejection_count += 1
-            core.window.messagebox.showerror(title="访问被拒绝", message="开发者调试工具：访问被拒绝")
-            return
-
-        development.Development()
-
-
-    def bin_open_tags_edit(self, *_):
-        res = widgets.dialogs.textedit(title="可选标签编辑", content=core.module.tags_manage.get_tags_content(), parent=core.window.mainwindow)
-        core.module.tags_manage.update_content(res, True)
-
-
-    def bin_open_launch_script(self, *_):
-        launch_script.LaunchScript()
+def bin_open_launch_script(*_):
+    launch_script.LaunchScript()

@@ -63,6 +63,7 @@ class ScrollFrame (ttkbootstrap.Frame):
         self.w_master_frame = ttkbootstrap.Frame(master)
         self.w_canvas = ttkbootstrap.Canvas(self.w_master_frame, width=0, height=0)
         superiors.__init__(self.w_canvas, **kw)
+        self.w_placeholder = ttkbootstrap.Frame(self.w_master_frame)
         self.w_horz_scb = ttkbootstrap.Scrollbar(self.w_master_frame, orient=HORIZONTAL, command=self.w_canvas.xview)
         self.w_vert_scb = ttkbootstrap.Scrollbar(self.w_master_frame, orient=VERTICAL, command=self.w_canvas.yview)
 
@@ -84,6 +85,7 @@ class ScrollFrame (ttkbootstrap.Frame):
 
 
         self.w_canvas.grid(row=0, column=0, sticky=NSEW)
+        self.w_placeholder.grid(row=1, column=1, sticky=NSEW)
         self.w_master_frame.columnconfigure(0, weight=1)
         self.w_master_frame.rowconfigure(0, weight=1)
 

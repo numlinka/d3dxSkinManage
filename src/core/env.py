@@ -2,6 +2,7 @@
 
 # std
 import os
+import ctypes
 import subprocess
 from os.path import join as __
 
@@ -14,9 +15,9 @@ from .structure import *
 PROJECT = "d3dxSkinManage"
 AUTHOR = "numlinka"
 
-VERSION_CODE = 1_05_37_000
+VERSION_CODE = 1_05_38_000
 VERSION_TYPE = ""
-VERSION_NAME = "1.5.37"
+VERSION_NAME = "1.5.38"
 
 MAIN_TITLE = f"{PROJECT} v{VERSION_NAME} -by {AUTHOR}"
 
@@ -93,6 +94,13 @@ try:
 
 except Exception:
     uuid = ""
+
+try:
+    is_admin = ctypes.windll.shell32.IsUserAnAdmin()
+
+except Exception as _:
+    is_admin = None
+
 
 
 __all__ = [

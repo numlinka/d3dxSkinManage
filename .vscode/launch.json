@@ -6,7 +6,7 @@
     "configurations": [
         {
             "name": "d3dxSkinManage",
-            "type": "python",
+            "type": "debugpy",
             "request": "launch",
             "program": "src/d3dxSkinManage.py",
             "console": "integratedTerminal",

@@ -11,6 +11,7 @@ from ttkbootstrap.constants import *
 # local
 import window
 import module
+from constant import T
 
 # self
 from . import modify_item_unit
@@ -68,6 +69,14 @@ class ModifyItemWindow (object):
 
         self.wfe_batch_edit = ttkbootstrap.Frame(self.wfe_unit)
         self.batch_edit_unit = batch_edit.BatchEditUnit(self.wfe_batch_edit, self.window)
+
+
+        _alt = window.annotation_toplevel.register
+        _alt(self.wbn_sure, T.ANNOADD.SURE_MODIFY, 2)
+        _alt(self.wbn_cancel, T.ANNOADD.CANCEL, 2)
+        _alt(self.wbn_remove, T.ANNOADD.REMOVE, 2)
+        _alt(self.wbn_delete, T.ANNOADD.DELETE, 2)
+        _alt(self.wbn_select, T.ANNOADD.ALL_SELECT, 2)
 
 
     def select_update(self, *_):
