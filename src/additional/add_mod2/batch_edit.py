@@ -9,7 +9,9 @@ import ttkbootstrap
 from ttkbootstrap.constants import *
 
 import core
+import window
 import widgets
+from constant import T
 
 from .add_mod_unit import AddModUnit
 
@@ -99,6 +101,17 @@ class BatchEditUnit (object):
         self.w_entry_tags       .grid(row=6, column=1, sticky=EW, padx=(5, 0), pady=(5, 0))
 
         self.w_button_tags.grid(row=6, column=2, sticky=W, padx=(5, 0), pady=(5, 0))
+
+
+        _alt = window.annotation_toplevel.register
+        _alt(self.w_label_sha_result, T.ANNOADD.SHA_BATCH, 2)
+        _alt(self.w_combobox_object, T.ANNOADD.OBJECT, 2)
+        _alt(self.w_entry_name, T.ANNOADD.NAME, 2)
+        _alt(self.w_combobox_grading, T.ANNOADD.GRADING, 2)
+        _alt(self.w_combobox_author, T.ANNOADD.AUTHOR, 2)
+        _alt(self.w_entry_explain, T.ANNOADD.EXPLAIN, 2)
+        _alt(self.w_entry_tags, T.ANNOADD.TAGS, 2)
+        _alt(self.w_button_tags, T.ANNOADD.TAG_SELECT_TOOL, 2)
 
 
     def initial(self, units: list[AddModUnit]):

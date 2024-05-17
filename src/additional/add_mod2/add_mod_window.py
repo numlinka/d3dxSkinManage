@@ -7,6 +7,8 @@ from ttkbootstrap.constants import *
 
 # project
 import core
+import window
+from constant import T
 
 # self
 from .add_mod_unit import AddModUnit
@@ -56,6 +58,12 @@ class AddModWindow (object):
 
         self.wfe_batch_edit = ttkbootstrap.Frame(self.wfe_unit)
         self.batch_edit_unit = BatchEditUnit(self.wfe_batch_edit, self.window)
+
+
+        _alt = window.annotation_toplevel.register
+        _alt(self.wbn_sure, T.ANNOADD.SURE_ADD, 2)
+        _alt(self.wbn_cancel, T.ANNOADD.CANCEL, 2)
+        _alt(self.wbn_select, T.ANNOADD.ALL_SELECT, 2)
 
 
     def select_update(self, *_):

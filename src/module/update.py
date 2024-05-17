@@ -184,4 +184,4 @@ def verify_key(key: str):
     s1.update(key.encode(u8))
     s2.update(s1.hexdigest().encode(u8))
     s3.update(s2.hexdigest().encode(u8))
-    return s3.hexdigest() == "2f7834e7172b72bdc3cf453f691eff55"
+    return s3.hexdigest() == "c9bca91be66be860c2505d4a93e2b704"
