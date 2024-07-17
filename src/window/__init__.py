@@ -49,6 +49,42 @@ style = ttkbootstrap.Style()
 style_theme_names = style.theme_names()
 
 
+def main_window_position_save():
+    core.env.configuration.main_window_position_x = mainwindow.winfo_x()
+    core.env.configuration.main_window_position_y = mainwindow.winfo_y()
+    core.env.configuration.main_window_position_width = mainwindow.winfo_width()
+    core.env.configuration.main_window_position_height = mainwindow.winfo_height()
+
+
+def main_window_position_load():
+    x_ = core.env.configuration.main_window_position_x
+    y_ = core.env.configuration.main_window_position_y
+    width_ = core.env.configuration.main_window_position_width
+    height_ = core.env.configuration.main_window_position_height
+
+    try:
+        if None not in (x_, y_, width_, height_):
+            coordinates = methods.get_screen_coordinates()
+
+            x1, x2 = x_, x_ + width_
+            y1, y2 = y_, y_ + height_
+
+            for screen in coordinates:
+                if (screen[0][0] <= x1 <= x2 <= screen[1][0] and screen[0][1] <= y1 <= y2 <= screen[1][1]):
+                    mainwindow.geometry(f"{width_}x{height_}+{x_}+{y_}")
+                    return
+
+    except Exception as _:
+        ...
+
+    _sw = mainwindow.winfo_screenwidth()
+    _sh = mainwindow.winfo_screenheight()
+    _w, _h = 1280, 800
+    _w, _h = 1440, 900
+    mainwindow.geometry(f"{_w}x{_h}+{(_sw - _w) // 2}+{(_sh - _h) // 2 - 40}")
+    return
+
+
 def initial():
     core.log.info("初始化主窗口...", L.WINDOW)
 
@@ -56,11 +92,7 @@ def initial():
     style.configure("Treeview", rowheight=48)
 
     mainwindow.title(core.env.MAIN_TITLE)
-    _sw = mainwindow.winfo_screenwidth()
-    _sh = mainwindow.winfo_screenheight()
-    _w, _h = 1280, 800
-    _w, _h = 1440, 900
-    mainwindow.geometry(f"{_w}x{_h}+{(_sw - _w) // 2}+{(_sh - _h) // 2 - 40}")
+    main_window_position_load()
     mainwindow.minsize(960, 600)
     core.action.askexit.add_task(mainwindow.destroy, 10_000, "关闭窗口")
     mainwindow.protocol("WM_DELETE_WINDOW", core.action.askexit.execute)
@@ -82,6 +114,7 @@ def initial():
     _alt_set(status.label_help, T.ANNOTATION_HELP, 1)
     interface.initial()
     _title_content.initial()
+    core.action.askexit.add_task(main_window_position_save, 6_000, "保存窗口位置")
 
 
 
