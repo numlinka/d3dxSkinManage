@@ -24,10 +24,12 @@ class __directory (Directory):
     classification: str = ...
     work: str = ...
     work_mods: str = ...
+    thumbnail: str = ...
 
 
 class file (static):
     configuration: str = ...
+    redirection: str = ...
 
 
 directory = __directory()
@@ -51,11 +53,14 @@ def login(__username: str):
     directory.classification = __(env.base.home, __username, "classification")
     directory.work = __(env.base.home, __username, "work")
     directory.work_mods = __(directory.work, "Mods")
+    directory.thumbnail = __(env.base.home, __username, "thumbnail")
 
     file.configuration = __(env.base.home, __username, "configuration")
+    file.redirection = __(directory.thumbnail, "_redirection.ini")
 
     try: configuration = libs.econfiguration.Configuration(file.configuration)
     except Exception: configuration = libs.econfiguration.Configuration()
+    core.construct.taskpool.newtask(core.window.treeview_thumbnail.add_image_from_redirection_config_file, (file.redirection, ))
 
 
 def logout():
