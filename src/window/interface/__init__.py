@@ -56,7 +56,7 @@ class Interface(object):
     def initial(self):
         self.mods_manage.initial()
         self.d3dx_manage.initial()
-        self.mods_warehouse.initial()
+        # self.mods_warehouse.initial()
 
 
         try:

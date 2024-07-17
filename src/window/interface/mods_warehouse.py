@@ -13,6 +13,9 @@ from constant import *
 class ModsWarehouse(object):
     def install(self, master, *args, **kwds):
         self.master = master
+        self.disabled = ttkbootstrap.Label(self.master, text="已禁用", anchor="center")
+        self.disabled.pack(fill="both", expand=True)
+        return
         titles = (("#0", "object / name", 360), ("enabled", "tags", 480))
 
         self.value_entry_search = ttkbootstrap.StringVar()
@@ -51,6 +54,7 @@ class ModsWarehouse(object):
 
 
     def initial(self):
+        return
         _alt_set = core.window.annotation_toplevel.register
 
         _alt_set(self.Entry_search, T.ANNOTATION_WAREHOUSE_SEARCH, 1)
@@ -64,6 +68,7 @@ class ModsWarehouse(object):
 
 
     def refresh(self, *_):
+        return
         core.log.debug("更新 Mods 列表", L.WINDOS_MODS_WAREHOUSE)
 
         search = self.value_entry_search.get()
@@ -113,6 +118,7 @@ class ModsWarehouse(object):
 
 
     def sbin_update_preview(self, SHA: str | None = None):
+        return
         if SHA is None:
             self.Label_preview.config(image="")
             self.Label_preview.config(text="无预览图")
@@ -125,12 +131,14 @@ class ModsWarehouse(object):
 
 
     def bin_items_TreeviewSelect(self, *args):
+        return
         SHA = self.Treeview_items.focus()
         SHA = SHA if SHA else None
         self.sbin_update_preview(SHA)
 
 
     def bin_download(self, *args, **kwds):
+        return
         tags = self.Treeview_items.item(self.Treeview_items.focus())["tags"]
         if not tags: SHA = None
         else: SHA = tags[0]
@@ -142,6 +150,7 @@ class ModsWarehouse(object):
 
 
     def bin_open_url(self, *args, **kwds):
+        return
         tags = self.Treeview_items.item(self.Treeview_items.focus())["tags"]
         if not tags: SHA = None
         else: SHA = tags[0]
@@ -154,6 +163,7 @@ class ModsWarehouse(object):
 
 
     def bin_refresh(self, *args, **kwds):
+        return
         key = self.Entry_search.get()
         self.refresh(key)
 
