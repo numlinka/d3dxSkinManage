@@ -222,6 +222,11 @@ class D3dxManage(object):
         self.combobox_approximate.grid(row=3, column=1, pady=(0, 10), padx=(0, 10), sticky=STICKY_VALUE)
 
 
+        self.tkv_version = ttkbootstrap.StringVar()
+        self.tkv_game_path = ttkbootstrap.StringVar()
+        self.tkv_game_argument = ttkbootstrap.StringVar()
+        self.tkv_custom_path = ttkbootstrap.StringVar()
+        self.tkv_custom_argument = ttkbootstrap.StringVar()
 
         self.labelframe_replace = ttkbootstrap.LabelFrame(self.labelframe_userenv, text="3DMigoto 版本")
         self.labelframe_gamepath = ttkbootstrap.LabelFrame(self.labelframe_userenv, text="游戏路径")
@@ -231,7 +236,7 @@ class D3dxManage(object):
         self.labelframe_gamepath.pack(side="top", fill="x", padx=10, pady=(0, 10))
         self.labelframe_custom.pack(side="top", fill="x", padx=10, pady=(0, 10))
  
-        self.combobox_versions = ttkbootstrap.Combobox(self.labelframe_replace)#, bootstyle="light")
+        self.combobox_versions = ttkbootstrap.Combobox(self.labelframe_replace, state="readonly", textvariable=self.tkv_version)  # <-- value version
         self.combobox_versions.pack(side="top", fill="x", expand=True, padx=10, pady=10)
 
         self.button_d3dxstart = ttkbootstrap.Button(self.labelframe_replace, text="启动加载器", bootstyle="outline", width=BUTTON_WIDTH, command=self.bin_launch_d3dx)
@@ -241,9 +246,9 @@ class D3dxManage(object):
         self.button_d3dxstart.pack(side="left", padx=(0, 10), pady=(0, 10), fill="x", expand=True)
         self.button_open_work.pack(side="left", padx=(0, 10), pady=(0, 10), fill="x", expand=True)
 
-        self.entry_gamepath = ttkbootstrap.Entry(self.labelframe_gamepath)#, bootstyle="light")
+        self.entry_gamepath = ttkbootstrap.Entry(self.labelframe_gamepath, state="readonly", textvariable=self.tkv_game_path)  # <-- value game_path
         self.wfe_game_args = ttkbootstrap.Frame(self.labelframe_gamepath)
-        self.entry_game_argument = ttkbootstrap.Entry(self.wfe_game_args)#, bootstyle="light")
+        self.entry_game_argument = ttkbootstrap.Entry(self.wfe_game_args, textvariable=self.tkv_game_argument)  # <-- value game_argument
         self.wbn_unity_args = ttkbootstrap.Button(self.wfe_game_args, text="+", command=UnityArgs)
         self.entry_gamepath.pack(side="top", fill="x", expand=True, padx=10, pady=10)
         self.wfe_game_args.pack(side="top", fill="x", expand=True, padx=10, pady=(0, 10))
@@ -259,8 +264,8 @@ class D3dxManage(object):
         self.button_open_game.pack(side="left", padx=(0, 10), pady=(0, 10), fill="x", expand=True)
         # self.button_unity_argument.pack(side="left", padx=(0, 10), pady=(0, 10))
 
-        self.entry_custom = ttkbootstrap.Entry(self.labelframe_custom)#, bootstyle="light")
-        self.entry_custom_argument = ttkbootstrap.Entry(self.labelframe_custom)#, bootstyle="light")
+        self.entry_custom = ttkbootstrap.Entry(self.labelframe_custom, state="readonly", textvariable=self.tkv_custom_path)  # <-- value custom_path
+        self.entry_custom_argument = ttkbootstrap.Entry(self.labelframe_custom, textvariable=self.tkv_custom_argument)  # <-- value custom_argument
         self.entry_custom.pack(side="top", fill="x", expand=True, padx=10, pady=10)
         self.entry_custom_argument.pack(side="top", fill="x", expand=True, padx=10, pady=(0, 10))
 
@@ -319,6 +324,9 @@ class D3dxManage(object):
     def update(self):
         core.log.info("更新 d3dx 环境设置信息...")
 
+        # ================================================================
+        # global configuration
+
         self.combobox_theme.config(values=core.window.style_theme_names)
         self.combobox_theme.delete(0, end)
         self.combobox_theme.insert(0, core.env.configuration.style_theme)
@@ -338,47 +346,70 @@ class D3dxManage(object):
         self.combobox_approximate.delete(0, end)
         self.combobox_approximate.insert(0, core.env.configuration.thumbnail_approximate_algorithm)
 
+        # ================================================================
+        # userenv configuration
+
+        # gane path
         _GamePath = core.userenv.configuration.GamePath
         if _GamePath is None: _GamePath = "< 未设置 >"
-        self.sbin_update_game_path(_GamePath)
+        self.tkv_game_path.set(_GamePath)
+
+        # 3dmigoto version options
+
         d3dxs = core.env.directory.resources.d3dxs
         if os.path.isdir(d3dxs):
             dirlist = os.listdir(d3dxs)
             lst = [x for x in dirlist if os.path.isfile(os.path.join(d3dxs, x))]
             self.combobox_versions.config(values=lst)
 
+        # 3dmigoto version
+
         try:
             with open(os.path.join(core.userenv.directory.work, f"d3dx_version_name_from_{core.env.CODE_NAME}"), "r", encoding="utf-8") as fileobject:
                 version_name = fileobject.read()
 
-            self.combobox_versions.set(version_name)
+            self.tkv_version.set(version_name)
 
         except Exception:
-            ...
+            self.tkv_version.set("< 未定义 >")
+
+        # custom path
 
         custom_file = core.userenv.configuration.custom_launch
         if custom_file is None: custom_file = "< 未设置 >"
-        self.entry_custom.delete(0, end)
-        self.entry_custom.insert(0, custom_file)
+        self.tkv_custom_path.set(custom_file)
+        # self.entry_custom.delete(0, end)
+        # self.entry_custom.insert(0, custom_file)
+
+        # game argument
 
         game_launch_argument = core.userenv.configuration.game_launch_argument
 
         if isinstance(game_launch_argument, str):
-            self.entry_game_argument.delete(0, end)
-            self.entry_game_argument.insert(0, game_launch_argument)
+            self.tkv_game_argument.set(game_launch_argument)
+            # self.entry_game_argument.delete(0, end)
+            # self.entry_game_argument.insert(0, game_launch_argument)
+
+        else:
+            self.tkv_game_argument.set("")
+
+        # custom argument
 
         custom_launch_argument = core.userenv.configuration.custom_launch_argument
 
         if isinstance(custom_launch_argument, str):
-            self.entry_custom_argument.delete(0, end)
-            self.entry_custom_argument.insert(0, custom_launch_argument)
+            self.tkv_custom_argument.set(custom_launch_argument)
+            # self.entry_custom_argument.delete(0, end)
+            # self.entry_custom_argument.insert(0, custom_launch_argument)
 
-
+        else:
+            self.tkv_custom_argument.set("")
 
 
     def sbin_update_game_path(self, text):
-        self.entry_gamepath.delete(0, end)
-        self.entry_gamepath.insert(0, text)
+        self.tkv_game_path.set(text)
+        # self.entry_gamepath.delete(0, end)
+        # self.entry_gamepath.insert(0, text)
 
 
     def bin_set_style_theme(self, *_):
@@ -434,6 +465,7 @@ class D3dxManage(object):
                 path = os.path.join(core.userenv.directory.work, name)
                 if os.path.isfile(path): os.remove(path)
                 if os.path.isdir(path): shutil.rmtree(path)
+
         except Exception:
             ...
 
@@ -517,8 +549,8 @@ class D3dxManage(object):
         elif choice_NAME == "launcher.exe":
             core.window.messagebox.showwarning(title="意料之中的映像名", message="你似乎选择了 launcher.exe 文件\n通常情况下它是启动器程序而不是游戏启动程序")
 
-        elif choice_NAME not in ["YuanShen.exe", "GenshinImpact.exe", "StarRail.exe"]:
-            core.window.messagebox.showwarning(title="意料之中的映像名", message="你选择的文件映像名不在白名单之中\n请确保它是游戏的启动程序\n\n- GenshinImpact.exe\n- YuanShen.exe\n- StarRail.exe")
+        # elif choice_NAME not in ["YuanShen.exe", "GenshinImpact.exe", "StarRail.exe"]:
+        #     core.window.messagebox.showwarning(title="意料之中的映像名", message="你选择的文件映像名不在白名单之中\n请确保它是游戏的启动程序\n\n- GenshinImpact.exe\n- YuanShen.exe\n- StarRail.exe")
 
         core.userenv.configuration.GamePath = choice_PATH
         self.sbin_update_game_path(choice_PATH)
