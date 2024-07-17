@@ -1,6 +1,10 @@
 # Licensed under the GPL 3.0 License.
 # d3dxSkinManage by numlinka.
 
+# std
+import ctypes
+from ctypes import wintypes
+
 # site
 import ttkbootstrap
 
@@ -26,6 +30,42 @@ def center_window_for_window(window: ttkbootstrap.Toplevel, target_window: ttkbo
 
 def fake_withdraw(window: ttkbootstrap.Toplevel):
     window.geometry("+32000+32000")
+
+
+def get_screen_coordinates() -> list[tuple[tuple[int, int]]]:
+    user32 = ctypes.windll.user32
+    
+    class MONITORINFOEX(ctypes.Structure):
+        _fields_ = [
+            ("cbSize", wintypes.DWORD),
+            ("rcMonitor", wintypes.RECT),
+            ("rcWork", wintypes.RECT),
+            ("dwFlags", wintypes.DWORD),
+            ("szDevice", ctypes.c_wchar * 32)
+        ]
+
+    MonitorEnumProc = ctypes.WINFUNCTYPE(
+        ctypes.c_int,
+        ctypes.POINTER(wintypes.HMONITOR),
+        ctypes.POINTER(wintypes.HDC),
+        ctypes.POINTER(wintypes.RECT),
+        ctypes.POINTER(ctypes.c_void_p)
+    )
+
+    def monitor_enum_proc(hMonitor, hdcMonitor, lprcMonitor, dwData):
+        mi = MONITORINFOEX()
+        mi.cbSize = ctypes.sizeof(MONITORINFOEX)
+        user32.GetMonitorInfoW(hMonitor, ctypes.byref(mi))
+        left_top = (mi.rcMonitor.left, mi.rcMonitor.top)
+        right_bottom = (mi.rcMonitor.right, mi.rcMonitor.bottom)
+        screens.append((left_top, right_bottom))
+        return 1
+
+    screens = []
+    user32.EnumDisplayMonitors(
+        None, None, MonitorEnumProc(monitor_enum_proc), None
+    )
+    return screens
 
 
 __all__ = ["motion", center_window_for_window]
