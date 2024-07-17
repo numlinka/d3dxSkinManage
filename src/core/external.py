@@ -31,7 +31,7 @@ def a7z_old(from_file: str, to_path: str):
     task.wait()
 
 
-def x7z(from_file: str, to_path: str) -> typing.NoReturn:
+def x7z(from_file: str, to_path: str) -> None:
     abs_from_file = os.path.abspath(from_file)
     abs_to_path = os.path.abspath(to_path)
     abs_exec = os.path.abspath(env.file.local.t7z)
@@ -39,7 +39,7 @@ def x7z(from_file: str, to_path: str) -> typing.NoReturn:
     subprocess.getoutput(command)
 
 
-def a7z(from_file: str, to_path: str) -> typing.NoReturn:
+def a7z(from_file: str, to_path: str) -> None:
     abs_from_file = os.path.abspath(from_file)
     abs_to_path = os.path.abspath(to_path)
     abs_exec = os.path.abspath(env.file.local.t7z)
