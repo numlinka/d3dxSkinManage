@@ -64,7 +64,22 @@ SYNOPSIS = """
 """.strip()
 
 
-WINDOW_TITLES = ["原神", "崩坏：星穹铁道", "Genshin Impact", "Honkai: Star Rail", "", "如果想匹配的窗口名称不在其中", "可以尝试手动输入"]
+WINDOW_TITLES = [
+    "原神",
+    "崩坏：星穹铁道",
+    "绝区零",
+    "鸣潮",
+    "尘白禁区",
+    "",
+    "Genshin Impact",
+    "Honkai: Star Rail",
+    "Zenless Zone Zero",
+    "Wuthering Waves",
+    "Snowbreak Containment Zone",
+    "",
+    "如果想匹配的窗口名称不在其中",
+    "可以尝试手动输入"
+]
 
 
 
