@@ -1,10 +1,18 @@
-# -*- coding: utf-8 -*-
+# Licensed under the GNU General Public License v3.0, see <http://www.gnu.org/licenses/gpl-3.0.html>.
+# d3dxSkinManage Copyright (C) 2023 numlinka.
 
 # std
 import sys
 import argparse
 import threading
 import traceback
+
+# libs
+import libs.logop
+
+# local
+import module
+from constant import *
 
 # self
 from . import env
@@ -14,11 +22,6 @@ from . import external
 from . import amend
 from . import action
 
-# libs
-import libs.logop
-from constant import *
-
-import module
 
 log = libs.logop.logging.Logging(stdout=False, asynchronous=True)
 log.set_format("[$(.date) $(.time).$(.moment)] [$(.levelname)] [$(.thread)] $(.message) ($(.mark))")

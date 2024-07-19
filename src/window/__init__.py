@@ -1,9 +1,14 @@
-# -*- coding: utf-8 -*-
+# Licensed under the GNU General Public License v3.0, see <http://www.gnu.org/licenses/gpl-3.0.html>.
+# d3dxSkinManage Copyright (C) 2023 numlinka.
 
-# libs
+# site
 import ttkbootstrap
-# import tkinterdnd2
 from libs import dispatch
+from ._inform import Inform
+
+# local
+import core
+from constant import *
 
 # self
 from . import methods
@@ -15,11 +20,6 @@ from .login import Login
 from .block import Block
 from .interface import Interface
 from .annotation_toplevel import AnnotationToplevel
-from ._inform import Inform
-
-from constant import *
-
-import core
 
 
 mainwindow = ttkbootstrap.Window()

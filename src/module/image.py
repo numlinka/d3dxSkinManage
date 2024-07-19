@@ -1,14 +1,17 @@
-# -*- coding: utf-8 -*-
+# Licensed under the GNU General Public License v3.0, see <http://www.gnu.org/licenses/gpl-3.0.html>.
+# d3dxSkinManage Copyright (C) 2023 numlinka.
 
+# std
 import os
+from typing import Union
 
+# site
 import PIL.Image
 import PIL.ImageTk
 # import PIL.ImageDraw
 from fuzzywuzzy import fuzz
 
-from typing import Union
-
+# local
 import core
 from constant import *
 

@@ -1,18 +1,22 @@
-# -*- coding: utf-8 -*-
+# Licensed under the GNU General Public License v3.0, see <http://www.gnu.org/licenses/gpl-3.0.html>.
+# d3dxSkinManage Copyright (C) 2023 numlinka.
 
 # std
 import os
 from os.path import join as __
 
-# n
+# libs
 import libs.econfiguration
+
+# local
+import core
+from constant import *
+
+# self
 from . import env
 from .exceptions import *
 from .structure import *
-import core
 
-# libs
-from constant import *
 
 user_name: str = ...
 class configuration(libs.econfiguration.Configuration):

@@ -1,4 +1,5 @@
-# -*- coding: utf-8 -*-
+# Licensed under the GNU General Public License v3.0, see <http://www.gnu.org/licenses/gpl-3.0.html>.
+# d3dxSkinManage Copyright (C) 2023 numlinka.
 
 # std
 import time
@@ -7,7 +8,7 @@ import threading
 import traceback
 from typing import Any, Iterable, Mapping
 
-# libs
+# local
 import core
 from constant import L
 

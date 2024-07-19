@@ -1,13 +1,19 @@
+# Licensed under the GNU General Public License v3.0, see <http://www.gnu.org/licenses/gpl-3.0.html>.
+# d3dxSkinManage Copyright (C) 2023 numlinka.
 
-
+# std
 import threading
 
+# site
 import ttkbootstrap
 
+# local
 import core
 
+# self
 from . import signal_event
 from . import script
+
 
 TEXT = """
 开发者调试工具

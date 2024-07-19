@@ -1,15 +1,21 @@
-# -*- coding: utf-8 -*-
+# Licensed under the GNU General Public License v3.0, see <http://www.gnu.org/licenses/gpl-3.0.html>.
+# d3dxSkinManage Copyright (C) 2023 numlinka.
 
-import core
-
+# std
 import os
 import typing
 import threading
 import subprocess
 
+# site
+import win32api
+
+# local
+import core
+
+# self
 from . import env
 
-import win32api
 
 def is_main_thread(*args, **kwds) -> bool:
     return threading.current_thread() is threading.main_thread()

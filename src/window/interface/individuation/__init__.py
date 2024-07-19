@@ -1,10 +1,15 @@
+# Licensed under the GNU General Public License v3.0, see <http://www.gnu.org/licenses/gpl-3.0.html>.
+# d3dxSkinManage Copyright (C) 2023 numlinka.
 
+# site
 import ttkbootstrap
 
+# self
 from .dreplace import DReplace
 from .gamepath import GanePath
 from .custom import Custom
 # from .setting import Setting
+
 
 class Individuation (object):
     def __init__(self, master):

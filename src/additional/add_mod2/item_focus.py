@@ -1,3 +1,6 @@
+# Licensed under the GNU General Public License v3.0, see <http://www.gnu.org/licenses/gpl-3.0.html>.
+# d3dxSkinManage Copyright (C) 2023 numlinka.
+
 # 这是一位用户的需求
 # 他希望在每次导入新 mod 之后，自动跳转到它添加的对应分类、对象、并选择它
 # 但是 addmod2 模块本身不支持外置扩展，我并没有预留接口

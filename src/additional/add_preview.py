@@ -1,4 +1,5 @@
-# -*- coding: utf-8 -*-
+# Licensed under the GNU General Public License v3.0, see <http://www.gnu.org/licenses/gpl-3.0.html>.
+# d3dxSkinManage Copyright (C) 2023 numlinka.
 
 # std
 import io
@@ -6,14 +7,15 @@ import os
 import time
 import threading
 
-# install
+# site
 import win32gui
 import ttkbootstrap
 from PIL import Image, ImageGrab
 
+# libs
 from libs.dispatch import TkAsyncMain
 
-# project
+# local
 import core
 
 

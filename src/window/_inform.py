@@ -1,8 +1,14 @@
+# Licensed under the GNU General Public License v3.0, see <http://www.gnu.org/licenses/gpl-3.0.html>.
+# d3dxSkinManage Copyright (C) 2023 numlinka.
+
+# std
 import random
 
+# site
 import ttkbootstrap
 from ttkbootstrap.constants import *
 
+# local
 import core
 import window
 

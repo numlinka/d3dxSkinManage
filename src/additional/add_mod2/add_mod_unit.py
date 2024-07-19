@@ -1,3 +1,7 @@
+# Licensed under the GNU General Public License v3.0, see <http://www.gnu.org/licenses/gpl-3.0.html>.
+# d3dxSkinManage Copyright (C) 2023 numlinka.
+
+# std
 import os
 import time
 import hashlib
@@ -5,15 +9,19 @@ import tkinter
 import datetime
 import threading
 
+# site
 import ttkbootstrap
 from ttkbootstrap.constants import *
 
+# libs
 from libs import strutils
 
+# local
 import core
 import window
 import widgets
 
+# self
 from . import keys
 from .item_focus import focus_item
 from constant import K
