@@ -715,6 +715,11 @@ ANNOTATION_MODIFY_ITEM_REMOVE = "删除 Mod 文件"
 ANNOTATION_MODIFY_ITEM_DELETE = "删除 Mod 文件和索引数据"
 
 
+ANNOTATION_USER_NAME = "用户名称\n该名称对应的文件夹下存储该用户环境下的相关内容\n不能包含特殊字符"
+ANNOTATION_USER_IMAGE = "用户头像\n该图片将显示在用户列表中\n支持png、jpg格式"
+ANNOTATION_USER_EDIT_DESCRIPTION = "用户描述\n该描述将显示在用户描述文档中"
+
+
 class ANNOADD ():
     SHA = "模组压缩包的文件散列值\n使用 SHA-1 算法并被用作为模组的唯一标识符"
     SHA_BATCH = "当前处于批量编辑模式\n设置将对所有选中的模组生效"
