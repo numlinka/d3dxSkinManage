@@ -111,7 +111,7 @@ I_KNOW_YOU_KNOW = "或许你已经看完了\n但是你仍然需要等待倒计�
 
 class Inform (object):
     def __init__(self):
-        self.version = 1
+        self.version = 2
         self.window = ttkbootstrap.Toplevel(RANDOMNUM)
         self.window.withdraw()
 
