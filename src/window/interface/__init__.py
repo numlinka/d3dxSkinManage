@@ -1,13 +1,18 @@
-# -*- coding: utf-8 -*-
+# Licensed under the GNU General Public License v3.0, see <http://www.gnu.org/licenses/gpl-3.0.html>.
+# d3dxSkinManage Copyright (C) 2023 numlinka.
 
+# std
 import datetime
 import webbrowser
 
+# site
 import ttkbootstrap
 from ttkbootstrap.constants import *
 
+# local
 import core
 
+# self
 from .about import About
 from .mods_manage import ModsManage
 from .d3dx_manage import D3dxManage

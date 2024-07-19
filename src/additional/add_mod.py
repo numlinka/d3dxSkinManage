@@ -1,9 +1,9 @@
-# -*- coding: utf-8 -*-
+# Licensed under the GNU General Public License v3.0, see <http://www.gnu.org/licenses/gpl-3.0.html>.
+# d3dxSkinManage Copyright (C) 2023 numlinka.
 
 # ! 注意
 # ! 该模块已被弃用
 # ! 请使用 add_mod2
-
 
 # std
 import os
@@ -11,12 +11,12 @@ import json
 import time
 import hashlib
 
-# install
+# site
 import win32gui
 import webbrowser
 import ttkbootstrap
 
-# project
+# local
 import core
 import widgets
 from constant import *
