@@ -1,9 +1,10 @@
+<div align="center"><div style="max-width: 1000px;">
+
 <div align="center">
 
 <a href="https://d3dxskinmanage.numlinka.com">
   <img width="128px" src="favicon.ico" alt="d3dxSkinManage">
 </a>
-
 
 # d3dxSkinManage
 
@@ -14,7 +15,7 @@ _3DMigoto 皮肤 Mods 管理工具_
   <img src="https://img.shields.io/badge/License-GPLv3-lightblue" alt="GPLv3"/>
 </a>
 <a href="https://github.com/numlinka/d3dxSkinManage/releases", target="_blank">
-  <img src="https://img.shields.io/badge/releases-1.5.37-lightblue" alt="releases"/>
+  <img src="https://img.shields.io/badge/releases-1.6.0-lightblue" alt="releases"/>
 </a>
 <a href="https://www.python.org/downloads/release/python-3120/", target="_blank">
   <img src="https://img.shields.io/badge/Python-3.12-lightblue" alt="Python3.12"/>
@@ -27,27 +28,27 @@ _3DMigoto 皮肤 Mods 管理工具_
 
 <p></p>
 
-<div align="center">
-  <a href="https://d3dxskinmanage.numlinka.com/#/">
-    文档
-  </a>
-  ·
-  <a href="https://d3dxskinmanage.numlinka.com/#/downloads/d3dx-skin-manage">
-    下载
-  </a>
-  ·
-  <a href="https://d3dxskinmanage.numlinka.com/#/help/tutorial">
-    快速上手
-  </a>
-  ·
-  <a href="https://d3dxskinmanage.numlinka.com/#/downloads/resources">
-    扩展资源
-  </a>
+<a href="https://d3dxskinmanage.numlinka.com/#/">
+  文档
+</a>
+·
+<a href="https://d3dxskinmanage.numlinka.com/#/downloads/d3dx-skin-manage">
+  下载
+</a>
+·
+<a href="https://d3dxskinmanage.numlinka.com/#/help/tutorial">
+  快速上手
+</a>
+·
+<a href="https://d3dxskinmanage.numlinka.com/#/downloads/resources">
+  扩展资源
+</a>
+
 </div>
 
 <p></p>
 
-<div align="left" style="max-width: 1000px;">
+<div align="left">
 
 ### 介绍
 
@@ -80,4 +81,4 @@ This project is shit, any updates are just adding more shit to it.<br/>
 联系方式：numlinka@163.com
 
 </div>
-</div>
+</div></div>
