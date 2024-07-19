@@ -16,57 +16,73 @@ R6 = random.randint(0, 99)
 R7 = random.randint(0, 99)
 R8 = random.randint(0, 99)
 R9 = random.randint(0, 99)
-R0 = random.randint(0, 999)
+R0 = random.randint(0, 99)
 
 RANDOMNUM = f"{R1}-{R2}-{R3}-{R4}-{R5}-{R6}-{R7}-{R8}-{R9}-{R0}"
 
 CONTENT = """d3dxSkinManage
 
-d3dxSkinManage 是一个免费 ( free ) 开源 ( open source ) 软件
-对于软件的修改和再分发请遵守 GNU General Public License v3.0 协议
+GNU General Public License 3.0
 
-d3dxSkinManage 并非用于商业用途，仅限个人使用。
-该工具仅供学术研究和交流目的，如果您选择使用，请自行承担风险。
+Copyright (C) 2023 numlinka
 
-d3dxSkinManage 不会以任何形式收集您的任何信息，
-也不会将您的任何信息上传到任何服务器。
+This program is free software: you can redistribute it and/or modify it under the \
+terms of the GNU General Public License as published by the Free Software Foundation, \
+either version 3 of the License, or (at your option) any later version. 
 
-若在使用过程中遇到问题，请先阅读帮助文档，
-点击窗口右下方的 " [帮助] " 按钮前往页面能解答大多数疑问，
-教程、帮助文档和常见问题解答，它们不是摆设，
-即便是错误弹窗也会提供关键信息或解决方法。
+This program is distributed in the hope that it will be useful, but WITHOUT ANY \
+WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A \
+PARTICULAR PURPOSE. See the GNU General Public License for more details.
 
-当你遇到一些特殊或比较棘手的问题时，
-可以联系技术人员以寻求帮助。
-
-对于软件的 bug 反馈或建议，请在 GitHub 页面提交 issue
-或发送邮件至 numlinka@163.com
-
-不要使用管理员权限运行该软件，
-在操作需要提升时我们会主动请求，
-你不该把管理员权限随意交给陌生的程序。
-另外，
-文件钩子不能跨用户传递消息，
-这意味着文件拖拽会失效。
+You should have received a copy of the GNU General Public License along with this \
+program. If not, see <https://www.gnu.org/licenses/>.
 
 
 
-如果你喜欢这个项目，
-可以在 GitHub 上给一个 star，
-或是在爱发电上赞助我们。
+　　本软件由 numlinka 开发，并受 GPLv3 协议保护，项目源代码在 GitHub 上公开。
 
-同时我们也会在项目网站上附上一些 Mod 创作者的链接，
-你可以在这些链接中找到、关注他们的创作，并支持他们。
+　　本项目按“原样”提供，不提供任何明示或暗示的保证，包括但不限于适销性、特定用途的适\
+用性和非侵权性。在任何情况下，版权持有者或贡献者不对因使用本软件而产生的任何索赔、损\
+害或其他责任负责，无论是在合同诉讼、侵权行为还是其他情况下。如果你无法对自己的行为负\
+责或不信任该项目带来的任何内容，请立即关闭此程序，并将它在你的计算机设备上永久性移除。
 
-如果这些链接中没有出现你的名字，
-或是你不希望你的名字出现在上面，
-可以联系我们更进。
+　　在 1.6 版本中，我们计划改变部分目录结构，将部分资源逐步私有到用户环境内，这可能\
+需要使用者在后续更新中手动移动资源文件或修改配置文件，如果不希望接受此更新，请关闭程\
+序，在项目主页下载 1.5 版本替换，并参考帮助文档的《禁用更新检查》以不再接受后续更新，\
+你已经被提醒过了。
+
+　　如果你喜欢这个项目，可以在 GitHub 上给一个 star ，或是在爱发电上赞助我们。同时我\
+们也会在项目网站上附上一些 Mod 创作者的链接，你可以在这些链接中找到、关注他们的创作，\
+并支持他们。如果这些链接中没有出现你的名字，或是你不希望你的名字出现在上面，可以联系\
+我们更进。
+
+　　d3dxSkinManage 是一款免费 (free) 自由 (free) 的开源 (open source) 软件，它并非用\
+于商业用途，官方不会以任何形式在任何平台上售卖该软件，在使用一切非官方资源时，我们将\
+有权拒绝为其提供任何形式的技术支持，即便你是其中的受害者。
+
+　　在使用时遇到问题请先阅读帮助文档、常见问题解答或观看视频流媒体教程，在提问时请详\
+细描述你的问题，表达你的意图、描述你已有的操作并附上相关截图或日志，以便我们能更快更\
+好的帮助你解决。
+
+　　你可以通过我们的官方渠道提交任何使用过程中遇到的问题或建议，我们会在合理的时间内\
+进行处理，任何包含有损害其他用户或创作者权益的内容均不予受理。
+
+　　除非在有官方和创作者的连携支持下，否则无论出于何种原因，不得在官方频道或社区宣传\
+任何第三方卖家，无论对方的质量、安全性、可用性和可靠性。如果你的资源来着第三方卖家，\
+遇到问题时请找你的客服，不要拿我们当售后，开发者包括其他用户均没有义务回复你的问题。
+
+　　我们保留对 d3dxSkinManage 进行升级和维护的权利，并可能在无需提前通知的情况下发布\
+更新版本或进行服务维护。
+
+　　无论你是否已认真阅读上述内容，在你点击 "我已知晓" 按钮之后我们均认为你已阅读并理\
+解上述内容，在这之后一切与 d3dxSkinManage 的交流，均应遵循相应规定。
 
 
 
 有关 d3dxSkinManage 的更多信息请访问
-    - https://github.com/numlinka/d3dxSkinManage
-    - https://d3dxskinmanage.numlinka.com
+
+- 开源地址： https://github.com/numlinka/d3dxSkinManage
+- 项目主页： https://d3dxskinmanage.numlinka.com
 
 
 
@@ -79,48 +95,12 @@ d3dxSkinManage 不会以任何形式收集您的任何信息，
 
 
 
-d3dxSkinManage 官方不会以任何形式在任何平台上售卖该软件，
-也不会售卖软件的程序扩展 ( 如插件 ) 或 Mod ( 皮肤模组 ) 等资源。
-
-我知道我的软件被其他人连同一些 Mod 插件等资源打包之后，
-在咸鱼、淘宝、拼多多等平台售卖，也有人在向我反馈这些事情。
-
-如果你已经购买了，那么你需要注意一些事情：
-首先，不要在我这里或其它交流群 ( 频道 ) 推荐你的购买渠道，
-很多人不欢迎你这么做，尤其是创作者，
-他们 ( 包括我 ) 可能会对你和售卖者产生反感 ( 或敌意 )。
-
-其次，你需要学会自己解决问题，尤其是那些基础的问题，
-遇到棘手的问题，去寻求你的客服，在多数情况下，
-那些售卖者在赚到钱后不会惠及创作者一分一厘，
-那些创作者包括我们，没有必要且不乐意去帮这个忙。
-
-他们赚了钱，却不会给创作者带去任何价值，
-而你遇到了问题却选择让创作者帮你解决，
-你认为这合适吗？
-
-我承认，他们确实给更多的人提供了接触 Mod 的机会，
-我也承认，他们确实也付出了时间做资源整理，
-于此之上的同时，他们也赚到钱。( 如果你认可他们的行为 )
-
-但是！
-在这之中存在着一个问题，
-多数售卖者在展示的图片中刻意的抹去了软件和作者的名字，
-包括其打包在内的资源，绝大多数都没有标注作者，
-他们无时无刻不在制造信息差。
-
-许多创作者用爱发电，分享着自己的创作成果，
-但是却看到自己的作品被冠上了别人的名字、被别人倒卖，
-这是多么一件令人心寒的事情，不论出于何种原因，
-尊重并正确标注原作者是对创作者劳动成果的基本认可。
-
-
-
 
 """
 
 YOU_DO_NOT_KNOW = "你晓得就有鬼了\n你看都没看"
-
+MAYBE_YOU_KNOW = "慢慢看\n或许你需要知道一些信息"
+I_KNOW_YOU_KNOW = "或许你已经看完了\n但是你仍然需要等待倒计时"
 
 
 class Inform (object):
@@ -140,20 +120,26 @@ class Inform (object):
         self.frame.pack(side=BOTTOM, fill=X, padx=5, pady=5)
         self.button_know.pack(side=RIGHT)
         self.time.pack(side=LEFT)
-        self.text.pack(side=TOP, fill=BOTH, expand=True, padx=5, pady=(5, 0))
+        self.text.pack(side=LEFT, fill=BOTH, expand=True, padx=5, pady=(5, 0))
 
-        self.scrollbar = ttkbootstrap.Scrollbar(self.text, command=self.text.yview)
+        self.scrollbar = ttkbootstrap.Scrollbar(self.window, command=self.text.yview)
         self.text.config(yscrollcommand=self.scrollbar.set)
         self.text.insert(0.0, CONTENT)
         self.text.configure(state=DISABLED)
 
-        self.text.bind("<Enter>", lambda *_: self.scrollbar.pack(side="right", fill="y"), "+")
-        self.text.bind("<Leave>", lambda *_: self.scrollbar.pack_forget(), "+")
+        self.scrollbar.pack(side=RIGHT, fill=Y, padx=(0, 5), pady=(5, 0))
+
+        # self.text.bind("<Enter>", lambda *_: self.scrollbar.pack(side="right", fill="y"), "+")
+        # self.text.bind("<Leave>", lambda *_: self.scrollbar.pack_forget(), "+")
 
 
     def know(self):
-        if self.v_time.get() > 0:
+        if self.v_time.get() > 20:
             window.messagebox.showinfo("当真？", YOU_DO_NOT_KNOW, parent=self.window)
+        elif self.v_time.get() > 10:
+            window.messagebox.showinfo("略有蹊跷", MAYBE_YOU_KNOW, parent=self.window)
+        elif self.v_time.get() > 0:
+            window.messagebox.showinfo("硬控 30 秒", I_KNOW_YOU_KNOW, parent=self.window)
         else:
             core.env.configuration.inform_uuid = core.env.uuid
             core.env.configuration.inform_version = self.version
