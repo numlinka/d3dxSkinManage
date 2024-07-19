@@ -22,7 +22,7 @@ class About (object):
         self.what_to_look_at = ttkbootstrap.Text(self.frame_about)
         self.scrollbar_about = ttkbootstrap.Scrollbar(self.what_to_look_at, command=self.what_to_look_at.yview)
         self.what_to_look_at.config(yscrollcommand=self.scrollbar_about.set)
-        self.what_to_look_at.insert(0.0, T.TEXT_ADOUT)
+        self.what_to_look_at.insert(0.0, T.TEXT_ABOUT)
         self.what_to_look_at.config(state="disabled")
 
         self.what_to_look_at.pack(side="top", fill="both", expand=True)
