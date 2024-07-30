@@ -94,10 +94,10 @@ program. If not, see <https://www.gnu.org/licenses/>.
 
 你可以在以下链接赞助我们
     - numLinka
-        - https://afdian.net/a/numlinka
+        - https://afdian.com/a/numlinka
 
     - 黎愔
-        - https://afdian.net/a/ticca
+        - https://afdian.com/a/ticca
 
 
 

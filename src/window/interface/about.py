@@ -31,21 +31,16 @@ class About (object):
 
         self.what_to_look_at.pack(side="top", fill="both", expand=True)
 
-        self.label_sponsor = ttkbootstrap.Label(self.frame_afdian, text="赞助: ", font=("黑体", 16))
-        self.label_afdian = ttkbootstrap.Label(self.frame_afdian, text=">> 爱发电 >>>", font=("黑体", 16), foreground="medium purple", cursor="hand2")
+        self.label_sponsor = ttkbootstrap.Label(self.frame_afdian, text="爱发电赞助地址: ", font=("黑体", 16))
+        self.label_afdian = ttkbootstrap.Label(self.frame_afdian, text=">> numLinka >>>", font=("黑体", 16), foreground="medium purple", cursor="hand2")
+        self.label_afdian_ticca = ttkbootstrap.Label(self.frame_afdian, text=">> 黎愔 >>>", font=("黑体", 16), foreground="medium purple", cursor="hand2")
 
         self.label_sponsor.pack(side="left")
         self.label_afdian.pack(side="left")
-
-
-        self.label_channel = ttkbootstrap.Label(self.frame_channel, text="频道: ", font=("黑体", 16))
-        self.label_vocechat = ttkbootstrap.Label(self.frame_channel, text=">> 聊天室 >>>", font=("黑体", 16), foreground="deep sky blue", cursor="hand2")
-
-        # self.label_channel.pack(side="left")
-        # self.label_vocechat.pack(side="left")
+        self.label_afdian_ticca.pack(side="left", padx=(25, 0))
 
         self.label_afdian.bind("<Button-1>", self.bin_open_afdian)
-        self.label_vocechat.bind("<Button-1>", self.bin_open_vocechat)
+        self.label_afdian_ticca.bind("<Button-1>", self.bin_open_afdian_ticca)
 
         self.what_to_look_at.bind("<Enter>", lambda *_: self.scrollbar_about.pack(side="right", fill="y"), "+")
         self.what_to_look_at.bind("<Leave>", lambda *_: self.scrollbar_about.pack_forget(), "+")
@@ -57,9 +52,9 @@ class About (object):
         except Exception: ...
 
 
-    def bin_open_afdian(self, *args):
+    def bin_open_afdian(self, *_):
         webbrowser.open(core.env.Link.afdian)
 
 
-    def bin_open_vocechat(self, *args):
-        webbrowser.open(core.env.Link.vocechat)
+    def bin_open_afdian_ticca(self, *_):
+        webbrowser.open(core.env.Link.afdian_ticca)

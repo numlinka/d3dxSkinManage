@@ -121,9 +121,9 @@ except Exception:
 
 
 class Link (object):
-    help = 'https://d3dxskinmanage.numlinka.com/#/help'
-    afdian = 'https://afdian.net/a/numlinka'
-    vocechat = 'https://vocechat.numlinka.com'
+    help = "https://d3dxskinmanage.numlinka.com/#/help"
+    afdian = "https://afdian.com/a/numlinka"
+    afdian_ticca = "https://afdian.com/a/ticca"
 
 
 try:
