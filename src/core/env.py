@@ -9,8 +9,11 @@ from os.path import join as __
 
 # self
 import libs.econfiguration
+from libs.dirstruct import *
+
+# local
 from .exceptions import *
-from .structure import *
+# from .structure import *
 
 
 PROJECT = "d3dxSkinManage"
@@ -27,44 +30,77 @@ INDEX = f"https://numlinka.oss-cn-shanghai.aliyuncs.com/code-name/{CODE_NAME}/in
 
 
 
-class __base (Directory):
-    cwd = os.getcwd()
+# class __base (Directory):
+#     cwd = os.getcwd()
+#     home = "home"
+#     resources = "resources"
+#     local = "local"
+#     plugins = "plugins"
+
+# base = __base()
+
+
+
+# class directory (Directory):
+#     class __resources (Directory):
+#         mods = __(base.resources, "mods")
+#         d3dxs = __(base.resources, "3dmigoto")
+#         preview = __(base.resources, "preview")
+#         preview_screen = __(base.resources, "preview_screen")
+#         thumbnail = __(base.resources, "thumbnail")
+#         cache = __(base.resources, "cache")
+
+
+#     class __local (Directory):
+#         t7zip = __(base.local, "7zip")
+
+#     resources = __resources()
+#     local = __local()
+
+
+
+# class file (static):
+#     class resources (static):
+#         redirection = __(directory.resources.thumbnail, "_redirection.ini")
+
+
+#     class local (static):
+#         t7z = __(base.local, "7zip", "7z.exe")
+#         iconbitmap = __(base.local, "iconbitmap.ico")
+#         configuration = __(base.local, "configuration")
+
+
+class __CurrentWorkingDirectory (Directory):
+    _include_ = False
+
+    class resources (Directory):
+        mods = "mods"
+        d3dxs = "3dmigoto"
+        preview = "preview"
+        preview_screen = "preview_screen"
+        thumbnail = "thumbnail"
+        cache = "cache"
+        redirection = FilePath(__("thumbnail", "_redirection.ini"))
+
+    class local (Directory):
+        t7zip = "7zip"
+        t7z = FilePath(__("7zip", "7z.exe"))
+        iconbitmap = FilePath("iconbitmap.ico")
+        configuration = FilePath("configuration")
+
     home = "home"
-    resources = "resources"
-    local = "local"
     plugins = "plugins"
 
-base = __base()
 
 
-
-class directory (Directory):
-    class __resources (Directory):
-        mods = __(base.resources, "mods")
-        d3dxs = __(base.resources, "3dmigoto")
-        preview = __(base.resources, "preview")
-        preview_screen = __(base.resources, "preview_screen")
-        thumbnail = __(base.resources, "thumbnail")
-        cache = __(base.resources, "cache")
+cwd = __CurrentWorkingDirectory(os.getcwd())
+base = cwd
+directory = cwd
+file = cwd
 
 
-    class __local (Directory):
-        t7zip = __(base.local, "7zip")
-
-    resources = __resources()
-    local = __local()
-
-
-
-class file (static):
-    class resources (static):
-        redirection = __(directory.resources.thumbnail, "_redirection.ini")
-
-
-    class local (static):
-        t7z = __(base.local, "7zip", "7z.exe")
-        iconbitmap = __(base.local, "iconbitmap.ico")
-        configuration = __(base.local, "configuration")
+__CurrentWorkingDirectory._include_ = True
+abscwd = __CurrentWorkingDirectory(os.getcwd())
 
 
 class configuration(libs.econfiguration.Configuration):
