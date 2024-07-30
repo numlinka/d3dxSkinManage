@@ -50,11 +50,11 @@ d3dxSkinManage 不会以任何形式收集您的任何信息。
 - numLinka ( 项目作者 )
     - 邮箱： numlinka@163.com
     - 官方网站： https://d3dxskinmanage.numlinka.com
-    - 爱发电： https://afdian.net/a/numlinka
+    - 爱发电： https://afdian.com/a/numlinka
 
 - 黎愔 ( 文档编辑 / 插件开发 )
     - 视频教程： https://space.bilibili.com/1397930555
-    - 爱发电： https://afdian.net/a/ticca
+    - 爱发电： https://afdian.com/a/ticca
 
 
 
@@ -89,10 +89,10 @@ d3dxSkinManage 不会以任何形式收集您的任何信息。
 如果您愿意支持我们的项目发展，可以通过以下方式进行赞助
 
 - numLinka ( 赞助 )
-    - 爱发电： https://afdian.net/a/numlinka
+    - 爱发电： https://afdian.com/a/numlinka
 
 - 黎愔 ( 赞助 )
-    - 爱发电： https://afdian.net/a/ticca
+    - 爱发电： https://afdian.com/a/ticca
 
 
 
