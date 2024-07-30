@@ -7,6 +7,7 @@ from os.path import join as __
 
 # libs
 import libs.econfiguration
+import libs.dirstruct
 
 # local
 import core
@@ -23,25 +24,43 @@ class configuration(libs.econfiguration.Configuration):
     GamePath: str
 
 
-class __directory (Directory):
-    mods_index: str = ...
-    classification: str = ...
-    work: str = ...
-    work_mods: str = ...
-    thumbnail: str = ...
+# class __directory (Directory):
+#     mods_index: str = ...
+#     classification: str = ...
+#     work: str = ...
+#     work_mods: str = ...
+#     thumbnail: str = ...
 
 
-class file (static):
-    configuration: str = ...
-    redirection: str = ...
+# class file (static):
+#     configuration: str = ...
+#     redirection: str = ...
 
 
-directory = __directory()
+# directory = __directory()
+
+
+class __UserenvWorkingDirectory (libs.dirstruct.Directory):
+    mods_index = "modsIndex"
+    classification = "classification"
+    work = "work"
+    work_mods = __(work, "Mods")
+    thumbnail = "thumbnail"
+    configuration = libs.dirstruct.FilePath("configuration")
+    redirection = libs.dirstruct.FilePath(__(thumbnail, "_redirection.ini"))
+
+
+directory: __UserenvWorkingDirectory
+file: __UserenvWorkingDirectory
+uwd: __UserenvWorkingDirectory
 
 
 def login(__username: str):
     core.log.info("登录用户环境...", L.CORE_USERENV)
     global user_name
+    global directory
+    global file
+    global uwd
     global configuration
 
     if user_name is not Ellipsis:
@@ -53,18 +72,23 @@ def login(__username: str):
         raise UserDoesNotExist(f"登录用户名 \"{__username}\" 不存在")
 
     user_name = __username
-    directory.mods_index = __(env.base.home, __username, "modsIndex")
-    directory.classification = __(env.base.home, __username, "classification")
-    directory.work = __(env.base.home, __username, "work")
-    directory.work_mods = __(directory.work, "Mods")
-    directory.thumbnail = __(env.base.home, __username, "thumbnail")
 
-    file.configuration = __(env.base.home, __username, "configuration")
-    file.redirection = __(directory.thumbnail, "_redirection.ini")
+    directory = __UserenvWorkingDirectory(__(env.base.home, __username))
+    file = directory
+    uwd = directory
 
-    try: configuration = libs.econfiguration.Configuration(file.configuration)
+    # directory.mods_index = __(env.base.home, __username, "modsIndex")
+    # directory.classification = __(env.base.home, __username, "classification")
+    # directory.work = __(env.base.home, __username, "work")
+    # directory.work_mods = __(directory.work, "Mods")
+    # directory.thumbnail = __(env.base.home, __username, "thumbnail")
+
+    # file.configuration = __(env.base.home, __username, "configuration")
+    # file.redirection = __(directory.thumbnail, "_redirection.ini")
+
+    try: configuration = libs.econfiguration.Configuration(uwd.configuration)
     except Exception: configuration = libs.econfiguration.Configuration()
-    core.construct.taskpool.newtask(core.window.treeview_thumbnail.add_image_from_redirection_config_file, (file.redirection, ))
+    core.construct.taskpool.newtask(core.window.treeview_thumbnail.add_image_from_redirection_config_file, (uwd.redirection, ))
 
 
 def logout():
@@ -75,9 +99,9 @@ def logout():
     user_name = ...
     configuration = ...
 
-    directory.mods_index = ...
-    directory.classification = ...
-    directory.work = ...
-    directory.work_mods = ...
+    # directory.mods_index = ...
+    # directory.classification = ...
+    # directory.work = ...
+    # directory.work_mods = ...
 
-    file.configuration = ...
+    # file.configuration = ...
