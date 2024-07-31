@@ -503,10 +503,19 @@ class D3dxManage(object):
                     launch_name = name
                     break
             else:
-                core.window.messagebox.showerror(title="检索错误", message="无法找到正确的方式启动 3DMigoto 加载器\n请检查用户 work 目录或 d3dx 版本")
-                return
+                for name in os.listdir(core.userenv.directory.work):
+                    if name.endswith(".exe"):
+                        launch_name = name
+                        break
+                else:
+                    core.window.messagebox.showerror(title="检索错误", message="无法找到正确的方式启动 3DMigoto 加载器\n请检查用户 work 目录或 d3dx 版本")
+                    return
 
         launch_file = os.path.abspath(os.path.join(core.userenv.directory.work, launch_name))
+
+        if not os.path.isfile(launch_file):
+            core.window.messagebox.showerror(title="无效目标", message="无法启动加载器\n启动路径指向的文件不存在")
+            return
 
         try:
             win32api.ShellExecute(None, "runas", launch_file, None, os.path.abspath(core.userenv.directory.work), 1)
@@ -570,6 +579,10 @@ class D3dxManage(object):
 
         if path is None:
             core.window.messagebox.showerror(title="数据未设置", message="无法启动游戏\n未设置游戏路径")
+            return
+
+        if not os.path.isfile(path):
+            core.window.messagebox.showerror(title="无效目标", message="无法启动游戏\n游戏路径指向的文件不存在")
             return
 
         # import win32process
