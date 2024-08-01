@@ -13,10 +13,13 @@ import core
 from constant import *
 
 
+MW_INFO = "该功能已被禁用，这东西没啥用，你也用不到，所以禁用\n不影响其它功能，别像一个呆子似的不看公告在这儿瞎问"
+
+
 class ModsWarehouse(object):
     def install(self, master, *args, **kwds):
         self.master = master
-        self.disabled = ttkbootstrap.Label(self.master, text="已禁用", anchor="center")
+        self.disabled = ttkbootstrap.Label(self.master, text=MW_INFO, anchor="center")
         self.disabled.pack(fill="both", expand=True)
         return
         titles = (("#0", "object / name", 360), ("enabled", "tags", 480))

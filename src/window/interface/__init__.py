@@ -103,7 +103,7 @@ class Interface(object):
                 ...
 
             self.w_admin = ttkbootstrap.Frame(self.master)
-            self.w_admin_warn = ttkbootstrap.Label(self.w_admin, text="警告：管理员运行可能会导致一些问题", bootstyle=WARNING)
+            self.w_admin_warn = ttkbootstrap.Label(self.w_admin, text="管理员运行可能会遇到的一些问题", bootstyle=WARNING)
             self.w_admin_detail = ttkbootstrap.Label(self.w_admin, text="[详情]", cursor="hand2")
             self.w_admin_close = ttkbootstrap.Label(self.w_admin, text="[关闭提醒]", cursor="hand2")
 
