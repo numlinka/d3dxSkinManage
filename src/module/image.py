@@ -139,6 +139,10 @@ class ImageTkThumbnailGroup(object):
         self.__table = newTable
 
 
+    def clear_all(self) -> None:
+        self.__table = {}
+
+
     def add_image(self, image_: Union[PIL.Image.Image, str], name_: str = ...) -> None:
         core.log.debug(f"加载缩略图图像 {image_}", L.MODULE_IMAGE)
         if isinstance(image_, PIL.Image.Image):

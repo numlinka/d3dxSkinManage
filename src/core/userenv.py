@@ -88,6 +88,7 @@ def login(__username: str):
 
     try: configuration = libs.econfiguration.Configuration(uwd.configuration)
     except Exception: configuration = libs.econfiguration.Configuration()
+    core.window.treeview_thumbnail.clear_all()
     core.construct.taskpool.newtask(core.window.treeview_thumbnail.add_image_from_redirection_config_file, (uwd.redirection, ))
 
 
