@@ -34,7 +34,7 @@ def when_entering_mainpool():
     core.sync.addtask("登录就绪", core.window.ready_login)
     core.sync.addtask("自动登录检查", core.window.auto_login_check)
 
-    core.construct.taskpool.newtask(core.window.treeview_thumbnail.add_image_from_redirection_config_file, (core.env.file.resources.redirection, ))
+    # core.construct.taskpool.newtask(core.window.treeview_thumbnail.add_image_from_redirection_config_file, (core.env.file.resources.redirection, ))
 
 
 def user_logged_in():
