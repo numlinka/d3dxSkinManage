@@ -236,8 +236,8 @@ class ModifyUserEnv(object):
         core.window.methods.fake_withdraw(self.window)
         self.install()
         self.window.update()
-        core.window.methods.center_window_for_window(self.window, core.window.mainwindow, 600, 480, True)
-        self.window.resizable(False, False)
+        core.window.methods.center_window_for_window(self.window, core.window.mainwindow, 700, 540, True)
+        # self.window.resizable(False, False)
         self.window.focus()
 
 
