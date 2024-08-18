@@ -10,6 +10,9 @@ import ttkbootstrap
 # local
 import core
 
+# self
+from . import suggestions
+
 
 class Status (object):
     def __init__(self, master):
@@ -27,7 +30,9 @@ class Status (object):
         self.sizegrip.pack(side="right", fill="y")
 
         self.label_help = ttkbootstrap.Label(self.master, text="[ 帮助 ]", cursor="hand2")
+        self.label_suggestions = ttkbootstrap.Label(self.master, text="[ 优化建议 ]", cursor="hand2")
         self.label_help.pack(side="right", padx=10, pady=5 )
+        self.label_suggestions.pack(side="right", padx=(10, 0), pady=5 )
 
         self.label_username.pack(side="left", padx=5, pady=5)
         self.label_mark.pack(side="left", padx=5, pady=5)
@@ -35,10 +40,15 @@ class Status (object):
         self.progressbar_step.pack(side="left", padx=5, pady=5)
 
         self.label_help.bind("<Button-1>", self.bin_open_help)
+        self.label_suggestions.bind("<Button-1>", self.bin_open_suggestions)
 
 
     def bin_open_help(self, *args):
         webbrowser.open(core.env.Link.help)
+
+
+    def bin_open_suggestions(self, *_):
+        suggestions.Suggestions()
 
 
     def set_userName(self, userName):
