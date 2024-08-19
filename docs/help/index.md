@@ -14,7 +14,7 @@ features:
   - icon: 📙
     title: 旧版文档
     details: 一部分已经过时或还未能得到迁移的文档，但你可以查看它们。
-    link: https://d3dxskinmanage.numlinka.com
+    link: https://d3dxskinmanage.old.numlinka.com
   - icon: 🍵
     title: 项目社区
     details: 你可以在这里相互交流、分享经验、提出问题并给予建议。

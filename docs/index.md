@@ -14,7 +14,7 @@ hero:
       link: /resources
     - theme: alt
       text: 旧版文档
-      link: https://d3dxskinmanage.numlinka.com
+      link: https://d3dxskinmanage.old.numlinka.com
     - theme: alt
       text: GitHub
       link: https://github.com/numlinka/d3dxSkinManage
