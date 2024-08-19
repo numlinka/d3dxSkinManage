@@ -1,15 +1,13 @@
 import { defineConfig } from 'vitepress'
 
 export default defineConfig({
-  base: "/d3dxSkinManage/",
-
   lang: "zh_CN",
   title: "d3dxSkinManage",
   description: "3dmigoto skin mods manage tool",
   lastUpdated: true,
 
   head: [
-    ['link', { rel: 'icon', href: '/d3dxSkinManage/static/favicon.png' }]
+    ['link', { rel: 'icon', href: '/static/favicon.png' }]
   ],
 
   themeConfig: {

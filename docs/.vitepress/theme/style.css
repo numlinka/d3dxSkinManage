@@ -146,15 +146,15 @@
  * -------------------------------------------------------------------------- */
 
  .vpi-social-gitee {
-  --icon: url("/d3dxSkinManage/static/icons/gitee.png")
+  --icon: url("/static/icons/gitee.png")
 }
 
 .vpi-social-bilibili {
-  --icon: url("/d3dxSkinManage/static/icons/bilibili.png")
+  --icon: url("/static/icons/bilibili.png")
 }
 
 .vpi-social-afdian {
-  --icon: url("/d3dxSkinManage/static/icons/afdian.png")
+  --icon: url("/static/icons/afdian.png")
 }
 
 /**
