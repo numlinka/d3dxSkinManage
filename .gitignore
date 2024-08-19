@@ -160,12 +160,14 @@ cython_debug/
 .idea/
 
 # VSCode
+/.vscode
 *.code-workspace
 
 # Project
 /home
 /local
 /resources
+/plugins
 /logs
 /temp
 /src/temp
@@ -173,5 +175,12 @@ cython_debug/
 /*.bat
 /*.exe
 /*.pack
-/*.json
 /*.url
+/index.json
+
+# NodeJs
+/node_modules
+
+# VitePress
+/docs/.vitepress/cache
+/docs/.vitepress/dist
