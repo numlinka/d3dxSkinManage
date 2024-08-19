@@ -1,7 +1,7 @@
 import { defineConfig } from 'vitepress'
 
 export default defineConfig({
-  base: "/d3dxskinmanage/",
+  base: "/d3dxSkinManage/",
 
   lang: "zh_CN",
   title: "d3dxSkinManage",
@@ -9,7 +9,7 @@ export default defineConfig({
   lastUpdated: true,
 
   head: [
-    ['link', { rel: 'icon', href: '/d3dxskinmanage/static/favicon.png' }]
+    ['link', { rel: 'icon', href: '/d3dxSkinManage/static/favicon.png' }]
   ],
 
   themeConfig: {
