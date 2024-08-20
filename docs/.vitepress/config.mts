@@ -91,7 +91,7 @@ export default defineConfig({
     },
 
     editLink: {
-      pattern: 'https://github.com/numlinka/d3dxskin-managedocs/edit/master/:path',
+      pattern: 'https://github.com/numlinka/d3dxSkinManage/edit/master/docs/:path',
       text: '在 GitHub 上编辑此页面'
     },
 

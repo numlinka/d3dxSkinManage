@@ -23,11 +23,14 @@ features:
   - icon: 🕹️
     title: 用户环境
     details: 可以为不同的游戏设置不同的用户环境
+    link: /help/tutorial-userenv
   - icon: 💾
     title: 存储备份
     details: 更规范的组织、备份和管理模组文件
+    link: /docs/
   - icon: 🛠️
     title: 扩展插件
     details: 提供插件以丰富和扩展程序功能
+    link: /resources/plugins
 ---
 

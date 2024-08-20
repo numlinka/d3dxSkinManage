@@ -6,8 +6,7 @@
 
 ## GitHub
 
-[d3dxSkinManage](https://github.com/numlinka/d3dxSkinManage) / 
-[文档](https://github.com/numlinka/d3dx-skin-manage-docs)
+[d3dxSkinManage](https://github.com/numlinka/d3dxSkinManage)
 
 ## QQ群
 
