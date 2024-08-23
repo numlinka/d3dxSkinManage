@@ -51,7 +51,16 @@ export default defineConfig({
                 { text: '配置加载器', link: '/help/tutorial-loader' },
                 { text: '管理模组', link: '/help/tutorial-modules' },
                 { text: '对象分类', link: '/help/tutorial-classify' },
-                { text: '头像缩略图', link: '/help/tutorial-thumbnail' }
+                { text: '头像缩略图', link: '/help/tutorial-thumbnail' },
+                { text: '补充内容', link: '/help/tutorial-supplement' }
+              ]
+            },
+            {
+              text: '扩展功能',
+              link: '/help/tutorial-extensions',
+              items: [
+                { text: '强迫症截图工具', link: '/help/tutorial-ocdcrop' },
+                { text: '插件', link: '/help/tutorial-plugins' }
               ]
             }
           ]
