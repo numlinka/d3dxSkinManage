@@ -27,6 +27,21 @@ export default defineConfig({
 
     sidebar: {
       "/": [],
+      "/changelog/": [
+        {
+          text: '更新日志',
+          items: [
+            { text: '简略更新日志', link: '/changelog/simple' },
+            { text: '计划更新内容', link: '/changelog/planned' }
+          ]
+        },
+        {
+          text: '详细更新日志',
+          items: [
+            { text: 'v1.6.1', link: '/changelog/detail/10601' }
+          ]
+        }
+      ],
       "/docs/": [
         {
           text: '文档',
@@ -84,7 +99,7 @@ export default defineConfig({
             { text: '插件', link: '/resources/plugins' },
             { text: '缩略图资源', link: '/resources/thumbnail' },
             { text: '3DMiGoto 加载器', link: '/resources/3dmigoto' },
-            { text: '皮肤模组', link: '/resources/modules' }
+            { text: '模组资源', link: '/resources/modules' }
           ]
         }
       ],

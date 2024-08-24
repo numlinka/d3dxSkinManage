@@ -9,12 +9,12 @@ hero:
 features:
   - icon: 📄
     title: 简略更新日志
-    details: 
+    link: /changelog/simple
   - icon: 🗒️
     title: 详细更新内容
-    details: 
+    link: /changelog/detail/10601
   - icon: 📋
     title: 计划更新内容
-    details: 
+    link: /changelog/planned
 ---
 
