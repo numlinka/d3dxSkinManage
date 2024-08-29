@@ -96,10 +96,23 @@ export default defineConfig({
           items: [
             { text: 'd3dxSkinManage', link: '/resources/download' },
             { text: '更新组件', link: '/resources/update' },
-            { text: '插件', link: '/resources/plugins' },
+            { text: '扩展插件', link: '/resources/plugins' },
             { text: '缩略图资源', link: '/resources/thumbnail' },
             { text: '3DMiGoto 加载器', link: '/resources/3dmigoto' },
             { text: '模组资源', link: '/resources/modules' }
+          ]
+        },
+        {
+          text: '插件',
+          items: [
+            { text: 'gi_update_mods', link: '/resources/plugins/gi_update_mods' },
+            { text: 'sr_update_mods', link: '/resources/plugins/sr_update_mods' },
+            { text: 'zzz_update_mods', link: '/resources/plugins/zzz_update_mods' },
+            { text: 'ww_update_mods', link: '/resources/plugins/ww_update_mods' },
+            { text: 'enforcelogout', link: '/resources/plugins/enforcelogout' },
+            { text: 'dropfiles_multiple', link: '/resources/plugins/dropfiles_multiple' },
+            { text: 'batch_processing_tools', link: '/resources/plugins/batch_processing_tools' },
+            { text: 'multiple_preview', link: '/resources/plugins/multiple_preview' },
           ]
         }
       ],
