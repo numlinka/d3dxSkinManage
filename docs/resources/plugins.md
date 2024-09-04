@@ -66,3 +66,25 @@
 
 [详情信息](/resources/plugins/batch_processing_tools) |
 [下载链接](https://gitee.com/ticca/d3dx-skin-manage/releases/download/plugins/batch_processing_tools_v0.10.2.zip)
+
+## multiple_preview <Badge type="tip" text="v1.2.4" /> <Badge type="tip" text="v1.2.3" />
+
+多预览图插件 <br/>
+可以让一个 mod 可以存储多张预览图并进行可切换显示
+
+[详情信息](/resources/plugins/multiple_preview) |
+[下载 V1.2.4](https://gitee.com/ticca/d3dx-skin-manage/releases/download/plugins/multiple_preview_v1.2.4.zip) | [下载 V1.2.3](https://gitee.com/ticca/d3dx-skin-manage/releases/download/plugins/multiple_preview_v1.2.3.zip)
+
+:::warning 适配问题
+由于管理器的更新，导致该插件出现了不兼容问题 <br />
+若你使用的管理器版本为 **v1.5.x** 版本，请使用该插件的 **v1.2.3** 版本 <br />
+若你使用的管理器版本为 **v1.6.x** 版本，请使用该插件的 **v1.2.4** 版本 <br />
+:::
+
+## modify_list_order <Badge type="tip" text="v1.0" />
+
+编辑分类、对象、选择栏排序插件 <br/>
+可以实现自定义分类栏、对象栏、选择栏的排列顺序
+
+[详情信息](/resources/plugins/modify_list_order) |
+[下载链接](https://gitee.com/ticca/d3dx-skin-manage/releases/download/plugins/modify_list_order.zip)
