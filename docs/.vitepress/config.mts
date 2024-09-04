@@ -113,6 +113,7 @@ export default defineConfig({
             { text: 'dropfiles_multiple', link: '/resources/plugins/dropfiles_multiple' },
             { text: 'batch_processing_tools', link: '/resources/plugins/batch_processing_tools' },
             { text: 'multiple_preview', link: '/resources/plugins/multiple_preview' },
+            { text: 'modify_list_order', link: '/resources/plugins/modify_list_order' },
           ]
         }
       ],
