@@ -114,6 +114,7 @@ export default defineConfig({
             { text: 'batch_processing_tools', link: '/resources/plugins/batch_processing_tools' },
             { text: 'multiple_preview', link: '/resources/plugins/multiple_preview' },
             { text: 'modify_list_order', link: '/resources/plugins/modify_list_order' },
+            { text: 'modify_key_swap', link: '/resources/plugins/modify_key_swap' },
           ]
         }
       ],
