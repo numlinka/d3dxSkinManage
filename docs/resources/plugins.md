@@ -70,7 +70,7 @@
 ## multiple_preview <Badge type="tip" text="v1.2.4" /> <Badge type="tip" text="v1.2.3" />
 
 多预览图插件 <br/>
-可以让一个 mod 可以存储多张预览图并进行可切换显示
+可以让一个模组可以存储多张预览图并进行可切换显示
 
 [详情信息](/resources/plugins/multiple_preview) |
 [下载 V1.2.4](https://gitee.com/ticca/d3dx-skin-manage/releases/download/plugins/multiple_preview_v1.2.4.zip) | [下载 V1.2.3](https://gitee.com/ticca/d3dx-skin-manage/releases/download/plugins/multiple_preview_v1.2.3.zip)
@@ -91,8 +91,25 @@
 
 ## modify_key_swap <Badge type="tip" text="v1.4.5" />
 
-编辑合并 mods 切换键插件 <br/>
-可以修改合并 mods 的切换键及在悬浮窗口中显示切换键信息
+编辑合并模组切换键插件 <br/>
+可以修改合并模组的切换键及在悬浮窗口中显示切换键信息
 
 [详情信息](/resources/plugins/modify_key_swap) |
 [下载链接](https://gitee.com/ticca/d3dx-skin-manage/releases/download/plugins/modify_key_swap_v1.4.5.zip)
+
+## modify_3dm_swap <Badge type="tip" text="v1.0" />
+
+编辑 3DMigoto 快捷键插件 <br/>
+可以快速修改 3DMigoto 的常用快捷键
+
+[详情信息](/resources/plugins/modify_3dm_swap) |
+[下载链接](https://gitee.com/ticca/d3dx-skin-manage/releases/download/plugins/modify_3dm_key.zip)
+
+
+## modify_object_name <Badge type="tip" text="v1.0" />
+
+编辑对象名称插件 <br/>
+可以使对应对象下的所有模组的作用对象修改为新的对象名称
+
+[详情信息](/resources/plugins/modify_object_name) |
+[下载链接](https://gitee.com/ticca/d3dx-skin-manage/releases/download/plugins/modify_object_name.zip)

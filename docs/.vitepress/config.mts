@@ -77,12 +77,17 @@ export default defineConfig({
                 { text: '强迫症截图工具', link: '/help/tutorial-ocdcrop' },
                 { text: '插件', link: '/help/tutorial-plugins' }
               ]
+            },
+            {
+              text: '反和谐使用教程',
+              link: '/help/oppose-harmony',
             }
           ]
         },
         {
           text: '帮助',
           items: [
+            { text: '常见问题', link: '/help/faqs' },
             { text: '更新时遇到问题', link: '/help/update-problem' },
             { text: '禁用更新检查', link: '/help/disable-update-check' }
           ]
@@ -115,6 +120,7 @@ export default defineConfig({
             { text: 'multiple_preview', link: '/resources/plugins/multiple_preview' },
             { text: 'modify_list_order', link: '/resources/plugins/modify_list_order' },
             { text: 'modify_key_swap', link: '/resources/plugins/modify_key_swap' },
+            { text: 'modify_3dm_swap', link: '/resources/plugins/modify_3dm_swap' },
           ]
         }
       ],
