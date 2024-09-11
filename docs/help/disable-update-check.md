@@ -1,8 +1,6 @@
 # 禁用更新检查
 
-在启动 d3dxSkinManage 时为其传递 `--noupdatecheck {key}` 参数可以禁用更新检查，
-该方法可以让程序主动停留在某一个版本或在断网的状态下继续使用，
-`{key}` 在不同的版本可能会不一样，你必须传递正确的 `{key}` 才能关闭更新检查。
+在启动 d3dxSkinManage 时为其传递 `--noupdatecheck {key}` 参数可以禁用更新检查，该方法可以让程序主动停留在某一个版本或在断网的状态下继续使用，`{key}` 在不同的版本可能会不一样，你必须传递正确的 `{key}` 才能关闭更新检查。
 
 ## Key
 
@@ -21,8 +19,7 @@
 
 ![](/static/image/eb44aaad.png)
 
-在终端中输入 `.\d3dxSkinManage.exe --noupdatecheck tocDl4l4YsvyMcBL`
-后按回车即可关闭本次启动时的更新检查。
+在终端中输入 `.\d3dxSkinManage.exe --noupdatecheck tocDl4l4YsvyMcBL` 后按回车即可关闭本次启动时的更新检查。
 
 ![](/static/image/1b9b6580.png)
 
