@@ -16,9 +16,10 @@ class About (object):
         self.master = master
 
         self.frame_about = ttkbootstrap.Frame(self.master)
-        self.frame_afdian = ttkbootstrap.Frame(self.master)
+        self.frame_afdian = ttkbootstrap.Frame(self.master)  # ! 已弃用
+        self.frame_afdian_2 = ttkbootstrap.Frame(self.master)
         self.frame_channel = ttkbootstrap.Frame(self.master)
-        self.frame_afdian.pack(side="bottom", fill="x", padx=10, pady=10)
+        self.frame_afdian_2.pack(side="bottom", fill="x", padx=10, pady=10)
         # self.frame_channel.pack(side="bottom", fill="x", padx=10, pady=(10, 0))
         self.frame_about.pack(side="top", fill="both", expand=True, padx=10, pady=(10, 0))
 
@@ -31,9 +32,9 @@ class About (object):
 
         self.what_to_look_at.pack(side="top", fill="both", expand=True)
 
-        self.label_sponsor = ttkbootstrap.Label(self.frame_afdian, text="爱发电赞助地址: ", font=("黑体", 16))
-        self.label_afdian = ttkbootstrap.Label(self.frame_afdian, text=">> numLinka >>>", font=("黑体", 16), foreground="medium purple", cursor="hand2")
-        self.label_afdian_ticca = ttkbootstrap.Label(self.frame_afdian, text=">> 黎愔 >>>", font=("黑体", 16), foreground="medium purple", cursor="hand2")
+        self.label_sponsor = ttkbootstrap.Label(self.frame_afdian_2, text="爱发电赞助地址: ", font=("黑体", 16))
+        self.label_afdian = ttkbootstrap.Label(self.frame_afdian_2, text=">> numLinka >>>", font=("黑体", 16), foreground="medium purple", cursor="hand2")
+        self.label_afdian_ticca = ttkbootstrap.Label(self.frame_afdian_2, text=">> 黎愔 >>>", font=("黑体", 16), foreground="medium purple", cursor="hand2")
 
         self.label_sponsor.pack(side="left")
         self.label_afdian.pack(side="left")

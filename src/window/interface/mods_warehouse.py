@@ -13,7 +13,7 @@ import core
 from constant import *
 
 
-MW_INFO = "该功能已被禁用，这东西没啥用，你也用不到，所以禁用\n不影响其它功能，别像一个呆子似的不看公告在这儿瞎问"
+MW_INFO = "该功能已被禁用\n\n一个已经不受支持\n且绝大多数人用不到的东西"
 
 
 class ModsWarehouse(object):
