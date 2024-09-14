@@ -27,11 +27,11 @@ _3DMigoto 皮肤 Mods 管理工具_
 <p></p>
 
 <a href="https://d3dxskinmanage.numlinka.com">
-  文档站点
+  文档
 </a>
 ·
-<a href="https://d3dxskinmanage.numlinka.com/resources/downloads">
-  程序下载
+<a href="https://d3dxskinmanage.numlinka.com/resources/download">
+  下载
 </a>
 ·
 <a href="https://d3dxskinmanage.numlinka.com/help/tutorial">
@@ -39,7 +39,7 @@ _3DMigoto 皮肤 Mods 管理工具_
 </a>
 ·
 <a href="https://d3dxskinmanage.numlinka.com/resources">
-  扩展下载
+  扩展资源
 </a>
 
 </div>
