@@ -89,7 +89,8 @@ export default defineConfig({
           items: [
             { text: '常见问题', link: '/help/faqs' },
             { text: '更新时遇到问题', link: '/help/update-problem' },
-            { text: '禁用更新检查', link: '/help/disable-update-check' }
+            { text: '禁用更新检查', link: '/help/disable-update-check' },
+            { text: '关于管理员权限', link: '/help/about-admin-rights' }
           ]
         },
         { text: '项目社区', link: '/help/community' },
