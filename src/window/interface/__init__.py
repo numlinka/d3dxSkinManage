@@ -120,7 +120,7 @@ class Interface(object):
 
 
     def bin_about_admin_warn(self, *_) -> None:
-        webbrowser.open("https://d3dxskinmanage.numlinka.com/#/help/about_admin_rights")
+        webbrowser.open("https://d3dxskinmanage.numlinka.com/help/about-admin-rights")
 
 
     def bin_close_admin_warn(self, *_) -> None:
