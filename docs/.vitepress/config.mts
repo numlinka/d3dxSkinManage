@@ -122,6 +122,7 @@ export default defineConfig({
             { text: 'modify_list_order', link: '/resources/plugins/modify_list_order' },
             { text: 'modify_key_swap', link: '/resources/plugins/modify_key_swap' },
             { text: 'modify_3dm_swap', link: '/resources/plugins/modify_3dm_swap' },
+            { text: 'modify_object_name', link: '/resources/plugins/modify_object_name' },
           ]
         }
       ],
