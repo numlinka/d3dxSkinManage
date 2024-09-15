@@ -46,10 +46,10 @@
 
 ## 快捷键键值
 3dmigoto 中快捷键的相关取值具体如下：
-- 对于键盘上可输入的单个字符，只需使用单个字符即可，如 `A` - `Z` 、`0` - `9` 、`[` 、`]` 、`;` 、`=` 等。对于其他所有键值(包括鼠标按键)，使用 `虚拟键名`( `VK_` 前缀可带可不带) 或其对应的 `十六进制代码`。具体的虚拟键名及其对应的十六进制代码请参考 [虚拟键代码](http://msdn.microsoft.com/en-us/library/windows/desktop/dd375731(v=vs.85).aspx)。
+- 对于键盘上可输入的单个字符，只需使用单个字符即可，如 `A-Z` 、`0-9` 、`[` 、`]` 、`;` 、`=` 等。对于其他所有键值(包括鼠标按键)，使用 `虚拟键名`( `VK_` 前缀可带可不带) 或其对应的 `十六进制代码`。具体的虚拟键名及其对应的十六进制代码请参考 [虚拟键代码](http://msdn.microsoft.com/en-us/library/windows/desktop/dd375731(v=vs.85).aspx)。
 
 :::tip 提示
-该插件 `main.py` 文件中 (22-36行) 的 `VK_keys`、`XBox_keys`、`combinations__` 变量中存储可被识别的特殊字符。由于虚拟键值过多故未全部写入，目前只包含常用的键值，如果需要可以自行补充。
+该插件 **main.py** 文件中 (22-36行) 的 **VK_keys**、**XBox_keys**、**combinations__** 变量中存储可被识别的特殊字符。由于虚拟键值过多故未全部写入，目前只包含常用的键值，如果需要可以自行补充。
 
 ![](/static/image/14ca1fb4.png)
 :::
@@ -60,25 +60,17 @@
 
 - 可以用以下键值表示 XBox 手柄上的对应按键：
 
-    | 键值               | 对应按键         |
-    |--------------------|------------------|
-    | `XB_LEFT_TRIGGER`  | 左扳机           |
-    | `XB_RIGHT_TRIGGER` | 右扳机           |
-    | `XB_LEFT_SHOULDER` | 左肩键           |
-    | `XB_RIGHT_SHOULDER`| 右肩键           |
-    | `XB_LEFT_THUMB`    | 左摇杆按下       |
-    | `XB_RIGHT_THUMB`   | 右摇杆按下       |
-    | `XB_DPAD_UP`       | 方向键上         |
-    | `XB_DPAD_DOWN`     | 方向键下         |
-    | `XB_DPAD_LEFT`     | 方向键左         |
-    | `XB_DPAD_RIGHT`    | 方向键右         |
-    | `XB_A`             | A 按钮           |
-    | `XB_B`             | B 按钮           |
-    | `XB_X`             | X 按钮           |
-    | `XB_Y`             | Y 按钮           |
-    | `XB_START`         | 开始按钮         |
-    | `XB_BACK`          | 后退（选项）按钮  |
-    | `XB_GUIDE`         | 指南按钮         |
+    | 键值               | 对应按键         | 键值               | 对应按键         |
+    |------------------- |-----------------|--------------------|-----------------|
+    | `XB_LEFT_TRIGGER`  | 左扳机          | `XB_RIGHT_TRIGGER` | 右扳机           |
+    | `XB_LEFT_SHOULDER` | 左肩键          | `XB_RIGHT_SHOULDER`| 右肩键           |
+    | `XB_LEFT_THUMB`    | 左摇杆按下      | `XB_RIGHT_THUMB`   | 右摇杆按下       |
+    | `XB_DPAD_UP`       | 方向键上        | `XB_DPAD_DOWN`     | 方向键下         |
+    | `XB_DPAD_LEFT`     | 方向键左        | `XB_DPAD_RIGHT`    | 方向键右         |
+    | `XB_A`             | A 按钮          | `XB_B`             | B 按钮           |
+    | `XB_X`             | X 按钮          | `XB_Y`             | Y 按钮           |
+    | `XB_START`         | 开始按钮        | `XB_BACK`          | 后退（选项）按钮  |
+    | `XB_GUIDE`         | 指南按钮        |                    |                  |
 
 ## 更新日志
 
