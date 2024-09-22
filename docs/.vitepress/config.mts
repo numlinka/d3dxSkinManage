@@ -67,6 +67,8 @@ export default defineConfig({
                 { text: '管理模组', link: '/help/tutorial-modules' },
                 { text: '对象分类', link: '/help/tutorial-classify' },
                 { text: '头像缩略图', link: '/help/tutorial-thumbnail' },
+                { text: '筛选功能', link: '/help/tutorial-search' },
+                { text: '全局设置', link: '/help/tutorial-global-settings' },
                 { text: '补充内容', link: '/help/tutorial-supplement' }
               ]
             },
@@ -75,6 +77,9 @@ export default defineConfig({
               link: '/help/tutorial-extensions',
               items: [
                 { text: '强迫症截图工具', link: '/help/tutorial-ocdcrop' },
+                // { text: '缓存清理工具', link: '/help/' },
+                // { text: '旧版MOd管理器数据迁移工具', link: '/help/' },
+                // { text: '可选标签编辑工具', link: '/help/' },
                 { text: '插件', link: '/help/tutorial-plugins' }
               ]
             },
@@ -90,7 +95,8 @@ export default defineConfig({
             { text: '常见问题', link: '/help/faqs' },
             { text: '更新时遇到问题', link: '/help/update-problem' },
             { text: '禁用更新检查', link: '/help/disable-update-check' },
-            { text: '关于管理员权限', link: '/help/about-admin-rights' }
+            { text: '关于管理员权限', link: '/help/about-admin-rights' },
+            // { text: 'V1.6.X 兼容问题', link: '/help/' } // 比如缩略图显示问题如何解决
           ]
         },
         { text: '项目社区', link: '/help/community' },
@@ -123,6 +129,8 @@ export default defineConfig({
             { text: 'modify_key_swap', link: '/resources/plugins/modify_key_swap' },
             { text: 'modify_3dm_swap', link: '/resources/plugins/modify_3dm_swap' },
             { text: 'modify_object_name', link: '/resources/plugins/modify_object_name' },
+            { text: 'auto_login', link: '/resources/plugins/auto_login' },
+            { text: 'handle_user_env', link: '/resources/plugins/handle_user_env' },
           ]
         }
       ],

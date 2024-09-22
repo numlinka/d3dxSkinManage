@@ -5,8 +5,11 @@
 
 <weaken>使用 Ctrl + F 在页面内快速搜索</weaken>
 
+::: tip 提示
+由于插件界面的搬迁过程新增了更详细的内容，部分插件暂未完成搬迁，若未找到你想要下载的插件，可以前往 [旧版插件文档](https://d3dxskinmanage.old.numlinka.com/#/warehouse/plugins) 进行查找。
+:::
 
-## gi_update_mods <Badge type="tip" text="v1.0.3" />
+## gi_update_mods <Badge type="tip" text="v1.0.4" />
 
 原神角色 mod 修复插件 (原名 gi40to45)<br/>
 用于解决原神 4.1 、4.3、4.4、4.5、4.6 更新之后角色模型出现的问题
@@ -14,7 +17,7 @@
 [详情信息](/resources/plugins/gi_update_mods) | 
 [下载链接](https://gitee.com/ticca/d3dx-skin-manage/releases/download/plugins/gi_update_mods_v1.0.3.zip)
 
-## sr_update_mods <Badge type="tip" text="v1.2.3" />
+## sr_update_mods <Badge type="tip" text="v1.2.4" />
 
 星穹铁道角色 mod 修复插件 (原名 sr16to20)<br/>
 用于解决星穹铁道 2.0、2.1、2.2、2.3、2.4 更新之后角色模型出现的问题
@@ -113,3 +116,19 @@
 
 [详情信息](/resources/plugins/modify_object_name) |
 [下载链接](https://gitee.com/ticca/d3dx-skin-manage/releases/download/plugins/modify_object_name.zip)
+
+## auto_login <Badge type="tip" text="v1.0.6" />
+
+自动登录插件 <br/>
+用于自动登录指定用户环境、登录时跳转至指定界面及指定启动 3dm 和其他程序（含防闪退模式）等
+
+[详情信息](/resources/plugins/auto_login) |
+[下载链接](https://gitee.com/ticca/d3dx-skin-manage/releases/download/plugins/auto_login_v1.0.6.zip)
+
+## handle_user_env <Badge type="tip" text="v1.1.1" />
+
+用户环境创建/编辑插件插件 <br/>
+用于辅助进行用户环境的创建、编辑、删除
+
+[详情信息](/resources/plugins/handle_user_env) |
+[下载链接](https://gitee.com/ticca/d3dx-skin-manage/releases/download/plugins/handle_user_env_v1.1.1.zip)
