@@ -132,3 +132,27 @@
 
 [详情信息](/resources/plugins/handle_user_env) |
 [下载链接](https://gitee.com/ticca/d3dx-skin-manage/releases/download/plugins/handle_user_env_v1.1.1.zip)
+
+## delete_and_remove_mod <Badge type="tip" text="v1.0.4" />
+
+删除及完全移除 mod 插件 <br/>
+用于优化删除及完全移除 mod 的功能
+
+[详情信息](/resources/plugins/delete_and_remove_mod) |
+[下载链接](https://gitee.com/ticca/d3dx-skin-manage/releases/download/plugins/delete_and_remove_mod_v1.0.4.zip)
+
+## delete_mod_cache <Badge type="tip" text="v1.0.3" />
+
+删除 mod 缓存文件插件 <br/>
+可以辅助快速删除指定的 mod 缓存文件
+
+[详情信息](/resources/plugins/delete_mod_cache) |
+[下载链接](https://gitee.com/ticca/d3dx-skin-manage/releases/download/plugins/delete_mod_cache_v1.0.3.zip)
+
+## delete_index_no_file <Badge type="tip" text="v1.0.2" />
+
+删除无效索引文件插件 <br/>
+用于删除无源文件的索引数据
+
+[详情信息](/resources/plugins/delete_index_no_file) |
+[下载链接](https://gitee.com/ticca/d3dx-skin-manage/releases/download/plugins/delete_index_no_file_v1.0.2.zip)
