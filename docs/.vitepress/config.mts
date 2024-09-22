@@ -131,6 +131,9 @@ export default defineConfig({
             { text: 'modify_object_name', link: '/resources/plugins/modify_object_name' },
             { text: 'auto_login', link: '/resources/plugins/auto_login' },
             { text: 'handle_user_env', link: '/resources/plugins/handle_user_env' },
+            { text: 'delete_and_remove_mod', link: '/resources/plugins/delete_and_remove_mod' },
+            { text: 'delete_mod_cache', link: '/resources/plugins/delete_mod_cache' },
+            { text: 'delete_index_no_file', link: '/resources/plugins/delete_index_no_file' },
           ]
         }
       ],
