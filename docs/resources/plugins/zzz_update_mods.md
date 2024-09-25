@@ -12,8 +12,8 @@
 ## 快速下载
 
 :::info v1.0
-更新日期:  2024-08-15<br/>
-下载链接: [gitee](https://gitee.com/ticca/d3dx-skin-manage/releases/download/plugins/zzz_update_mods.zip) <br/>
+更新日期:  2024-09-25<br/>
+下载链接: [gitee](https://gitee.com/ticca/d3dx-skin-manage/releases/download/plugins/zzz_update_mods_v1.0.1.zip) <br/>
 教程视频: 参考 [原神角色 mod 修复插件基础功能教程](https://www.bilibili.com/video/BV1vi421R7d2) 
 :::
 
