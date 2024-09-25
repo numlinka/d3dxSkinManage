@@ -134,6 +134,8 @@ export default defineConfig({
             { text: 'delete_and_remove_mod', link: '/resources/plugins/delete_and_remove_mod' },
             { text: 'delete_mod_cache', link: '/resources/plugins/delete_mod_cache' },
             { text: 'delete_index_no_file', link: '/resources/plugins/delete_index_no_file' },
+            { text: 'get_GI_images', link: '/resources/plugins/get_GI_images' },
+            { text: 'get_SR_images', link: '/resources/plugins/get_SR_images' },
           ]
         }
       ],
