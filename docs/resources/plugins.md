@@ -156,3 +156,23 @@
 
 [详情信息](/resources/plugins/delete_index_no_file) |
 [下载链接](https://gitee.com/ticca/d3dx-skin-manage/releases/download/plugins/delete_index_no_file_v1.0.2.zip)
+
+## get_GI_images <Badge type="tip" text="v1.1.3" /> <Badge type="tip" text="v1.1.4" /> <Badge type="tip" text="v1.1.5" />
+
+更新原神缩略图资源插件 <br/>
+可以手动或自动更新原神缩略图资源
+
+[详情信息](/resources/plugins/get_GI_images) |
+[下载 v1.1.3](https://gitee.com/ticca/d3dx-skin-manage/releases/download/plugins/get_GI_images_v1.1.3.zip) |
+[下载 v1.1.4](https://gitee.com/ticca/d3dx-skin-manage/releases/download/plugins/get_GI_images_v1.1.4.zip) |
+[下载 v1.1.5](https://gitee.com/ticca/d3dx-skin-manage/releases/download/plugins/get_GI_images_v1.1.5.zip)
+
+## get_SR_images <Badge type="tip" text="v1.1.3" /> <Badge type="tip" text="v1.1.4" /> <Badge type="tip" text="v1.1.5" />
+
+更新星穹铁道缩略图资源 <br/>
+可以手动或自动更新星穹铁道缩略图资源
+
+[详情信息](/resources/plugins/get_SR_images) |
+[下载 v1.1.3](https://gitee.com/ticca/d3dx-skin-manage/releases/download/plugins/get_SR_images_v1.1.3.zip) |
+[下载 v1.1.4](https://gitee.com/ticca/d3dx-skin-manage/releases/download/plugins/get_SR_images_v1.1.4.zip) |
+[下载 v1.1.5](https://gitee.com/ticca/d3dx-skin-manage/releases/download/plugins/get_SR_images_v1.1.5.zip)
