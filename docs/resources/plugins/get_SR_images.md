@@ -139,6 +139,97 @@ _<div style="text-align:center"><weaken>注：以上图片为 v1.1.5 版本参�
 由于网络问题，部分图片会获取不到正确的下载路径，无法进行选择，需要重新执行更新缩略图操作重新下载。
 :::
 
+### 默认配置文件模板
+::: warning 注意
+默认模板仅供参考，请根据实际情况修改。
+:::
+
+::: code-group
+
+```ini [v1.1.4]
+; Licensed under the GPL 3.0 License.
+; d3dxSkinManage by numlinka.
+; thumbnail redirection configuration file.
+
+
+; 泛用
+; ================================
+[*] 头像\*
+[*] 光锥·三星\*
+[*] 光锥·四星\*
+[*] 光锥·五星\*
+[*] 遗器\*
+[*] NPC\*
+[*] 敌人\*
+[*] 奇物\*
+
+
+; 角色类
+; ================================
+角色·男 = 头像\刃.png
+角色·女 = 头像\银狼.png
+角色·主角 = 头像\星.png
+
+
+; 光锥类
+; ================================
+光锥·三星 = 光锥·三星\调和.png
+光锥·四星 = 光锥·四星\「我」的诞生.png
+光锥·五星 = 光锥·五星\但战斗还未结束.png
+
+
+; 其它
+; ================================
+NPC = NPC\帕姆.png
+非玩家角色 = NPC\帕姆.png
+
+敌人 = 敌人\可可利亚.png
+遗器 = 遗器\繁星璀璨的天才.png
+```
+
+```ini [v1.1.5]
+; Licensed under the GPL 3.0 License.
+; d3dxSkinManage by numlinka.
+; thumbnail redirection configuration file.
+
+
+; 泛用
+; ================================
+[*] ..\..\..\resources\thumbnail\<CUSTOM_DIRNAME>\头像\*
+[*] ..\..\..\resources\thumbnail\<CUSTOM_DIRNAME>\光锥·三星\*
+[*] ..\..\..\resources\thumbnail\<CUSTOM_DIRNAME>\光锥·四星\*
+[*] ..\..\..\resources\thumbnail\<CUSTOM_DIRNAME>\光锥·五星\*
+[*] ..\..\..\resources\thumbnail\<CUSTOM_DIRNAME>\遗器\*
+[*] ..\..\..\resources\thumbnail\<CUSTOM_DIRNAME>\NPC\*
+[*] ..\..\..\resources\thumbnail\<CUSTOM_DIRNAME>\敌人\*
+[*] ..\..\..\resources\thumbnail\<CUSTOM_DIRNAME>\奇物\*
+
+
+; 角色类
+; ================================
+角色·男 = ..\..\..\resources\thumbnail\<CUSTOM_DIRNAME>\头像\刃.png
+角色·女 = ..\..\..\resources\thumbnail\<CUSTOM_DIRNAME>\头像\银狼.png
+角色·主角 = ..\..\..\resources\thumbnail\<CUSTOM_DIRNAME>\头像\星.png
+
+
+; 光锥类
+; ================================
+光锥·三星 = ..\..\..\resources\thumbnail\<CUSTOM_DIRNAME>\光锥·三星\调和.png
+光锥·四星 = ..\..\..\resources\thumbnail\<CUSTOM_DIRNAME>\光锥·四星\「我」的诞生.png
+光锥·五星 = ..\..\..\resources\thumbnail\<CUSTOM_DIRNAME>\光锥·五星\但战斗还未结束.png
+
+
+; 其它
+; ================================
+NPC = ..\..\..\resources\thumbnail\<CUSTOM_DIRNAME>\NPC\帕姆.png
+非玩家角色 = ..\..\..\resources\thumbnail\<CUSTOM_DIRNAME>\NPC\帕姆.png
+
+敌人 = ..\..\..\resources\thumbnail\<CUSTOM_DIRNAME>\敌人\可可利亚.png
+遗器 = ..\..\..\resources\thumbnail\<CUSTOM_DIRNAME>\遗器\繁星璀璨的天才.png
+```
+
+:::
+
 ### 补充内容
 :::tip 提示1
 **v1.1.3** 版本不自动生成 `_redirection.ini` 配置文件，需自行配置。
