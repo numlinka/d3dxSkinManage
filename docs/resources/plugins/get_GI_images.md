@@ -119,6 +119,142 @@ _<div style="text-align:center"><weaken>注：以上图片为 v1.1.5 版本参�
 
 ![](/static/image/7ca87ffc.png)
 
+### 默认配置文件模板
+::: warning 注意
+默认模板仅供参考，请根据实际情况修改。
+:::
+
+::: code-group
+
+```ini [v1.1.4]
+; Licensed under the GPL 3.0 License.
+; d3dxSkinManage by numlinka.
+; thumbnail redirection configuration file.
+
+
+; 泛用
+; ================================
+[*] 头像\*
+; [*] 武器\*
+[*] 武器-突破\*
+[*] 成就\*
+[*] 怪物\*
+[*] 材料\*
+[*] 卡牌\*
+
+
+; 角色类
+; ================================
+角色.主角 = 头像\旅行者(风).png
+角色.萝莉 = 头像\可莉.png
+角色.少女 = 头像\神里绫华.png
+角色.成女 = 头像\夜兰.png
+角色.少年 = 头像\枫原万叶.png
+角色.成男 = 头像\钟离.png
+
+琴.古恩希尔德的传承 = 头像\琴.png
+莫娜.星与月之约 = 头像\莫娜.png
+安柏.百分百侦察骑士 = 头像\安柏.png
+罗莎莉亚.致教会自由人 = 头像\罗莎莉亚.png
+
+
+; 武器类
+; ================================
+; 武器.单手剑 = 武器\天空之刃.png
+; 武器.双手剑 = 武器\天空之傲.png
+; 武器.长柄武器 = 武器\天空之脊.png
+; 武器.长枪 = 武器\天空之脊.png
+; 武器.法器 = 武器\天空之卷.png
+; 武器.弓 = 武器\天空之翼.png
+
+武器.单手剑 = 武器-突破\天空之刃.png
+武器.双手剑 = 武器-突破\天空之傲.png
+武器.长柄武器 = 武器-突破\天空之脊.png
+武器.长枪 = 武器-突破\天空之脊.png
+武器.法器 = 武器-突破\天空之卷.png
+武器.弓 = 武器-突破\天空之翼.png
+
+渔获 = 武器-突破\「渔获」.png
+
+
+; 其它
+; ================================
+NPC = 成就\至冬国不相信眼泪.png
+非玩家角色 = 成就\至冬国不相信眼泪.png
+
+怪物 = 成就\Olah.png
+建筑 = 成就\白昼之光.png
+小道具 = 成就\冒险手艺.png
+用户界面 = 成就\秘境与深境螺旋·第一辑.png
+
+未分类 = 成就\心跳的记忆.png
+```
+
+```ini [v1.1.5]
+; Licensed under the GPL 3.0 License.
+; d3dxSkinManage by numlinka.
+; thumbnail redirection configuration file.
+
+
+; 泛用
+; ================================
+[*] ..\..\..\resources\thumbnail\<CUSTOM_DIRNAME>\头像\*
+; [*] ..\..\..\resources\thumbnail\<CUSTOM_DIRNAME>\武器\*
+[*] ..\..\..\resources\thumbnail\<CUSTOM_DIRNAME>\武器-突破\*
+[*] ..\..\..\resources\thumbnail\<CUSTOM_DIRNAME>\成就\*
+[*] ..\..\..\resources\thumbnail\<CUSTOM_DIRNAME>\怪物\*
+[*] ..\..\..\resources\thumbnail\<CUSTOM_DIRNAME>\材料\*
+[*] ..\..\..\resources\thumbnail\<CUSTOM_DIRNAME>\卡牌\*
+
+
+; 角色类
+; ================================
+角色.主角 = ..\..\..\resources\thumbnail\<CUSTOM_DIRNAME>\头像\旅行者(风).png
+角色.萝莉 = ..\..\..\resources\thumbnail\<CUSTOM_DIRNAME>\头像\可莉.png
+角色.少女 = ..\..\..\resources\thumbnail\<CUSTOM_DIRNAME>\头像\神里绫华.png
+角色.成女 = ..\..\..\resources\thumbnail\<CUSTOM_DIRNAME>\头像\夜兰.png
+角色.少年 = ..\..\..\resources\thumbnail\<CUSTOM_DIRNAME>\头像\枫原万叶.png
+角色.成男 = ..\..\..\resources\thumbnail\<CUSTOM_DIRNAME>\头像\钟离.png
+
+琴.古恩希尔德的传承 = ..\..\..\resources\thumbnail\<CUSTOM_DIRNAME>\头像\琴.png
+莫娜.星与月之约 = ..\..\..\resources\thumbnail\<CUSTOM_DIRNAME>\头像\莫娜.png
+安柏.百分百侦察骑士 = ..\..\..\resources\thumbnail\<CUSTOM_DIRNAME>\头像\安柏.png
+罗莎莉亚.致教会自由人 = ..\..\..\resources\thumbnail\<CUSTOM_DIRNAME>\头像\罗莎莉亚.png
+
+
+; 武器类
+; ================================
+; 武器.单手剑 = ..\..\..\resources\thumbnail\<CUSTOM_DIRNAME>\武器\天空之刃.png
+; 武器.双手剑 = ..\..\..\resources\thumbnail\<CUSTOM_DIRNAME>\武器\天空之傲.png
+; 武器.长柄武器 = ..\..\..\resources\thumbnail\<CUSTOM_DIRNAME>\武器\天空之脊.png
+; 武器.长枪 = ..\..\..\resources\thumbnail\<CUSTOM_DIRNAME>\武器\天空之脊.png
+; 武器.法器 = ..\..\..\resources\thumbnail\<CUSTOM_DIRNAME>\武器\天空之卷.png
+; 武器.弓 = ..\..\..\resources\thumbnail\<CUSTOM_DIRNAME>\武器\天空之翼.png
+
+武器.单手剑 = ..\..\..\resources\thumbnail\<CUSTOM_DIRNAME>\武器-突破\天空之刃.png
+武器.双手剑 = ..\..\..\resources\thumbnail\<CUSTOM_DIRNAME>\武器-突破\天空之傲.png
+武器.长柄武器 = ..\..\..\resources\thumbnail\<CUSTOM_DIRNAME>\武器-突破\天空之脊.png
+武器.长枪 = ..\..\..\resources\thumbnail\<CUSTOM_DIRNAME>\武器-突破\天空之脊.png
+武器.法器 = ..\..\..\resources\thumbnail\<CUSTOM_DIRNAME>\武器-突破\天空之卷.png
+武器.弓 = ..\..\..\resources\thumbnail\<CUSTOM_DIRNAME>\武器-突破\天空之翼.png
+
+渔获 = ..\..\..\resources\thumbnail\<CUSTOM_DIRNAME>\武器-突破\「渔获」.png
+
+
+; 其它
+; ================================
+NPC = ..\..\..\resources\thumbnail\<CUSTOM_DIRNAME>\成就\至冬国不相信眼泪.png
+非玩家角色 = ..\..\..\resources\thumbnail\<CUSTOM_DIRNAME>\成就\至冬国不相信眼泪.png
+
+怪物 = ..\..\..\resources\thumbnail\<CUSTOM_DIRNAME>\成就\Olah.png
+建筑 = ..\..\..\resources\thumbnail\<CUSTOM_DIRNAME>\成就\白昼之光.png
+小道具 = ..\..\..\resources\thumbnail\<CUSTOM_DIRNAME>\成就\冒险手艺.png
+用户界面 = ..\..\..\resources\thumbnail\<CUSTOM_DIRNAME>\成就\秘境与深境螺旋·第一辑.png
+
+未分类 = ..\..\..\resources\thumbnail\<CUSTOM_DIRNAME>\成就\心跳的记忆.png
+```
+
+:::
 ### 补充内容
 :::tip 提示1
 **v1.1.3** 版本不自动生成 `_redirection.ini` 配置文件，需自行配置。

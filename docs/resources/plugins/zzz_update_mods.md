@@ -3,7 +3,7 @@
 
 ## 功能简介
 
-该插件用于修复绝区零 1.1 版本更新之后角色模型出现的炸模问题
+该插件用于修复绝区零 1.1、1.2 版本更新之后角色模型出现的炸模问题
 
 :::warning 注意事项
 该插件的修复会将 mod 修复至绝区零游戏官方最新版本正常可用状态。若你使用的非最新版本，请不要使用该插件进行修复，否则可能导致 mod 无法正常使用
@@ -11,9 +11,9 @@
 
 ## 快速下载
 
-:::info v1.0.1
-更新日期:  2024-09-25<br/>
-下载链接: [gitee](https://gitee.com/ticca/d3dx-skin-manage/releases/download/plugins/zzz_update_mods_v1.0.1.zip) <br/>
+:::info v1.0.2
+更新日期:  2024-09-26<br/>
+下载链接: [gitee](https://gitee.com/ticca/d3dx-skin-manage/releases/download/plugins/zzz_update_mods_v1.0.2.zip) <br/>
 教程视频: 参考 [原神角色 mod 修复插件基础功能教程](https://www.bilibili.com/video/BV1vi421R7d2) 
 :::
 
@@ -43,6 +43,10 @@
 视频教程由 [@黎愔](/contribution) 录制和提供。
 
 ## 更新日志
+### v1.0.2
+#### 优化
+- 优化 1.2 版本 派派、格莉丝 对应的修复
+
 ### v1.0.1
 #### 新增
 - 新增 1.2 版本 艾连、朱鸢、简、安比、派派、青衣、格莉丝 hash 值支持对应的修复
