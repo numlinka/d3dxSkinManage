@@ -11,9 +11,9 @@
 
 ## 快速下载
 
-:::info v1.0.2
-更新日期:  2024-09-26<br/>
-下载链接: [gitee](https://gitee.com/ticca/d3dx-skin-manage/releases/download/plugins/zzz_update_mods_v1.0.2.zip) <br/>
+:::info v1.0.3
+更新日期:  2024-09-28<br/>
+下载链接: [gitee](https://gitee.com/ticca/d3dx-skin-manage/releases/download/plugins/zzz_update_mods_v1.0.3.zip) <br/>
 教程视频: 参考 [原神角色 mod 修复插件基础功能教程](https://www.bilibili.com/video/BV1vi421R7d2) 
 :::
 
@@ -47,6 +47,11 @@
 视频教程由 [@黎愔](/contribution) 录制和提供。
 
 ## 更新日志
+
+### v1.0.3
+#### 修复
+- 修复特定情况下，选中作用环境会报错的问题
+
 ### v1.0.2
 #### 优化
 - 优化 1.2 版本 派派、格莉丝 对应的修复
