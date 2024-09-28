@@ -24,9 +24,9 @@
 
 ## 快速下载
 
-:::info v1.0.4
-更新日期: 2024-09-15 <br/>
-下载链接: [gitee](https://gitee.com/ticca/d3dx-skin-manage/releases/download/plugins/gi_update_mods_v1.0.4.zip) <br/>
+:::info v1.0.5
+更新日期: 2024-09-28 <br/>
+下载链接: [gitee](https://gitee.com/ticca/d3dx-skin-manage/releases/download/plugins/gi_update_mods_v1.0.5.zip) <br/>
 :::
 
 ## 使用教程
@@ -58,6 +58,10 @@
 视频教程由 [@黎愔](/contribution) 录制和提供。
 
 ## 更新日志
+
+### v1.0.5
+#### 修复
+- 修复特定情况下，选中作用环境会报错的问题
 
 ### v1.0.4
 #### 优化
