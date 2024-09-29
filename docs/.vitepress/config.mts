@@ -151,6 +151,7 @@ export default defineConfig({
             { text: 'delete_index_no_file', link: '/resources/plugins/delete_index_no_file' },
             { text: 'get_GI_images', link: '/resources/plugins/get_GI_images' },
             { text: 'get_SR_images', link: '/resources/plugins/get_SR_images' },
+            { text: 'get_WW_images', link: '/resources/plugins/get_WW_images' },
           ]
         }
       ],
