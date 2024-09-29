@@ -1,6 +1,8 @@
 # delete_mod_cache
 删除 mod 缓存文件插件
 
+开发者： [@黎愔](/contribution)
+
 ## 功能简介
 该插件可以辅助快速删除指定的 mod 缓存文件
 

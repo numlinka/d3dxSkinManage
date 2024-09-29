@@ -1,6 +1,8 @@
 # delete_and_remove_mod
 删除及完全移除 mod 插件
 
+开发者： [@黎愔](/contribution)
+
 ## 功能简介
 该插件用于优化删除及完全移除 mod 的功能
 

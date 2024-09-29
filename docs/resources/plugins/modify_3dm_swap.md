@@ -1,6 +1,8 @@
 # modify_key_swap
 编辑 3DMigoto 快捷键插件
 
+开发者： [@黎愔](/contribution)
+
 ## 功能简介
 
 该插件可以快速修改 3DMigoto 的常用快捷键

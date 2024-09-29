@@ -1,6 +1,8 @@
 # batch_processing_tools
 批量处理工具插件
 
+开发者： [@黎愔](/contribution)
+
 ## 功能简介
 
 该插件可以辅助你进行批量操作<br>

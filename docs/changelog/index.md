@@ -9,7 +9,7 @@ hero:
 features:
   - icon: 📄
     title: 简略更新日志
-    link: /changelog/simple
+    link: /changelog/simple/106xx
   - icon: 🗒️
     title: 详细更新内容
     link: /changelog/detail/10601
