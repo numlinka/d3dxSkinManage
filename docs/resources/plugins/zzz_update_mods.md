@@ -1,6 +1,8 @@
 # zzz_update_mods
 绝区零角色 mod 修复插件
 
+开发者： [@黎愔](/contribution)
+
 ## 功能简介
 
 该插件用于修复绝区零 1.1、1.2 版本更新之后角色模型出现的炸模问题
@@ -38,7 +40,7 @@
 若进行修复时，游戏未关闭仍在运行 mod，修复完成后需要按 F10 重新加载 mod，才会显示修复成功的状态。
 :::
 
-若想要快速修复所有已启用的 mod，可以配合 **batch_processing_tools** 插件的 **预设** 功能来完成此需求，具体操作请参考 [原神角色 mod 修复插件基础功能教程](https://www.bilibili.com/video/BV1vi421R7d2) 的 **教程-修复已启用 mod 方法** 章节的讲解内容。
+若想要快速修复所有已启用的 mod，可以配合 [batch_processing_tools](/resources/plugins/batch_processing_tools) 插件的 **预设** 功能来完成此需求，具体操作请参考 [原神角色 mod 修复插件基础功能教程](https://www.bilibili.com/video/BV1vi421R7d2) 的 **教程-修复已启用 mod 方法** 章节的讲解内容。
 
 ## 视频教程链接
 
