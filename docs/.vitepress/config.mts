@@ -29,16 +29,30 @@ export default defineConfig({
       "/": [],
       "/changelog/": [
         {
-          text: '更新日志',
+          text: '计划更新日志',
           items: [
-            { text: '简略更新日志', link: '/changelog/simple' },
             { text: '计划更新内容', link: '/changelog/planned' }
+          ]
+        },
+        {
+          text: '简略更新日志',
+          items: [
+            { text: 'v1.6.x', link: '/changelog/simple/106xx' },
+            { text: 'v1.5.x', link: '/changelog/simple/105xx' },
+            { text: 'v1.4.x', link: '/changelog/simple/104xx' },
+            { text: 'v1.3.x', link: '/changelog/simple/103xx' },
+            { text: 'v1.2.x', link: '/changelog/simple/102xx' },
+            { text: 'v1.1.x', link: '/changelog/simple/101xx' }
           ]
         },
         {
           text: '详细更新日志',
           items: [
-            { text: 'v1.6.1', link: '/changelog/detail/10601' }
+            { text: 'v1.6.1', link: '/changelog/detail/10601' },
+            { text: 'v1.6.0', link: '/changelog/detail/10600' },
+            { text: 'v1.5.38', link: '/changelog/detail/10538' },
+            { text: 'v1.5.37', link: '/changelog/detail/10537' },
+            { text: 'v1.5.36', link: '/changelog/detail/10536' }
           ]
         }
       ],
@@ -93,10 +107,11 @@ export default defineConfig({
           text: '帮助',
           items: [
             { text: '常见问题', link: '/help/faqs' },
+            { text: 'v1.6.x 兼容问题', link: '/help/compatibility-16' },
             { text: '更新时遇到问题', link: '/help/update-problem' },
             { text: '禁用更新检查', link: '/help/disable-update-check' },
             { text: '关于管理员权限', link: '/help/about-admin-rights' },
-            // { text: 'V1.6.X 兼容问题', link: '/help/' } // 比如缩略图显示问题如何解决
+            
           ]
         },
         { text: '项目社区', link: '/help/community' },
@@ -136,6 +151,7 @@ export default defineConfig({
             { text: 'delete_index_no_file', link: '/resources/plugins/delete_index_no_file' },
             { text: 'get_GI_images', link: '/resources/plugins/get_GI_images' },
             { text: 'get_SR_images', link: '/resources/plugins/get_SR_images' },
+            { text: 'get_WW_images', link: '/resources/plugins/get_WW_images' },
           ]
         }
       ],

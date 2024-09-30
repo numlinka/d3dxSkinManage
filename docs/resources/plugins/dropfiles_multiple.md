@@ -1,6 +1,8 @@
 # dropfiles_multiple
 多文件拖拽批量导入插件
 
+开发者： [@黎愔](/contribution)
+
 ## 功能简介
 
 该插件可以通过拖拽多个文件到管理器进行批量导入
@@ -39,7 +41,7 @@
 最后，根据需求点击 **预览图** 或 **全屏预览图** 按钮后，即可添加至所选中的 mod。
 
 :::tip 提示
-多预览图功能需要添加 **multiple_preview** 插件才能生效，否则和正常无插件时的显示效果一致
+多预览图功能需要添加 [multiple_preview](/resources/plugins/multiple_preview) 插件才能生效，否则和正常无插件时的显示效果一致
 :::
 
 ## 视频教程链接

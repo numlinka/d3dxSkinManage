@@ -9,39 +9,39 @@
 由于插件界面的搬迁过程新增了更详细的内容，部分插件暂未完成搬迁，若未找到你想要下载的插件，可以前往 [旧版插件文档](https://d3dxskinmanage.old.numlinka.com/#/warehouse/plugins) 进行查找。
 :::
 
-## gi_update_mods <Badge type="tip" text="v1.0.4" />
+## gi_update_mods <Badge type="tip" text="v1.0.6" />
 
 原神角色 mod 修复插件 (原名 gi40to45)<br/>
 用于解决原神 4.1 、4.3、4.4、4.5、4.6 更新之后角色模型出现的问题
 
 [详情信息](/resources/plugins/gi_update_mods) | 
-[下载链接](https://gitee.com/ticca/d3dx-skin-manage/releases/download/plugins/gi_update_mods_v1.0.3.zip)
+[下载链接](https://gitee.com/ticca/d3dx-skin-manage/releases/download/plugins/gi_update_mods_v1.0.6.zip)
 
-## sr_update_mods <Badge type="tip" text="v1.2.4" />
+## sr_update_mods <Badge type="tip" text="v1.2.6" />
 
 星穹铁道角色 mod 修复插件 (原名 sr16to20)<br/>
 用于解决星穹铁道 2.0、2.1、2.2、2.3、2.4 更新之后角色模型出现的问题
 
 [详情信息](/resources/plugins/sr_update_mods) |
-[下载链接](https://gitee.com/ticca/d3dx-skin-manage/releases/download/plugins/sr_update_mods_v1.2.3.zip)
+[下载链接](https://gitee.com/ticca/d3dx-skin-manage/releases/download/plugins/sr_update_mods_v1.2.6.zip)
 
 
-## zzz_update_mods <Badge type="tip" text="v1.0" />
+## zzz_update_mods <Badge type="tip" text="v1.0.4" />
 
 绝区零角色 mod 修复插件 <br/>
-用于解决绝区零 1.1 更新之后模型出现的问题
+用于解决绝区零 1.1、1.2 更新之后模型出现的问题
 
 [详情信息](/resources/plugins/zzz_update_mods) |
-[下载链接](https://gitee.com/ticca/d3dx-skin-manage/releases/download/plugins/zzz_update_mods_v1.0.1.zip)
+[下载链接](https://gitee.com/ticca/d3dx-skin-manage/releases/download/plugins/zzz_update_mods_v1.0.4.zip)
 
 
-## ww_update_mods <Badge type="tip" text="v1.0" />
+## ww_update_mods <Badge type="tip" text="v1.0.2" />
 
 鸣潮角色 mod 修复插件 <br/>
-用于解决绝区零 1.2 更新之后模型出现的问题
+用于解决绝区零 1.2、1.3 更新之后模型出现的问题
 
 [详情信息](/resources/plugins/ww_update_mods) |
-[下载链接](https://gitee.com/ticca/d3dx-skin-manage/releases/download/plugins/ww_update_mods.zip)
+[下载链接](https://gitee.com/ticca/d3dx-skin-manage/releases/download/plugins/ww_update_mods_v1.0.2.zip)
 
 
 ## enforcelogout <Badge type="tip" text="v1.0" />
@@ -157,7 +157,7 @@
 [详情信息](/resources/plugins/delete_index_no_file) |
 [下载链接](https://gitee.com/ticca/d3dx-skin-manage/releases/download/plugins/delete_index_no_file_v1.0.2.zip)
 
-## get_GI_images <Badge type="tip" text="v1.1.3" /> <Badge type="tip" text="v1.1.4" /> <Badge type="tip" text="v1.1.5" />
+## get_GI_images <Badge type="tip" text="v1.1.5" /> <Badge type="tip" text="v1.1.4" /> <Badge type="tip" text="v1.1.3" />
 
 更新原神缩略图资源插件 <br/>
 可以手动或自动更新原神缩略图资源
@@ -167,7 +167,7 @@
 [下载 v1.1.4](https://gitee.com/ticca/d3dx-skin-manage/releases/download/plugins/get_GI_images_v1.1.4.zip) |
 [下载 v1.1.3](https://gitee.com/ticca/d3dx-skin-manage/releases/download/plugins/get_GI_images_v1.1.3.zip)
 
-## get_SR_images <Badge type="tip" text="v1.1.3" /> <Badge type="tip" text="v1.1.4" /> <Badge type="tip" text="v1.1.5" />
+## get_SR_images <Badge type="tip" text="v1.1.5" /> <Badge type="tip" text="v1.1.4" /> <Badge type="tip" text="v1.1.3" />
 
 更新星穹铁道缩略图资源 <br/>
 可以手动或自动更新星穹铁道缩略图资源
@@ -176,3 +176,13 @@
 [下载 v1.1.5](https://gitee.com/ticca/d3dx-skin-manage/releases/download/plugins/get_SR_images_v1.1.5.zip) |
 [下载 v1.1.4](https://gitee.com/ticca/d3dx-skin-manage/releases/download/plugins/get_SR_images_v1.1.4.zip) |
 [下载 v1.1.3](https://gitee.com/ticca/d3dx-skin-manage/releases/download/plugins/get_SR_images_v1.1.3.zip) 
+
+## get_WW_images <Badge type="tip" text="v1.0.2" /> <Badge type="tip" text="v1.0.1" /> <Badge type="tip" text="v1.0" />
+
+更新鸣潮缩略图资源 <br/>
+可以手动或自动更新鸣潮缩略图资源
+
+[详情信息](/resources/plugins/get_WW_images) |
+[下载 v1.0.2](https://gitee.com/ticca/d3dx-skin-manage/releases/download/plugins/get_WW_images_v1.0.1.zip) |
+[下载 v1.0.1](https://gitee.com/ticca/d3dx-skin-manage/releases/download/plugins/get_WW_images_v1.0.1.zip) |
+[下载 v1.0](https://gitee.com/ticca/d3dx-skin-manage/releases/download/plugins/get_WW_images.zip) 

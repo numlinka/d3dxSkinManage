@@ -1,6 +1,8 @@
 # enforcelogout
 强制登出用户环境插件
 
+开发者： [@numlinka](/contribution)
+
 ## 功能简介
 
 该插件用于插件用于退出当前用户环境

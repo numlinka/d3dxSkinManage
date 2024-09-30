@@ -58,9 +58,8 @@
 
 ## WWMI (鸣潮 3dmigoto)
 
-::: warning 注意事项
-鸣潮的 3dmigoto 在进行注入前需要额外的操作步骤，否则无法成功注入 mod <br/>
-具体操作步骤请参考其开发者 [github 文档](https://github.com/SpectrumQT/WWMI) 或 [GameBanana 文档](https://gamebanana.com/tools/17252) 中 **WWMI Installation** 部分相关内容
+::: tip 提示
+鸣潮的 3dmigoto 已更新至 **v0.7.6** 版本，官方未提供完整的资源文件，具体更新操作请参考其开发者发布的 [github 文档](https://github.com/SpectrumQT/WWMI) 或 [GameBanana 文档](https://gamebanana.com/tools/17252)，更新完成后请参考 [手动添加加载器](/help/tutorial-loader.html#手动添加加载器) 将 **WWMI** 加入 **d3dxSkinManage** 管理器中。
 :::
 
 ::: info v0.7.1
@@ -69,6 +68,12 @@
 [管理器适配版](https://gitee.com/ticca/d3dx-skin-manage/releases/download/plugins/_v0.7.1_WWMI_3dmigoto.7z) | 
 [github](https://github.com/SpectrumQT/WWMI/releases/download/v0.7.1/WWMI-v0.7.1.zip) | 
 [GameBanana](https://gamebanana.com/dl/1242668)
+
+::: warning 注意事项
+鸣潮的 3dmigoto 在进行注入前需要额外的操作步骤，否则无法成功注入 mod <br/>
+具体操作步骤请参考其开发者 [github 文档](https://github.com/SpectrumQT/WWMI) 或 [GameBanana 文档](https://gamebanana.com/tools/17252) 中 **WWMI Installation** 部分相关内容
+
+<b style="color: orange">以上操作仅限 v0.7.1 需要进行，最新版本不需此操作，更多详细内容请自行查看官方文档</b>
 :::
 
 ## ZZMI (绝区零 3dmigoto)
