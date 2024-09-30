@@ -26,9 +26,9 @@
 
 ## 快速下载
 
-:::info v1.0.5
-更新日期: 2024-09-28 <br/>
-下载链接: [gitee](https://gitee.com/ticca/d3dx-skin-manage/releases/download/plugins/gi_update_mods_v1.0.5.zip) <br/>
+:::info v1.0.6
+更新日期: 2024-09-30 <br/>
+下载链接: [gitee](https://gitee.com/ticca/d3dx-skin-manage/releases/download/plugins/gi_update_mods_v1.0.6.zip) <br/>
 :::
 
 ## 使用教程
@@ -37,21 +37,26 @@
 首先，也是最基础的一步——**加载插件**，请参考 [插件使用教程](/help/tutorial-plugins)
 
 ### 设置作用环境
-然后，在管理器的 **环境设置** 页面下 **全局设置** 中，点击 **原神修复作用环境** 选项右边的加号进行作用环境的设置，选择该插件要作用的用户环境，即选择你的原神的用户环境。选择无误后，点击 确定 按钮即可完成设置。
-![操作流程图](/static/image/b90710d0.png)
+然后，在管理器的 **环境设置** 页面下 **全局设置** 中，点击 **原神修复作用环境** 选项右边的 `+` 进行作用环境的设置，选择该插件要作用的用户环境，即选择你的原神的用户环境。选择无误后，点击 **确定** 按钮即可完成设置。
+
+![操作流程图](/static/image/c40f2aa9.png)
 
 ### 触发修复
-选择完成修复程序所作用的用户环境后，所选的用户环境在 **[启用](/help/tutorial-modules#启用和切换模组)** 或 **重新启用** mod 时，会自动进行修复，修复完成后 mod 即可正常使用。
+选择完成修复程序所作用的用户环境后，点击 **原神修复作用环境** 选项右边的 `🔨`，即可触发一键修复操作。该操作会对所选的用户环境下所有的 `mod 缓存文件` 进行修复。修复完成后，这些 mods 即可正常使用。
+
+![](/static/image/539bd555.png)
+
+此外，所选的用户环境在 **[启用](/help/tutorial-modules#启用和切换模组)** 或 **重新启用** mod 时，会自动进行修复，修复完成后 mod 即可正常使用。
 
 :::tip 提示
 **重新启用** 指先[卸载](/help/tutorial-modules#卸载模组)已启用的 mod 后，再重新[启用](/help/tutorial-modules#启用和切换模组)此 mod。
 :::
 
-:::warning 提示
-若进行修复时，游戏未关闭仍在运行 mod，修复完成后需要按 F10 重新加载 mod，才会显示修复成功的状态。
+:::warning 注意事项
+若进行修复时，游戏未关闭仍在运行 mod，修复完成后需要按 `F10` 重新加载 mod，才会显示修复成功的状态。
 :::
 
-若想要快速修复所有已启用的 mod，可以配合 [batch_processing_tools](/resources/plugins/batch_processing_tools) 插件的 **预设** 功能来完成此需求，具体操作请参考 [基础功能教程](https://www.bilibili.com/video/BV1vi421R7d2) 的 **教程-修复已启用 mod 方法** 章节的讲解内容。
+<!-- 若想要快速修复所有已启用的 mod，可以配合 [batch_processing_tools](/resources/plugins/batch_processing_tools) 插件的 **预设** 功能来完成此需求，具体操作请参考 [基础功能教程](https://www.bilibili.com/video/BV1vi421R7d2) 的 **教程-修复已启用 mod 方法** 章节的讲解内容。 -->
 
 ## 视频教程链接
 
@@ -60,6 +65,10 @@
 视频教程由 [@黎愔](/contribution) 录制和提供。
 
 ## 更新日志
+
+### v1.0.6
+#### 新增
+- 在 `原神修复作用环境` 旁新增一键修复按钮——`🔨`
 
 ### v1.0.5
 #### 修复
