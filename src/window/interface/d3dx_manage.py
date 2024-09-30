@@ -425,7 +425,8 @@ class D3dxManage(object):
         
         core.window.style.theme_use(value)
         core.env.configuration.style_theme = value
-        core.window.style.configure("Treeview", rowheight=48)
+        content_height = int(32 * core.env.configuration.win_scaling)
+        core.window.style.configure("Treeview", rowheight=16 + content_height)
 
 
     def bin_set_log_level(self, *_):
