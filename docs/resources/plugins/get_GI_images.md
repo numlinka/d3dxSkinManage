@@ -1,6 +1,8 @@
 # get_GI_images
 更新原神缩略图资源插件
 
+开发者： [@黎愔](/contribution)
+
 ## 功能简介
 
 该插件可以手动或自动更新原神缩略图资源
@@ -121,7 +123,7 @@ _<div style="text-align:center"><weaken>注：以上图片为 v1.1.5 版本参�
 
 ### 默认配置文件模板
 ::: warning 注意
-默认模板仅供参考，请根据实际情况修改。
+默认模板仅供参考，请根据实际情况按照 [缩略图配置文件](/docs/config-redirection.html) 相关说明进行修改。
 :::
 
 ::: code-group

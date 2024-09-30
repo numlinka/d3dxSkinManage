@@ -1,6 +1,8 @@
 # delete_index_no_file
 删除无效索引文件插件
 
+开发者： [@黎愔](/contribution)
+
 ## 功能简介
 该插件用于删除无源文件的索引数据
 
