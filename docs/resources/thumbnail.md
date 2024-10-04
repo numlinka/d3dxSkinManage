@@ -10,5 +10,5 @@
 | :---:     | :---:     | :---:  |
 | 原神      | 更新原神缩略图资源  | [get_GI_images](/resources/plugins/get_GI_images) |
 | 星穹铁道  | 更新星穹铁道缩略图资源  | [get_SR_images](/resources/plugins/get_SR_images) |
-| 绝区零  | 更新绝区零缩略图资源  | 正在开发中… |
-| 鸣潮  | 更新鸣潮缩略图资源  | 正在开发中… |
+| 绝区零  | 更新绝区零缩略图资源  | [get_ZZZ_images](/resources/plugins/get_ZZZ_images) |
+| 鸣潮  | 更新鸣潮缩略图资源  | [get_WW_images](/resources/plugins/get_WW_images) |
