@@ -110,6 +110,24 @@ _<weaken>在下方选择一个你喜欢的答案</weaken>_
 - 再次强调不要复制自己的 **Mods** 文件夹
 :::
 
+## 为什么崩坏：星穹铁道启用 3DMigoto 后不生效，但其他游戏都能正常生效？
+
+玄学问题，你可以尝试以下方法解决：
+
+> [!TIP] <b style="color: #A8B1F4">正常解决方法</b>
+> 使用星穹铁道的 3dmigoto 时，在第一次 [添加加载器包](/help/tutorial-loader.html#添加加载器包) 后，需要点击 **3DMiGoto 版本** 右侧的 **打开工作目录** 按钮<weaken>（有些人可能会因为高 DPI 缩放而看不到按钮，请自行调整窗口大小或 DPI 缩放比例）</weaken>，给 `3DMigotoLoader.exe` 管理员权限后<weaken>（参考下图）</weaken>，再按正常的步骤打开 3dmigoto 和游戏程序。
+> 
+> ![](/static/image/e0ba5fb4.png)
+
+> [!wARNING] <b style="color: orange">备用方法</b>
+> 若上述方法依旧无法正常注入 3dmigoto，可以尝试使用 **GIIMI** <weaken>(原神的 3dmigoto)</weaken> 进行注入。
+
+> [!DANGER] <b style="color: #EE0000">玄学备用方法</b>
+> <b style="color: #E74C3C">此方案请在以上的方法都无法解决时使用</b><br/>
+> 以管理员权限的方式打开 **d3dxSkinManager** 管理器后，按 **正常解决方法** 的流程进行注入。<i><weaken>由于给管理器管理员权限会导致拖拽功能失效，影响正常的模组添加流程，故此方案时备选中的备选，不到万不得已不要使用。</weaken></i>
+
+_<weaken>若以上方法依旧无法解决你的问题，那么说明你的电脑战胜了所有的玄学方案，并拷上了一把牢固的枷锁！请不要再挣扎，不要再在这台电脑上研究怎么使用模组啦！！换一台电脑吧！！！</weaken>_
+
 ## 列表的排序依据是什么？
 
 `UTF-8` 编码字符排序，它遵循 `0-9` `a-z` 的排序原则，<br/>
