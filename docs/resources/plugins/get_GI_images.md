@@ -258,13 +258,13 @@ NPC = ..\..\..\resources\thumbnail\<CUSTOM_DIRNAME>\成就\至冬国不相信眼
 
 :::
 ### 补充内容
-:::tip 提示1
+:::warning 注意事项
 **v1.1.3** 版本不自动生成 `_redirection.ini` 配置文件，需自行配置。
 
 **v1.1.4** 及 **v1.1.5** 版本在获取完缩略图资源后，如对应用户环境无 `_redirection.ini` 配置文件，会自动创建。你可以通过更改此插件文件夹下的 `_redirection.txt` 的文本内容来修改自动生成的配置文件内容。其中 **v1.1.5** 版本需要使用相对路径 `..\..\..\resources\thumbnail` 来定位到公共缩略图资源文件夹，**v1.1.5** 版本 `_redirection.txt` 文本中的 `<CUSTOM_DIRNAME>` 为替换参数，会自动替换为你所设置的 [保存目录名](#保存目录名)。
 :::
 
-:::tip 提示2
+:::tip 提示
 插件文件夹下的 `get_GI_images.exe` 的文件源码为 `get_GI_images.py`
 :::
 
