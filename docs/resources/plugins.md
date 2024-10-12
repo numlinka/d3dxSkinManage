@@ -177,7 +177,7 @@
 [下载 v1.1.4](https://gitee.com/ticca/d3dx-skin-manage/releases/download/plugins/get_SR_images_v1.1.4.zip) |
 [下载 v1.1.3](https://gitee.com/ticca/d3dx-skin-manage/releases/download/plugins/get_SR_images_v1.1.3.zip) 
 
-<!-- ## get_ZZZ_images <Badge type="tip" text="v1.0.2" /> <Badge type="tip" text="v1.0.1" /> <Badge type="tip" text="v1.0" />
+## get_ZZZ_images <Badge type="tip" text="v1.0.2" /> <Badge type="tip" text="v1.0.1" /> <Badge type="tip" text="v1.0" />
 
 更新绝区零缩略图资源 <br/>
 可以手动或自动更新绝区零缩略图资源
@@ -185,7 +185,7 @@
 [详情信息](/resources/plugins/get_ZZZ_images) |
 [下载 v1.0.2](https://gitee.com/ticca/d3dx-skin-manage/releases/download/plugins/get_ZZZ_images_v1.0.2.zip) |
 [下载 v1.0.1](https://gitee.com/ticca/d3dx-skin-manage/releases/download/plugins/get_ZZZ_images_v1.0.1.zip) |
-[下载 v1.0](https://gitee.com/ticca/d3dx-skin-manage/releases/download/plugins/get_ZZZ_images.zip)  -->
+[下载 v1.0](https://gitee.com/ticca/d3dx-skin-manage/releases/download/plugins/get_ZZZ_images.zip) 
 
 
 ## get_WW_images <Badge type="tip" text="v1.0.2" /> <Badge type="tip" text="v1.0.1" /> <Badge type="tip" text="v1.0" />
