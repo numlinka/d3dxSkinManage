@@ -4,11 +4,11 @@
 
 反和谐主要有以下两种方案
 
-## 1. 反和谐 Mod
+## 1. 反和谐模组
 
-由 [SilentNightSound](https://gamebanana.com/members/2176153) 制作的反和谐 Mod [ [原神下载链接](https://gamebanana.com/mods/406659) ]
+由 [SilentNightSound](https://gamebanana.com/members/2176153) 制作的反和谐模组 [ [原神下载链接](https://gamebanana.com/mods/406659) ]
 
-反和谐 Mod 一般有两组文件 `Mods` 和 `ShaderFixes` 需要分别放入 3DMiGoto 对应的位置。
+反和谐模组一般有两组文件 `Mods` 和 `ShaderFixes` 需要分别放入 3DMiGoto 对应的位置。
 
 在 d3dxSkinManage 的 **环境设置** 页面点击 **打开工作目录**，将反和谐 `Mod/ShaderFixes` 文件夹下所有的文件复制到 3DMiGoto 的 `ShaderFixes` 文件夹。
 

@@ -169,7 +169,7 @@
 
 ## get_SR_images <Badge type="tip" text="v1.1.5" /> <Badge type="tip" text="v1.1.4" /> <Badge type="tip" text="v1.1.3" />
 
-更新星穹铁道缩略图资源 <br/>
+更新星穹铁道缩略图资源插件 <br/>
 可以手动或自动更新星穹铁道缩略图资源
 
 [详情信息](/resources/plugins/get_SR_images) |
@@ -179,7 +179,7 @@
 
 ## get_ZZZ_images <Badge type="tip" text="v1.0.2" /> <Badge type="tip" text="v1.0.1" /> <Badge type="tip" text="v1.0" />
 
-更新绝区零缩略图资源 <br/>
+更新绝区零缩略图资源插件 <br/>
 可以手动或自动更新绝区零缩略图资源
 
 [详情信息](/resources/plugins/get_ZZZ_images) |
@@ -190,7 +190,7 @@
 
 ## get_WW_images <Badge type="tip" text="v1.0.2" /> <Badge type="tip" text="v1.0.1" /> <Badge type="tip" text="v1.0" />
 
-更新鸣潮缩略图资源 <br/>
+更新鸣潮缩略图资源插件 <br/>
 可以手动或自动更新鸣潮缩略图资源
 
 [详情信息](/resources/plugins/get_WW_images) |

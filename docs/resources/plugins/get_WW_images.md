@@ -1,5 +1,5 @@
 # get_WW_images
-更新鸣潮缩略图资源
+更新鸣潮缩略图资源插件
 
 开发者： [@黎愔](/contribution)
 

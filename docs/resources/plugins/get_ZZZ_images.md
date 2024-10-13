@@ -1,5 +1,5 @@
 # get_ZZZ_images
-更新绝区零缩略图资源
+更新绝区零缩略图资源插件
 
 开发者： [@黎愔](/contribution)
 
