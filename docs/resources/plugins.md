@@ -125,6 +125,15 @@
 [详情信息](/resources/plugins/auto_login) |
 [下载链接](https://gitee.com/ticca/d3dx-skin-manage/releases/download/plugins/auto_login_v1.0.6.zip)
 
+## auto_reload_mods <Badge type="tip" text="v1.0" />
+
+自动重载模组插件 <br/>
+该插件可以辅助你自动完成重新加载 3dmigto 模组的操作 <br/>
+通俗说就是在管理器中更新启用的模组后自动按下 F10 操作 <br/>
+
+[详情信息](/resources/plugins/auto_reload_mods) |
+[下载链接](https://gitee.com/ticca/d3dx-skin-manage/releases/download/plugins/auto_reload_mods.zip)
+
 ## handle_user_env <Badge type="tip" text="v1.1.1" />
 
 用户环境创建/编辑插件插件 <br/>

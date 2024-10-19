@@ -145,6 +145,7 @@ export default defineConfig({
             { text: 'modify_3dm_swap', link: '/resources/plugins/modify_3dm_swap' },
             { text: 'modify_object_name', link: '/resources/plugins/modify_object_name' },
             { text: 'auto_login', link: '/resources/plugins/auto_login' },
+            { text: 'auto_reload_mods', link: '/resources/plugins/auto_reload_mods' },
             { text: 'handle_user_env', link: '/resources/plugins/handle_user_env' },
             { text: 'delete_and_remove_mod', link: '/resources/plugins/delete_and_remove_mod' },
             { text: 'delete_mod_cache', link: '/resources/plugins/delete_mod_cache' },
