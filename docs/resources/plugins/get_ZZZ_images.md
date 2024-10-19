@@ -207,6 +207,7 @@ _<div style="text-align:center"><weaken>注：以上图片为 v1.0.2 版本参�
 :::
 
 ### 补充内容
+
 :::warning 注意事项1
 **v1.0** 版本不自动生成 `_redirection.ini` 配置文件，需自行配置。
 
