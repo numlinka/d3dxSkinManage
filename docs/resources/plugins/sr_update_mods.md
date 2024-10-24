@@ -5,7 +5,7 @@
 
 ## 功能简介
 
-该插件用于修复星穹铁道 2.0、2.1、2.2、2.3、2.4 版本更新之后角色模型出现的炸模问题
+该插件用于修复星穹铁道 2.0、2.1、2.2、2.3、2.4、2.5、2.6 版本更新之后角色模型出现的炸模问题
 
 :::warning 注意事项1
 加载该插件前，若加载过 **sr16to20** 插件，需要先删除这个插件，避免插件间相互冲突
@@ -17,9 +17,9 @@
 
 ## 快速下载
 
-:::info v1.2.6
+:::info v1.2.7
 更新日期:  2024-09-30<br/>
-下载链接: [gitee](https://gitee.com/ticca/d3dx-skin-manage/releases/download/plugins/sr_update_mods_v1.2.6.zip) <br/>
+下载链接: [gitee](https://gitee.com/ticca/d3dx-skin-manage/releases/download/plugins/sr_update_mods_v1.2.7.zip) <br/>
 :::
 
 ## 使用教程
@@ -54,6 +54,10 @@
 视频教程由 [@黎愔](/contribution) 录制和提供。
 
 ## 更新日志
+
+### v1.2.7
+#### 新增
+- 新增 2.6 版本知更鸟 hash 值支持对应的修复
 
 ### v1.2.6
 #### 新增

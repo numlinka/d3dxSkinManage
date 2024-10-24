@@ -17,13 +17,13 @@
 [详情信息](/resources/plugins/gi_update_mods) | 
 [下载链接](https://gitee.com/ticca/d3dx-skin-manage/releases/download/plugins/gi_update_mods_v1.0.6.zip)
 
-## sr_update_mods <Badge type="tip" text="v1.2.6" />
+## sr_update_mods <Badge type="tip" text="v1.2.7" />
 
 星穹铁道角色 mod 修复插件 (原名 sr16to20)<br/>
-用于解决星穹铁道 2.0、2.1、2.2、2.3、2.4 更新之后角色模型出现的问题
+用于解决星穹铁道 2.0、2.1、2.2、2.3、2.4、2.5、2.6 更新之后角色模型出现的问题
 
 [详情信息](/resources/plugins/sr_update_mods) |
-[下载链接](https://gitee.com/ticca/d3dx-skin-manage/releases/download/plugins/sr_update_mods_v1.2.6.zip)
+[下载链接](https://gitee.com/ticca/d3dx-skin-manage/releases/download/plugins/sr_update_mods_v1.2.7.zip)
 
 
 ## zzz_update_mods <Badge type="tip" text="v1.0.4" />
