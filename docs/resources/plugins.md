@@ -176,6 +176,13 @@
 [下载 v1.1.4](https://gitee.com/ticca/d3dx-skin-manage/releases/download/plugins/get_GI_images_v1.1.4.zip) |
 [下载 v1.1.3](https://gitee.com/ticca/d3dx-skin-manage/releases/download/plugins/get_GI_images_v1.1.3.zip)
 
+:::warning 适配问题
+由于管理器的更新，导致该插件出现了不兼容问题 <br />
+若你使用的管理器版本为 **v1.5.x** 版本，请使用该插件的 **v1.1.3** 版本 <br />
+若你使用的管理器版本为 **v1.6.x** 版本，请使用该插件的 **v1.1.4** 或 **v1.1.5** 版本 <br />
+更多关于版本的相关信息，请查看 [详情信息](/resources/plugins/get_GI_images)
+:::
+
 ## get_SR_images <Badge type="tip" text="v1.1.5" /> <Badge type="tip" text="v1.1.4" /> <Badge type="tip" text="v1.1.3" />
 
 更新星穹铁道缩略图资源插件 <br/>
@@ -185,6 +192,13 @@
 [下载 v1.1.5](https://gitee.com/ticca/d3dx-skin-manage/releases/download/plugins/get_SR_images_v1.1.5.zip) |
 [下载 v1.1.4](https://gitee.com/ticca/d3dx-skin-manage/releases/download/plugins/get_SR_images_v1.1.4.zip) |
 [下载 v1.1.3](https://gitee.com/ticca/d3dx-skin-manage/releases/download/plugins/get_SR_images_v1.1.3.zip) 
+
+:::warning 适配问题
+由于管理器的更新，导致该插件出现了不兼容问题 <br />
+若你使用的管理器版本为 **v1.5.x** 版本，请使用该插件的 **v1.1.3** 版本 <br />
+若你使用的管理器版本为 **v1.6.x** 版本，请使用该插件的 **v1.1.4** 或 **v1.1.5** 版本 <br />
+更多关于版本的相关信息，请查看 [详情信息](/resources/plugins/get_SR_images)
+:::
 
 ## get_ZZZ_images <Badge type="tip" text="v1.0.2" /> <Badge type="tip" text="v1.0.1" /> <Badge type="tip" text="v1.0" />
 
@@ -196,6 +210,12 @@
 [下载 v1.0.1](https://gitee.com/ticca/d3dx-skin-manage/releases/download/plugins/get_ZZZ_images_v1.0.1.zip) |
 [下载 v1.0](https://gitee.com/ticca/d3dx-skin-manage/releases/download/plugins/get_ZZZ_images.zip) 
 
+:::warning 适配问题
+由于管理器的更新，导致该插件出现了不兼容问题 <br />
+若你使用的管理器版本为 **v1.5.x** 版本，请使用该插件的 **v1.0** 版本 <br />
+若你使用的管理器版本为 **v1.6.x** 版本，请使用该插件的 **v1.0.1** 或 **v1.0.2** 版本 <br />
+更多关于版本的相关信息，请查看 [详情信息](/resources/plugins/get_ZZZ_images)
+:::
 
 ## get_WW_images <Badge type="tip" text="v1.0.2" /> <Badge type="tip" text="v1.0.1" /> <Badge type="tip" text="v1.0" />
 
@@ -206,3 +226,10 @@
 [下载 v1.0.2](https://gitee.com/ticca/d3dx-skin-manage/releases/download/plugins/get_WW_images_v1.0.2.zip) |
 [下载 v1.0.1](https://gitee.com/ticca/d3dx-skin-manage/releases/download/plugins/get_WW_images_v1.0.1.zip) |
 [下载 v1.0](https://gitee.com/ticca/d3dx-skin-manage/releases/download/plugins/get_WW_images.zip) 
+
+:::warning 适配问题
+由于管理器的更新，导致该插件出现了不兼容问题 <br />
+若你使用的管理器版本为 **v1.5.x** 版本，请使用该插件的 **v1.0** 版本 <br />
+若你使用的管理器版本为 **v1.6.x** 版本，请使用该插件的 **v1.0.1** 或 **v1.0.2** 版本 <br />
+更多关于版本的相关信息，请查看 [详情信息](/resources/plugins/get_WW_images)
+:::

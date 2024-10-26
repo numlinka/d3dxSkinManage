@@ -1,6 +1,6 @@
 # 3dmigoto 加载器下载
 
-不同的游戏需要使用其专用的 3dmigoto 版本才能正常加载 mod。你可以在这里找到部分游戏 3dmigoto 的管理器适配版压缩包，然后参考 [添加加载器包](/help/tutorial-loader.html#添加加载器包) 添加进管理器进行使用；也可以跳转对应游戏专用 3dmigoto 的官方下载链接获取。
+不同的游戏需要使用其专用的 3dmigoto 版本才能正常加载 mod。你可以在这里找到部分游戏 3dmigoto 的管理器适配版压缩包，然后参考 [添加加载器包](/help/tutorial-loader.html#添加加载器包) 添加进管理器进行使用；也可以跳转对应游戏专用 3dmigoto 开发者提供的下载链接获取。
 
 ## GIMI (原神 3dmigoto)
 
@@ -74,7 +74,7 @@ _<weaken>若以上方法依旧无法解决你的问题，那么说明你的电�
 ## WWMI (鸣潮 3dmigoto)
 
 ::: tip 提示
-鸣潮的 3dmigoto 已更新至 **v0.7.6** 版本，官方未提供完整的资源文件，具体更新操作请参考其开发者发布的 [github 文档](https://github.com/SpectrumQT/WWMI) 或 [GameBanana 文档](https://gamebanana.com/tools/17252)，更新完成后请参考 [手动添加加载器](/help/tutorial-loader.html#手动添加加载器) 将 **WWMI** 加入 **d3dxSkinManage** 管理器中。
+鸣潮的 3dmigoto 已更新至 **v0.7.6** 版本，但其开发者未提供完整的资源文件，具体更新操作请参考其开发者发布的 [github 文档](https://github.com/SpectrumQT/WWMI) 或 [GameBanana 文档](https://gamebanana.com/tools/17252)，更新完成后请参考 [手动添加加载器](/help/tutorial-loader.html#手动添加加载器) 将 **WWMI** 加入 **d3dxSkinManage** 管理器中。
 :::
 
 ::: info v0.7.1
@@ -88,7 +88,7 @@ _<weaken>若以上方法依旧无法解决你的问题，那么说明你的电�
 鸣潮的 3dmigoto 在进行注入前需要额外的操作步骤，否则无法成功注入 mod。<br/>
 具体操作步骤请参考其开发者 [github 文档](https://github.com/SpectrumQT/WWMI) 或 [GameBanana 文档](https://gamebanana.com/tools/17252) 中 **WWMI Installation** 部分相关内容。
 
-<b style="color: orange">以上操作仅限 v0.7.1 需要进行，最新版本不需此操作，更多详细内容请自行查看官方文档</b>
+<b style="color: orange">以上操作仅限 v0.7.1 需要进行，最新版本不需此操作，更多详细内容请自行查看开发者文档</b>
 :::
 
 ## ZZMI (绝区零 3dmigoto)
