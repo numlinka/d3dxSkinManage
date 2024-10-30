@@ -86,10 +86,12 @@ export default defineConfig({
                 { text: '补充内容', link: '/help/tutorial-supplement' }
               ]
             },
+
             {
               text: '扩展功能',
               link: '/help/tutorial-extensions',
               items: [
+                { text: 'Mods 仓库', link: '/help/tutorial-mods-warehouse' },
                 { text: '强迫症截图工具', link: '/help/tutorial-ocdcrop' },
                 // { text: '缓存清理工具', link: '/help/' },
                 // { text: '旧版MOd管理器数据迁移工具', link: '/help/' },
@@ -147,6 +149,7 @@ export default defineConfig({
             { text: 'auto_login', link: '/resources/plugins/auto_login' },
             { text: 'auto_reload_mods', link: '/resources/plugins/auto_reload_mods' },
             { text: 'handle_user_env', link: '/resources/plugins/handle_user_env' },
+            { text: 'enable_mods_warehouse', link: '/resources/plugins/enable_mods_warehouse' },
             { text: 'delete_and_remove_mod', link: '/resources/plugins/delete_and_remove_mod' },
             { text: 'delete_mod_cache', link: '/resources/plugins/delete_mod_cache' },
             { text: 'delete_index_no_file', link: '/resources/plugins/delete_index_no_file' },
