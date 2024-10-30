@@ -142,6 +142,14 @@
 [详情信息](/resources/plugins/handle_user_env) |
 [下载链接](https://gitee.com/ticca/d3dx-skin-manage/releases/download/plugins/handle_user_env_v1.1.1.zip)
 
+## enable_mods_warehouse <Badge type="tip" text="v1.0" />
+
+启用 Mods 仓库插件 <br/>
+该插件用于重新启用 Mods 仓库相关功能
+
+[详情信息](/resources/plugins/enable_mods_warehouse) |
+[下载链接](https://gitee.com/ticca/d3dx-skin-manage/releases/download/plugins/enable_mods_warehouse.zip)
+
 ## delete_and_remove_mod <Badge type="tip" text="v1.0.4" />
 
 删除及完全移除 mod 插件 <br/>
