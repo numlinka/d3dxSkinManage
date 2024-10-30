@@ -86,7 +86,6 @@ export default defineConfig({
                 { text: '补充内容', link: '/help/tutorial-supplement' }
               ]
             },
-
             {
               text: '扩展功能',
               link: '/help/tutorial-extensions',
