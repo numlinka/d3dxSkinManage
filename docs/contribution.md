@@ -30,6 +30,7 @@ const members = [
     title: '插件开发 页面编辑',
     desc: '',
     links: [
+      { icon: 'github', link: 'https://github.com/Ticca-Liyin' },
       { icon: 'gitee', link: 'https://gitee.com/ticca' },
       { icon: 'bilibili', link: 'https://space.bilibili.com/1397930555' },
       { icon: 'afdian', link: 'https://afdian.com/a/ticca' }
