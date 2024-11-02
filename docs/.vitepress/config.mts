@@ -97,10 +97,6 @@ export default defineConfig({
                 // { text: '可选标签编辑工具', link: '/help/' },
                 { text: '插件', link: '/help/tutorial-plugins' }
               ]
-            },
-            {
-              text: '反和谐使用教程',
-              link: '/help/oppose-harmony',
             }
           ]
         },
@@ -112,7 +108,7 @@ export default defineConfig({
             { text: '更新时遇到问题', link: '/help/update-problem' },
             { text: '禁用更新检查', link: '/help/disable-update-check' },
             { text: '关于管理员权限', link: '/help/about-admin-rights' },
-            
+            { text: '反和谐使用指南', link: '/help/oppose-harmony' }
           ]
         },
         { text: '项目社区', link: '/help/community' },
