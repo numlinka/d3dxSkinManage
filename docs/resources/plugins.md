@@ -26,13 +26,13 @@
 [下载链接](https://gitee.com/ticca/d3dx-skin-manage/releases/download/plugins/sr_update_mods_v1.2.7.zip)
 
 
-## zzz_update_mods <Badge type="tip" text="v1.0.4" />
+## zzz_update_mods <Badge type="tip" text="v1.0.5" />
 
 绝区零角色 mod 修复插件 <br/>
-用于解决绝区零 1.1、1.2 更新之后模型出现的问题
+用于解决绝区零 1.1、1.2、1.3 更新之后模型出现的问题
 
 [详情信息](/resources/plugins/zzz_update_mods) |
-[下载链接](https://gitee.com/ticca/d3dx-skin-manage/releases/download/plugins/zzz_update_mods_v1.0.4.zip)
+[下载链接](https://gitee.com/ticca/d3dx-skin-manage/releases/download/plugins/zzz_update_mods_v1.0.5.zip)
 
 
 ## ww_update_mods <Badge type="tip" text="v1.0.2" />
@@ -150,6 +150,11 @@
 [详情信息](/resources/plugins/enable_mods_warehouse) |
 [下载链接](https://gitee.com/ticca/d3dx-skin-manage/releases/download/plugins/enable_mods_warehouse.zip)
 
+:::warning 警告
+该插件仅支持在 **v1.6.x** 版本使用！<br/>
+<i style="color: red">请勿在 <b>v1.5.x</b> 版本使用！！</i>
+:::
+
 ## delete_and_remove_mod <Badge type="tip" text="v1.0.4" />
 
 删除及完全移除 mod 插件 <br/>
@@ -241,3 +246,19 @@
 若你使用的管理器版本为 **v1.6.x** 版本，请使用该插件的 **v1.0.1** 或 **v1.0.2** 版本 <br />
 更多关于版本的相关信息，请查看 [详情信息](/resources/plugins/get_WW_images)
 :::
+
+## alpha_window <Badge type="tip" text="v1.0" />
+
+窗口透明插件 <br/>
+可以调整主窗口的透明度
+
+[详情信息](/resources/plugins/alpha_window) |
+[下载链接](https://gitee.com/ticca/d3dx-skin-manage/releases/download/plugins/alpha_window.zip)
+
+## unload_object_mods <Badge type="tip" text="v1.2.4" />
+
+卸载分类下全部 mods 插件 <br/>
+可以快速卸载指定分类下所有已加载的 mods
+
+[详情信息](/resources/plugins/unload_object_mods) |
+[下载链接](https://gitee.com/ticca/d3dx-skin-manage/releases/download/plugins/unload_object_mods_v1.2.4.zip)
