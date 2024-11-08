@@ -152,6 +152,8 @@ export default defineConfig({
             { text: 'get_SR_images', link: '/resources/plugins/get_SR_images' },
             { text: 'get_ZZZ_images', link: '/resources/plugins/get_ZZZ_images' },
             { text: 'get_WW_images', link: '/resources/plugins/get_WW_images' },
+            { text: 'alpha_window', link: '/resources/plugins/alpha_window' },
+            { text: 'unload_object_mods', link: '/resources/plugins/unload_object_mods' },
           ]
         }
       ],
