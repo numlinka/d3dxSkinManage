@@ -5,7 +5,7 @@
 
 ## 功能简介
 
-该插件用于修复鸣潮 1.2、1.3 版本更新之后角色模型出现的炸模问题
+该插件用于修复鸣潮 1.2、1.3、1.4 版本更新之后角色模型出现的炸模问题
 
 :::warning 注意事项
 该插件的修复会将 mod 修复至鸣潮游戏官方最新版本正常可用状态。若你使用的非最新版本，请不要使用该插件进行修复，否则可能导致 mod 无法正常使用
@@ -13,9 +13,9 @@
 
 ## 快速下载
 
-:::info v1.0.2
-更新日期:  2024-09-30<br/>
-下载链接: [gitee](https://gitee.com/ticca/d3dx-skin-manage/releases/download/plugins/ww_update_mods_v1.0.2.zip) <br/>
+:::info v1.0.3
+更新日期:  2024-11-14<br/>
+下载链接: [gitee](https://gitee.com/ticca/d3dx-skin-manage/releases/download/plugins/ww_update_mods_v1.0.3.zip) <br/>
 :::
 
 ## 使用教程
@@ -50,6 +50,10 @@
 视频教程由 [@黎愔](/contribution) 录制和提供。
 
 ## 更新日志
+
+### v1.0.3
+#### 新增
+- 新增 1.4 版本长离、鉴心、漂泊者(女) hash 值支持对应的修复
 
 ### v1.0.2
 #### 新增
