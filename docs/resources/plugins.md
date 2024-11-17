@@ -134,6 +134,14 @@
 [详情信息](/resources/plugins/auto_reload_mods) |
 [下载链接](https://gitee.com/ticca/d3dx-skin-manage/releases/download/plugins/auto_reload_mods.zip)
 
+## random_load_mods <Badge type="tip" text="v1.0" />
+
+随机启用模组插件 <br/>
+该插件可以按照指定的模式随机启用模组且可以定时随机启用模组 
+
+[详情信息](/resources/plugins/random_load_mods) |
+[下载链接](https://gitee.com/ticca/d3dx-skin-manage/releases/download/plugins/random_load_mods.zip)
+
 ## handle_user_env <Badge type="tip" text="v1.1.1" />
 
 用户环境创建/编辑插件插件 <br/>
