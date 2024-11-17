@@ -143,6 +143,7 @@ export default defineConfig({
             { text: 'modify_object_name', link: '/resources/plugins/modify_object_name' },
             { text: 'auto_login', link: '/resources/plugins/auto_login' },
             { text: 'auto_reload_mods', link: '/resources/plugins/auto_reload_mods' },
+            { text: 'random_load_mods', link: '/resources/plugins/random_load_mods' },
             { text: 'handle_user_env', link: '/resources/plugins/handle_user_env' },
             { text: 'enable_mods_warehouse', link: '/resources/plugins/enable_mods_warehouse' },
             { text: 'delete_and_remove_mod', link: '/resources/plugins/delete_and_remove_mod' },
