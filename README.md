@@ -13,7 +13,7 @@ _3DMigoto 皮肤 Mods 管理工具_
   <img src="https://img.shields.io/badge/License-GPLv3-lightblue" alt="GPLv3"/>
 </a>
 <a href="https://github.com/numlinka/d3dxSkinManage/releases", target="_blank">
-  <img src="https://img.shields.io/badge/releases-1.6.1-lightblue" alt="releases"/>
+  <img src="https://img.shields.io/badge/releases-1.6.2-lightblue" alt="releases"/>
 </a>
 <a href="https://www.python.org/downloads/release/python-3120/", target="_blank">
   <img src="https://img.shields.io/badge/Python-3.12-lightblue" alt="Python3.12"/>
