@@ -143,6 +143,7 @@ export default defineConfig({
             { text: 'modify_object_name', link: '/resources/plugins/modify_object_name' },
             { text: 'auto_login', link: '/resources/plugins/auto_login' },
             { text: 'auto_reload_mods', link: '/resources/plugins/auto_reload_mods' },
+            { text: 'random_load_mods', link: '/resources/plugins/random_load_mods' },
             { text: 'handle_user_env', link: '/resources/plugins/handle_user_env' },
             { text: 'enable_mods_warehouse', link: '/resources/plugins/enable_mods_warehouse' },
             { text: 'delete_and_remove_mod', link: '/resources/plugins/delete_and_remove_mod' },
@@ -152,6 +153,8 @@ export default defineConfig({
             { text: 'get_SR_images', link: '/resources/plugins/get_SR_images' },
             { text: 'get_ZZZ_images', link: '/resources/plugins/get_ZZZ_images' },
             { text: 'get_WW_images', link: '/resources/plugins/get_WW_images' },
+            { text: 'alpha_window', link: '/resources/plugins/alpha_window' },
+            { text: 'unload_object_mods', link: '/resources/plugins/unload_object_mods' },
           ]
         }
       ],
