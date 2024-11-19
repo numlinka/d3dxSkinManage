@@ -19,9 +19,9 @@ from .exceptions import *
 PROJECT = "d3dxSkinManage"
 AUTHOR = "numlinka"
 
-VERSION_CODE = 1_06_01_000
+VERSION_CODE = 1_06_02_000
 VERSION_TYPE = ""
-VERSION_NAME = "1.6.1"
+VERSION_NAME = "1.6.2"
 
 MAIN_TITLE = f"{PROJECT} v{VERSION_NAME} -by {AUTHOR}"
 
