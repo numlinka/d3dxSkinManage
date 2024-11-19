@@ -73,8 +73,13 @@ class ModsManage (object):
                 path = os.path.join(core.userenv.directory.classification, class_)
                 if not os.path.isfile(path): continue
 
-                with open(path, "r", encoding="utf-8") as file_object:
-                    file_content = file_object.readlines()
+                try:
+                    with open(path, "r", encoding="utf-8") as file_object:
+                        file_content = file_object.readlines()
+
+                except Exception as _:
+                    core.window.messagebox.showwarning(title="分类参照文件读取错误", message=f"{path}\n\n该文件无法解读为有效的分类参照\n请删除该文件，或检查该文件的编码")
+                    continue
 
                 object_list = [x.strip() for x in file_content if x.strip()]
 
