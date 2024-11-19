@@ -8,6 +8,9 @@ import locale
 import fnmatch
 import threading
 
+# site
+import logop
+
 # local
 import core
 
@@ -55,20 +58,11 @@ def hook_dropfiles_new(original_items: list):
     threading.Thread(None, async_hook_dropfiles_new, "async.dropfiles", (original_items, ), daemon=True).start()
 
 
-def async_hook_dropfiles_new(original_items: list):
-    core.log.debug(f"dropfiles_new 钩子 {original_items}")
+@logop.decorators.callabletrack
+def async_hook_dropfiles_new(items: list):
     if not check_for_login():
         core.window.messagebox.showerror(title="dropfiles: 未登录错误", message="必须先登录一个用户\n才能使用文件拖入功能")
         return
-
-
-    try:
-        items = [x.decode(oscode) for x in original_items]
-
-    except Exception:
-        core.window.messagebox.showerror(title="dropfiles: 编码不可解", message=f"无法解码消息内容\n请检查系统编码是否为 {oscode}")
-        return
-
 
     try:
         for callback in takeover_functions:
