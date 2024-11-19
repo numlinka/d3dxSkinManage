@@ -19,7 +19,7 @@ from . import add_preview
 
 
 def initial():
-    windnd.hook_dropfiles(core.window.frame_notebook, func=hook_dropfiles.hook_dropfiles_new)
+    windnd.hook_dropfiles(core.window.frame_notebook, func=hook_dropfiles.hook_dropfiles_new, force_unicode=True)
     core.window.interface.mods_manage.treeview_classification.bind('<Double-Button-3>', modify_classification.modify_classification)
     # # core.UI.ModsManage.Label_preview.bind('<Double-Button-1>', screen_preview.full_screen_preview)
     core.window.interface.mods_manage.label_preview.bind('<Button-1>', screen_preview.full_screen_preview)
