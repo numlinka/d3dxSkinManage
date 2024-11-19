@@ -89,7 +89,10 @@ def initial():
     core.log.info("初始化主窗口...", L.WINDOW)
 
     style.theme_use(core.env.configuration.style_theme)
-    style.configure("Treeview", rowheight=48)
+    core.env.configuration.win_scaling = _win_scaling = (
+        mainwindow.winfo_fpixels("1i") / 96
+    )
+    style.configure("Treeview", rowheight=16 + int(32 * _win_scaling))
 
     mainwindow.title(core.env.MAIN_TITLE)
     main_window_position_load()
