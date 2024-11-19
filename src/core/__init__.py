@@ -8,7 +8,7 @@ import threading
 import traceback
 
 # libs
-import libs.logop
+import logop
 
 # local
 import module
@@ -23,10 +23,11 @@ from . import amend
 from . import action
 
 
-log = libs.logop.logging.Logging(stdout=False, asynchronous=True)
-log.set_format("[$(.date) $(.time).$(.moment)] [$(.levelname)] [$(.thread)] $(.message) ($(.mark))")
-log.add_op(libs.logop.logoutput.LogopStandardPlus())
-log.add_op(libs.logop.logoutput.LogopFile())
+log = logop.Logging(stdout=False, asynchronous=True)
+log.set_format(logop.constants.FORMAT_DEBUG)
+log.add_stream(logop.StandardOutputStreamPlus())
+log.add_stream(logop.FileOutputStream())
+log.pause()
 
 log.info("initial...", L.CORE)
 
@@ -90,7 +91,10 @@ def run():
         argv = __parser.parse_args() # 果然, 它不适合呆在这里
 
     except Exception as e:
-        env.configuration.log_level = libs.logop.level.INFO
+        env.configuration.log_level = logop.constants.INFO
+
+    finally:
+        log.unpause()
 
     log.warning(f"当前设备编号为：{env.uuid}", L.CORE)
     sync.start()
