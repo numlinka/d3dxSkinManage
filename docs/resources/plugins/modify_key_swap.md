@@ -9,9 +9,9 @@
 
 ## 快速下载
 
-:::info v1.4.5
-更新日期:  2023-12-23<br/>
-下载链接: [gitee](https://gitee.com/ticca/d3dx-skin-manage/releases/download/plugins/modify_key_swap_v1.4.5.zip) <br/>
+:::info v1.4.6
+更新日期:  2024-11-22<br/>
+下载链接: [gitee](https://gitee.com/ticca/d3dx-skin-manage/releases/download/plugins/modify_key_swap_v1.4.6.zip) <br/>
 :::
 
 ## 使用教程
@@ -75,6 +75,10 @@
     | `XB_GUIDE`         | 指南按钮        |                    |                  |
 
 ## 更新日志
+
+### v1.4.6
+#### 修复
+- 修复无法识别 `=` 快捷键的问题。
 
 ### v1.4.5
 #### 新增
