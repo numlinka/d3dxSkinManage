@@ -35,13 +35,13 @@
 [下载链接](https://gitee.com/ticca/d3dx-skin-manage/releases/download/plugins/zzz_update_mods_v1.0.6.zip)
 
 
-## ww_update_mods <Badge type="tip" text="v1.0.3" />
+## ww_update_mods <Badge type="tip" text="v1.0.4" />
 
 鸣潮角色 mod 修复插件 <br/>
 用于解决绝区零 1.2、1.3、1.4 更新之后模型出现的问题
 
 [详情信息](/resources/plugins/ww_update_mods) |
-[下载链接](https://gitee.com/ticca/d3dx-skin-manage/releases/download/plugins/ww_update_mods_v1.0.3.zip)
+[下载链接](https://gitee.com/ticca/d3dx-skin-manage/releases/download/plugins/ww_update_mods_v1.0.4.zip)
 
 
 ## enforcelogout <Badge type="tip" text="v1.0" />
@@ -117,13 +117,13 @@
 [详情信息](/resources/plugins/modify_object_name) |
 [下载链接](https://gitee.com/ticca/d3dx-skin-manage/releases/download/plugins/modify_object_name.zip)
 
-## auto_login <Badge type="tip" text="v1.0.6" />
+## auto_login <Badge type="tip" text="v1.0.7" />
 
 自动登录插件 <br/>
 用于自动登录指定用户环境、登录时跳转至指定界面及指定启动 3dm 和其他程序（含防闪退模式）等
 
 [详情信息](/resources/plugins/auto_login) |
-[下载链接](https://gitee.com/ticca/d3dx-skin-manage/releases/download/plugins/auto_login_v1.0.6.zip)
+[下载链接](https://gitee.com/ticca/d3dx-skin-manage/releases/download/plugins/auto_login_v1.0.7.zip)
 
 ## auto_reload_mods <Badge type="tip" text="v1.0" />
 
