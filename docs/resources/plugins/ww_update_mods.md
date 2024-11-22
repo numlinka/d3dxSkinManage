@@ -13,9 +13,9 @@
 
 ## 快速下载
 
-:::info v1.0.3
-更新日期:  2024-11-14<br/>
-下载链接: [gitee](https://gitee.com/ticca/d3dx-skin-manage/releases/download/plugins/ww_update_mods_v1.0.3.zip) <br/>
+:::info v1.0.4
+更新日期:  2024-11-22<br/>
+下载链接: [gitee](https://gitee.com/ticca/d3dx-skin-manage/releases/download/plugins/ww_update_mods_v1.0.4.zip) <br/>
 :::
 
 ## 使用教程
@@ -50,6 +50,13 @@
 视频教程由 [@黎愔](/contribution) 录制和提供。
 
 ## 更新日志
+
+### v1.0.4
+#### 新增
+- 新增 1.4 版本 凌阳 hash 值支持对应的修复
+
+#### 优化：
+- 进一步优化长离的修复逻辑
 
 ### v1.0.3
 #### 新增
