@@ -92,13 +92,13 @@
 [详情信息](/resources/plugins/modify_list_order) |
 [下载链接](https://gitee.com/ticca/d3dx-skin-manage/releases/download/plugins/modify_list_order.zip)
 
-## modify_key_swap <Badge type="tip" text="v1.4.5" />
+## modify_key_swap <Badge type="tip" text="v1.4.6" />
 
 编辑合并模组切换键插件 <br/>
 可以修改合并模组的切换键及在悬浮窗口中显示切换键信息
 
 [详情信息](/resources/plugins/modify_key_swap) |
-[下载链接](https://gitee.com/ticca/d3dx-skin-manage/releases/download/plugins/modify_key_swap_v1.4.5.zip)
+[下载链接](https://gitee.com/ticca/d3dx-skin-manage/releases/download/plugins/modify_key_swap_v1.4.6.zip)
 
 ## modify_3dm_swap <Badge type="tip" text="v1.0" />
 
