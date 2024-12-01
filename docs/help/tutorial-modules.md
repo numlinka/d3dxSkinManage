@@ -63,6 +63,11 @@
 
 ![](/static/image/c6435374.png)
 
+:::tip 
+预览图的存储位置为 `.\resources\preview` ； <br/>
+全屏预览图的存储位置为 `.\resources\preview_screen` ； <br/>
+各模组的预览图名称与其 `SHA` 值相对应。
+:::
 
 ## 修改和删除模组
 
