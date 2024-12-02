@@ -13,9 +13,9 @@
 
 ## 快速下载
 
-:::info v1.0.4
-更新日期:  2024-11-22<br/>
-下载链接: [gitee](https://gitee.com/ticca/d3dx-skin-manage/releases/download/plugins/ww_update_mods_v1.0.4.zip) <br/>
+:::info v1.0.5
+更新日期:  2024-12-02<br/>
+下载链接: [gitee](https://gitee.com/ticca/d3dx-skin-manage/releases/download/plugins/ww_update_mods_v1.0.5.zip) <br/>
 :::
 
 ## 使用教程
@@ -52,6 +52,13 @@
 视频教程由 [@黎愔](/contribution) 录制和提供。
 
 ## 更新日志
+
+### v1.0.5
+#### 修复
+- 脸颊光照贴图修复
+
+#### 优化：
+- 修改长离的 remap，以尝试捕捉更多的边缘情况，但不是所有的长离模组都可以只使用脚本修复
 
 ### v1.0.4
 #### 新增
