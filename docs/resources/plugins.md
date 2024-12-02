@@ -22,22 +22,22 @@
 [下载链接](https://gitee.com/ticca/d3dx-skin-manage/releases/download/plugins/sr_update_mods_v1.2.7.zip)
 
 
-## zzz_update_mods <Badge type="tip" text="v1.0.6" />
+## zzz_update_mods <Badge type="tip" text="v1.0.7" />
 
 绝区零角色 mod 修复插件 <br/>
 用于解决绝区零 1.1、1.2、1.3 更新之后模型出现的问题
 
 [详情信息](/resources/plugins/zzz_update_mods) |
-[下载链接](https://gitee.com/ticca/d3dx-skin-manage/releases/download/plugins/zzz_update_mods_v1.0.6.zip)
+[下载链接](https://gitee.com/ticca/d3dx-skin-manage/releases/download/plugins/zzz_update_mods_v1.0.7.zip)
 
 
-## ww_update_mods <Badge type="tip" text="v1.0.4" />
+## ww_update_mods <Badge type="tip" text="v1.0.5" />
 
 鸣潮角色 mod 修复插件 <br/>
 用于解决绝区零 1.2、1.3、1.4 更新之后模型出现的问题
 
 [详情信息](/resources/plugins/ww_update_mods) |
-[下载链接](https://gitee.com/ticca/d3dx-skin-manage/releases/download/plugins/ww_update_mods_v1.0.4.zip)
+[下载链接](https://gitee.com/ticca/d3dx-skin-manage/releases/download/plugins/ww_update_mods_v1.0.5.zip)
 
 
 ## enforcelogout <Badge type="tip" text="v1.0" />
