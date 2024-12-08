@@ -5,10 +5,6 @@
 
 <weaken>使用 Ctrl + F 在页面内快速搜索</weaken>
 
-::: tip 提示
-由于插件界面的搬迁过程新增了更详细的内容，部分插件暂未完成搬迁，若未找到你想要下载的插件，可以前往 [旧版插件文档](https://d3dxskinmanage.old.numlinka.com/#/warehouse/plugins) 进行查找。
-:::
-
 ## gi_update_mods <Badge type="tip" text="v1.0.6" />
 
 原神角色 mod 修复插件 (原名 gi40to45)<br/>
@@ -26,22 +22,22 @@
 [下载链接](https://gitee.com/ticca/d3dx-skin-manage/releases/download/plugins/sr_update_mods_v1.2.7.zip)
 
 
-## zzz_update_mods <Badge type="tip" text="v1.0.6" />
+## zzz_update_mods <Badge type="tip" text="v1.0.7" />
 
 绝区零角色 mod 修复插件 <br/>
 用于解决绝区零 1.1、1.2、1.3 更新之后模型出现的问题
 
 [详情信息](/resources/plugins/zzz_update_mods) |
-[下载链接](https://gitee.com/ticca/d3dx-skin-manage/releases/download/plugins/zzz_update_mods_v1.0.6.zip)
+[下载链接](https://gitee.com/ticca/d3dx-skin-manage/releases/download/plugins/zzz_update_mods_v1.0.7.zip)
 
 
-## ww_update_mods <Badge type="tip" text="v1.0.3" />
+## ww_update_mods <Badge type="tip" text="v1.0.5" />
 
 鸣潮角色 mod 修复插件 <br/>
 用于解决绝区零 1.2、1.3、1.4 更新之后模型出现的问题
 
 [详情信息](/resources/plugins/ww_update_mods) |
-[下载链接](https://gitee.com/ticca/d3dx-skin-manage/releases/download/plugins/ww_update_mods_v1.0.3.zip)
+[下载链接](https://gitee.com/ticca/d3dx-skin-manage/releases/download/plugins/ww_update_mods_v1.0.5.zip)
 
 
 ## enforcelogout <Badge type="tip" text="v1.0" />
@@ -92,13 +88,13 @@
 [详情信息](/resources/plugins/modify_list_order) |
 [下载链接](https://gitee.com/ticca/d3dx-skin-manage/releases/download/plugins/modify_list_order.zip)
 
-## modify_key_swap <Badge type="tip" text="v1.4.5" />
+## modify_key_swap <Badge type="tip" text="v1.4.6" />
 
 编辑合并模组切换键插件 <br/>
 可以修改合并模组的切换键及在悬浮窗口中显示切换键信息
 
 [详情信息](/resources/plugins/modify_key_swap) |
-[下载链接](https://gitee.com/ticca/d3dx-skin-manage/releases/download/plugins/modify_key_swap_v1.4.5.zip)
+[下载链接](https://gitee.com/ticca/d3dx-skin-manage/releases/download/plugins/modify_key_swap_v1.4.6.zip)
 
 ## modify_3dm_swap <Badge type="tip" text="v1.0" />
 
@@ -117,13 +113,13 @@
 [详情信息](/resources/plugins/modify_object_name) |
 [下载链接](https://gitee.com/ticca/d3dx-skin-manage/releases/download/plugins/modify_object_name.zip)
 
-## auto_login <Badge type="tip" text="v1.0.6" />
+## auto_login <Badge type="tip" text="v1.0.7" />
 
 自动登录插件 <br/>
 用于自动登录指定用户环境、登录时跳转至指定界面及指定启动 3dm 和其他程序（含防闪退模式）等
 
 [详情信息](/resources/plugins/auto_login) |
-[下载链接](https://gitee.com/ticca/d3dx-skin-manage/releases/download/plugins/auto_login_v1.0.6.zip)
+[下载链接](https://gitee.com/ticca/d3dx-skin-manage/releases/download/plugins/auto_login_v1.0.7.zip)
 
 ## auto_reload_mods <Badge type="tip" text="v1.0" />
 
@@ -270,3 +266,99 @@
 
 [详情信息](/resources/plugins/unload_object_mods) |
 [下载链接](https://gitee.com/ticca/d3dx-skin-manage/releases/download/plugins/unload_object_mods_v1.2.4.zip)
+
+## unload_with_delete_cache <Badge type="tip" text="v1.0" />
+
+卸载模组时删除模组缓存文件插件 <br/>
+可以辅助在卸载模组时自动卸载其缓存文件
+
+[详情信息](/resources/plugins/unload_with_delete_cache) |
+[下载链接](https://gitee.com/ticca/d3dx-skin-manage/releases/download/plugins/unload_with_delete_cache.zip)
+
+## cache_clearup <Badge type="tip" text="v1.0.3" />
+
+缓存清理工具插件 <br/>
+可以辅助清理工作文件下的缓存
+
+[详情信息](/resources/plugins/cache_clearup) |
+[下载链接](https://gitee.com/ticca/d3dx-skin-manage/releases/download/plugins/cache_clearup_v1.0.3.zip)
+
+## preview_clearup <Badge type="tip" text="v1.0.3" />
+
+预览图清理工具 <br/>
+可以辅助清理无效预览图
+
+[详情信息](/resources/plugins/preview_clearup) |
+[下载链接](https://gitee.com/ticca/d3dx-skin-manage/releases/download/plugins/preview_clearup_v1.0.3.zip)
+
+## temp_cache_clearup <Badge type="tip" text="v1.0.1" />
+
+临时缓存清理工具插件 <br/>
+可以辅助清理临时缓存
+
+[详情信息](/resources/plugins/temp_cache_clearup) |
+[下载链接](https://gitee.com/ticca/d3dx-skin-manage/releases/download/plugins/temp_cache_clearup_v1.0.1.zip)
+
+## hashconflict <Badge type="tip" text="v1.2.1" />
+
+hash 冲突检测插件 <br/>
+用于自动检测 hash 冲突并给出警告提示，辅助你更早发现因 hash 冲突导致的炸模情况
+
+[详情信息](/resources/plugins/hashconflict) |
+[下载链接](https://gitee.com/ticca/d3dx-skin-manage/releases/download/plugins/hashconflict_v1.2.1.zip)
+
+## check_mods_accident <Badge type="tip" text="v1.0" />
+
+检测 Mods 下异常模组文件插件 <br/>
+可以检测 Mods 下的异常模组文件并辅助进行手动清理
+
+[详情信息](/resources/plugins/check_mods_accident) |
+[下载链接](https://gitee.com/ticca/d3dx-skin-manage/releases/download/plugins/check_mods_accident.zip)
+
+## export_wort_mod_file <Badge type="tip" text="v1.0.3" />
+
+导出 mod 缓存文件插件 <br/>
+用于辅助快速导出 mod 缓存文件
+
+[详情信息](/resources/plugins/export_wort_mod_file) |
+[下载链接](https://gitee.com/ticca/d3dx-skin-manage/releases/download/plugins/export_wort_mod_file_v1.0.3.zip)
+
+## add_mod_file_warn_size <Badge type="tip" text="v1.0.1" />
+
+修改添加 mod 文件大小警告上限插件 <br/>
+可以设置非mod文件警告大小来修改添加 mod 时弹出警告的阈值
+
+[详情信息](/resources/plugins/add_mod_file_warn_size) |
+[下载链接](https://gitee.com/ticca/d3dx-skin-manage/releases/download/plugins/add_mod_file_warn_size_v1.0.1.zip)
+
+## search_class_and_object <Badge type="tip" text="v1.1.2" />
+
+分类及对象筛选插件 <br/>
+可以筛选具有指定对象的分类
+
+[详情信息](/resources/plugins/search_class_and_object) |
+[下载链接](https://gitee.com/ticca/d3dx-skin-manage/releases/download/plugins/search_class_and_object_v1.1.2.zip)
+
+## highlight_loading_mod <Badge type="tip" text="v1.0.5" />
+
+高亮显示已加载 mod 插件 <br/>
+插件会将选择栏中已加载以及具有缓存文件的 mod 高亮显示
+
+[详情信息](/resources/plugins/highlight_loading_mod) |
+[下载链接](https://gitee.com/ticca/d3dx-skin-manage/releases/download/plugins/highlight_loading_mod_v1.0.5.zip)
+
+## view_thumbnail <Badge type="tip" text="v1.0.2" />
+
+查看缩略图配置文件插件 <br/>
+可以辅助快速打开缩略图配置文件所在的文件夹位置
+
+[详情信息](/resources/plugins/view_thumbnail) |
+[下载链接](https://gitee.com/ticca/d3dx-skin-manage/releases/download/plugins/view_thumbnail_v1.0.2.zip)
+
+## view_ini_config <Badge type="tip" text="v1.0.2" />
+
+查看 ini 配置文件插件 <br/>
+可以辅助快速打开 ini 配置文件所在的文件夹位置
+
+[详情信息](/resources/plugins/view_ini_config) |
+[下载链接](https://gitee.com/ticca/d3dx-skin-manage/releases/download/plugins/view_ini_config_v1.0.2.zip)

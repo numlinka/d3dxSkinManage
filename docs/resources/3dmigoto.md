@@ -38,7 +38,13 @@
 :::
 
 ::: details <b style="color: orange">崩坏：星穹铁道启用 3DMigoto 后不生效解决方法参考</b>
-> [!TIP] <b style="color: #A8B1F4">正常解决方法</b>
+
+> [!TIP] <b style="color: #A8B1F4">解决方法1</b>
+> 玄学问题，可能是 **Windows 安全中心** 的病毒防护措施将 3DMigoto 的注入进程杀掉，你可以尝试 `关闭 Windows 安全中心的实时保护` <weaken>(具体操作方式请自行百度)</weaken> 来解决该问题。
+> 
+> 或者下载 **火绒安全** 或其他你觉得可靠的杀毒软件，它们会自动压制 `Windows 实时保护`<weaken>(要学会用魔法来打败魔法！)</weaken>。
+
+> [!TIP] <b style="color: #A8B1F4">解决方法2</b>
 > 使用星穹铁道的 3dmigoto 时，在第一次 [添加加载器包](/help/tutorial-loader.html#添加加载器包) 后，需要点击 **3DMiGoto 版本** 右侧的 **打开工作目录** 按钮<weaken>（有些人可能会因为高 DPI 缩放而看不到按钮，请自行调整窗口大小或 DPI 缩放比例）</weaken>，给 `3DMigotoLoader.exe` 管理员权限后<weaken>（参考下图）</weaken>，再按正常的步骤打开 3dmigoto 和游戏程序。
 > 
 > ![](/static/image/e0ba5fb4.png)

@@ -93,11 +93,15 @@ export default defineConfig({
               items: [
                 { text: 'Mods 仓库', link: '/help/tutorial-mods-warehouse' },
                 { text: '强迫症截图工具', link: '/help/tutorial-ocdcrop' },
-                // { text: '缓存清理工具', link: '/help/' },
+                { text: '缓存清理工具', link: '/help/tutorial-cache-clearup' },
                 // { text: '旧版MOd管理器数据迁移工具', link: '/help/' },
                 // { text: '可选标签编辑工具', link: '/help/' },
                 { text: '插件', link: '/help/tutorial-plugins' }
               ]
+            },
+            {
+              text: '词汇解析',
+              link: '/help/tutorial-lexical-analysis',
             }
           ]
         },
@@ -156,6 +160,18 @@ export default defineConfig({
             { text: 'get_WW_images', link: '/resources/plugins/get_WW_images' },
             { text: 'alpha_window', link: '/resources/plugins/alpha_window' },
             { text: 'unload_object_mods', link: '/resources/plugins/unload_object_mods' },
+            { text: 'unload_with_delete_cache', link: '/resources/plugins/unload_with_delete_cache' },
+            { text: 'cache_clearup', link: '/resources/plugins/cache_clearup' },
+            { text: 'preview_clearup', link: '/resources/plugins/preview_clearup' },
+            { text: 'temp_cache_clearup', link: '/resources/plugins/temp_cache_clearup' },
+            { text: 'hashconflict', link: '/resources/plugins/hashconflict' },
+            { text: 'check_mods_accident', link: '/resources/plugins/check_mods_accident' },
+            { text: 'export_wort_mod_file', link: '/resources/plugins/export_wort_mod_file' },
+            { text: 'add_mod_file_warn_size', link: '/resources/plugins/add_mod_file_warn_size' },
+            { text: 'search_class_and_object', link: '/resources/plugins/search_class_and_object' },
+            { text: 'highlight_loading_mod', link: '/resources/plugins/highlight_loading_mod' },
+            { text: 'view_thumbnail', link: '/resources/plugins/view_thumbnail' },
+            { text: 'view_ini_config', link: '/resources/plugins/view_ini_config' },
           ]
         }
       ],

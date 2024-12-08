@@ -9,9 +9,9 @@
 
 ## 快速下载
 
-:::info v1.0.6
-更新日期:  2024-05-04<br/>
-下载链接: [gitee](https://gitee.com/ticca/d3dx-skin-manage/releases/download/plugins/auto_login_v1.0.6.zip) <br/>
+:::info v1.0.7
+更新日期:  2024-11-22<br/>
+下载链接: [gitee](https://gitee.com/ticca/d3dx-skin-manage/releases/download/plugins/auto_login_v1.0.7.zip) <br/>
 :::
 
 ## 使用教程
@@ -79,6 +79,11 @@
 视频教程由 [@黎愔](/contribution) 录制和提供。
 
 ## 更新日志
+
+### v1.0.7
+
+#### 修复
+- 修复使用 `防闪退模式（断网启动）` 时，无法获取到的网络名称时的报错提示
 
 ### v1.0.6
 #### 新增

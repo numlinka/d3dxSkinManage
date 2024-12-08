@@ -26,9 +26,9 @@
 
 ## 快速下载
 
-:::info v1.0.6
-更新日期:  2024-11-14<br/>
-下载链接: [gitee](https://gitee.com/ticca/d3dx-skin-manage/releases/download/plugins/zzz_update_mods_v1.0.6.zip) <br/>
+:::info v1.0.7
+更新日期:  2024-12-02<br/>
+下载链接: [gitee](https://gitee.com/ticca/d3dx-skin-manage/releases/download/plugins/zzz_update_mods_v1.0.7.zip) <br/>
 :::
 
 ## 使用教程
@@ -54,6 +54,8 @@
 
 :::warning 注意事项
 若进行修复时，游戏未关闭仍在运行 mod，修复完成后需要按 `F10` 重新加载 mod，才会显示修复成功的状态。
+
+或者你可以使用 [自动重载模组插件](/resources/plugins/auto_reload_mods) 自动帮你完成上述操作。
 :::
 
 ## 视频教程链接
@@ -64,7 +66,12 @@
 
 ## 更新日志
 
-### v1.0.5
+### v1.0.7
+#### 新增
+- 新增 1.3 版本 莱特 hash 值支持对应的修复
+- 修正 1.3 版本 哲 hash 值支持对应的修复
+
+### v1.0.6
 #### 新增
 - 新增 1.3 版本 赛斯、月城柳、哲 hash 值支持对应的修复
 
