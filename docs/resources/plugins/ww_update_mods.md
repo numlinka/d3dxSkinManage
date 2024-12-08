@@ -13,9 +13,9 @@
 
 ## 快速下载
 
-:::info v1.0.3
-更新日期:  2024-11-14<br/>
-下载链接: [gitee](https://gitee.com/ticca/d3dx-skin-manage/releases/download/plugins/ww_update_mods_v1.0.3.zip) <br/>
+:::info v1.0.5
+更新日期:  2024-12-02<br/>
+下载链接: [gitee](https://gitee.com/ticca/d3dx-skin-manage/releases/download/plugins/ww_update_mods_v1.0.5.zip) <br/>
 :::
 
 ## 使用教程
@@ -41,6 +41,8 @@
 
 :::warning 注意事项
 若进行修复时，游戏未关闭仍在运行 mod，修复完成后需要按 `F10` 重新加载 mod，才会显示修复成功的状态。
+
+或者你可以使用 [自动重载模组插件](/resources/plugins/auto_reload_mods) 自动帮你完成上述操作。
 :::
 
 ## 视频教程链接
@@ -50,6 +52,20 @@
 视频教程由 [@黎愔](/contribution) 录制和提供。
 
 ## 更新日志
+
+### v1.0.5
+#### 修复
+- 脸颊光照贴图修复
+
+#### 优化：
+- 修改长离的 remap，以尝试捕捉更多的边缘情况，但不是所有的长离模组都可以只使用脚本修复
+
+### v1.0.4
+#### 新增
+- 新增 1.4 版本 凌阳 hash 值支持对应的修复
+
+#### 优化：
+- 进一步优化长离的修复逻辑
 
 ### v1.0.3
 #### 新增

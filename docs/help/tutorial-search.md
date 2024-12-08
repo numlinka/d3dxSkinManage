@@ -8,7 +8,7 @@
 
 ![](/static/image/2863681a.png)
 
-<!-- 若你需要筛选具有指定对象的分类，你可以使用 [search_class_and_object](/resources/plugins/search_class_and_object) 插件。 -->
+若你需要筛选具有指定对象的分类，你可以使用 [分类及对象筛选插件](/resources/plugins/search_class_and_object) 插件。
 
 ## 对象筛选
 
