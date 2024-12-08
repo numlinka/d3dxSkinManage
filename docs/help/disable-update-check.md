@@ -10,8 +10,7 @@
 | :-----: | :----------------: |
 | 1.5.37  | `70m8SK3UDdjDhOXR` |
 | 1.5.38  | `tocDl4l4YsvyMcBL` |
-| 1.6.0   | `tocDl4l4YsvyMcBL` |
-| 1.6.1   | `tocDl4l4YsvyMcBL` |
+| 1.6.x   | `tocDl4l4YsvyMcBL` |
 
 
 ## 使用终端
