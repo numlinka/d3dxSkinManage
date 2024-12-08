@@ -91,6 +91,8 @@ class __CurrentWorkingDirectory (Directory):
     home = "home"
     plugins = "plugins"
 
+    update = FilePath("update.exe")
+    self = FilePath(f"{PROJECT}.exe")
 
 
 cwd = __CurrentWorkingDirectory(os.getcwd())
