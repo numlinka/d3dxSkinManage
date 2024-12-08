@@ -8,6 +8,7 @@ from . import synchronization
 from . import wget
 from . import update
 from . import extension
+from . import cheak
 
 from . import plugins
 
