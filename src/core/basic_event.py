@@ -28,6 +28,7 @@ def initial():
 
 def when_entering_mainpool():
     core.sync.addtask("压缩包直接运行检查", core.module.cheak.zip_direct_run)
+    core.sync.addtask("组件缺失检查", core.module.cheak.miss_components)
     core.sync.addtask("检查更新", core.module.update.check)
     core.sync.addtask("inform", core.window.inform.check)
     core.sync.addtask("初始化登录用户列表", core.window.login.initial)
