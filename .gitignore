@@ -175,6 +175,7 @@ cython_debug/
 /*.bat
 /*.exe
 /*.pack
+/*.zip
 /*.url
 /index.json
 
