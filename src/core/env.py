@@ -101,8 +101,8 @@ directory = cwd
 file = cwd
 
 
-__CurrentWorkingDirectory._include_ = True
 abscwd = __CurrentWorkingDirectory(os.getcwd())
+abscwd._include_ = True
 
 
 class configuration(libs.econfiguration.Configuration):

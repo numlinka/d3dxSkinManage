@@ -65,6 +65,8 @@ def zip_direct_run():
     if not temp_path or not sys.executable.startswith(temp_path):
         return
 
+    core.log.warn(f"程序所在路径 {sys.executable}")
+    core.log.error("程序在压缩包里直接运行")
     core.sync.clear()
     core.window.block.setcontent(ZIP_RUN)
     core.window.status.set_status("别在压缩包里直接运行程序", 1)
@@ -78,17 +80,22 @@ def miss_components():
     if not basename in [core.env.cwd.self, "python.exe"]:
         abnormality = True
         msg += MISS_MODULE_BASENAME
+        core.log.warn(f"主程序名称为 {basename}")
 
     if not os.path.isfile(core.env.cwd.update):
         abnormality = True
         msg += MISS_MODULE_UPDATE
+        core.log.warn("缺少更新组件")
 
     if not os.path.isfile(core.env.cwd.local.t7z):
         abnormality = True
         msg += MISS_MODULE_7ZIP
+        core.log.warn("缺少 7zip 组件")
 
     if abnormality:
         msg += MISS_MODULE_OVER
         core.window.block.setcontent(msg)
         core.window.status.set_status("程序存在异常", 1)
+        core.log.error("检测到组件缺失，程序中止执行")
+        core.sync.clear()
         raise SystemExit
