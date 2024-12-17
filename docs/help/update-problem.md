@@ -78,6 +78,9 @@ Windows 找不到 "update.exe"。请确定文件名是否正确后，再试一�
 将 d3dxSkinManage 程序的文件名改回 `d3dxSkinManage.exe` 。
 :::
 
+::: warning 注意
+如果你的资源管理器没有开启文件后缀名显示，你将看不到也不能修改文件的后缀名，那么在重命名文件时只需要输入文件名，即 `d3dxSkinManage` 而不是 `d3dxSkinManage.exe` 。
+:::
 
 
 ## 3. 其他错误
@@ -87,20 +90,24 @@ Windows 找不到 "update.exe"。请确定文件名是否正确后，再试一�
 若启动 `d3dxSkinManage.exe` 在检查更新的过程中，下载更新包的速度非常快，并在唤醒 `update.exe` 后快速闪过一个报错 ( 或者没有 ) ，并再次唤醒 `d3dxSkinManage.exe` 然后重复上述过程。
 
 ::: info 原因
-更新包下载被中断，可能是网络问题，也有可能是服务器拒绝了请求 ( 返回码任然是 200 ) 。
+目标服务器拒绝了下载请求，但是没有返回错误，多数情况下是网络原因，或当前 IP 被封禁。
 :::
 
 ::: tip 解决方法
-尝试 [手动替换更新](#_4-手动替换更新) 。
+- 尝试更换网络、更换或关闭网络代理。
+- 尝试 [手动替换更新](#_4-手动替换更新) 。
 :::
 
 
 
 ## 4. 手动替换更新
 
-在以下位置获取到更新包
+你在以下任意位置下载更新包：
 
-在 [下载](/resources/download) 页面或是在 [社区](/help/community) 下载最新的 `update_xxx.zip` 文件 ( `xxx` 为版本号 )
+- 在 [GitHub Releases](https://github.com/numlinka/d3dxSkinManage/releases) 页面下载
+  ![](/static/image/306ca6ca.png)
+  （网页为演示做出修改）
+- 在 [社区](/help/community) 页面加入 QQ 群，并在群文件的 **releases** 文件夹下载\
+  （无截图）
 
-解压并覆盖当前的文件。
-
+下载最新的 `update_xxx.zip` 文件，其中 `xxx` 为版本号。然后解压更新包，将里面的文件替换到你的 d3dxSkinManage 程序的根目录下覆盖旧文件即可。
