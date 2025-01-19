@@ -13,19 +13,19 @@
 [详情信息](/resources/plugins/gi_update_mods) | 
 [下载链接](https://gitee.com/ticca/d3dx-skin-manage/releases/download/plugins/gi_update_mods_v1.0.6.zip)
 
-## sr_update_mods <Badge type="tip" text="v1.2.7" />
+## sr_update_mods <Badge type="tip" text="v1.2.8" />
 
 星穹铁道角色 mod 修复插件 (原名 sr16to20)<br/>
-用于解决星穹铁道 2.0、2.1、2.2、2.3、2.4、2.5、2.6 更新之后角色模型出现的问题
+用于解决星穹铁道 2.0 ~ 3.0 更新之后角色模型出现的问题
 
 [详情信息](/resources/plugins/sr_update_mods) |
-[下载链接](https://gitee.com/ticca/d3dx-skin-manage/releases/download/plugins/sr_update_mods_v1.2.7.zip)
+[下载链接](https://gitee.com/ticca/d3dx-skin-manage/releases/download/plugins/sr_update_mods_v1.2.8.zip)
 
 
 ## zzz_update_mods <Badge type="tip" text="v1.0.8" />
 
 绝区零角色 mod 修复插件 <br/>
-用于解决绝区零 1.1、1.2、1.3、1.4 更新之后模型出现的问题
+用于解决绝区零 1.1 ~ 1.4 更新之后模型出现的问题
 
 [详情信息](/resources/plugins/zzz_update_mods) |
 [下载链接](https://gitee.com/ticca/d3dx-skin-manage/releases/download/plugins/zzz_update_mods_v1.0.8.zip)
@@ -34,7 +34,7 @@
 ## ww_update_mods <Badge type="tip" text="v1.0.5" />
 
 鸣潮角色 mod 修复插件 <br/>
-用于解决绝区零 1.2、1.3、1.4 更新之后模型出现的问题
+用于解决绝区零 1.2 ~ 1.4 更新之后模型出现的问题
 
 [详情信息](/resources/plugins/ww_update_mods) |
 [下载链接](https://gitee.com/ticca/d3dx-skin-manage/releases/download/plugins/ww_update_mods_v1.0.5.zip)
