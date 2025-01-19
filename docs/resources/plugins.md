@@ -217,15 +217,15 @@
 更多关于版本的相关信息，请查看 [详情信息](/resources/plugins/get_SR_images)
 :::
 
-## get_ZZZ_images <Badge type="tip" text="v1.0.2" /> <Badge type="tip" text="v1.0.1" /> <Badge type="tip" text="v1.0" />
+## get_ZZZ_images <Badge type="tip" text="v1.0.5" /> <Badge type="tip" text="v1.0.4" /> <Badge type="tip" text="v1.0.3" />
 
 更新绝区零缩略图资源插件 <br/>
 可以手动或自动更新绝区零缩略图资源
 
 [详情信息](/resources/plugins/get_ZZZ_images) |
-[下载 v1.0.2](https://gitee.com/ticca/d3dx-skin-manage/releases/download/plugins/get_ZZZ_images_v1.0.2.zip) |
-[下载 v1.0.1](https://gitee.com/ticca/d3dx-skin-manage/releases/download/plugins/get_ZZZ_images_v1.0.1.zip) |
-[下载 v1.0](https://gitee.com/ticca/d3dx-skin-manage/releases/download/plugins/get_ZZZ_images.zip) 
+[下载 v1.0.5](https://gitee.com/ticca/d3dx-skin-manage/releases/download/plugins/get_ZZZ_images_v1.0.5.zip) |
+[下载 v1.0.4](https://gitee.com/ticca/d3dx-skin-manage/releases/download/plugins/get_ZZZ_images_v1.0.4.zip) |
+[下载 v1.0.3](https://gitee.com/ticca/d3dx-skin-manage/releases/download/plugins/get_ZZZ_images_v1.0.3.zip) 
 
 :::warning 适配问题
 由于管理器的更新，导致该插件出现了不兼容问题 <br />
