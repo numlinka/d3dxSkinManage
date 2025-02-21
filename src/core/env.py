@@ -128,11 +128,13 @@ class Link (object):
     afdian_ticca = "https://afdian.com/a/ticca"
 
 
-try:
+try: 
     uuid = subprocess.check_output("wmic csproduct get UUID", shell=True).decode("utf-8").replace("UUID", "").strip()
-
 except Exception:
-    uuid = ""
+    try:
+        uuid = subprocess.check_output("powershell /c \"(Get-WmiObject Win32_ComputerSystemProduct).UUID\"").decode("utf-8").strip()
+    except Exception:
+        uuid = ""
 
 try:
     is_admin = ctypes.windll.shell32.IsUserAnAdmin()
