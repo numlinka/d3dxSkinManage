@@ -31,4 +31,5 @@ def ready():
 
 
 def initial():
+    if core.argv.demomode: return
     core.construct.event.register(constant.E.ENTER_MAINPOOL, ready)

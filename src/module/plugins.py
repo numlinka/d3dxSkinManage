@@ -42,6 +42,10 @@ def load_plugins():
 
 def main():
     try:
+        if core.argv.noplugin:
+            core.log.warning("已禁用插件加载")
+            return
+
         load_plugins()
 
     except Exception as e:
