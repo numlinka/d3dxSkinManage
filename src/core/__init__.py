@@ -37,8 +37,16 @@ sync = module.synchronization.SynchronizationTask()
 __parser = argparse.ArgumentParser(description='Description of your program')
 __parser.add_argument("--autologin", default="", type=str, help="Automatically log in to the specified user environment.")
 __parser.add_argument("--noupdatecheck", default="", type=str, help="Turn off update checking.")
+__parser.add_argument("--noplugin", action="store_true", help="Disable plugins.")
+__parser.add_argument("--demomode", action="store_true", help="Turn on demo mode.")
 
-argv: argparse.Namespace
+class ArgparseNamespace (argparse.Namespace):
+    autologin = ""
+    noupdatecheck = ""
+    noplugin = False
+    demomode = False
+
+argv: ArgparseNamespace
 
 
 import window
