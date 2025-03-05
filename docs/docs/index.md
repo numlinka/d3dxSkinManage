@@ -19,6 +19,15 @@ features:
     title: 模组索引文件
     details: 索引文件的用途及数据格式
     link: /docs/mods-index
+  - icon: 📌
+    title: 启动参数
+    details: 启动参数的用途及自定义
+    link: /docs/launch-parameters
+  - icon: 🔩
+    title: 加载器行为文件
+    details: 加载器行为文件的用途及自定义
+    link: /docs/config-scheme
+  - title: 
 ---
 
 

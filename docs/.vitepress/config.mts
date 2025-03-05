@@ -63,6 +63,7 @@ export default defineConfig({
           text: '文档',
           items: [
             { text: '目录结构', link: '/docs/directory-structure' },
+            { text: '启动参数', link: '/docs/launch-parameters' },
             { text: '模组索引文件', link: '/docs/mods-index' },
             { text: '缩略图配置文件', link: '/docs/config-redirection' },
             { text: '加载器行为文件', link: '/docs/config-scheme' }
