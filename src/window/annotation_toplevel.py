@@ -10,6 +10,9 @@ import ttkbootstrap
 # local
 import core
 
+# self
+from . import methods
+
 
 class AnnotationToplevel (object):
     def __init__(self):
@@ -46,7 +49,8 @@ class AnnotationToplevel (object):
 
 
     def withdraw(self):
-        self.toplevel.withdraw()
+        methods.fake_withdraw(self.toplevel)
+        # self.toplevel.withdraw()
 
 
     def deiconify(self):
