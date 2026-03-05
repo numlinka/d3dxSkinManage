@@ -27,6 +27,8 @@ def release_deadlock():
 
 
 def stop_control(msg: str = "未知错误"):
+    core.window.messagebox.showerror(title="更新检查", message=f"module.update::stop_control\n{msg}")
+    return
     core.window.status.set_status(f"{msg}", 1)
     deadlock()
 
@@ -70,21 +72,21 @@ def check():
         if index_content["block"]:
             block(message)
 
-        try:
-            banuuidlst = index_content.get("ban", [])
-            if core.env.uuid in banuuidlst:
-                msg = ""
-                msg += "请求被拒绝\n"
-                msg += "该设备被标识为禁用\n\n"
-                msg += "当前所使用的设备可能受到其他用户举报\n"
-                msg += "请使用其他设备或联系管理员\n\n"
-                msg += f"设备编号：{core.env.uuid}\n"
-                core.window.block.setcontent(msg)
-                stop_control(f"请求被拒绝")
-                return
+        # try:
+        #     banuuidlst = index_content.get("ban", [])
+        #     if core.env.uuid in banuuidlst:
+        #         msg = ""
+        #         msg += "请求被拒绝\n"
+        #         msg += "该设备被标识为禁用\n\n"
+        #         msg += "当前所使用的设备可能受到其他用户举报\n"
+        #         msg += "请使用其他设备或联系管理员\n\n"
+        #         msg += f"设备编号：{core.env.uuid}\n"
+        #         core.window.block.setcontent(msg)
+        #         stop_control(f"请求被拒绝")
+        #         return
 
-        except Exception as _:
-            ...
+        # except Exception as _:
+        #     ...
 
     except Exception as e:
         stop_control(f"检查更新失败: 信息解析异常")
