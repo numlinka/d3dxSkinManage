@@ -32,7 +32,7 @@ def fake_withdraw(window: ttkbootstrap.Toplevel):
     window.geometry("+32000+32000")
 
 
-def get_screen_coordinates() -> list[tuple[tuple[int, int]]]:
+def get_screen_coordinates() -> list[tuple[tuple[int, int], tuple[int, int]]]:
     user32 = ctypes.windll.user32
     
     class MONITORINFOEX(ctypes.Structure):
