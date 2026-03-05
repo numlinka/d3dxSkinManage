@@ -13,7 +13,7 @@ _3DMigoto 皮肤 Mods 管理工具_
   <img src="https://img.shields.io/badge/License-GPLv3-lightblue" alt="GPLv3"/>
 </a>
 <a href="https://github.com/numlinka/d3dxSkinManage/releases", target="_blank">
-  <img src="https://img.shields.io/badge/releases-1.6.3-lightblue" alt="releases"/>
+  <img src="https://img.shields.io/badge/releases-1.6.4-lightblue" alt="releases"/>
 </a>
 <a href="https://www.python.org/downloads/release/python-3120/", target="_blank">
   <img src="https://img.shields.io/badge/Python-3.12-lightblue" alt="Python3.12"/>
@@ -55,10 +55,8 @@ _3DMigoto 皮肤 Mods 管理工具_
 如果你不习惯 d3dxSkinManage 的操作方式，可以尝试使用[其它的管理工具](https://d3dxskinmanage.numlinka.com/help/others)。\
 创新来自那些不满足于现状，总是寻找更好方法的人。
 
-This project is shit, any updates are just adding more shit to it.<br/>
-这个项目就是一坨屎，任何更新都是在这坨屎上添油加醋。
+这是一个有些过时的项目，若你需要更好的体验请参考[其它项目推荐](https://d3dxskinmanage.numlinka.com/help/others)。
 
-倒狗是这样的，创作者们只需要全身心的投入制作中，绘制模型，优化代码就可以，可是倒卖者们需要考虑的事情就多了。
 
 ### 运行环境要求
 
