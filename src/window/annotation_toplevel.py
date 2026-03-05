@@ -31,13 +31,15 @@ class AnnotationToplevel (object):
             rect = ctypes.wintypes.RECT()
             ctypes.windll.user32.GetWindowRect(hwnd, ctypes.byref(rect))
             taskbar_height = rect.bottom - rect.top
-            self._sh -= taskbar_height
+            # self._sh -= taskbar_height
+            self._th = taskbar_height
 
         except Exception:
+            self._th = 0
             core.log.error("未能正确获取 windows 任务栏的高度")
 
 
-    def update_position(self):
+    def old_update_position(self):
         v = 15
         w = self.toplevel.winfo_width()
         h = self.toplevel.winfo_height()
@@ -46,6 +48,46 @@ class AnnotationToplevel (object):
         _x = x - v - w if x + v + w > self._sw else x + v
         _y = y - v - h if y + v + h > self._sh else y + v
         self.toplevel.geometry(f"+{_x}+{_y}")
+
+
+    def update_position(self):
+        v = 15
+        sw = self.toplevel.winfo_screenwidth()
+        sh = self.toplevel.winfo_screenheight() - self._th
+        px = self.toplevel.winfo_pointerx()
+        py = self.toplevel.winfo_pointery()
+        ww = self.toplevel.winfo_width()
+        wh = self.toplevel.winfo_height()
+
+        xl = 1 if px + v + ww > sw else 0
+        yl = 1 if py + v + wh > sh else 0
+
+        if xl == yl == 0:
+            ax = px + v
+            ay = py + v
+
+        elif xl == 1 and yl == 0:
+            ax = sw - ww
+            ay = py + v
+
+        elif xl == 0 and yl == 1:
+            ax = px + v
+            ay = sh - wh
+
+        else:
+            if ww + v <= px:
+                ax = px - v - ww
+                ay = sh - wh if py + v + wh > sh else py + v
+
+            elif wh + v <= py:
+                ax = sw - ww if px + v + ww > sh else px + v
+                ay = py - v - wh
+
+            else:
+                ax = px + v
+                ay = py + v
+
+        self.toplevel.geometry(f"+{ax}+{ay}")
 
 
     def withdraw(self):
