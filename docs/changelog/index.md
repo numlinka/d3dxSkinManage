@@ -12,7 +12,7 @@ features:
     link: /changelog/simple/106xx
   - icon: 🗒️
     title: 详细更新内容
-    link: /changelog/detail/10603
+    link: /changelog/detail/10604
   - icon: 📋
     title: 计划更新内容
     link: /changelog/planned

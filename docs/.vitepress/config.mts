@@ -48,6 +48,7 @@ export default defineConfig({
         {
           text: '详细更新日志',
           items: [
+            { text: 'v1.6.4', link: '/changelog/detail/10604' },
             { text: 'v1.6.3', link: '/changelog/detail/10603' },
             { text: 'v1.6.2', link: '/changelog/detail/10602' },
             { text: 'v1.6.1', link: '/changelog/detail/10601' },
