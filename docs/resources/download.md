@@ -6,10 +6,10 @@
 
 完整资源：
 
-::: info v1.6.3
-更新日期: [2024-12-10]<br/>
+::: info v1.6.4
+更新日期: [2026-03-06]<br/>
 下载链接:
-[GitHub](https://github.com/numlinka/d3dxSkinManage/releases/download/v1.6.3/d3dxSkinManage.zip)
+[GitHub](https://github.com/numlinka/d3dxSkinManage/releases/download/v.1.6.4/d3dxSkinManage.zip)
 :::
 
 ::: info v1.5.38
