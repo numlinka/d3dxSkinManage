@@ -68,4 +68,4 @@ def get_screen_coordinates() -> list[tuple[tuple[int, int], tuple[int, int]]]:
     return screens
 
 
-__all__ = ["motion", center_window_for_window]
+__all__ = ["motion", "center_window_for_window"]
