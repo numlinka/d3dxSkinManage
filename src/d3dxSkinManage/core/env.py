@@ -13,21 +13,12 @@ from libs.dirstruct import *
 
 # local
 from .exceptions import *
+from info import *
 # from .structure import *
 
 
-PROJECT = "d3dxSkinManage"
-AUTHOR = "numlinka"
-
-VERSION_CODE = 1_06_04_000
-VERSION_TYPE = ""
-VERSION_NAME = "1.6.4"
-
-MAIN_TITLE = f"{PROJECT} v{VERSION_NAME} -by {AUTHOR}"
-
 CODE_NAME = "kamisa"
 INDEX = f"https://numlinka.oss-cn-shanghai.aliyuncs.com/code-name/{CODE_NAME}/index.json"
-
 
 
 # class __base (Directory):
