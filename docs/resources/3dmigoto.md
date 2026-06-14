@@ -2,6 +2,10 @@
 
 不同的游戏需要使用其专用的 3dmigoto 版本才能正常加载 mod。你可以在这里找到部分游戏 3dmigoto 的管理器适配版压缩包，然后参考 [添加加载器包](/help/tutorial-loader.html#添加加载器包) 添加进管理器进行使用；也可以跳转对应游戏专用 3dmigoto 开发者提供的下载链接获取。
 
+::: warning 注意
+随着游戏更新和社区变动，此页面提供的加载器资源可能已过时，建议使用 [XXMI](https://github.com/SpectrumQT/XXMI-Launcher) 项目获取最新加载器。
+:::
+
 ## GIMI (原神 3dmigoto)
 
 ::: info v7.0 development
